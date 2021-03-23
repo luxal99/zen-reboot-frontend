@@ -1,0 +1,38 @@
+@import "src/styles"
+.background
+  filter: blur(5em)
+  position: absolute
+  width: 100%
+  background-image: url("../../../assets/img/sean-o-KMn4VEeEPR8-unsplash.jpg")
+  background-size: cover
+  height: 100%
+
+.foreground
+  backdrop-filter: blur(10px)
+
+.login-col
+  padding: 5em
+  background-color: $less-black
+  margin-top: 20%
+  -webkit-box-shadow: -2px 17px 46px -24px rgba(0, 0, 0, 0.69)
+  -moz-box-shadow: -2px 17px 46px -24px rgba(0, 0, 0, 0.69)
+  box-shadow: -2px 17px 46px -24px rgba(0, 0, 0, 0.69)
+
+
+button
+  padding: .3em 0
+  width: 100%
+
+::ng-deep
+  .mat-form-field-appearance-outline .mat-form-field-outline
+    color: $light-silver
+
+  mat-form-field
+    .mat-hint, input, ::placeholder, .mat-form-field-label
+      color: $light-silver
+
+
+@media screen and (max-width: 570px)
+  .login-col
+    margin: 30% 1em 0 1em
+    padding: 4em
