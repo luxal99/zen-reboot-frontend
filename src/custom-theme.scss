@@ -1,0 +1,24 @@
+@import '~@angular/material/theming';
+
+@include mat-core();
+
+$zen-frontend-primary: mat-palette($mat-orange, 200);
+$zen-frontend-accent: mat-palette($mat-grey,900);
+$zen-frontend-warn: mat-palette($mat-red);
+$zen-frontend-theme: mat-light-theme((
+  color: (
+    primary: $zen-frontend-primary,
+    accent: $zen-frontend-accent,
+    warn: $zen-frontend-warn,
+  )
+));
+@include angular-material-theme($zen-frontend-theme);
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
