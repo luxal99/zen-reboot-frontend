@@ -1,8 +1,66 @@
 @import "src/styles"
-mat-drawer
+
+.side-nav-col
+  width: 80px
+  max-width: 80px
+  -webkit-transition: .2s linear
+
+.side-nav-col-content
   background-color: $less-black
-  padding: 5em 3em
+  padding: 5em 1em
+  height: inherit
+  flex-direction: column
+
+  a
+    display: flex
+    overflow: hidden
+    min-width: 44px
+    width: 100%
+    align-items: center
+    text-decoration: none
+    color: unset
+
+  a-h2
+    color: $light-silver
+    margin-top: 1em
+    cursor: pointer
+    display: flex
+    font-size: 22px !important
+
+  .icon-span
+    margin: 1em
+
+    i
+      font-size: 30px
+
+  .txt-span
+    margin-left: .5em
+    font-size: 20px
 
 
-mat-drawer-container
+.row
   height: 100vh
+
+.inline-col
+  height: 100vh
+
+.active
+  color: $default-gold !important
+  background-color: $silver-rgba
+  cursor: pointer
+
+  i
+    color: $default-gold !important
+
+.side-col
+  max-width: 80px
+
+.inline
+  display: inline-flex
+  width: 100%
+
+.inactive
+  color: $light-silver
+
+  i
+    color: $light-silver

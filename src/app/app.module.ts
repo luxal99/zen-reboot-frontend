@@ -10,8 +10,8 @@ import {FormInputComponent} from './components/form-components/form-input/form-i
 import {MatIconModule} from '@angular/material/icon';
 import {HttpClientModule} from '@angular/common/http';
 import {ReactiveFormsModule} from '@angular/forms';
-import { AdminComponent } from './components/admin/admin.component';
-import { OverviewComponent } from './components/admin/overview/overview.component';
+import {AdminComponent} from './components/admin/admin.component';
+import {OverviewComponent} from './components/admin/overview/overview.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +30,7 @@ import { OverviewComponent } from './components/admin/overview/overview.componen
     BrowserAnimationsModule
   ],
   providers: [],
+  entryComponents: [OverviewComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {

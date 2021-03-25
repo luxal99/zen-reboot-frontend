@@ -1,6 +1,32 @@
-<mat-drawer-container class="example-container">
-  <mat-drawer mode="side" opened>
-    <img src="../../../assets/img/zen-logo.9be72475.png" class="img-fluid" width="200px">
-  </mat-drawer>
-  <mat-drawer-content>Main content</mat-drawer-content>
-</mat-drawer-container>
+<div class="inline">
+  <div class="inline-col side-nav-col" #sideNav>
+    <div class="side-nav-col-content text-center">
+      <button (click)="openSideNav()" mat-icon-button color="primary">
+        <mat-icon>keyboard_arrow_right
+        </mat-icon>
+      </button>
+      <ul style="padding: 0">
+        <li>
+          <a (click)="changeColor($event)" class="inactive" >
+            <a class="a-h2 text-center" (click)="loadOverviewComponent()" id="overview-btn">
+              <span class="icon-span"><i disabled
+                class="fa fa-home"></i> </span>
+              <span class="txt-span">Početna</span>
+            </a>
+          </a>
+          <a (click)="changeColor($event)" class="inactive">
+            <a class="a-h2 text-center" >
+              <span class="icon-span"><i
+                class="fa fa-home"></i> </span>
+              <span class="txt-span">Početna</span>
+            </a>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="inline-col">
+    <h1>Admin</h1>
+    <div #target></div>
+  </div>
+</div>
