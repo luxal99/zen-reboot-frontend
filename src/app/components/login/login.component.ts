@@ -7,6 +7,7 @@ import {FormControlNames, InputTypes, Token} from '../../const/const';
 import {User} from '../../models/user';
 import {first} from 'rxjs/operators';
 import {HttpResponse} from '@angular/common/http';
+import {SpinnerService} from '../../service/spinner.service';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +15,6 @@ import {HttpResponse} from '@angular/common/http';
   styleUrls: ['./login.component.sass']
 })
 export class LoginComponent implements OnInit {
-
 
   @ViewChild('spinner') spinner!: MatSpinner;
 
@@ -27,16 +27,17 @@ export class LoginComponent implements OnInit {
   passwordInputConfig: FieldConfig = {type: InputTypes.PASSWORD_TYPE_NAME, name: FormControlNames.PASSWORD_NAME_FORM_CONTROL};
 
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, private spinnerService: SpinnerService) {
   }
 
   ngOnInit(): void {
   }
 
   auth(): void {
-    const user: User = this.loginForm.getRawValue();
-    this.authService.auth(user).subscribe((resp) => {
+    this.spinnerService.show(this.spinner);
+    this.authService.auth(this.loginForm.getRawValue()).subscribe((resp) => {
       console.log(resp.headers.get(Token.HEADER_NAME));
+      this.spinnerService.hide(this.spinner);
     });
   }
 }
