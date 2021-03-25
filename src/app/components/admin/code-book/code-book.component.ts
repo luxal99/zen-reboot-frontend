@@ -6,6 +6,9 @@ import {ReferralSourceService} from '../../../service/referral-source.service';
 import {ReferralSource} from '../../../models/referral-source';
 import {MatSpinner} from '@angular/material/progress-spinner';
 import {SpinnerService} from '../../../service/spinner.service';
+import {SnackBarUtil} from '../../../util/snack-bar-uitl';
+import {Message} from '../../../const/const';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-code-book',
@@ -18,7 +21,7 @@ export class CodeBookComponent implements OnInit {
   listOfReferralSources: ReferralSource[] = [];
 
   constructor(private dialog: MatDialog, private spinnerService: SpinnerService,
-              private referralSourceService: ReferralSourceService) {
+              private referralSourceService: ReferralSourceService, private snackBar: MatSnackBar) {
   }
 
   ngOnInit(): void {
@@ -44,6 +47,15 @@ export class CodeBookComponent implements OnInit {
       data: referralSource
     }, this.dialog).afterClosed().subscribe(() => {
       this.getAllReferralSource();
+    });
+  }
+
+  deleteReferralSource(referralSource: ReferralSource): void {
+    // @ts-ignore
+    this.referralSourceService.delete(referralSource.id).subscribe(() => {
+      this.getAllReferralSource();
+    }, () => {
+      SnackBarUtil.openSnackBar(this.snackBar, Message.ERR);
     });
   }
 }

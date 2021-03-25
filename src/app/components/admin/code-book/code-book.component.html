@@ -12,15 +12,21 @@
         <div class="col-sm">
           <h3>Datum kreiranja</h3>
         </div>
-      </div>
-      <div (click)="openAddReferralSourceDialog(referralSource)" class="row text-center referral-source-row"
-           *ngFor="let referralSource of listOfReferralSources">
         <div class="col-sm">
+        </div>
+      </div>
+      <div  class="row text-center referral-source-row"
+           *ngFor="let referralSource of listOfReferralSources">
+        <div class="col-sm" (click)="openAddReferralSourceDialog(referralSource)">
           <h3>{{referralSource.value}}</h3>
         </div>
-        <div class="col-sm">
+        <div class="col-sm" (click)="openAddReferralSourceDialog(referralSource)">
           <h3>{{referralSource.createdDate.getDate()}}/{{referralSource.createdDate.getMonth() + 1}}
             /{{referralSource.createdDate.getUTCFullYear()}}</h3>
+        </div>
+        <div class="col-sm">
+         <button mat-icon-button (click)="deleteReferralSource(referralSource)"><mat-icon>close</mat-icon></button>
+
         </div>
         <div class="divider"></div>
       </div>
