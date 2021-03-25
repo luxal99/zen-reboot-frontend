@@ -12,9 +12,10 @@ import {HttpClientModule} from '@angular/common/http';
 import {ReactiveFormsModule} from '@angular/forms';
 import {AdminComponent} from './components/admin/admin.component';
 import {OverviewComponent} from './components/admin/overview/overview.component';
-import { HeaderComponent } from './components/admin/header/header.component';
-import { ClientComponent } from './components/admin/client/client.component';
-import { CodeBookComponent } from './components/admin/code-book/code-book.component';
+import {HeaderComponent} from './components/admin/header/header.component';
+import {ClientComponent} from './components/admin/client/client.component';
+import {CodeBookComponent} from './components/admin/code-book/code-book.component';
+import {AddReferralSourceDialogComponent} from './components/admin/code-book/add-referral-source-dialog/add-referral-source-dialog.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { CodeBookComponent } from './components/admin/code-book/code-book.compon
     OverviewComponent,
     HeaderComponent,
     ClientComponent,
-    CodeBookComponent
+    CodeBookComponent,
+    AddReferralSourceDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +38,7 @@ import { CodeBookComponent } from './components/admin/code-book/code-book.compon
     BrowserAnimationsModule
   ],
   providers: [],
-  entryComponents: [OverviewComponent],
+  entryComponents: [AddReferralSourceDialogComponent, OverviewComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {

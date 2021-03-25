@@ -1,3 +1,10 @@
+mat-tab-group {
+  padding-top: 1em;
+}
 
+.default-btn {
+  width: 15%;
+  margin-top: 2em;
+}
 
 /*# sourceMappingURL=code-book.component.css.map */

@@ -1,9 +1,9 @@
 header {
-  padding: 2em 1em;
+  padding: 2em 1em 0.5em 1em;
   background-color: #fff;
 }
 header h1 {
-  font-size: 35px;
+  font-size: 28px;
   font-weight: bold;
 }
 

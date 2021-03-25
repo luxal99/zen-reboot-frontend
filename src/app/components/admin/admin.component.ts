@@ -1,6 +1,8 @@
 import {AfterViewInit, Component, ComponentFactoryResolver, ElementRef, OnInit, ViewChild, ViewContainerRef} from '@angular/core';
 import {LazyLoadComponentsUtil} from '../../util/lazy-loading-components';
 import {OverviewComponent} from './overview/overview.component';
+import {ClientComponent} from './client/client.component';
+import {CodeBookComponent} from './code-book/code-book.component';
 
 @Component({
   selector: 'app-admin',
@@ -58,5 +60,12 @@ export class AdminComponent implements OnInit, AfterViewInit {
     LazyLoadComponentsUtil.loadComponent(OverviewComponent, this.entry, this.resolver);
   }
 
+  loadCodeBookComponent(): void {
+    LazyLoadComponentsUtil.loadComponent(CodeBookComponent, this.entry, this.resolver);
+  }
+
+  loadClientComponent(): void {
+    LazyLoadComponentsUtil.loadComponent(ClientComponent, this.entry, this.resolver);
+  }
 
 }

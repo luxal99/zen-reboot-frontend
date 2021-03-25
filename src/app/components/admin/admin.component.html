@@ -5,24 +5,27 @@
         <mat-icon>keyboard_arrow_right
         </mat-icon>
       </button>
-      <ul style="padding: 0">
-        <li>
-          <a (click)="changeColor($event)" class="inactive" >
-            <a class="a-h2 text-center" (click)="loadOverviewComponent()" id="overview-btn">
+      <a (click)="changeColor($event)" class="inactive">
+        <a class="a-h2 text-center" (click)="loadOverviewComponent()" id="overview-btn">
               <span class="icon-span"><i disabled
-                class="fa fa-home"></i> </span>
-              <span class="txt-span">Početna</span>
-            </a>
-          </a>
-          <a (click)="changeColor($event)" class="inactive">
-            <a class="a-h2 text-center" >
+                                         class="fa fa-home"></i> </span>
+          <span class="txt-span">Početna</span>
+        </a>
+      </a>
+      <a (click)="changeColor($event)" class="inactive">
+        <a class="a-h2 text-center" (click)="loadCodeBookComponent()">
               <span class="icon-span"><i
-                class="fa fa-home"></i> </span>
-              <span class="txt-span">Početna</span>
-            </a>
-          </a>
-        </li>
-      </ul>
+                class="fa fa-id-card-o"></i> </span>
+          <span class="txt-span">Šifarnik</span>
+        </a>
+      </a>
+      <a (click)="changeColor($event)" class="inactive">
+        <a class="a-h2 text-center" (click)="loadClientComponent()">
+              <span class="icon-span"><i
+                class="fa fa-user"></i> </span>
+          <span class="txt-span">Klijenti</span>
+        </a>
+      </a>
     </div>
   </div>
   <div class="inline-col">
