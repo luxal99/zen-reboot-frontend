@@ -10,12 +10,14 @@ import {FormInputComponent} from './components/form-components/form-input/form-i
 import {MatIconModule} from '@angular/material/icon';
 import {HttpClientModule} from '@angular/common/http';
 import {ReactiveFormsModule} from '@angular/forms';
+import { AdminComponent } from './components/admin/admin.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    FormInputComponent
+    FormInputComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,
