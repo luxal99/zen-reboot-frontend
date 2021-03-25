@@ -1,8 +1,8 @@
 export interface ReferralSource {
-  createdDate: any;
+  createdDate?: any;
   id?: number;
   lastModifiedBy?: string;
-  lastModifiedDate: any;
+  lastModifiedDate?: any;
   value?: string;
 }
 

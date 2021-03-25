@@ -1,5 +1,5 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {MatDialog} from '@angular/material/dialog';
+import {Component, Inject, OnInit, ViewChild} from '@angular/core';
+import {MAT_DIALOG_DATA, MatDialog} from '@angular/material/dialog';
 import {DialogUtil} from '../../../util/dialog-util';
 import {AddReferralSourceDialogComponent} from './add-referral-source-dialog/add-referral-source-dialog.component';
 import {ReferralSourceService} from '../../../service/referral-source.service';
@@ -35,14 +35,15 @@ export class CodeBookComponent implements OnInit {
         lastModifiedDate: new Date(referralSource.lastModifiedDate)
       }));
       this.spinnerService.hide(this.spinner);
-      // @ts-ignore
-      console.log(new Date(resp[0].createdDate).getUTCFullYear());
     });
   }
 
-  openAddReferralSourceDialog(): void {
+  openAddReferralSourceDialog(referralSource: ReferralSource): void {
     DialogUtil.openDialog(AddReferralSourceDialogComponent, {
-      position: {top: '6%'}
-    }, this.dialog);
+      position: {top: '6%'},
+      data: referralSource
+    }, this.dialog).afterClosed().subscribe(() => {
+      this.getAllReferralSource();
+    });
   }
 }
