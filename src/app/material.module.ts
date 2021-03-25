@@ -25,6 +25,7 @@ import {MatRadioModule} from '@angular/material/radio';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatTableModule} from '@angular/material/table';
+import {MatSidenavModule} from '@angular/material/sidenav';
 
 @NgModule({
   imports: [
@@ -38,6 +39,7 @@ import {MatTableModule} from '@angular/material/table';
     MatProgressBarModule,
     MatCheckboxModule,
     MatExpansionModule,
+    MatSidenavModule,
     MatDatepickerModule,
     MatProgressSpinnerModule,
     MatInputModule,
@@ -56,6 +58,7 @@ import {MatTableModule} from '@angular/material/table';
     CdkTreeModule,
     MatStepperModule,
     MatMenuModule,
+    MatSidenavModule,
     MatRadioModule,
     MatProgressSpinnerModule,
     MatNativeDateModule,
