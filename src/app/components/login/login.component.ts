@@ -1,4 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {AuthService} from '../../service/auth.service';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {FieldConfig} from '../../models/FIeldConfig';
+import {MatSpinner} from '@angular/material/progress-spinner';
+import {FormControlNames, InputTypes, Token} from '../../const/const';
+import {User} from '../../models/user';
+import {first} from 'rxjs/operators';
+import {HttpResponse} from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -7,9 +15,28 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
+
+  @ViewChild('spinner') spinner!: MatSpinner;
+
+  loginForm = new FormGroup({
+    username: new FormControl('', Validators.required),
+    password: new FormControl('', Validators.required)
+  });
+
+  usernameInputConfig: FieldConfig = {type: InputTypes.INPUT_TYPE_NAME, name: FormControlNames.USERNAME_NAME_FORM_CONTROL};
+  passwordInputConfig: FieldConfig = {type: InputTypes.PASSWORD_TYPE_NAME, name: FormControlNames.PASSWORD_NAME_FORM_CONTROL};
+
+
+  constructor(private authService: AuthService) {
+  }
 
   ngOnInit(): void {
   }
 
+  auth(): void {
+    const user: User = this.loginForm.getRawValue();
+    this.authService.auth(user).subscribe((resp) => {
+      console.log(resp.headers.get(Token.HEADER_NAME));
+    });
+  }
 }

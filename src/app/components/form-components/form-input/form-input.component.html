@@ -1,6 +1,8 @@
-<mat-form-field appearance="outline">
-  <mat-label>{{label}}</mat-label>
-  <input matInput [type]="type" [required]="isRequired">
-  <mat-icon matSuffix>{{icon}}</mat-icon>
-  <mat-hint>{{hint}}</mat-hint>
-</mat-form-field>
+<div [formGroup]="group">
+  <mat-form-field appearance="outline">
+    <mat-label>{{label}}</mat-label>
+    <input [style.color]="color" [formControlName]="config.name" matInput [type]="type" [required]="isRequired">
+    <mat-icon matSuffix>{{icon}}</mat-icon>
+    <mat-hint>{{hint}}</mat-hint>
+  </mat-form-field>
+</div>
