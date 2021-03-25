@@ -1,5 +1,5 @@
-import {Component, Inject, OnInit, ViewChild} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialog} from '@angular/material/dialog';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {MatDialog} from '@angular/material/dialog';
 import {DialogUtil} from '../../../util/dialog-util';
 import {AddReferralSourceDialogComponent} from './add-referral-source-dialog/add-referral-source-dialog.component';
 import {ReferralSourceService} from '../../../service/referral-source.service';
