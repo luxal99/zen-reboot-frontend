@@ -14,6 +14,7 @@ import {AdminComponent} from './components/admin/admin.component';
 import {OverviewComponent} from './components/admin/overview/overview.component';
 import { HeaderComponent } from './components/admin/header/header.component';
 import { ClientComponent } from './components/admin/client/client.component';
+import { CodeBookComponent } from './components/admin/code-book/code-book.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { ClientComponent } from './components/admin/client/client.component';
     AdminComponent,
     OverviewComponent,
     HeaderComponent,
-    ClientComponent
+    ClientComponent,
+    CodeBookComponent
   ],
   imports: [
     BrowserModule,
