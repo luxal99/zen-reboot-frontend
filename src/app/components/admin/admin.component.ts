@@ -39,14 +39,19 @@ export class AdminComponent implements OnInit, AfterViewInit {
     }, 10);
   }
 
-  changeColor(e: any): void {
-    console.log(e.target.classList);
+  changeColor(forwardedElement: any): void {
     const element = document.querySelectorAll('.active');
     [].forEach.call(element, (el: any) => {
-       el.classList.remove('active');
+      el.classList.remove('active');
     });
-    e.target.classList.add('active');
-    console.log(e);
+    const elementWithClassList: HTMLElement[] = forwardedElement.path.filter((x: HTMLElement) => x.classList !== undefined);
+    for (const mainElement of elementWithClassList) {
+      mainElement.classList.forEach(className => {
+        if (className === 'a-h2') {
+          mainElement.classList.add('active');
+        }
+      });
+    }
   }
 
   loadOverviewComponent(): void {
