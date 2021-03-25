@@ -21,3 +21,6 @@ export class SpinnerOptions {
   static BLOCK = 'block';
   static NONE = 'none';
 }
+export class Pages {
+  static LOGIN_PAGE_ROUTE='/login'
+}
