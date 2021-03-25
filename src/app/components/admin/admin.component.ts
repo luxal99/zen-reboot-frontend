@@ -1,4 +1,13 @@
-import {AfterViewInit, Component, ComponentFactoryResolver, ElementRef, OnInit, ViewChild, ViewContainerRef} from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ComponentFactoryResolver,
+  ComponentRef,
+  ElementRef,
+  OnInit,
+  ViewChild,
+  ViewContainerRef
+} from '@angular/core';
 import {LazyLoadComponentsUtil} from '../../util/lazy-loading-components';
 import {OverviewComponent} from './overview/overview.component';
 import {ClientComponent} from './client/client.component';

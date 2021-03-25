@@ -5,6 +5,24 @@
       <div class="text-right">
         <button class="default-btn" mat-button (click)="openAddReferralSourceDialog()">Dodaj</button>
       </div>
+      <div class="row header-row text-center" >
+        <div class="col-sm">
+          <h3>Naziv</h3>
+        </div>
+        <div class="col-sm">
+          <h3>Datum kreiranja</h3>
+        </div>
+      </div>
+      <div class="row text-center referral-source-row" *ngFor="let referralSource of listOfReferralSources">
+        <div class="col-sm" >
+          <h3>{{referralSource.value}}</h3>
+        </div>
+        <div class="col-sm" >
+          <h3>{{referralSource.createdDate.getDate()}}/{{referralSource.createdDate.getMonth() +1}}/{{referralSource.createdDate.getUTCFullYear()}}</h3>
+        </div>
+        <div class="divider"></div>
+      </div>
+      <mat-spinner diameter="50" #spinner></mat-spinner>
     </mat-tab>
     <mat-tab label="Second"> Content 2 </mat-tab>
     <mat-tab label="Third"> Content 3 </mat-tab>
