@@ -12,6 +12,8 @@ import {HttpClientModule} from '@angular/common/http';
 import {ReactiveFormsModule} from '@angular/forms';
 import {AdminComponent} from './components/admin/admin.component';
 import {OverviewComponent} from './components/admin/overview/overview.component';
+import { HeaderComponent } from './components/admin/header/header.component';
+import { ClientComponent } from './components/admin/client/client.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,9 @@ import {OverviewComponent} from './components/admin/overview/overview.component'
     LoginComponent,
     FormInputComponent,
     AdminComponent,
-    OverviewComponent
+    OverviewComponent,
+    HeaderComponent,
+    ClientComponent
   ],
   imports: [
     BrowserModule,

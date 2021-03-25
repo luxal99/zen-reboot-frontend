@@ -1,0 +1,10 @@
+header {
+  padding: 2em 1em;
+  background-color: #fff;
+}
+header h1 {
+  font-size: 35px;
+  font-weight: bold;
+}
+
+/*# sourceMappingURL=header.component.css.map */
