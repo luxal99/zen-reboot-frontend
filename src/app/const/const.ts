@@ -22,6 +22,20 @@ export class SpinnerOptions {
   static BLOCK = 'block';
   static NONE = 'none';
 }
+
 export class Pages {
-  static LOGIN_PAGE_ROUTE='/login'
+  static LOGIN_PAGE_ROUTE = '/login';
+}
+
+export class Message {
+  static SUCCESS = 'Uspešno';
+  static ERR = 'Dogodila se greška';
+}
+
+export class RestRoutesConst {
+  static API = 'http://api.reboot.zen.7aske.xyz/';
+  static REFERRAL_SOURCES = 'referral-sources';
+}
+
+export class TokenConst {
 }

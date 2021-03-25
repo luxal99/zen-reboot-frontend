@@ -3,4 +3,5 @@
 </div>
 <h1 class="text-center">Dodaj novi razlog za otkazivanje</h1>
 <app-form-input [group]="referralSourceForm" [config]="valueInputConfig" label="Naziv"></app-form-input>
-<button class="default-btn" mat-button>Sačuvaj</button>
+<button class="default-btn" mat-button [disabled]="!referralSourceForm.valid" (click)="save()">Sačuvaj</button>
+<mat-spinner #spinner diameter="50"></mat-spinner>
