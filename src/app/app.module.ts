@@ -17,6 +17,7 @@ import {ClientComponent} from './components/admin/client/client.component';
 import {CodeBookComponent} from './components/admin/code-book/code-book.component';
 import {AddReferralSourceDialogComponent} from './components/admin/code-book/add-referral-source-dialog/add-referral-source-dialog.component';
 import {AddClientDialogComponent} from './components/admin/client/add-client-dialog/add-client-dialog.component';
+import { FormSelectComponent } from './components/form-components/form-select/form-select.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import {AddClientDialogComponent} from './components/admin/client/add-client-dia
     ClientComponent,
     CodeBookComponent,
     AddReferralSourceDialogComponent,
-    AddClientDialogComponent
+    AddClientDialogComponent,
+    FormSelectComponent
   ],
   imports: [
     BrowserModule,

@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {FieldConfig} from '../../../../models/FIeldConfig';
 import {FormControlNames, InputTypes} from '../../../../const/const';
+import {GenderEnum} from '../../../../enums/GenderEnum';
 
 @Component({
   selector: 'app-add-client-dialog',
@@ -10,6 +11,7 @@ import {FormControlNames, InputTypes} from '../../../../const/const';
 })
 export class AddClientDialogComponent implements OnInit {
 
+  listOfGenders: string[] = [GenderEnum.MALE, GenderEnum.FEMALE];
   clientForm = new FormGroup({
     firstName: new FormControl('', Validators.required),
     lastName: new FormControl('', Validators.required),
