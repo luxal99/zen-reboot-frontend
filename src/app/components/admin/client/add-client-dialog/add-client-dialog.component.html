@@ -1,1 +1,33 @@
-<p>add-client-dialog works!</p>
+<div class="text-right">
+  <button mat-icon-button mat-dialog-close>
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+<h1 class="text-center">Novi klijent</h1>
+<mat-divider></mat-divider>
+<div class="row">
+  <div class="col left-col form-col text-right">
+    <div class="row">
+      <div class="col-sm input-col-left">
+        <app-form-input label="Ime" [config]="firstNameInputConfig" [group]="clientForm"></app-form-input>
+      </div>
+      <div class="col-sm input-col-right">
+        <app-form-input label="Prezime" [config]="firstNameInputConfig" [group]="clientForm"></app-form-input>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm input-col-left">
+        <app-form-input [config]="firstNameInputConfig" [group]="clientForm"></app-form-input>
+      </div>
+      <div class="col-sm input-col-right">
+        <app-form-input [config]="firstNameInputConfig" [group]="clientForm"></app-form-input>
+      </div>
+    </div>
+    <app-form-input label="Email" icon="alternate_email" [config]="firstNameInputConfig" [group]="clientForm"></app-form-input>
+    <app-form-input [config]="firstNameInputConfig" [group]="clientForm"></app-form-input>
+    <div class="text-left">
+      <mat-checkbox>Marketing notifikacije</mat-checkbox>
+    </div>
+  </div>
+  <div class="col form-col"></div>
+</div>

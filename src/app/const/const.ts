@@ -6,6 +6,13 @@ export class FormControlNames {
   static USERNAME_NAME_FORM_CONTROL = 'username';
   static PASSWORD_NAME_FORM_CONTROL = 'password';
   static VALUE_FORM_CONTROL = 'value';
+  static FIRST_NAME_FORM_CONTROL = 'firstName';
+  static LAST_NAME_FORM_CONTROL = 'lastName';
+  static TELEPHONE_FORM_CONTROL = 'telephone';
+  static EMAIL_FORM_CONTROL = 'email';
+  static STREET_FORM_CONTROL = 'street';
+  static NUMBER_FORM_CONTROL = 'number';
+  static CITY_FORM_CONTROL = 'city';
 }
 
 export class InputTypes {
@@ -35,6 +42,7 @@ export class Message {
 export class RestRoutesConst {
   static API = 'http://api.reboot.zen.7aske.xyz/';
   static REFERRAL_SOURCES = 'referral-sources';
+  static CLIENT = 'clients';
 }
 
 export class TokenConst {
