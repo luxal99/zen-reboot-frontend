@@ -6,6 +6,7 @@ export class FormControlNames {
   static USERNAME_NAME_FORM_CONTROL = 'username';
   static PASSWORD_NAME_FORM_CONTROL = 'password';
   static VALUE_FORM_CONTROL = 'value';
+  static NAME_FORM_CONTROL = 'name';
   static FIRST_NAME_FORM_CONTROL = 'firstName';
   static LAST_NAME_FORM_CONTROL = 'lastName';
   static TELEPHONE_FORM_CONTROL = 'telephone';
@@ -43,6 +44,7 @@ export class RestRoutesConst {
   static API = 'http://api.reboot.zen.7aske.xyz/';
   static REFERRAL_SOURCES = 'referral-sources';
   static CLIENT = 'clients';
+  static TREATMENT_CATEGORY = 'treatment-categories';
 }
 
 export class TokenConst {

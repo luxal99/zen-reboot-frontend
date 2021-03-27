@@ -4,6 +4,11 @@ import {SpinnerService} from '../../../service/spinner.service';
 import {TreatmentService} from '../../../service/treatment.service';
 import {TreatmentCategoryService} from '../../../service/treatment-category.service';
 import {TreatmentCategory} from '../../../models/treatment-category';
+import {FormBuilderConfig} from '../../../models/FormBuilderConfig';
+import {FormControlNames, InputTypes} from '../../../const/const';
+import {Validators} from '@angular/forms';
+import {DialogUtil} from '../../../util/dialog-util';
+import {FormBuilderComponent} from '../../form-components/form-builder/form-builder.component';
 
 @Component({
   selector: 'app-services',
@@ -21,4 +26,33 @@ export class ServicesComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  getAllCategories(): void {
+    this.treatmentCategoryService.getAll().subscribe((resp) => {
+      this.listOfTreatmentCategory = resp;
+      console.log(resp);
+    });
+  }
+
+  openAddTreatmentCategoryDialog(): void {
+    const configData: FormBuilderConfig = {
+      service: this.treatmentCategoryService,
+      headerText: 'Dodaj kategoriju tretmana',
+      formFields: [
+        {
+          label: 'Naziv kategorije',
+          name: FormControlNames.NAME_FORM_CONTROL,
+          type: InputTypes.INPUT_TYPE_NAME,
+          validation: [Validators.required]
+        }
+      ]
+    };
+
+    DialogUtil.openDialog(FormBuilderComponent, {
+      position: {top: '6%'},
+      width: '30%',
+      data: configData
+    }, this.dialog).afterClosed().subscribe(() => {
+      this.getAllCategories();
+    });
+  }
 }
