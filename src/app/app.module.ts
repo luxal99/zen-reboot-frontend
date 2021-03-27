@@ -22,6 +22,7 @@ import {CapitalizePipe} from './pipes/capitalize.pipe';
 import {ServicesComponent} from './components/admin/services/services.component';
 import { AddTreatmentCategoryDialogComponent } from './components/admin/services/add-treatment-category-dialog/add-treatment-category-dialog.component';
 import { FormBuilderComponent } from './components/form-components/form-builder/form-builder.component';
+import { DynamicFieldDirective } from './directives/dynamic-field.directive';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { FormBuilderComponent } from './components/form-components/form-builder/
     CapitalizePipe,
     ServicesComponent,
     AddTreatmentCategoryDialogComponent,
-    FormBuilderComponent
+    FormBuilderComponent,
+    DynamicFieldDirective
   ],
   imports: [
     BrowserModule,

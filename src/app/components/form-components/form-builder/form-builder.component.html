@@ -1,1 +1,10 @@
-<p>form-builder works!</p>
+
+<div class="dialog">
+  <h1>{{headerText}}</h1>
+  <mat-divider></mat-divider>
+  <form class="dynamic-form" [formGroup]="form">
+    <ng-container *ngFor="let field of config;" dynamicField [config]="field" [group]="form">
+    </ng-container>
+    <button (click)="save()" mat-button class="default-btn">Dodaj</button>
+  </form>
+</div>
