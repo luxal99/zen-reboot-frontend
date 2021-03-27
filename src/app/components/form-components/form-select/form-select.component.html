@@ -1,1 +1,11 @@
-<p>form-select works!</p>
+<div class="dynamic-field form-select" [formGroup]="group">
+  <mat-form-field appearance="fill">
+    <mat-label>{{label}}</mat-label>
+    <mat-select [formControlName]="config.name" [required]="isRequired">
+      <mat-option value="" selected>---</mat-option>
+      <mat-option (click)="onOptionClick()" *ngFor="let item of config.options" [value]="item">
+        {{item.name | capitalize}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>

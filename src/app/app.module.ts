@@ -18,6 +18,7 @@ import {CodeBookComponent} from './components/admin/code-book/code-book.componen
 import {AddReferralSourceDialogComponent} from './components/admin/code-book/add-referral-source-dialog/add-referral-source-dialog.component';
 import {AddClientDialogComponent} from './components/admin/client/add-client-dialog/add-client-dialog.component';
 import { FormSelectComponent } from './components/form-components/form-select/form-select.component';
+import { CapitalizePipe } from './pipes/capitalize.pipe';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { FormSelectComponent } from './components/form-components/form-select/fo
     CodeBookComponent,
     AddReferralSourceDialogComponent,
     AddClientDialogComponent,
-    FormSelectComponent
+    FormSelectComponent,
+    CapitalizePipe
   ],
   imports: [
     BrowserModule,
