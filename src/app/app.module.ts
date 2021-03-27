@@ -19,6 +19,7 @@ import {AddReferralSourceDialogComponent} from './components/admin/code-book/add
 import {AddClientDialogComponent} from './components/admin/client/add-client-dialog/add-client-dialog.component';
 import { FormSelectComponent } from './components/form-components/form-select/form-select.component';
 import { CapitalizePipe } from './pipes/capitalize.pipe';
+import { ServicesComponent } from './components/admin/services/services.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { CapitalizePipe } from './pipes/capitalize.pipe';
     AddReferralSourceDialogComponent,
     AddClientDialogComponent,
     FormSelectComponent,
-    CapitalizePipe
+    CapitalizePipe,
+    ServicesComponent
   ],
   imports: [
     BrowserModule,
