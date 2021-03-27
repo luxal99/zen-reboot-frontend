@@ -1,14 +1,16 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, ComponentFactoryResolver, OnInit, ViewChild, ViewContainerRef} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import {DialogUtil} from '../../../util/dialog-util';
-import {AddReferralSourceDialogComponent} from './add-referral-source-dialog/add-referral-source-dialog.component';
 import {ReferralSourceService} from '../../../service/referral-source.service';
 import {ReferralSource} from '../../../models/referral-source';
 import {MatSpinner} from '@angular/material/progress-spinner';
 import {SpinnerService} from '../../../service/spinner.service';
 import {SnackBarUtil} from '../../../util/snack-bar-uitl';
-import {Message} from '../../../const/const';
+import {FormControlNames, InputTypes, Message} from '../../../const/const';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {FormBuilderComponent} from '../../form-components/form-builder/form-builder.component';
+import {FormBuilderConfig} from '../../../models/FormBuilderConfig';
+import {Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-code-book',
@@ -21,6 +23,7 @@ export class CodeBookComponent implements OnInit {
   listOfReferralSources: ReferralSource[] = [];
 
   constructor(private dialog: MatDialog, private spinnerService: SpinnerService,
+              private entry: ViewContainerRef, private resolver: ComponentFactoryResolver,
               private referralSourceService: ReferralSourceService, private snackBar: MatSnackBar) {
   }
 
@@ -42,9 +45,21 @@ export class CodeBookComponent implements OnInit {
   }
 
   openAddReferralSourceDialog(referralSource: ReferralSource): void {
-    DialogUtil.openDialog(AddReferralSourceDialogComponent, {
+    const configData: FormBuilderConfig = {
+      formFields: [{
+        name: FormControlNames.VALUE_FORM_CONTROL,
+        type: InputTypes.INPUT_TYPE_NAME,
+        validation: [Validators.required],
+        label: 'Dodaj razlog otkazivanja'
+      }],
+      headerText: 'Dodaj razlog otkazivanja',
+      service: this.referralSourceService
+
+    };
+    DialogUtil.openDialog(FormBuilderComponent, {
       position: {top: '6%'},
-      data: referralSource
+      width: '30%',
+      data: configData
     }, this.dialog).afterClosed().subscribe(() => {
       this.getAllReferralSource();
     });

@@ -1,9 +1,15 @@
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Inject, Input, OnChanges, OnInit, Output, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {GenericService} from '../../../service/generic.service';
 import {FieldConfig} from '../../../models/FIeldConfig';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {AuthGuard} from '../../../guards/auth.guard';
+import {MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {FormBuilderConfig} from '../../../models/FormBuilderConfig';
+import {SnackBarUtil} from '../../../util/snack-bar-uitl';
+import {Message} from '../../../const/const';
+import {SpinnerService} from '../../../service/spinner.service';
+import {MatSpinner} from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-form-builder',
@@ -12,24 +18,11 @@ import {AuthGuard} from '../../../guards/auth.guard';
 })
 export class FormBuilderComponent implements OnChanges, OnInit {
 
-  @Input()
-  headerText = '';
-
-  @Input()
-  config: FieldConfig[] = [];
-
-  @Input() public service!: GenericService<any>;
-  // tslint:disable-next-line:no-output-native
-  @Output()
-  submit: EventEmitter<any> = new EventEmitter<any>();
-
-  @Input()
-  formValues!: any;
-
+  @ViewChild('spinner') spinner!: MatSpinner;
   form!: FormGroup;
 
   get controls(): any {
-    return this.config.filter(({type}) => type !== 'button');
+    return this.configData.formFields.filter(({type}) => type !== 'button');
   }
 
   get changes(): any {
@@ -44,7 +37,8 @@ export class FormBuilderComponent implements OnChanges, OnInit {
     return this.form.value;
   }
 
-  constructor(private fb: FormBuilder, private snackBar: MatSnackBar, private authGuard: AuthGuard) {
+  constructor(@Inject(MAT_DIALOG_DATA) public configData: FormBuilderConfig, private fb: FormBuilder,
+              private snackBar: MatSnackBar, private authGuard: AuthGuard, private spinnerService: SpinnerService) {
   }
 
   ngOnInit(): void {
@@ -53,25 +47,26 @@ export class FormBuilderComponent implements OnChanges, OnInit {
   }
 
   save(): any {
-    // if (!this.formValues) {
-    //   this.authGuard.getAuthToken().subscribe((token) => {
-    //     this.service.save(this.form.getRawValue(), token).subscribe(() => {
-    //       SnackbarUtil.openSnackBar(this.snackBar, SnackBarMessages.SUCCESS_MESSAGE);
-    //     }, () => {
-    //       SnackbarUtil.openSnackBar(this.snackBar, SnackBarMessages.ERR_MESSAGE);
-    //     });
-    //   });
-    // } else {
-    //   const obj = this.form.getRawValue();
-    //   obj.id = this.formValues.id;
-    //   this.authGuard.getAuthToken().subscribe((token) => {
-    //     this.service.update(obj, token).subscribe(() => {
-    //       SnackBarUtil.openSnackBar(this.snackBar, Message.SUCCESS);
-    //     }, () => {
-    //       SnackBarUtil.openSnackBar(this.snackBar, Message.ERR);
-    //     });
-    //   });
-    // }
+    this.spinnerService.show(this.spinner);
+    if (!this.configData.formValues) {
+      this.configData.service.save(this.form.getRawValue()).subscribe(() => {
+        SnackBarUtil.openSnackBar(this.snackBar, Message.SUCCESS);
+        this.spinnerService.hide(this.spinner);
+      }, () => {
+        this.spinnerService.hide(this.spinner);
+        SnackBarUtil.openSnackBar(this.snackBar, Message.ERR);
+      });
+    } else {
+      const obj = this.form.getRawValue();
+      obj.id = this.configData.formValues.id;
+      this.configData.service.update(obj).subscribe(() => {
+        this.spinnerService.hide(this.spinner);
+        SnackBarUtil.openSnackBar(this.snackBar, Message.SUCCESS);
+      }, () => {
+        this.spinnerService.hide(this.spinner);
+        SnackBarUtil.openSnackBar(this.snackBar, Message.ERR);
+      });
+    }
   }
 
   ngOnChanges(): void {
@@ -86,7 +81,7 @@ export class FormBuilderComponent implements OnChanges, OnInit {
       configControls
         .filter((control: any) => !controls.includes(control))
         .forEach((name: any) => {
-          const config: any = this.config.find((control) => control.name === name);
+          const config: any = this.configData.formFields.find((control) => control.name === name);
           this.form.addControl(name, this.createControl(config));
         });
 
@@ -105,8 +100,8 @@ export class FormBuilderComponent implements OnChanges, OnInit {
   }
 
   setValue(): void {
-    if (this.formValues) {
-      for (const [k, v] of Object.entries(this.formValues)) {
+    if (this.configData.formValues) {
+      for (const [k, v] of Object.entries(this.configData.formValues)) {
         if (k !== 'id') {
           this.form.controls[k].setValue(v, {emitEvent: true});
         }
