@@ -16,6 +16,7 @@ import {HeaderComponent} from './components/admin/header/header.component';
 import {ClientComponent} from './components/admin/client/client.component';
 import {CodeBookComponent} from './components/admin/code-book/code-book.component';
 import {AddReferralSourceDialogComponent} from './components/admin/code-book/add-referral-source-dialog/add-referral-source-dialog.component';
+import {AddClientDialogComponent} from './components/admin/client/add-client-dialog/add-client-dialog.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import {AddReferralSourceDialogComponent} from './components/admin/code-book/add
     HeaderComponent,
     ClientComponent,
     CodeBookComponent,
-    AddReferralSourceDialogComponent
+    AddReferralSourceDialogComponent,
+    AddClientDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -38,7 +40,7 @@ import {AddReferralSourceDialogComponent} from './components/admin/code-book/add
     BrowserAnimationsModule
   ],
   providers: [],
-  entryComponents: [AddReferralSourceDialogComponent, OverviewComponent],
+  entryComponents: [AddClientDialogComponent, AddReferralSourceDialogComponent, OverviewComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {
