@@ -3,6 +3,8 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {FieldConfig} from '../../../../models/FIeldConfig';
 import {FormControlNames, InputTypes} from '../../../../const/const';
 import {GenderEnum} from '../../../../enums/GenderEnum';
+import {CountryService} from '../../../../service/country.service';
+import {Country} from '../../../../models/country';
 
 @Component({
   selector: 'app-add-client-dialog',
@@ -12,6 +14,7 @@ import {GenderEnum} from '../../../../enums/GenderEnum';
 export class AddClientDialogComponent implements OnInit {
 
   listOfGenders: string[] = [GenderEnum.MALE, GenderEnum.FEMALE];
+  listOfCountries: Country[] = [];
   clientForm = new FormGroup({
     firstName: new FormControl('', Validators.required),
     lastName: new FormControl('', Validators.required),
@@ -31,10 +34,16 @@ export class AddClientDialogComponent implements OnInit {
   telephoneInputConfig: FieldConfig = {type: InputTypes.INPUT_TYPE_NAME, name: FormControlNames.TELEPHONE_FORM_CONTROL};
   emailInputConfig: FieldConfig = {type: InputTypes.INPUT_TYPE_NAME, name: FormControlNames.EMAIL_FORM_CONTROL};
 
-  constructor() {
+  constructor(private countryService: CountryService) {
   }
 
   ngOnInit(): void {
+    this.getAllCountries();
   }
 
+  getAllCountries(): void {
+    this.countryService.getAll().subscribe((resp) => {
+      this.listOfCountries = resp;
+    });
+  }
 }

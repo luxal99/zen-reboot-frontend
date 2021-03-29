@@ -45,6 +45,7 @@ export class RestRoutesConst {
   static REFERRAL_SOURCES = 'referral-sources';
   static CLIENT = 'clients';
   static TREATMENT_CATEGORY = 'treatment-categories';
+  static COUNTRY = 'countries';
 }
 
 export class TokenConst {

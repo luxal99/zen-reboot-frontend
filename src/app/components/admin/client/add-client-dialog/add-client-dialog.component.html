@@ -24,7 +24,8 @@
           <app-form-input [config]="firstNameInputConfig" [group]="clientForm"></app-form-input>
         </div>
       </div>
-      <app-form-input label="Email" icon="alternate_email" [config]="firstNameInputConfig" [group]="clientForm"></app-form-input>
+      <app-form-input label="Email" icon="alternate_email" [config]="firstNameInputConfig"
+                      [group]="clientForm"></app-form-input>
       <app-form-input [config]="firstNameInputConfig" [group]="clientForm"></app-form-input>
       <div class="text-left">
         <mat-checkbox>Marketing notifikacije</mat-checkbox>
@@ -36,13 +37,19 @@
 <div class="text-right btn-div">
   <button mat-button class="default-btn">Dodaj</button>
 </div>
-<!--<div class="time-picker-component">-->
-<!--  <mat-form-field appearance="outline">-->
-<!--    <mat-label>End Time</mat-label>-->
-<!--    <input matInput type="time" placeholder="HH:MM" id="end_time_hour" >-->
-<!--    <mat-select name="ampm" class="ampm" >-->
-<!--      <mat-option value="AM">AM</mat-option>-->
-<!--      <mat-option value="PM">PM</mat-option>-->
-<!--    </mat-select>-->
-<!--  </mat-form-field>-->
-<!--</div>-->
+<div class="time-picker-component">
+  <mat-form-field appearance="outline">
+    <mat-label>End Time</mat-label>
+   <div class="row">
+     <div class="col-sm">
+       <input matInput type="text" placeholder="HH:MM" id="end_time_hour" >
+     </div>
+     <div class="col-sm-5" style="border-left: 1px solid #e1e1e1;">
+       <mat-select name="ampm" class="ampm" >
+         <mat-option value="AM">AM</mat-option>
+         <mat-option value="PM">PM</mat-option>
+       </mat-select>
+     </div>
+   </div>
+  </mat-form-field>
+</div>
