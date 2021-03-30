@@ -17,6 +17,7 @@ import {SpinnerService} from '../../../../service/spinner.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {MatSpinner} from '@angular/material/progress-spinner';
 import {SnackBarUtil} from '../../../../util/snack-bar-uitl';
+import {MatCheckboxChange} from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-add-client-dialog',
@@ -30,6 +31,7 @@ export class AddClientDialogComponent implements OnInit {
   listOfCountries: Country[] = [];
   listOfCities: City[] = [];
   listOfReferralSources: ReferralSource[] = [];
+  @ViewChild('marketingNotificationCheckBox') marketingNotificationCheckBox!: MatCheckboxChange;
   personForm = new FormGroup({
     firstName: new FormControl('', Validators.required),
     lastName: new FormControl('', Validators.required),
@@ -116,6 +118,7 @@ export class AddClientDialogComponent implements OnInit {
     client.person = this.personForm.getRawValue();
     client.address = this.addressForm.getRawValue();
     client.language = this.clientForm.get(FormControlNames.LANGUAGE_FORM_CONTROL)?.value.name;
+    client.marketingNotifications = this.marketingNotificationCheckBox.checked;
 
     client.notificationMethod = this.clientForm.get(FormControlNames.NOTIFICATION_METHOD_FORM_CONTROL)?.value.name;
     client.gender = this.clientForm.get(FormControlNames.GENDER_FORM_CONTROL)?.value.name;
