@@ -1,7 +1,49 @@
 <app-header header="Klijenti"></app-header>
-<div class="row">
-  <div class="col-sm"></div>
-  <div class="col-sm text-right">
-    <button class="default-btn" mat-button (click)="openAddClientDialog()">Dodaj</button>
+<div class="component-content">
+  <div class="row header">
+    <div class="col-sm">
+      <mat-form-field appearance="outline" style="width: 50%">
+        <mat-label>Pretraži</mat-label>
+        <input matInput>
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+    </div>
+    <div class="col-sm text-right">
+      <button class="default-btn" mat-button (click)="openAddClientDialog()">Dodaj</button>
+    </div>
+  </div>
+  <div class="client-binding">
+    <div class="row header-row">
+      <div class="col-sm">
+        <h2>Ime</h2>
+      </div>
+      <div class="col-sm">
+        <h2>Prezime</h2>
+      </div>
+      <div class="col-sm">
+        <h2>Broj telefona</h2>
+      </div>
+      <div class="col-sm">
+        <h2>Pol</h2>
+      </div>
+    </div>
+    <mat-spinner diameter="50" #spinner></mat-spinner>
+    <div class="row client-row" style="padding-top: 1em" *ngFor="let client of listOfClients">
+      <div class="col-sm">
+        <div class="inline">
+          <h1 class="first-letter-h1">{{client.person.firstName.substr(0,1)}}</h1>
+          <h2>{{client.person?.firstName}}</h2>
+        </div>
+      </div>
+      <div class="col-sm">
+        <h2>{{client.person?.lastName}}</h2>
+      </div>
+      <div class="col-sm">
+        <h2 *ngIf="client.person.contacts[0].value !== 'null'">{{ client.person.contacts[0].value}}</h2>
+      </div>
+      <div class="col-sm">
+        <h2>{{client.gender | capitalize}}</h2>
+      </div>
+    </div>
   </div>
 </div>

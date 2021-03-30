@@ -1,9 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import {ClientService} from '../../../service/client.service';
 import {Client} from '../../../models/client';
 import {DialogUtil} from '../../../util/dialog-util';
 import {AddClientDialogComponent} from './add-client-dialog/add-client-dialog.component';
+import {SpinnerService} from '../../../service/spinner.service';
+import {MatSpinner} from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-client',
@@ -12,17 +14,21 @@ import {AddClientDialogComponent} from './add-client-dialog/add-client-dialog.co
 })
 export class ClientComponent implements OnInit {
 
+  @ViewChild('spinner') spinner!: MatSpinner;
   listOfClients: Client[] = [];
 
-  constructor(private dialog: MatDialog, private clientService: ClientService) {
+  constructor(private dialog: MatDialog, private clientService: ClientService,
+              private spinnerService: SpinnerService) {
   }
 
   ngOnInit(): void {
+    this.getAllClients();
   }
 
   getAllClients(): void {
     this.clientService.getAll().subscribe((resp) => {
       this.listOfClients = resp;
+      this.spinnerService.hide(this.spinner);
     });
   }
 
@@ -36,4 +42,5 @@ export class ClientComponent implements OnInit {
       this.getAllClients();
     });
   }
+
 }
