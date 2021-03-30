@@ -18,6 +18,10 @@ export class FormControlNames {
   static GENDER_FORM_CONTROL = 'gender';
   static NOTIFICATION_METHOD_FORM_CONTROL = 'notificationMethod';
   static NUMBER_FORM_CONTROL = 'number';
+  static MOBILE_PHONE_FORM_CONTROL = 'mobilePhone';
+  static OTHER_PHONE_FORM_CONTROL = 'otherPhone';
+  static OTHER_PHONE_PREFIX_FORM_CONTROL = 'otherPhonePrefix';
+  static MOBILE_PHONE_PREFIX_FORM_CONTROL = 'mobilePhonePrefix';
   static CITY_FORM_CONTROL = 'city';
 }
 
@@ -51,7 +55,7 @@ export class RestRoutesConst {
   static CLIENT = 'clients';
   static TREATMENT_CATEGORY = 'treatment-categories';
   static COUNTRY = 'countries';
-    static CITY = 'cities';
+  static CITY = 'cities';
 }
 
 export class TokenConst {

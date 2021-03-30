@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {FieldConfig} from '../../../../models/FIeldConfig';
-import {FormControlNames, InputTypes} from '../../../../const/const';
+import {FormControlNames, InputTypes, Message} from '../../../../const/const';
 import {GenderEnum} from '../../../../enums/GenderEnum';
 import {CountryService} from '../../../../service/country.service';
 import {Country} from '../../../../models/country';
@@ -10,6 +10,13 @@ import {ReferralSourceService} from '../../../../service/referral-source.service
 import {ReferralSource} from '../../../../models/referral-source';
 import {CityService} from '../../../../service/city.service';
 import {City} from '../../../../models/city';
+import {Client} from '../../../../models/client';
+import {ContactTypeEnum} from '../../../../enums/ContactTypeEnum';
+import {ClientService} from '../../../../service/client.service';
+import {SpinnerService} from '../../../../service/spinner.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {MatSpinner} from '@angular/material/progress-spinner';
+import {SnackBarUtil} from '../../../../util/snack-bar-uitl';
 
 @Component({
   selector: 'app-add-client-dialog',
@@ -18,13 +25,21 @@ import {City} from '../../../../models/city';
 })
 export class AddClientDialogComponent implements OnInit {
 
+  @ViewChild('spinner') spinner!: MatSpinner;
   listOfNotificationMethods: string[] = [NotificationEnum.EMAIL];
   listOfCountries: Country[] = [];
   listOfCities: City[] = [];
   listOfReferralSources: ReferralSource[] = [];
-  clientForm = new FormGroup({
+  personForm = new FormGroup({
     firstName: new FormControl('', Validators.required),
     lastName: new FormControl('', Validators.required),
+    mobilePhone: new FormControl(''),
+    otherPhone: new FormControl(''),
+    otherPhonePrefix: new FormControl(),
+    mobilePhonePrefix: new FormControl(),
+    email: new FormControl('')
+  });
+  clientForm = new FormGroup({
     notes: new FormControl('', Validators.required),
     birthday: new FormControl('', Validators.required),
     notificationMethod: new FormControl('', Validators.required),
@@ -44,12 +59,12 @@ export class AddClientDialogComponent implements OnInit {
   streetNoInputConfig: FieldConfig = {type: InputTypes.INPUT_TYPE_NAME, name: FormControlNames.NUMBER_FORM_CONTROL};
   firstNameInputConfig: FieldConfig = {type: InputTypes.INPUT_TYPE_NAME, name: FormControlNames.FIRST_NAME_FORM_CONTROL};
   lastNameInputConfig: FieldConfig = {type: InputTypes.INPUT_TYPE_NAME, name: FormControlNames.LAST_NAME_FORM_CONTROL};
-  telephoneInputConfig: FieldConfig = {type: InputTypes.INPUT_TYPE_NAME, name: FormControlNames.TELEPHONE_FORM_CONTROL};
+  mobilePrefixSelectConfig: FieldConfig = {type: InputTypes.SELECT_TYPE_NAME, name: FormControlNames.MOBILE_PHONE_PREFIX_FORM_CONTROL};
   emailInputConfig: FieldConfig = {type: InputTypes.INPUT_TYPE_NAME, name: FormControlNames.EMAIL_FORM_CONTROL};
   genderSelectConfig: FieldConfig = {
     type: InputTypes.SELECT_TYPE_NAME,
     name: FormControlNames.GENDER_FORM_CONTROL,
-    options: [GenderEnum.MALE, GenderEnum.FEMALE]
+    options: [{name: GenderEnum.MALE}, {name: GenderEnum.FEMALE}]
   };
   notesInputConfig: FieldConfig = {type: InputTypes.INPUT_TYPE_NAME, name: FormControlNames.NOTES_FORM_CONTROL};
 
@@ -62,7 +77,8 @@ export class AddClientDialogComponent implements OnInit {
   referralSourceSelectConfig: FieldConfig = {type: InputTypes.SELECT_TYPE_NAME, name: FormControlNames.REFERRAL_SOURCE_FORM_CONTROL};
 
   constructor(private countryService: CountryService, private cityService: CityService,
-              private referralSourceService: ReferralSourceService) {
+              private spinnerService: SpinnerService, private snackBar: MatSnackBar,
+              private referralSourceService: ReferralSourceService, private clientService: ClientService) {
   }
 
   ngOnInit(): void {
@@ -75,6 +91,7 @@ export class AddClientDialogComponent implements OnInit {
     this.countryService.getAll().subscribe((resp) => {
       this.listOfCountries = resp;
       this.languageSelectConfig.options = resp;
+      this.mobilePrefixSelectConfig.options = resp;
     });
   }
 
@@ -90,5 +107,38 @@ export class AddClientDialogComponent implements OnInit {
       this.listOfCities = resp;
       this.citySelectConfig.options = resp;
     });
+  }
+
+  save(): void {
+
+    this.spinnerService.show(this.spinner);
+    const client: Client = this.clientForm.getRawValue();
+    client.person = this.personForm.getRawValue();
+    client.address = this.addressForm.getRawValue();
+    client.language = this.clientForm.get(FormControlNames.LANGUAGE_FORM_CONTROL)?.value.name;
+
+    client.notificationMethod = this.clientForm.get(FormControlNames.NOTIFICATION_METHOD_FORM_CONTROL)?.value.name;
+    client.gender = this.clientForm.get(FormControlNames.GENDER_FORM_CONTROL)?.value.name;
+    // @ts-ignore
+    client.person?.contacts = [
+      {
+        value: this.personForm.get(FormControlNames.MOBILE_PHONE_PREFIX_FORM_CONTROL)?.value +
+          this.personForm.get(FormControlNames.MOBILE_PHONE_FORM_CONTROL)?.value,
+        type: ContactTypeEnum.PHONE
+      },
+      {
+        value: this.personForm.get(FormControlNames.OTHER_PHONE_PREFIX_FORM_CONTROL)?.value +
+          this.personForm.get(FormControlNames.OTHER_PHONE_FORM_CONTROL)?.value, type: ContactTypeEnum.OTHER
+      },
+    ];
+
+    this.clientService.save(client).subscribe(() => {
+      SnackBarUtil.openSnackBar(this.snackBar, Message.SUCCESS);
+      this.spinnerService.hide(this.spinner);
+    }, () => {
+      SnackBarUtil.openSnackBar(this.snackBar, Message.SUCCESS);
+      this.spinnerService.hide(this.spinner);
+    });
+
   }
 }

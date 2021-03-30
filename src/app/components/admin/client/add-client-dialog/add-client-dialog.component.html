@@ -10,49 +10,51 @@
     <div class="col left-col form-col text-right">
       <div class="row">
         <div class="col-sm input-col-left">
-          <app-form-input label="Ime" [config]="firstNameInputConfig" [group]="clientForm"></app-form-input>
+          <app-form-input label="Ime" [config]="firstNameInputConfig" [group]="personForm"></app-form-input>
         </div>
         <div class="col-sm input-col-right">
-          <app-form-input label="Prezime" [config]="firstNameInputConfig" [group]="clientForm"></app-form-input>
+          <app-form-input label="Prezime" [config]="lastNameInputConfig" [group]="personForm"></app-form-input>
         </div>
       </div>
-      <div class="inline">
-        <div class="left column">
-          <div class="inline">
-            <mat-form-field appearance="outline" style="width: 25%;">
-              <mat-label>Pozivni broj</mat-label>
-              <mat-select>
-                <mat-option [value]="country" *ngFor="let country of listOfCountries">
-                  {{country.dialCode + ' | ' + country.name }}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-            <mat-form-field appearance="outline" style="width: 75%;">
-              <mat-label>Kontakt telefon</mat-label>
-              <input matInput type="text" placeholder="69 021 1312">
-            </mat-form-field>
+
+      <form [formGroup]="personForm">
+        <div class="inline">
+          <div class="left column">
+            <div class="inline">
+              <mat-form-field appearance="outline" style="width: 25%;">
+                <mat-label>Pozivni broj</mat-label>
+                <mat-select formControlName="mobilePhonePrefix">
+                  <mat-option [value]="country.dialCode" *ngFor="let country of listOfCountries">
+                    {{country.dialCode + ' | ' + country.name }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field appearance="outline" style="width: 75%;">
+                <mat-label>Kontakt telefon</mat-label>
+                <input matInput type="text" placeholder="69 021 1312" formControlName="mobilePhone">
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="right column">
+            <div class="inline">
+              <mat-form-field appearance="outline" style="width: 25%;">
+                <mat-label>Pozivni broj</mat-label>
+                <mat-select formControlName="otherPhonePrefix">
+                  <mat-option [value]="country.dialCode" *ngFor="let country of listOfCountries">
+                    {{country.dialCode + ' | ' + country.name }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field appearance="outline" style="width: 75%;">
+                <mat-label>Kontakt telefon</mat-label>
+                <input formControlName="otherPhone" matInput type="text" placeholder="69 021 1312">
+              </mat-form-field>
+            </div>
           </div>
         </div>
-        <div class="right column">
-          <div class="inline">
-            <mat-form-field appearance="outline" style="width: 25%;">
-              <mat-label>Pozivni broj</mat-label>
-              <mat-select>
-                <mat-option [value]="country" *ngFor="let country of listOfCountries">
-                  {{country.dialCode + ' | ' + country.name }}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-            <mat-form-field appearance="outline" style="width: 75%;">
-              <mat-label>Kontakt telefon</mat-label>
-              <input matInput type="text" placeholder="69 021 1312">
-            </mat-form-field>
-          </div>
-        </div>
-      </div>
-      <app-form-input label="Email" icon="alternate_email" [config]="firstNameInputConfig"
-                      [group]="clientForm"></app-form-input>
-      <app-form-input [config]="firstNameInputConfig" [group]="clientForm"></app-form-input>
+      </form>
+      <app-form-input label="Email" icon="alternate_email" [config]="emailInputConfig"
+                      [group]="personForm"></app-form-input>
       <app-form-select [config]="notificationMethodSelectConfig" [group]="clientForm" label="Način slanja notifikacija"
                        bindValue="name"></app-form-select>
       <app-form-select [config]="languageSelectConfig" [group]="clientForm" label="Jezik"
@@ -106,6 +108,7 @@
   </div>
 </div>
 <div class="text-right btn-div">
-  <button mat-button class="default-btn">Dodaj</button>
+  <mat-spinner diameter="50" #spinner></mat-spinner>
+  <button mat-button class="default-btn" (click)="save()">Dodaj</button>
 </div>
 

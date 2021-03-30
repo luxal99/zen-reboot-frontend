@@ -16,6 +16,7 @@ export class FormSelectComponent implements Field, OnInit {
   @Input() bindValue = '';
   @Input() isRequired!: boolean;
   @Output() clickOnSelect = new EventEmitter();
+  @Input() width = '100%';
 
   ngOnInit(): void {
   }

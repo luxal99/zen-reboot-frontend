@@ -1,5 +1,5 @@
 <div class="dynamic-field form-select" [formGroup]="group">
-  <mat-form-field appearance="outline">
+  <mat-form-field appearance="outline" [style]="{'width':width}">
     <mat-label>{{label}}</mat-label>
     <mat-select [formControlName]="config.name" [required]="isRequired">
       <mat-option value="" selected>---</mat-option>
