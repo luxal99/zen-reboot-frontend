@@ -1,12 +1,23 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import {Pipe, PipeTransform} from '@angular/core';
+import {Client} from '../models/client';
 
 @Pipe({
   name: 'client'
 })
 export class ClientPipe implements PipeTransform {
 
-  transform(value: unknown, ...args: unknown[]): unknown {
-    return null;
+  transform(listOfClient: Client[], searchText: string): any {
+
+    if (!listOfClient) {
+      return [];
+    }
+    if (!searchText) {
+      return listOfClient;
+    }
+
+    return listOfClient.filter((client) =>
+      client.person?.firstName?.toLowerCase()?.includes(searchText.toLowerCase()) ||
+      client.person?.lastName?.toLowerCase().includes(searchText.toLowerCase()));
   }
 
 }

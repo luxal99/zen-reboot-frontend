@@ -6,6 +6,7 @@ import {DialogUtil} from '../../../util/dialog-util';
 import {AddClientDialogComponent} from './add-client-dialog/add-client-dialog.component';
 import {SpinnerService} from '../../../service/spinner.service';
 import {MatSpinner} from '@angular/material/progress-spinner';
+import {FormControl, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-client',
@@ -16,6 +17,12 @@ export class ClientComponent implements OnInit {
 
   @ViewChild('spinner') spinner!: MatSpinner;
   listOfClients: Client[] = [];
+
+  searchForm = new FormGroup({
+    search: new FormControl()
+  });
+
+  searchText = '';
 
   constructor(private dialog: MatDialog, private clientService: ClientService,
               private spinnerService: SpinnerService) {

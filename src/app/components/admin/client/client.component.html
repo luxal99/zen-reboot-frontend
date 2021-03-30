@@ -2,11 +2,13 @@
 <div class="component-content">
   <div class="row header">
     <div class="col-sm">
-      <mat-form-field appearance="outline">
-        <mat-label>Pretraži</mat-label>
-        <input matInput>
-        <mat-icon matSuffix>search</mat-icon>
-      </mat-form-field>
+      <form [formGroup]="searchForm">
+        <mat-form-field appearance="outline">
+          <mat-label>Pretraži</mat-label>
+          <input matInput formControlName="search" [(ngModel)]="searchText">
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+      </form>
     </div>
     <div class="col-sm text-right">
       <button class="default-btn" mat-button (click)="openAddClientDialog()">Dodaj</button>
@@ -29,7 +31,7 @@
     </div>
     <mat-spinner diameter="50" #spinner></mat-spinner>
     <div class="binding desktop">
-      <div class="row client-row" style="padding-top: 1em" *ngFor="let client of listOfClients">
+      <div class="row client-row" style="padding-top: 1em" *ngFor="let client of listOfClients|client:searchText">
         <div class="col-sm">
           <div class="inline">
             <h1 class="first-letter-h1">{{client.person.firstName.substr(0, 1)}}</h1>
@@ -48,7 +50,7 @@
       </div>
     </div>
     <div class="binding mobile">
-      <div class="row client-row" style="padding-top: 1em" *ngFor="let client of listOfClients">
+      <div class="row client-row" style="padding-top: 1em" *ngFor="let client of listOfClients|client:searchText">
         <div class="col">
           <h1 class="first-letter-h1">{{client.person.firstName.substr(0, 1)}}</h1>
         </div>
