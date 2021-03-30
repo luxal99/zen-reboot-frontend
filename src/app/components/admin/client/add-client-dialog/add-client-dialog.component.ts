@@ -40,9 +40,9 @@ export class AddClientDialogComponent implements OnInit {
     email: new FormControl('')
   });
   clientForm = new FormGroup({
-    notes: new FormControl('', Validators.required),
-    birthday: new FormControl('', Validators.required),
-    notificationMethod: new FormControl('', Validators.required),
+    notes: new FormControl(''),
+    birthday: new FormControl(''),
+    notificationMethod: new FormControl(''),
     referralSource: new FormControl(),
     gender: new FormControl(),
     language: new FormControl(),
@@ -51,7 +51,7 @@ export class AddClientDialogComponent implements OnInit {
   addressForm = new FormGroup({
     street: new FormControl(''),
     number: new FormControl(''),
-    city: new FormControl(''),
+    city: new FormControl('', Validators.required),
   });
 
   streetInputConfig: FieldConfig = {type: InputTypes.INPUT_TYPE_NAME, name: FormControlNames.STREET_FORM_CONTROL};

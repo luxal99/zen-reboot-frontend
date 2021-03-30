@@ -111,6 +111,8 @@
   </div>
 </div>
 <div class="text-right btn-div">
-  <button mat-button class="default-btn" (click)="save()">Dodaj</button>
+  <button mat-button class="default-btn" (click)="save()"
+          [disabled]="!personForm.valid || !addressForm.valid || !clientForm.valid">Dodaj
+  </button>
 </div>
 
