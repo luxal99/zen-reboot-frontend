@@ -52,5 +52,16 @@ button
 
 ::-webkit-scrollbar-thumb
   background: $default-gold
+
 .inline
   display: inline-flex
+
+.mobile
+  display: none
+
+@media screen and (max-width: 570px)
+  .desktop
+    display: none
+
+  .mobile
+    display: block
