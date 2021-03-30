@@ -49,4 +49,8 @@ button {
   background: #deb767;
 }
 
+.inline {
+  display: inline-flex;
+}
+
 /*# sourceMappingURL=styles.css.map */

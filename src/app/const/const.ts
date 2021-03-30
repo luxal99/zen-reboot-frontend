@@ -9,9 +9,14 @@ export class FormControlNames {
   static NAME_FORM_CONTROL = 'name';
   static FIRST_NAME_FORM_CONTROL = 'firstName';
   static LAST_NAME_FORM_CONTROL = 'lastName';
+  static NOTES_FORM_CONTROL = 'notes';
   static TELEPHONE_FORM_CONTROL = 'telephone';
   static EMAIL_FORM_CONTROL = 'email';
+  static LANGUAGE_FORM_CONTROL = 'language';
+  static REFERRAL_SOURCE_FORM_CONTROL = 'referralSource';
   static STREET_FORM_CONTROL = 'street';
+  static GENDER_FORM_CONTROL = 'gender';
+  static NOTIFICATION_METHOD_FORM_CONTROL = 'notificationMethod';
   static NUMBER_FORM_CONTROL = 'number';
   static CITY_FORM_CONTROL = 'city';
 }
@@ -46,6 +51,7 @@ export class RestRoutesConst {
   static CLIENT = 'clients';
   static TREATMENT_CATEGORY = 'treatment-categories';
   static COUNTRY = 'countries';
+    static CITY = 'cities';
 }
 
 export class TokenConst {

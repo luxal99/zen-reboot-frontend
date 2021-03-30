@@ -13,6 +13,7 @@ export class FormSelectComponent implements Field, OnInit {
   @Input() config!: FieldConfig;
   @Input() group!: FormGroup;
   @Input() label = 'Izaberi opciju';
+  @Input() bindValue = '';
   @Input() isRequired!: boolean;
   @Output() clickOnSelect = new EventEmitter();
 
