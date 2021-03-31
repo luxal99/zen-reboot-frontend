@@ -20,7 +20,9 @@ import {CapitalizePipe} from './pipes/capitalize.pipe';
 import {ServicesComponent} from './components/admin/services/services.component';
 import {FormBuilderComponent} from './components/form-components/form-builder/form-builder.component';
 import {DynamicFieldDirective} from './directives/dynamic-field.directive';
-import { ClientPipe } from './pipes/client.pipe';
+import {ClientPipe} from './pipes/client.pipe';
+import {ClientOverviewDialogComponent} from './components/admin/client/client-overview-dialog/client-overview-dialog.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,6 +40,7 @@ import { ClientPipe } from './pipes/client.pipe';
     FormBuilderComponent,
     DynamicFieldDirective,
     ClientPipe,
+    ClientOverviewDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -48,7 +51,8 @@ import { ClientPipe } from './pipes/client.pipe';
     BrowserAnimationsModule
   ],
   providers: [],
-  entryComponents: [AddClientDialogComponent, FormBuilderComponent, OverviewComponent, ServicesComponent],
+  entryComponents: [AddClientDialogComponent, ClientOverviewDialogComponent,
+    FormBuilderComponent, OverviewComponent, ServicesComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {

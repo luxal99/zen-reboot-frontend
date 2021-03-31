@@ -24,12 +24,12 @@ export class ServicesComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getAllCategories();
   }
 
   getAllCategories(): void {
     this.treatmentCategoryService.getAll().subscribe((resp) => {
       this.listOfTreatmentCategory = resp;
-      console.log(resp);
     });
   }
 

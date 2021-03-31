@@ -1,11 +1,22 @@
 <app-header header="Tretmani"></app-header>
-<div class="container">
-  <div class="text-right">
-    <button mat-button class="default-btn" [matMenuTriggerFor]="menu">Menu</button>
-    <mat-menu #menu="matMenu">
-      <button mat-menu-item>Dodaj tretman</button>
-      <button mat-menu-item (click)="openAddTreatmentCategoryDialog()">Dodaj kategoriju</button>
-    </mat-menu>
-
+<div class="service-content" style="height: auto;">
+  <div class="container">
+    <div class="text-right">
+      <button mat-button class="default-btn" [matMenuTriggerFor]="menu">Menu</button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item>Dodaj tretman</button>
+        <button mat-menu-item (click)="openAddTreatmentCategoryDialog()">Dodaj kategoriju</button>
+      </mat-menu>
+    </div>
+    <div class="treatment-category-div" *ngFor="let treatmentCategory of listOfTreatmentCategory">
+      <h1>
+        {{treatmentCategory.name | capitalize}}
+      </h1>
+      <div class="treatment-card" *ngFor="let treatment of treatmentCategory.treatments">
+        <h3 >
+          {{treatment.name}}
+        </h3>
+      </div>
+    </div>
   </div>
 </div>

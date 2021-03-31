@@ -10,6 +10,7 @@ import {FormControl, FormGroup} from '@angular/forms';
 import {SnackBarUtil} from '../../../util/snack-bar-uitl';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {Message} from '../../../const/const';
+import {ClientOverviewDialogComponent} from './client-overview-dialog/client-overview-dialog.component';
 
 @Component({
   selector: 'app-client',
@@ -63,6 +64,14 @@ export class ClientComponent implements OnInit {
     }, this.dialog).afterClosed().subscribe(() => {
       this.getAllClients();
     });
+  }
+
+  openClientOverviewDialog(data: Client): void {
+    DialogUtil.openDialog(ClientOverviewDialogComponent, {
+      position: {right: '0'},
+      width: '95%',
+      height: '100vh'
+    }, this.dialog);
   }
 
   deleteClient(id: number): void {

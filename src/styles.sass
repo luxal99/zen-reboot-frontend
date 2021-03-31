@@ -8,7 +8,7 @@ $default-gold: #deb767
 $lighter-silver: #f1f1f1
 $dark-gold: rgba(222, 182, 103, 0.6)
 $darker-gold: rgba(222, 182, 103, 0.3)
-
+$component-background: #f7f7f8
 a
   text-decoration: none
 
@@ -39,9 +39,7 @@ button
   color: $default-gold
 
 .component-content
-  background-color: #f7f7f8
-  height: 100%
-
+  background-color: $component-background
   padding: 0 2em
 
 ::-webkit-scrollbar
@@ -61,6 +59,7 @@ button
 
 .mat-form-field-appearance-outline .mat-form-field-outline
   background-color: #fff
+
 @media screen and (max-width: 570px)
   .desktop
     display: none
