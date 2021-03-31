@@ -53,6 +53,18 @@ export class ClientComponent implements OnInit {
     });
   }
 
+  openEditClientDialog(data: Client): void {
+    DialogUtil.openDialog(AddClientDialogComponent, {
+      maxWidth: '100vw',
+      maxHeight: '100vh',
+      height: '100%',
+      width: '100%',
+      data
+    }, this.dialog).afterClosed().subscribe(() => {
+      this.getAllClients();
+    });
+  }
+
   deleteClient(id: number): void {
     console.log(id);
     this.spinnerService.show(this.spinner);

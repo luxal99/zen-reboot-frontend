@@ -1,10 +1,11 @@
 <div class="dynamic-field form-select" [formGroup]="group">
   <mat-form-field appearance="outline" [style]="{'width':width}">
     <mat-label>{{label}}</mat-label>
-    <mat-select [formControlName]="config.name" [required]="isRequired">
+    <mat-select [compareWith]="compareObjects" [(ngModel)]="model" [formControlName]="config.name"
+                [required]="isRequired">
       <mat-option value="" selected>---</mat-option>
       <mat-option (click)="onOptionClick()" *ngFor="let item of config.options" [value]="item">
-        {{item[bindValue] || item | capitalize}}
+        {{item[bindValue] || item |capitalize }}
       </mat-option>
     </mat-select>
   </mat-form-field>

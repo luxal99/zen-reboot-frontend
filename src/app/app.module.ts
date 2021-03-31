@@ -21,7 +21,6 @@ import {ServicesComponent} from './components/admin/services/services.component'
 import {FormBuilderComponent} from './components/form-components/form-builder/form-builder.component';
 import {DynamicFieldDirective} from './directives/dynamic-field.directive';
 import { ClientPipe } from './pipes/client.pipe';
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,7 +37,7 @@ import { ClientPipe } from './pipes/client.pipe';
     ServicesComponent,
     FormBuilderComponent,
     DynamicFieldDirective,
-    ClientPipe
+    ClientPipe,
   ],
   imports: [
     BrowserModule,

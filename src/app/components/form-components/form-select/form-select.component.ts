@@ -17,6 +17,16 @@ export class FormSelectComponent implements Field, OnInit {
   @Input() isRequired!: boolean;
   @Output() clickOnSelect = new EventEmitter();
   @Input() width = '100%';
+  @Input() model: any;
+
+
+  compareObjects(o1: any, o2: any): boolean {
+    if (o2 !== null && o2 !== undefined) {
+      return o1.name === o2.name && o1.id === o2.id;
+    } else {
+      return false;
+    }
+  }
 
   ngOnInit(): void {
   }

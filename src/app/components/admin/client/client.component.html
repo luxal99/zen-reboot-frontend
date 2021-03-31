@@ -53,7 +53,7 @@
             <mat-icon>expand_more</mat-icon>
           </button>
           <mat-menu #menu="matMenu">
-            <button mat-menu-item><i class="fa fa-pencil" aria-hidden="true"></i>
+            <button mat-menu-item (click)="openEditClientDialog(client)"><i class="fa fa-pencil" aria-hidden="true"></i>
               Izmeni
             </button>
             <button mat-menu-item (click)="deleteClient(client.id)"><i class="fa fa-trash" aria-hidden="true"></i>

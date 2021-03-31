@@ -28,7 +28,7 @@
                 <mat-label>Pozivni broj</mat-label>
                 <mat-select formControlName="mobilePhonePrefix">
                   <mat-option [value]="country.dialCode" *ngFor="let country of listOfCountries">
-                    {{country.dialCode + ' | ' + country.name }}
+                    {{country.dialCode + ' ' + country.name }}
                   </mat-option>
                 </mat-select>
               </mat-form-field>
@@ -58,12 +58,14 @@
       </form>
       <app-form-input label="Email" icon="alternate_email" [config]="emailInputConfig"
                       [group]="personForm"></app-form-input>
-      <app-form-select [config]="notificationMethodSelectConfig" [group]="clientForm" label="Način slanja notifikacija"
-                       bindValue="name"></app-form-select>
-      <app-form-select [config]="languageSelectConfig" [group]="clientForm" label="Jezik"
-                       bindValue="name"></app-form-select>
+      <app-form-select bindValue="name" [model]="{name:data.notificationMethod}"
+                       [config]="notificationMethodSelectConfig" [group]="clientForm"
+                       label="Način slanja notifikacija"></app-form-select>
+      <app-form-select bindValue="name" [model]="{name:data.language}" [config]="languageSelectConfig"
+                       [group]="clientForm"></app-form-select>
+
       <div class="text-left">
-        <mat-checkbox #marketingNotificationCheckBox>Marketing notifikacije</mat-checkbox>
+        <mat-checkbox [checked]="data.marketingNotifications" #marketingNotificationCheckBox>Marketing notifikacije</mat-checkbox>
       </div>
     </div>
     <div class="col form-col">
@@ -72,11 +74,12 @@
           <div class="tab">
             <div class="inline">
               <div class="column left">
-                <app-form-select label="Pol" bindValue="name" [group]="clientForm"
+                <app-form-select label="Pol" bindValue="name" [model]="{name:data.gender}" [group]="clientForm"
                                  [config]="genderSelectConfig"></app-form-select>
               </div>
               <div class="column right">
-                <app-form-select label="Način dolaska" bindValue="value" [group]="clientForm"
+                <app-form-select label="Način dolaska" [model]="data.referralSource" bindValue="value"
+                                 [group]="clientForm"
                                  [config]="referralSourceSelectConfig"></app-form-select>
               </div>
             </div>
@@ -102,7 +105,7 @@
                 <app-form-input [config]="streetNoInputConfig" label="Broj" [group]="addressForm"></app-form-input>
               </div>
             </div>
-            <app-form-select label="Grad" bindValue="name" [config]="citySelectConfig"
+            <app-form-select label="Grad" [model]="data.address?.city" bindValue="name" [config]="citySelectConfig"
                              [group]="addressForm"></app-form-select>
           </div>
         </mat-tab>
@@ -111,8 +114,7 @@
   </div>
 </div>
 <div class="text-right btn-div">
-  <button mat-button class="default-btn" (click)="save()"
-          [disabled]="!personForm.valid || !addressForm.valid || !clientForm.valid">Dodaj
+  <button mat-button class="default-btn" (click)="save()">Dodaj
   </button>
 </div>
 
