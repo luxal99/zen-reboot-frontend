@@ -56,7 +56,7 @@
             <button mat-menu-item><i class="fa fa-pencil" aria-hidden="true"></i>
               Izmeni
             </button>
-            <button mat-menu-item><i class="fa fa-trash" aria-hidden="true" (click)="deleteClient(client.id)"></i>
+            <button mat-menu-item (click)="deleteClient(client.id)"><i class="fa fa-trash" aria-hidden="true"></i>
               Obriši
             </button>
           </mat-menu>

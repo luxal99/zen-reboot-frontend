@@ -66,14 +66,14 @@ export class AddClientDialogComponent implements OnInit {
   genderSelectConfig: FieldConfig = {
     type: InputTypes.SELECT_TYPE_NAME,
     name: FormControlNames.GENDER_FORM_CONTROL,
-    options: [{name: GenderEnum.MALE}, {name: GenderEnum.FEMALE}]
+    options: [GenderEnum.MALE, GenderEnum.FEMALE]
   };
   notesInputConfig: FieldConfig = {type: InputTypes.INPUT_TYPE_NAME, name: FormControlNames.NOTES_FORM_CONTROL};
 
   notificationMethodSelectConfig: FieldConfig = {
     type: InputTypes.SELECT_TYPE_NAME,
     name: FormControlNames.NOTIFICATION_METHOD_FORM_CONTROL,
-    options: [{name: NotificationEnum.EMAIL}]
+    options: [NotificationEnum.EMAIL]
   };
   languageSelectConfig: FieldConfig = {type: InputTypes.SELECT_TYPE_NAME, name: FormControlNames.LANGUAGE_FORM_CONTROL};
   referralSourceSelectConfig: FieldConfig = {type: InputTypes.SELECT_TYPE_NAME, name: FormControlNames.REFERRAL_SOURCE_FORM_CONTROL};
@@ -117,11 +117,11 @@ export class AddClientDialogComponent implements OnInit {
     const client: Client = this.clientForm.getRawValue();
     client.person = this.personForm.getRawValue();
     client.address = this.addressForm.getRawValue();
-    client.language = this.clientForm.get(FormControlNames.LANGUAGE_FORM_CONTROL)?.value.name;
+    client.language = this.clientForm.get(FormControlNames.LANGUAGE_FORM_CONTROL)?.value;
     client.marketingNotifications = this.marketingNotificationCheckBox.checked;
 
-    client.notificationMethod = this.clientForm.get(FormControlNames.NOTIFICATION_METHOD_FORM_CONTROL)?.value.name;
-    client.gender = this.clientForm.get(FormControlNames.GENDER_FORM_CONTROL)?.value.name;
+    client.notificationMethod = this.clientForm.get(FormControlNames.NOTIFICATION_METHOD_FORM_CONTROL)?.value;
+    client.gender = this.clientForm.get(FormControlNames.GENDER_FORM_CONTROL)?.value;
     // @ts-ignore
     client.person?.contacts = [
       {
@@ -134,12 +134,11 @@ export class AddClientDialogComponent implements OnInit {
           this.personForm.get(FormControlNames.OTHER_PHONE_FORM_CONTROL)?.value, type: ContactTypeEnum.OTHER
       },
     ];
-
     this.clientService.save(client).subscribe(() => {
       SnackBarUtil.openSnackBar(this.snackBar, Message.SUCCESS);
       this.spinnerService.hide(this.spinner);
     }, () => {
-      SnackBarUtil.openSnackBar(this.snackBar, Message.SUCCESS);
+      SnackBarUtil.openSnackBar(this.snackBar, Message.ERR);
       this.spinnerService.hide(this.spinner);
     });
 
