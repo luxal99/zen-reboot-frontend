@@ -7,6 +7,9 @@ import {AddClientDialogComponent} from './add-client-dialog/add-client-dialog.co
 import {SpinnerService} from '../../../service/spinner.service';
 import {MatSpinner} from '@angular/material/progress-spinner';
 import {FormControl, FormGroup} from '@angular/forms';
+import {SnackBarUtil} from '../../../util/snack-bar-uitl';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {Message} from '../../../const/const';
 
 @Component({
   selector: 'app-client',
@@ -25,7 +28,7 @@ export class ClientComponent implements OnInit {
   searchText = '';
 
   constructor(private dialog: MatDialog, private clientService: ClientService,
-              private spinnerService: SpinnerService) {
+              private spinnerService: SpinnerService, private snackBar: MatSnackBar) {
   }
 
   ngOnInit(): void {
@@ -50,4 +53,16 @@ export class ClientComponent implements OnInit {
     });
   }
 
+  deleteClient(id: number): void {
+    console.log(id);
+    this.spinnerService.show(this.spinner);
+    this.clientService.delete(id).subscribe(() => {
+      SnackBarUtil.openSnackBar(this.snackBar, Message.SUCCESS);
+      this.spinnerService.hide(this.spinner);
+      this.getAllClients();
+    }, () => {
+      SnackBarUtil.openSnackBar(this.snackBar, Message.ERR);
+      this.spinnerService.hide(this.spinner);
+    });
+  }
 }

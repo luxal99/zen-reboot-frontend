@@ -28,6 +28,7 @@
       <div class="col-sm">
         <h2>Pol</h2>
       </div>
+      <div class="col-sm"></div>
     </div>
     <mat-spinner diameter="50" #spinner></mat-spinner>
     <div class="binding desktop">
@@ -46,6 +47,21 @@
         </div>
         <div class="col-sm">
           <h2>{{client.gender | capitalize}}</h2>
+        </div>
+        <div class="col-sm">
+          <button style="margin-top: 1em" mat-icon-button [matMenuTriggerFor]="menu">
+            <mat-icon>expand_more</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item><i class="fa fa-pencil" aria-hidden="true"></i>
+              Izmeni
+            </button>
+            <button mat-menu-item><i class="fa fa-trash" aria-hidden="true" (click)="deleteClient(client.id)"></i>
+              Obriši
+            </button>
+          </mat-menu>
+`
+
         </div>
       </div>
     </div>
