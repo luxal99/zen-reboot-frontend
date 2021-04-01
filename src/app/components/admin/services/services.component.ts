@@ -10,6 +10,7 @@ import {Validators} from '@angular/forms';
 import {DialogUtil} from '../../../util/dialog-util';
 import {FormBuilderComponent} from '../../form-components/form-builder/form-builder.component';
 import {MatSpinner} from '@angular/material/progress-spinner';
+import {AddServiceDialogComponent} from './add-service-dialog/add-service-dialog.component';
 
 @Component({
   selector: 'app-services',
@@ -56,6 +57,17 @@ export class ServicesComponent implements OnInit {
       position: {top: '6%'},
       width: '30%',
       data: configData
+    }, this.dialog).afterClosed().subscribe(() => {
+      this.getAllCategories();
+    });
+  }
+
+  openAddServiceDialog(): void {
+    DialogUtil.openDialog(AddServiceDialogComponent, {
+      maxWidth: '100vw',
+      maxHeight: '100vh',
+      height: '100%',
+      width: '100%'
     }, this.dialog).afterClosed().subscribe(() => {
       this.getAllCategories();
     });

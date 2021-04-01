@@ -5,7 +5,7 @@
     <div class="text-right">
       <button mat-button class="default-btn" [matMenuTriggerFor]="menu">Dodaj</button>
       <mat-menu #menu="matMenu">
-        <button mat-menu-item>Dodaj tretman</button>
+        <button mat-menu-item (click)="openAddServiceDialog()">Dodaj tretman</button>
         <button mat-menu-item (click)="openAddTreatmentCategoryDialog()">Dodaj kategoriju</button>
       </mat-menu>
     </div>

@@ -22,7 +22,9 @@ import {FormBuilderComponent} from './components/form-components/form-builder/fo
 import {DynamicFieldDirective} from './directives/dynamic-field.directive';
 import {ClientPipe} from './pipes/client.pipe';
 import {ClientOverviewDialogComponent} from './components/admin/client/client-overview-dialog/client-overview-dialog.component';
+import {AddServiceDialogComponent} from './components/admin/services/add-service-dialog/add-service-dialog.component';
 
+// @ts-ignore
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,6 +43,7 @@ import {ClientOverviewDialogComponent} from './components/admin/client/client-ov
     DynamicFieldDirective,
     ClientPipe,
     ClientOverviewDialogComponent,
+    AddServiceDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -51,7 +54,7 @@ import {ClientOverviewDialogComponent} from './components/admin/client/client-ov
     BrowserAnimationsModule
   ],
   providers: [],
-  entryComponents: [AddClientDialogComponent, ClientOverviewDialogComponent,
+  entryComponents: [AddServiceDialogComponent, AddClientDialogComponent, ClientOverviewDialogComponent,
     FormBuilderComponent, OverviewComponent, ServicesComponent],
   bootstrap: [AppComponent]
 })
