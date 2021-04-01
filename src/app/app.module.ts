@@ -43,7 +43,7 @@ import {AddServiceDialogComponent} from './components/admin/services/add-service
     DynamicFieldDirective,
     ClientPipe,
     ClientOverviewDialogComponent,
-    AddServiceDialogComponent,
+    AddServiceDialogComponent
   ],
   imports: [
     BrowserModule,

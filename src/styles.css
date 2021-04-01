@@ -6,7 +6,7 @@ a:hover {
   text-decoration: none;
 }
 
-h1, h2, h3, a, mat-checkbox, p {
+h1, h2, h3, h4, a, mat-checkbox, p {
   font-family: "Work Sans", sans-serif;
 }
 

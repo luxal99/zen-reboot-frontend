@@ -6,5 +6,5 @@ export interface TreatmentCategory {
   name?: string;
   lastModifiedBy?: string;
   lastModifiedDate?: any;
-  treatments: Treatment[];
+  treatments?: Treatment[];
 }

@@ -6,7 +6,7 @@ import {TreatmentCategoryService} from '../../../service/treatment-category.serv
 import {TreatmentCategory} from '../../../models/treatment-category';
 import {FormBuilderConfig} from '../../../models/FormBuilderConfig';
 import {FormControlNames, InputTypes} from '../../../const/const';
-import {Validators} from '@angular/forms';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {DialogUtil} from '../../../util/dialog-util';
 import {FormBuilderComponent} from '../../form-components/form-builder/form-builder.component';
 import {MatSpinner} from '@angular/material/progress-spinner';
@@ -21,6 +21,7 @@ export class ServicesComponent implements OnInit {
 
   @ViewChild('spinner') spinner!: MatSpinner;
   listOfTreatmentCategory: TreatmentCategory[] = [];
+
 
   constructor(private dialog: MatDialog, private spinnerService: SpinnerService,
               private treatmentService: TreatmentService, private treatmentCategoryService: TreatmentCategoryService) {
