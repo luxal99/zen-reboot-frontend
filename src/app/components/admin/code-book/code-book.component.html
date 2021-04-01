@@ -15,7 +15,7 @@
         <div class="col-sm">
         </div>
       </div>
-      <div  class="row text-center referral-source-row"
+      <div class="row text-center referral-source-row"
            *ngFor="let referralSource of listOfReferralSources">
         <div class="col-sm" (click)="openAddReferralSourceDialog(referralSource)">
           <h3>{{referralSource.value}}</h3>
@@ -25,14 +25,46 @@
             /{{referralSource.createdDate.getUTCFullYear()}}</h3>
         </div>
         <div class="col-sm">
-         <button mat-icon-button (click)="deleteReferralSource(referralSource)"><mat-icon>close</mat-icon></button>
+          <button mat-icon-button (click)="deleteReferralSource(referralSource)">
+            <mat-icon>close</mat-icon>
+          </button>
 
         </div>
         <div class="divider"></div>
       </div>
       <mat-spinner diameter="50" #spinner></mat-spinner>
     </mat-tab>
-    <mat-tab label="Second"> Content 2</mat-tab>
+    <mat-tab label="Gradovi i države">
+      <div class="row">
+        <div class="col-sm white-col">
+          <div class="row">
+            <div class="col-sm ">
+              <h1>Države</h1>
+            </div>
+            <div class="col-sm text-right">
+              <button mat-button class="border-btn" (click)="openAddCountryDialog()">Dodaj državu</button>
+            </div>
+          </div>
+          <div class="content">
+            <div *ngFor="let country of listOfCountries">
+              <div class="row">
+                <div class="col">
+                  <h3>{{country.name}}</h3>
+                </div>
+                <div class="col">
+                  <button mat-button (click)="deleteCountry(country.id)"><i class="fa fa-trash"></i></button>
+                  <button mat-button (click)="openAddCountryDialog({name:country.name,id:country.id})"><i
+                    class="fa fa-pencil"></i></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm white-col">
+          <h1>Gradovi</h1>
+        </div>
+      </div>
+    </mat-tab>
     <mat-tab label="Third"> Content 3</mat-tab>
   </mat-tab-group>
 

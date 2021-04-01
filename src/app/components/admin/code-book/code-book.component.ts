@@ -11,6 +11,10 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import {FormBuilderComponent} from '../../form-components/form-builder/form-builder.component';
 import {FormBuilderConfig} from '../../../models/FormBuilderConfig';
 import {Validators} from '@angular/forms';
+import {Country} from '../../../models/country';
+import {CountryService} from '../../../service/country.service';
+import {City} from '../../../models/city';
+import {CityService} from '../../../service/city.service';
 
 @Component({
   selector: 'app-code-book',
@@ -21,14 +25,31 @@ export class CodeBookComponent implements OnInit {
 
   @ViewChild('spinner') spinner!: MatSpinner;
   listOfReferralSources: ReferralSource[] = [];
+  listOfCountries: Country[] = [];
+  listOfCities: City[] = [];
 
   constructor(private dialog: MatDialog, private spinnerService: SpinnerService,
               private entry: ViewContainerRef, private resolver: ComponentFactoryResolver,
-              private referralSourceService: ReferralSourceService, private snackBar: MatSnackBar) {
+              private referralSourceService: ReferralSourceService, private cityService: CityService,
+              private snackBar: MatSnackBar, private countryService: CountryService) {
   }
 
   ngOnInit(): void {
     this.getAllReferralSource();
+    this.getAllCountries();
+    this.getAllCities();
+  }
+
+  getAllCities(): void {
+    this.cityService.getAll().subscribe((resp) => {
+      this.listOfCities = resp;
+    });
+  }
+
+  getAllCountries(): void {
+    this.countryService.getAll().subscribe((resp) => {
+      this.listOfCountries = resp;
+    });
   }
 
   getAllReferralSource(): void {
@@ -44,7 +65,7 @@ export class CodeBookComponent implements OnInit {
     });
   }
 
-  openAddReferralSourceDialog(referralSource: ReferralSource): void {
+  openAddReferralSourceDialog(referralSource?: ReferralSource): void {
     const configData: FormBuilderConfig = {
       formFields: [{
         name: FormControlNames.VALUE_FORM_CONTROL,
@@ -52,6 +73,7 @@ export class CodeBookComponent implements OnInit {
         validation: [Validators.required],
         label: 'Dodaj razlog otkazivanja'
       }],
+      formValues: referralSource,
       headerText: 'Dodaj razlog otkazivanja',
       service: this.referralSourceService
 
@@ -65,10 +87,41 @@ export class CodeBookComponent implements OnInit {
     });
   }
 
+  openAddCountryDialog(country?: Country): void {
+    const configData: FormBuilderConfig = {
+      formFields: [{
+        name: FormControlNames.NAME_FORM_CONTROL,
+        type: InputTypes.INPUT_TYPE_NAME,
+        validation: [Validators.required],
+        label: 'Naziv države'
+      }],
+      formValues: country,
+      headerText: 'Dodaj državu',
+      service: this.countryService
+    };
+
+    DialogUtil.openDialog(FormBuilderComponent, {
+      position: {top: '6%'},
+      width: '30%',
+      data: configData
+    }, this.dialog).afterClosed().subscribe(() => {
+      this.getAllCountries();
+    });
+  }
+
   deleteReferralSource(referralSource: ReferralSource): void {
     // @ts-ignore
     this.referralSourceService.delete(referralSource.id).subscribe(() => {
       this.getAllReferralSource();
+    }, () => {
+      SnackBarUtil.openSnackBar(this.snackBar, Message.ERR);
+    });
+  }
+
+  deleteCountry(id: number): void {
+    this.countryService.delete(id).subscribe(() => {
+      this.getAllCountries();
+      SnackBarUtil.openSnackBar(this.snackBar, Message.SUCCESS);
     }, () => {
       SnackBarUtil.openSnackBar(this.snackBar, Message.ERR);
     });
