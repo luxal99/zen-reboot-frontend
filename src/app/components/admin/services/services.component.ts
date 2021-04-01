@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import {SpinnerService} from '../../../service/spinner.service';
 import {TreatmentService} from '../../../service/treatment.service';
@@ -9,6 +9,7 @@ import {FormControlNames, InputTypes} from '../../../const/const';
 import {Validators} from '@angular/forms';
 import {DialogUtil} from '../../../util/dialog-util';
 import {FormBuilderComponent} from '../../form-components/form-builder/form-builder.component';
+import {MatSpinner} from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-services',
@@ -17,6 +18,7 @@ import {FormBuilderComponent} from '../../form-components/form-builder/form-buil
 })
 export class ServicesComponent implements OnInit {
 
+  @ViewChild('spinner') spinner!: MatSpinner;
   listOfTreatmentCategory: TreatmentCategory[] = [];
 
   constructor(private dialog: MatDialog, private spinnerService: SpinnerService,
@@ -30,13 +32,16 @@ export class ServicesComponent implements OnInit {
   getAllCategories(): void {
     this.treatmentCategoryService.getAll().subscribe((resp) => {
       this.listOfTreatmentCategory = resp;
+      this.spinnerService.hide(this.spinner);
     });
   }
 
-  openAddTreatmentCategoryDialog(): void {
+
+  openAddTreatmentCategoryDialog(formValues?: any): void {
     const configData: FormBuilderConfig = {
       service: this.treatmentCategoryService,
       headerText: 'Dodaj kategoriju tretmana',
+      formValues,
       formFields: [
         {
           label: 'Naziv kategorije',
@@ -55,4 +60,5 @@ export class ServicesComponent implements OnInit {
       this.getAllCategories();
     });
   }
+
 }

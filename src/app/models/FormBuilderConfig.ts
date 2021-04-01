@@ -6,4 +6,5 @@ export interface FormBuilderConfig {
   formFields: FieldConfig[];
   formValues?: any;
   headerText?: any;
+  data?: any;
 }

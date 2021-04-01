@@ -1,21 +1,39 @@
 <app-header header="Tretmani"></app-header>
 <div class="service-content" style="height: auto;">
   <div class="container">
+    <mat-spinner #spinner diameter="50"></mat-spinner>
     <div class="text-right">
-      <button mat-button class="default-btn" [matMenuTriggerFor]="menu">Menu</button>
+      <button mat-button class="default-btn" [matMenuTriggerFor]="menu">Dodaj</button>
       <mat-menu #menu="matMenu">
         <button mat-menu-item>Dodaj tretman</button>
         <button mat-menu-item (click)="openAddTreatmentCategoryDialog()">Dodaj kategoriju</button>
       </mat-menu>
     </div>
     <div class="treatment-category-div" *ngFor="let treatmentCategory of listOfTreatmentCategory">
-      <h1>
-        {{treatmentCategory.name | capitalize}}
-      </h1>
-      <div class="treatment-card" *ngFor="let treatment of treatmentCategory.treatments">
-        <h3 >
-          {{treatment.name}}
-        </h3>
+      <div class="row">
+        <div class="col">
+          <h1>
+            {{treatmentCategory.name | capitalize}}
+          </h1>
+        </div>
+        <div class="col text-right" style="padding-top: 1em">
+          <button (click)="openAddTreatmentCategoryDialog({name:treatmentCategory.name,id:treatmentCategory.id})"
+                  mat-button><i class="fa fa-pencil"
+                                aria-hidden="true"></i>
+            Izmeni
+          </button>
+        </div>
+      </div>
+      <div class="treatment-card row" *ngFor="let treatment of treatmentCategory.treatments">
+        <div class="col-4">
+          <h3>{{treatment.name}}</h3>
+        </div>
+        <div class="col-4" *ngIf="treatment.durations.length >0">
+          <h3 class="duration-h3">{{treatment.durations[0].duration + '' + 'min'}}</h3>
+        </div>
+        <div class="col-4" *ngIf="treatment.durations.length >0">
+          <h3 class="price">{{'RSD ' + treatment.durations[0].price}}</h3>
+        </div>
       </div>
     </div>
   </div>

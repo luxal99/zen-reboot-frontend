@@ -50,7 +50,8 @@ export class Message {
 }
 
 export class RestRoutesConst {
-  static API = 'http://api.reboot.zen.7aske.xyz/';
+  // static API = 'http://api.reboot.zen.7aske.xyz/';
+  static API = 'http://localhost:8080/zen/';
   static REFERRAL_SOURCES = 'referral-sources';
   static CLIENT = 'clients';
   static TREATMENT_CATEGORY = 'treatment-categories';
