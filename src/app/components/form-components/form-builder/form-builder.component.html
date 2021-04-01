@@ -6,7 +6,8 @@
   </div>
   <h1>{{configData.headerText}}</h1>
   <form class="dynamic-form" [formGroup]="form">
-    <ng-container *ngFor="let field of configData.formFields;" dynamicField [config]="field" [group]="form">
+    <ng-container *ngFor="let field of configData.formFields;"  dynamicField [config]="field"
+                  [group]="form">
     </ng-container>
     <button (click)="save()" mat-button class="default-btn">Dodaj</button>
   </form>

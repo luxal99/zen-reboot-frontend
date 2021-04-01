@@ -109,6 +109,34 @@ export class CodeBookComponent implements OnInit {
     });
   }
 
+  openAddCityDialog(city?: City): void {
+    const configData: FormBuilderConfig = {
+      formFields: [{
+        name: FormControlNames.NAME_FORM_CONTROL,
+        type: InputTypes.INPUT_TYPE_NAME,
+        validation: [Validators.required],
+        label: 'Naziv grada'
+      }, {
+        name: FormControlNames.COUNTRY_FORM_CONTROL,
+        type: InputTypes.SELECT_TYPE_NAME,
+        validation: [Validators.required],
+        options: this.listOfCountries,
+        label: 'Izaberi državu'
+      }],
+      formValues: city,
+      headerText: 'Dodaj grad',
+      service: this.cityService
+    };
+
+    DialogUtil.openDialog(FormBuilderComponent, {
+      position: {top: '6%'},
+      width: '30%',
+      data: configData
+    }, this.dialog).afterClosed().subscribe(() => {
+      this.getAllCities();
+    });
+  }
+
   deleteReferralSource(referralSource: ReferralSource): void {
     // @ts-ignore
     this.referralSourceService.delete(referralSource.id).subscribe(() => {
@@ -120,6 +148,15 @@ export class CodeBookComponent implements OnInit {
 
   deleteCountry(id: number): void {
     this.countryService.delete(id).subscribe(() => {
+      this.getAllCountries();
+      SnackBarUtil.openSnackBar(this.snackBar, Message.SUCCESS);
+    }, () => {
+      SnackBarUtil.openSnackBar(this.snackBar, Message.ERR);
+    });
+  }
+
+  deleteCity(id: number): void {
+    this.cityService.delete(id).subscribe(() => {
       this.getAllCountries();
       SnackBarUtil.openSnackBar(this.snackBar, Message.SUCCESS);
     }, () => {

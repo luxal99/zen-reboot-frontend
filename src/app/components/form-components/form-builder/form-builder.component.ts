@@ -1,4 +1,15 @@
-import {Component, EventEmitter, Inject, Input, OnChanges, OnInit, Output, ViewChild} from '@angular/core';
+import {
+  AfterViewChecked,
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Inject,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  ViewChild
+} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {GenericService} from '../../../service/generic.service';
 import {FieldConfig} from '../../../models/FIeldConfig';
@@ -16,7 +27,7 @@ import {MatSpinner} from '@angular/material/progress-spinner';
   templateUrl: './form-builder.component.html',
   styleUrls: ['./form-builder.component.sass']
 })
-export class FormBuilderComponent implements OnChanges, OnInit {
+export class FormBuilderComponent implements OnChanges, OnInit, AfterViewChecked {
 
   @ViewChild('spinner') spinner!: MatSpinner;
   form!: FormGroup;
@@ -38,16 +49,24 @@ export class FormBuilderComponent implements OnChanges, OnInit {
   }
 
   constructor(@Inject(MAT_DIALOG_DATA) public configData: FormBuilderConfig, private fb: FormBuilder,
+              private readonly changeDetectorRef: ChangeDetectorRef,
               private snackBar: MatSnackBar, private authGuard: AuthGuard, private spinnerService: SpinnerService) {
+  }
+
+  ngAfterViewChecked(): void {
+    this.changeDetectorRef.detectChanges();
   }
 
   ngOnInit(): void {
     this.form = this.createGroup();
-    this.setValue();
+    setTimeout(() => {
+      this.setValue();
+    }, 100);
   }
 
   save(): any {
     this.spinnerService.show(this.spinner);
+    console.log(this.form.getRawValue());
     if (!this.configData.formValues) {
       this.configData.service.save(this.form.getRawValue()).subscribe(() => {
         SnackBarUtil.openSnackBar(this.snackBar, Message.SUCCESS);

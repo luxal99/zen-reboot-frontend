@@ -61,7 +61,31 @@
           </div>
         </div>
         <div class="col-sm white-col">
-          <h1>Gradovi</h1>
+          <div class="row">
+            <div class="col-sm ">
+              <h1>Države</h1>
+            </div>
+            <div class="col-sm text-right">
+              <button mat-button class="border-btn" (click)="openAddCityDialog()">Dodaj grad</button>
+            </div>
+          </div>
+          <div class="content">
+            <div *ngFor="let city of listOfCities">
+              <div class="row">
+                <div class="col">
+                  <h3>{{city.name}}</h3>
+                </div>
+                <div class="col">
+                  <h3 *ngIf="city.country">{{city.country.name}}</h3>
+                </div>
+                <div class="col">
+                  <button mat-button (click)="deleteCity(city.id)"><i class="fa fa-trash"></i></button>
+                  <button mat-button (click)="openAddCityDialog({name:city.name,id:city.id,country:city.country})"><i
+                    class="fa fa-pencil"></i></button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </mat-tab>

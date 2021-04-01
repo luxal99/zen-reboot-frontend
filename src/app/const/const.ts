@@ -5,6 +5,7 @@ export class RestServices {
 export class FormControlNames {
   static USERNAME_NAME_FORM_CONTROL = 'username';
   static PASSWORD_NAME_FORM_CONTROL = 'password';
+  static COUNTRY_FORM_CONTROL = 'country';
   static VALUE_FORM_CONTROL = 'value';
   static NAME_FORM_CONTROL = 'name';
   static FIRST_NAME_FORM_CONTROL = 'firstName';
