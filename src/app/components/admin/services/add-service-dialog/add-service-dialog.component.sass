@@ -1,0 +1,27 @@
+@import "src/styles"
+
+h1
+  font-weight: bold
+  font-size: 28px
+
+.column
+  background-color: #fff
+  margin: 4em 0
+  box-shadow: 0 4px 8px 0 rgb(16 25 40 / 10%)
+
+  .column-header
+    padding: 2em 2em .5em 2em
+    border-bottom: 1px solid $lighter-silver
+
+    p
+      line-height: 3px
+
+  .column-content
+    padding: 2em 20em 2em 2em
+
+::ng-deep.mat-dialog-container
+  background-color: $component-background !important
+
+.border-btn
+  margin-top: .25em
+  width: 100%

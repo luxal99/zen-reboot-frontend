@@ -1,1 +1,45 @@
-<p>add-service-dialog works!</p>
+<div class="content">
+  <button mat-icon-button mat-dialog-close>
+    <mat-icon>close</mat-icon>
+  </button>
+
+  <h1 class="text-center">Dodavanje tretmana</h1>
+  <div class="container">
+    <div class="column">
+      <div class="column-header">
+        <h1>Osnovne informacije</h1>
+        <p>Lorem ipsum dolor nunc dolor lorem ipsum</p>
+      </div>
+      <div class="column-content">
+        <app-form-input [group]="treatmentForm" [config]="nameInputConfig" label="Naziv tretmana"></app-form-input>
+        <app-form-select bindValue="name" [group]="treatmentForm" [config]="categorySelectConfig"
+                         label="Kategorija"></app-form-select>
+        <app-form-input [group]="treatmentForm" [config]="descriptionInputConfig" label="Opis"></app-form-input>
+      </div>
+    </div>
+    <div class="column">
+      <div class="column-header">
+        <h1>Informacije o ceni</h1>
+        <p>Lorem ipsum dolor nunc dolor lorem ipsum</p>
+      </div>
+      <div class="column-content">
+        <div class="row">
+          <div class="col-5">
+            <app-form-input label="Trajanje" icon="more_time" [group]="durationForm"
+                            [config]="durationInputConfig"></app-form-input>
+          </div>
+          <div class="col-5">
+            <app-form-input label="Cena" icon="attach_money" [group]="durationForm"
+                            [config]="priceInputConfig"></app-form-input>
+          </div>
+          <div class="col-2 text-right">
+            <button class="border-btn" mat-button>Dodaj</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="text-right">
+      <button class="default-btn" mat-button>Sačuvaj</button>
+    </div>
+  </div>
+</div>

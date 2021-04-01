@@ -9,6 +9,10 @@ export class FormControlNames {
   static NAME_FORM_CONTROL = 'name';
   static FIRST_NAME_FORM_CONTROL = 'firstName';
   static LAST_NAME_FORM_CONTROL = 'lastName';
+  static CATEGORY_FORM_CONTROL = 'category';
+  static DESCRIPTION_FORM_CONTROL = 'description';
+  static DURATION_FORM_CONTROL = 'duration';
+  static PRICE_FORM_CONTROL = 'price';
   static NOTES_FORM_CONTROL = 'notes';
   static TELEPHONE_FORM_CONTROL = 'telephone';
   static EMAIL_FORM_CONTROL = 'email';

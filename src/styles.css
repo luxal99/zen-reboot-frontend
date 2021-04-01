@@ -6,7 +6,7 @@ a:hover {
   text-decoration: none;
 }
 
-h1, h2, h3, a, mat-checkbox {
+h1, h2, h3, a, mat-checkbox, p {
   font-family: "Work Sans", sans-serif;
 }
 
@@ -58,6 +58,14 @@ button {
 
 .mat-form-field-appearance-outline .mat-form-field-outline {
   background-color: #fff;
+}
+
+.border-btn {
+  padding: 0.4em 0;
+  width: 30%;
+  background-color: transparent;
+  border: 1px solid #deb767;
+  color: #deb767;
 }
 
 @media screen and (max-width: 570px) {
