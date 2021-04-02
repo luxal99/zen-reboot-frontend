@@ -26,7 +26,7 @@
         </div>
       </div>
       <div class="treatment-card row" *ngFor="let treatment of treatmentCategory.treatments">
-        <div class="col-3" (click)="openAddServiceDialog(treatment)">
+        <div class="col-4" (click)="openAddServiceDialog(treatment)">
           <h3>{{treatment.name}}</h3>
         </div>
         <div class="col-3" (click)="openAddServiceDialog(treatment)">
@@ -35,7 +35,7 @@
         <div class="col-3" (click)="openAddServiceDialog(treatment)">
           <h3 class="price" *ngFor="let duration of treatment.durations">{{'RSD ' + duration.price}}</h3>
         </div>
-        <div class="col-3">
+        <div class="col-2">
           <button mat-button color="warn" (click)="deleteTreatment(treatment.id)"><i class="fa fa-trash"></i></button>
         </div>
       </div>
