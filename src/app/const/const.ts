@@ -15,7 +15,6 @@ export class FormControlNames {
   static DURATION_FORM_CONTROL = 'duration';
   static PRICE_FORM_CONTROL = 'price';
   static NOTES_FORM_CONTROL = 'notes';
-  static TELEPHONE_FORM_CONTROL = 'telephone';
   static EMAIL_FORM_CONTROL = 'email';
   static LANGUAGE_FORM_CONTROL = 'language';
   static REFERRAL_SOURCE_FORM_CONTROL = 'referralSource';
@@ -55,8 +54,8 @@ export class Message {
 }
 
 export class RestRoutesConst {
-  // static API = 'http://api.reboot.zen.7aske.xyz/';
-  static API = 'http://localhost:8080/zen/';
+  static API = 'http://api.reboot.zen.7aske.xyz/';
+  // static API = 'http://localhost:8080/zen/';
   static REFERRAL_SOURCES = 'referral-sources';
   static CLIENT = 'clients';
   static TREATMENT_CATEGORY = 'treatment-categories';
