@@ -25,15 +25,18 @@
           </button>
         </div>
       </div>
-      <div class="treatment-card row" (click)="openAddServiceDialog(treatment)" *ngFor="let treatment of treatmentCategory.treatments">
-        <div class="col-4">
+      <div class="treatment-card row" *ngFor="let treatment of treatmentCategory.treatments">
+        <div class="col-3" (click)="openAddServiceDialog(treatment)">
           <h3>{{treatment.name}}</h3>
         </div>
-        <div class="col-4" >
+        <div class="col-3" (click)="openAddServiceDialog(treatment)">
           <h3 class="duration-h3" *ngFor="let duration of treatment.durations">{{duration.duration + '' + 'min'}}</h3>
         </div>
-        <div class="col-4" >
+        <div class="col-3" (click)="openAddServiceDialog(treatment)">
           <h3 class="price" *ngFor="let duration of treatment.durations">{{'RSD ' + duration.price}}</h3>
+        </div>
+        <div class="col-3">
+          <button mat-button color="warn" (click)="deleteTreatment(treatment.id)"><i class="fa fa-trash"></i></button>
         </div>
       </div>
     </div>

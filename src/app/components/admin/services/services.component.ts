@@ -5,13 +5,15 @@ import {TreatmentService} from '../../../service/treatment.service';
 import {TreatmentCategoryService} from '../../../service/treatment-category.service';
 import {TreatmentCategory} from '../../../models/treatment-category';
 import {FormBuilderConfig} from '../../../models/FormBuilderConfig';
-import {FormControlNames, InputTypes} from '../../../const/const';
+import {FormControlNames, InputTypes, Message} from '../../../const/const';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {DialogUtil} from '../../../util/dialog-util';
 import {FormBuilderComponent} from '../../form-components/form-builder/form-builder.component';
 import {MatSpinner} from '@angular/material/progress-spinner';
 import {AddServiceDialogComponent} from './add-service-dialog/add-service-dialog.component';
 import {Treatment} from '../../../models/treatment';
+import {SnackBarUtil} from '../../../util/snack-bar-uitl';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-services',
@@ -25,6 +27,7 @@ export class ServicesComponent implements OnInit {
 
 
   constructor(private dialog: MatDialog, private spinnerService: SpinnerService,
+              private snackBar: MatSnackBar,
               private treatmentService: TreatmentService, private treatmentCategoryService: TreatmentCategoryService) {
   }
 
@@ -76,4 +79,11 @@ export class ServicesComponent implements OnInit {
     });
   }
 
+  deleteTreatment(id: number): void {
+    this.treatmentService.delete(id).subscribe(() => {
+      this.getAllCategories();
+    }, () => {
+      SnackBarUtil.openSnackBar(this.snackBar, Message.ERR);
+    });
+  }
 }
