@@ -11,6 +11,7 @@ import {DialogUtil} from '../../../util/dialog-util';
 import {FormBuilderComponent} from '../../form-components/form-builder/form-builder.component';
 import {MatSpinner} from '@angular/material/progress-spinner';
 import {AddServiceDialogComponent} from './add-service-dialog/add-service-dialog.component';
+import {Treatment} from '../../../models/treatment';
 
 @Component({
   selector: 'app-services',
@@ -63,12 +64,13 @@ export class ServicesComponent implements OnInit {
     });
   }
 
-  openAddServiceDialog(): void {
+  openAddServiceDialog(treatment?: Treatment): void {
     DialogUtil.openDialog(AddServiceDialogComponent, {
       maxWidth: '100vw',
       maxHeight: '100vh',
       height: '100%',
-      width: '100%'
+      width: '100%',
+      data: treatment
     }, this.dialog).afterClosed().subscribe(() => {
       this.getAllCategories();
     });

@@ -22,15 +22,25 @@ h1
 .duration-row
   margin-top: .5em
   border-bottom: 1px solid $lighter-silver
+  -webkit-transition: .3s linear
+  cursor: pointer
 
   h4
     line-height: 3px
+
+
+.duration-row:hover
+  background-color: $component-background
+  transition: .5s
 
 ::ng-deep.mat-dialog-container
   background-color: $component-background !important
 
 .border-btn
-  margin-top: .25em
+  width: 100%
+  margin: .25em .5em 0 .5em
+
+.inline
   width: 100%
 
 mat-spinner

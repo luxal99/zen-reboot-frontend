@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewChecked, ChangeDetectorRef, Component, Inject, OnInit, ViewChild} from '@angular/core';
 import {TreatmentService} from '../../../../service/treatment.service';
 import {TreatmentCategory} from '../../../../models/treatment-category';
 import {TreatmentCategoryService} from '../../../../service/treatment-category.service';
@@ -12,17 +12,20 @@ import {Spinner} from '@angular/cli/utilities/spinner';
 import {MatSpinner} from '@angular/material/progress-spinner';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {SpinnerService} from '../../../../service/spinner.service';
+import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-add-service-dialog',
   templateUrl: './add-service-dialog.component.html',
   styleUrls: ['./add-service-dialog.component.sass']
 })
-export class AddServiceDialogComponent implements OnInit {
+export class AddServiceDialogComponent implements OnInit, AfterViewChecked {
 
   @ViewChild('spinner') spinner!: MatSpinner;
   listOfCategories: TreatmentCategory[] = [];
   listOfDurations: TreatmentDuration[] = [];
+
+  durationBeforeEdit!: TreatmentDuration;
 
   treatmentForm = new FormGroup({
     name: new FormControl('', Validators.required),
@@ -42,12 +45,19 @@ export class AddServiceDialogComponent implements OnInit {
   durationInputConfig: FieldConfig = {type: InputTypes.INPUT_TYPE_NAME, name: FormControlNames.DURATION_FORM_CONTROL};
   priceInputConfig: FieldConfig = {type: InputTypes.INPUT_TYPE_NAME, name: FormControlNames.PRICE_FORM_CONTROL};
 
-  constructor(private treatmentCategoryService: TreatmentCategoryService, private spinnerService: SpinnerService,
+  constructor(@Inject(MAT_DIALOG_DATA) public data: Treatment, private treatmentCategoryService: TreatmentCategoryService,
+              private spinnerService: SpinnerService, private readonly changeDetectorRef: ChangeDetectorRef,
               private treatmentService: TreatmentService, private snackBar: MatSnackBar) {
   }
 
   ngOnInit(): void {
-    this.getAllCategories();
+    this.getAllCategories().then(() => {
+      this.setDataToForm();
+    });
+  }
+
+  ngAfterViewChecked(): void {
+    this.changeDetectorRef.detectChanges();
   }
 
   addDuration(): void {
@@ -57,16 +67,24 @@ export class AddServiceDialogComponent implements OnInit {
       // tslint:disable-next-line:radix
       duration: Number.parseInt(this.durationForm.get(FormControlNames.DURATION_FORM_CONTROL)?.value),
     });
+
+    this.durationForm.reset();
   }
 
   removeDuration(duration: TreatmentDuration): void {
     this.listOfDurations.splice(this.listOfDurations.indexOf(duration), 1);
   }
 
-  getAllCategories(): void {
+  async getAllCategories(): Promise<void> {
     this.treatmentCategoryService.getAll().subscribe((resp) => {
       this.listOfCategories = resp;
-      this.categorySelectConfig.options = resp;
+      this.categorySelectConfig.options = resp.map((category) => ({
+        id: category.id,
+        name: category.name
+      }));
+      // @ts-ignore
+      this.data.category = this.listOfCategories.find((category) => category.id = this.data.category);
+      delete this.data.category?.treatments;
     });
   }
 
@@ -74,16 +92,60 @@ export class AddServiceDialogComponent implements OnInit {
     this.spinnerService.show(this.spinner);
     const treatment: Treatment = this.treatmentForm.getRawValue();
     treatment.durations = this.listOfDurations;
-    treatment.category = {id: this.treatmentForm.get(FormControlNames.CATEGORY_FORM_CONTROL)?.value.id};
+    if (this.data) {
+      treatment.id = this.data.id;
+      this.treatmentService.update(treatment).subscribe(() => {
+        SnackBarUtil.openSnackBar(this.snackBar, Message.SUCCESS);
+        this.spinnerService.hide(this.spinner);
+      }, () => {
+        SnackBarUtil.openSnackBar(this.snackBar, Message.ERR);
+        this.spinnerService.hide(this.spinner);
+      });
+    } else {
+      this.treatmentService.save(treatment).subscribe(() => {
+        SnackBarUtil.openSnackBar(this.snackBar, Message.SUCCESS);
+        this.spinnerService.hide(this.spinner);
+      }, () => {
+        SnackBarUtil.openSnackBar(this.snackBar, Message.ERR);
+        this.spinnerService.hide(this.spinner);
+      });
+    }
+  }
 
-    console.log(treatment);
-    this.treatmentService.save(treatment).subscribe(() => {
-      SnackBarUtil.openSnackBar(this.snackBar, Message.SUCCESS);
-      this.spinnerService.hide(this.spinner);
-    }, (err) => {
-      console.log(err);
-      SnackBarUtil.openSnackBar(this.snackBar, Message.ERR);
-      this.spinnerService.hide(this.spinner);
+  editDuration(): void {
+    const index: number = this.listOfDurations.findIndex((item) =>
+      item.duration === this.durationBeforeEdit.duration && item.price === this.durationBeforeEdit.price);
+    // tslint:disable-next-line:radix
+    this.listOfDurations[index].duration = Number.parseInt(this.durationForm.get(FormControlNames.DURATION_FORM_CONTROL)?.value);
+    // tslint:disable-next-line:radix
+    this.listOfDurations[index].price = Number.parseInt(this.durationForm.get(FormControlNames.PRICE_FORM_CONTROL)?.value);
+  }
+
+  selectDuration(duration: TreatmentDuration): void {
+    this.durationForm.setValue({
+      duration: duration.duration,
+      price: duration.price
     });
+
+    this.durationBeforeEdit = duration;
+  }
+
+  setDataToForm(): void {
+    if (this.data) {
+      delete this.data.category?.treatments;
+      // @ts-ignore
+      this.listOfDurations = this.data.durations?.map((duration) => ({
+        id: duration.id,
+        duration: duration.duration,
+        price: duration.price
+      }));
+      this.treatmentForm.setValue({
+        name: this.data.name,
+        category: this.data.category,
+        description: this.data.description
+      });
+    } else {
+      this.data = {};
+    }
   }
 }

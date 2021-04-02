@@ -25,14 +25,14 @@
           </button>
         </div>
       </div>
-      <div class="treatment-card row" *ngFor="let treatment of treatmentCategory.treatments">
+      <div class="treatment-card row" (click)="openAddServiceDialog(treatment)" *ngFor="let treatment of treatmentCategory.treatments">
         <div class="col-4">
           <h3>{{treatment.name}}</h3>
         </div>
-        <div class="col-4" *ngIf="treatment.durations.length >0">
+        <div class="col-4" >
           <h3 class="duration-h3" *ngFor="let duration of treatment.durations">{{duration.duration + '' + 'min'}}</h3>
         </div>
-        <div class="col-4" *ngIf="treatment.durations.length >0">
+        <div class="col-4" >
           <h3 class="price" *ngFor="let duration of treatment.durations">{{'RSD ' + duration.price}}</h3>
         </div>
       </div>

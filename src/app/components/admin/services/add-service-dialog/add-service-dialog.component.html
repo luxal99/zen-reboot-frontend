@@ -13,7 +13,8 @@
       </div>
       <div class="column-content">
         <app-form-input [group]="treatmentForm" [config]="nameInputConfig" label="Naziv tretmana"></app-form-input>
-        <app-form-select bindValue="name" [group]="treatmentForm" [config]="categorySelectConfig"
+        <app-form-select bindValue="name" [model]="this.data.category" [group]="treatmentForm"
+                         [config]="categorySelectConfig"
                          label="Kategorija"></app-form-select>
         <app-form-input [group]="treatmentForm" [config]="descriptionInputConfig" label="Opis"></app-form-input>
       </div>
@@ -34,10 +35,13 @@
                             [config]="priceInputConfig"></app-form-input>
           </div>
           <div class="col-2 text-right">
-            <button class="border-btn" (click)="addDuration()" mat-button>Dodaj</button>
+            <div class="inline">
+              <button class="border-btn" (click)="addDuration()" mat-button>Dodaj</button>
+              <button class="border-btn" (click)="editDuration()" mat-button>Izmeni</button>
+            </div>
           </div>
         </div>
-        <div class="row duration-row" *ngFor="let duration of listOfDurations">
+        <div class="row duration-row" (click)="selectDuration(duration)" *ngFor="let duration of listOfDurations">
           <div class="col">
             <h5><b>Trajanje</b></h5>
             <h4>{{duration.duration}} <b>min</b></h4>

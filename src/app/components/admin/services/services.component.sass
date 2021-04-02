@@ -5,15 +5,25 @@
 
 .service-content
   background-color: $component-background
+
 .default-btn
   width: 10%
+
 .price
   font-weight: bold
+
 .treatment-card
   border-left: .5em solid $default-gold
   padding: 1em
   border-bottom: 1px solid $lighter-silver
   background-color: #fff
+  -webkit-transition: .3s linear
+  cursor: pointer
+
+.treatment-card:hover
+  background-color: $component-background
+  transition: .5s
+
 .treatment-category-div
   h1
     margin-top: 1em
@@ -22,5 +32,6 @@
 
 mat-spinner
   margin-left: 45%
+
 .duration-h3
   color: $light-silver
