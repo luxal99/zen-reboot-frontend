@@ -24,6 +24,7 @@ import {ClientPipe} from './pipes/client.pipe';
 import {ClientOverviewDialogComponent} from './components/admin/client/client-overview-dialog/client-overview-dialog.component';
 import {AddServiceDialogComponent} from './components/admin/services/add-service-dialog/add-service-dialog.component';
 import {StaffComponent} from './components/admin/staff/staff.component';
+import {HashLocationStrategy, LocationStrategy} from '@angular/common';
 
 // @ts-ignore
 @NgModule({
@@ -55,7 +56,7 @@ import {StaffComponent} from './components/admin/staff/staff.component';
     ReactiveFormsModule,
     BrowserAnimationsModule
   ],
-  providers: [],
+  providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
   entryComponents: [AddServiceDialogComponent, AddClientDialogComponent, ClientOverviewDialogComponent,
     FormBuilderComponent, OverviewComponent, StaffComponent, ServicesComponent],
   bootstrap: [AppComponent]
