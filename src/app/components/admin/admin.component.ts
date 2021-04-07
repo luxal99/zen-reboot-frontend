@@ -13,6 +13,7 @@ import {OverviewComponent} from './overview/overview.component';
 import {ClientComponent} from './client/client.component';
 import {CodeBookComponent} from './code-book/code-book.component';
 import {ServicesComponent} from './services/services.component';
+import {StaffComponent} from './staff/staff.component';
 
 @Component({
   selector: 'app-admin',
@@ -76,6 +77,10 @@ export class AdminComponent implements OnInit, AfterViewInit {
 
   loadClientComponent(): void {
     LazyLoadComponentsUtil.loadComponent(ClientComponent, this.entry, this.resolver);
+  }
+
+  loadStaffComponent(): void {
+    LazyLoadComponentsUtil.loadComponent(StaffComponent, this.entry, this.resolver);
   }
 
   loadServiceComponent(): void {

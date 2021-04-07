@@ -25,6 +25,7 @@ import {ClientOverviewDialogComponent} from './components/admin/client/client-ov
 import {AddServiceDialogComponent} from './components/admin/services/add-service-dialog/add-service-dialog.component';
 import {StaffComponent} from './components/admin/staff/staff.component';
 import {HashLocationStrategy, LocationStrategy} from '@angular/common';
+import { AddStaffDialogComponent } from './components/admin/staff/add-staff-dialog/add-staff-dialog.component';
 
 // @ts-ignore
 @NgModule({
@@ -46,7 +47,8 @@ import {HashLocationStrategy, LocationStrategy} from '@angular/common';
     ClientPipe,
     ClientOverviewDialogComponent,
     AddServiceDialogComponent,
-    StaffComponent
+    StaffComponent,
+    AddStaffDialogComponent
   ],
   imports: [
     BrowserModule,
