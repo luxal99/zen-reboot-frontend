@@ -185,14 +185,14 @@ export class AddClientDialogComponent implements OnInit, AfterViewChecked {
         email: this.data.person?.contacts.find((telephone) => telephone.type === ContactTypeEnum.EMAIL.toString())?.value || '',
         mobilePhone: this.data.person?.contacts.find((telephone) => telephone.type === ContactTypeEnum.PHONE.toString())?.value || '',
         otherPhone: this.data.person?.contacts.find((telephone) => telephone.type === ContactTypeEnum.OTHER.toString())?.value || '',
-        otherPhonePrefix: this.data.person?.contacts.find((telephone) => telephone.type === ContactTypeEnum.OTHER.toString())?.prefix,
-        mobilePhonePrefix: this.data.person?.contacts.find((telephone) => telephone.type === ContactTypeEnum.PHONE.toString())?.prefix,
+        otherPhonePrefix: this.data.person?.contacts.find((telephone) => telephone.type === ContactTypeEnum.OTHER.toString())?.prefix || '',
+        mobilePhonePrefix: this.data.person?.contacts.find((telephone) => telephone.type === ContactTypeEnum.PHONE.toString())?.prefix || '',
       });
 
       this.addressForm.setValue({
-        street: this.data.address?.street,
-        number: this.data.address?.number,
-        city: this.data.address?.city
+        street: this.data.address?.street || '',
+        number: this.data.address?.number || '',
+        city: this.data.address?.city || ''
       });
 
       this.clientForm.setValue({

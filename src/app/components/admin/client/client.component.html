@@ -32,20 +32,20 @@
     </div>
     <mat-spinner diameter="50" #spinner></mat-spinner>
     <div class="binding desktop">
-      <div class="row client-row" (click)="openClientOverviewDialog(client)" style="padding-top: 1em" *ngFor="let client of listOfClients|client:searchText">
-        <div class="col-sm">
+      <div class="row client-row" style="padding-top: 1em" *ngFor="let client of listOfClients|client:searchText">
+        <div class="col-sm" (click)="openClientOverviewDialog(client)">
           <div class="inline">
             <h1 class="first-letter-h1">{{client.person.firstName.substr(0, 1)}}</h1>
             <h2>{{client.person?.firstName}}</h2>
           </div>
         </div>
-        <div class="col-sm">
+        <div class="col-sm" (click)="openClientOverviewDialog(client)">
           <h2>{{client.person?.lastName}}</h2>
         </div>
-        <div class="col-sm">
+        <div class="col-sm" (click)="openClientOverviewDialog(client)">
           <h2 *ngIf="client.person.contacts[0].value !== 'null'">{{ client.person.contacts[0].value}}</h2>
         </div>
-        <div class="col-sm">
+        <div class="col-sm" (click)="openClientOverviewDialog(client)">
           <h2>{{client.gender | capitalize}}</h2>
         </div>
         <div class="col-sm">
