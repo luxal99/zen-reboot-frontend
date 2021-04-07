@@ -62,6 +62,7 @@ export class RestRoutesConst {
   static COUNTRY = 'countries';
   static CITY = 'cities';
   static TREATMENT = 'treatments';
+  static STAFF = 'staffs';
 }
 
 export class TokenConst {

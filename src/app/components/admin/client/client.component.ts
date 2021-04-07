@@ -11,13 +11,14 @@ import {SnackBarUtil} from '../../../util/snack-bar-uitl';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {Message} from '../../../const/const';
 import {ClientOverviewDialogComponent} from './client-overview-dialog/client-overview-dialog.component';
+import {DefaultComponent} from '../../../util/default-component';
 
 @Component({
   selector: 'app-client',
   templateUrl: './client.component.html',
   styleUrls: ['./client.component.sass']
 })
-export class ClientComponent implements OnInit {
+export class ClientComponent extends DefaultComponent implements OnInit {
 
   @ViewChild('spinner') spinner!: MatSpinner;
   listOfClients: Client[] = [];
@@ -28,19 +29,12 @@ export class ClientComponent implements OnInit {
 
   searchText = '';
 
-  constructor(private dialog: MatDialog, private clientService: ClientService,
-              private spinnerService: SpinnerService, private snackBar: MatSnackBar) {
+  constructor(private dialog: MatDialog, private clientService: ClientService) {
+    super(clientService);
   }
 
   ngOnInit(): void {
-    this.getAllClients();
-  }
-
-  getAllClients(): void {
-    this.clientService.getAll().subscribe((resp) => {
-      this.listOfClients = resp;
-      this.spinnerService.hide(this.spinner);
-    });
+    this.getItems();
   }
 
   openAddClientDialog(): void {
@@ -50,7 +44,7 @@ export class ClientComponent implements OnInit {
       height: '100%',
       width: '100%'
     }, this.dialog).afterClosed().subscribe(() => {
-      this.getAllClients();
+      this.getItems();
     });
   }
 
@@ -62,7 +56,7 @@ export class ClientComponent implements OnInit {
       width: '100%',
       data
     }, this.dialog).afterClosed().subscribe(() => {
-      this.getAllClients();
+      this.getItems();
     });
   }
 
@@ -80,7 +74,7 @@ export class ClientComponent implements OnInit {
     this.clientService.delete(id).subscribe(() => {
       SnackBarUtil.openSnackBar(this.snackBar, Message.SUCCESS);
       this.spinnerService.hide(this.spinner);
-      this.getAllClients();
+      this.getItems();
     }, () => {
       SnackBarUtil.openSnackBar(this.snackBar, Message.ERR);
       this.spinnerService.hide(this.spinner);

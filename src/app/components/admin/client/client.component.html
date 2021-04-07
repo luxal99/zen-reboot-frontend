@@ -32,7 +32,7 @@
     </div>
     <mat-spinner diameter="50" #spinner></mat-spinner>
     <div class="binding desktop">
-      <div class="row client-row" style="padding-top: 1em" *ngFor="let client of listOfClients|client:searchText">
+      <div class="row client-row" style="padding-top: 1em" *ngFor="let client of listOfItems|client:searchText">
         <div class="col-sm" (click)="openClientOverviewDialog(client)">
           <div class="inline">
             <h1 class="first-letter-h1">{{client.person.firstName.substr(0, 1)}}</h1>
@@ -60,7 +60,7 @@
               Obriši
             </button>
           </mat-menu>
-`
+          `
 
         </div>
       </div>
