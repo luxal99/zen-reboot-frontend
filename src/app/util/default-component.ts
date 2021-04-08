@@ -56,7 +56,22 @@ export abstract class DefaultComponent<T> implements OnInit {
     });
   }
 
-  subscribeDelete(id: number): void {
+  subscribeDelete(id: number, otherService?: GenericService<any>, callBack?: () => {}): void {
+
+    if (otherService) {
+      otherService.delete(id).subscribe(() => {
+        SnackBarUtil.openSnackBar(this.snackBar, Message.SUCCESS);
+        this.spinnerService.hide(this.spinner);
+        if (callBack) {
+          callBack();
+        } else {
+          this.getItems();
+        }
+      }, () => {
+        SnackBarUtil.openSnackBar(this.snackBar, Message.ERR);
+        this.spinnerService.hide(this.spinner);
+      });
+    }
     this.spinnerService.show(this.spinner);
     this.genericService.delete(id).subscribe(() => {
       SnackBarUtil.openSnackBar(this.snackBar, Message.SUCCESS);
@@ -66,10 +81,6 @@ export abstract class DefaultComponent<T> implements OnInit {
       SnackBarUtil.openSnackBar(this.snackBar, Message.ERR);
       this.spinnerService.hide(this.spinner);
     });
-  }
-
-  delete(): void {
-
   }
 
   ngOnInit(): void {

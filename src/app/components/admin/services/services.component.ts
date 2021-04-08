@@ -14,34 +14,27 @@ import {AddServiceDialogComponent} from './add-service-dialog/add-service-dialog
 import {Treatment} from '../../../models/treatment';
 import {SnackBarUtil} from '../../../util/snack-bar-uitl';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {DefaultComponent} from '../../../util/default-component';
 
 @Component({
   selector: 'app-services',
   templateUrl: './services.component.html',
   styleUrls: ['./services.component.sass']
 })
-export class ServicesComponent implements OnInit {
+export class ServicesComponent extends DefaultComponent<TreatmentCategory> implements OnInit {
 
   @ViewChild('spinner') spinner!: MatSpinner;
   listOfTreatmentCategory: TreatmentCategory[] = [];
 
 
-  constructor(private dialog: MatDialog, private spinnerService: SpinnerService,
-              private snackBar: MatSnackBar,
-              private treatmentService: TreatmentService, private treatmentCategoryService: TreatmentCategoryService) {
+  constructor(private dialog: MatDialog, private treatmentService: TreatmentService,
+              private treatmentCategoryService: TreatmentCategoryService, protected snackBar: MatSnackBar) {
+    super(treatmentCategoryService, snackBar);
   }
 
   ngOnInit(): void {
-    this.getAllCategories();
+    super.ngOnInit();
   }
-
-  getAllCategories(): void {
-    this.treatmentCategoryService.getAll().subscribe((resp) => {
-      this.listOfTreatmentCategory = resp;
-      this.spinnerService.hide(this.spinner);
-    });
-  }
-
 
   openAddTreatmentCategoryDialog(formValues?: any): void {
     const configData: FormBuilderConfig = {
@@ -63,7 +56,7 @@ export class ServicesComponent implements OnInit {
       width: '30%',
       data: configData
     }, this.dialog).afterClosed().subscribe(() => {
-      this.getAllCategories();
+      this.getItems();
     });
   }
 
@@ -75,15 +68,11 @@ export class ServicesComponent implements OnInit {
       width: '100%',
       data: treatment
     }, this.dialog).afterClosed().subscribe(() => {
-      this.getAllCategories();
+      this.getItems();
     });
   }
 
   deleteTreatment(id: number): void {
-    this.treatmentService.delete(id).subscribe(() => {
-      this.getAllCategories();
-    }, () => {
-      SnackBarUtil.openSnackBar(this.snackBar, Message.ERR);
-    });
+    super.subscribeDelete(id, this.treatmentService);
   }
 }

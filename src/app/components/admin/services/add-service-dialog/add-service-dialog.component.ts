@@ -12,13 +12,14 @@ import {MatSpinner} from '@angular/material/progress-spinner';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {SpinnerService} from '../../../../service/spinner.service';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {DefaultComponent} from '../../../../util/default-component';
 
 @Component({
   selector: 'app-add-service-dialog',
   templateUrl: './add-service-dialog.component.html',
   styleUrls: ['./add-service-dialog.component.sass']
 })
-export class AddServiceDialogComponent implements OnInit, AfterViewChecked {
+export class AddServiceDialogComponent extends DefaultComponent<Treatment> implements OnInit, AfterViewChecked {
 
   @ViewChild('spinner') spinner!: MatSpinner;
   listOfCategories: TreatmentCategory[] = [];
@@ -45,8 +46,9 @@ export class AddServiceDialogComponent implements OnInit, AfterViewChecked {
   priceInputConfig: FieldConfig = {type: InputTypes.INPUT_TYPE_NAME, name: FormControlNames.PRICE_FORM_CONTROL};
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: Treatment, private treatmentCategoryService: TreatmentCategoryService,
-              private spinnerService: SpinnerService, private readonly changeDetectorRef: ChangeDetectorRef,
-              private treatmentService: TreatmentService, private snackBar: MatSnackBar) {
+              private readonly changeDetectorRef: ChangeDetectorRef,
+              private treatmentService: TreatmentService, protected snackBar: MatSnackBar) {
+    super(treatmentService, snackBar);
   }
 
   ngOnInit(): void {
@@ -93,21 +95,9 @@ export class AddServiceDialogComponent implements OnInit, AfterViewChecked {
     treatment.durations = this.listOfDurations;
     if (this.data) {
       treatment.id = this.data.id;
-      this.treatmentService.update(treatment).subscribe(() => {
-        SnackBarUtil.openSnackBar(this.snackBar, Message.SUCCESS);
-        this.spinnerService.hide(this.spinner);
-      }, () => {
-        SnackBarUtil.openSnackBar(this.snackBar, Message.ERR);
-        this.spinnerService.hide(this.spinner);
-      });
+      super.subscribeUpdate(treatment);
     } else {
-      this.treatmentService.save(treatment).subscribe(() => {
-        SnackBarUtil.openSnackBar(this.snackBar, Message.SUCCESS);
-        this.spinnerService.hide(this.spinner);
-      }, () => {
-        SnackBarUtil.openSnackBar(this.snackBar, Message.ERR);
-        this.spinnerService.hide(this.spinner);
-      });
+      super.subscribeSave(treatment);
     }
   }
 
@@ -138,11 +128,6 @@ export class AddServiceDialogComponent implements OnInit, AfterViewChecked {
         duration: duration.duration,
         price: duration.price
       }));
-      this.treatmentForm.setValue({
-        name: this.data.name,
-        category: this.data.category,
-        description: this.data.description
-      });
     } else {
       this.data = {};
     }

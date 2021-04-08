@@ -12,11 +12,13 @@
         <p>Lorem ipsum dolor nunc dolor lorem ipsum</p>
       </div>
       <div class="column-content">
-        <app-form-input [group]="treatmentForm" [config]="nameInputConfig" label="Naziv tretmana"></app-form-input>
+        <app-form-input [group]="treatmentForm" [model]="data ? data.name : ''" [config]="nameInputConfig"
+                        label="Naziv tretmana"></app-form-input>
         <app-form-select bindValue="name" [model]="this.data.category" [group]="treatmentForm"
                          [config]="categorySelectConfig"
                          label="Kategorija"></app-form-select>
-        <app-form-input [group]="treatmentForm" [config]="descriptionInputConfig" label="Opis"></app-form-input>
+        <app-form-input [group]="treatmentForm" [model]="data ? data.description : ''" [config]="descriptionInputConfig"
+                        label="Opis"></app-form-input>
       </div>
     </div>
     <div class="column">
