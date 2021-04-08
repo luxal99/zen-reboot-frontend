@@ -19,7 +19,7 @@
       <div class="staff-card text-left" *ngFor="let staff of listOfItems|staff:searchText">
         <div class="row">
           <div class="col-2 text-center">
-            <div [ngStyle]="{'background-color':staff.color}" class="first-letter-circle">
+            <div [ngStyle]="{'background-color':'#'+staff.color}" class="first-letter-circle">
             </div>
           </div>
           <div class="col">

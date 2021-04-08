@@ -12,6 +12,7 @@ import {MatSpinner} from '@angular/material/progress-spinner';
 import {ContactTypeEnum} from '../../../../enums/ContactTypeEnum';
 import {SnackBarUtil} from '../../../../util/snack-bar-uitl';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {Contact} from '../../../../models/contact';
 
 @Component({
   selector: 'app-add-staff-dialog',
@@ -20,6 +21,9 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 })
 export class AddStaffDialogComponent extends DefaultComponent<Staff> implements OnInit {
 
+
+  emailValue: Contact = {};
+  telephoneValue: Contact = {};
   @ViewChild('spinner') spinner!: MatSpinner;
   listOfCountries: Country[] = [];
   staffForm = new FormGroup({
@@ -49,7 +53,10 @@ export class AddStaffDialogComponent extends DefaultComponent<Staff> implements 
 
   setValuesToForm(): void {
     if (this.data) {
-
+      // @ts-ignore
+      this.emailValue = this.data.person?.contacts.find((contact) => contact.type === ContactTypeEnum.EMAIL.toString());
+      // @ts-ignore
+      this.telephoneValue = this.data.person?.contacts.find((contact) => contact.type === ContactTypeEnum.PHONE.toString());
     } else {
       this.data = {};
     }
@@ -64,18 +71,26 @@ export class AddStaffDialogComponent extends DefaultComponent<Staff> implements 
           lastName: this.staffForm.get(FormControlNames.LAST_NAME_FORM_CONTROL)?.value,
           contacts: [
             {
+              id: this.telephoneValue.id || undefined,
               type: ContactTypeEnum.PHONE,
               value: this.staffForm.get(FormControlNames.MOBILE_PHONE_FORM_CONTROL)?.value,
               prefix: this.staffForm.get(FormControlNames.MOBILE_PHONE_PREFIX_FORM_CONTROL)?.value
             },
             {
+              id: this.emailValue.id || undefined,
               type: ContactTypeEnum.EMAIL,
               value: this.staffForm.get(FormControlNames.EMAIL_FORM_CONTROL)?.value,
             }
           ],
         }
       };
-      super.subscribeSave(staff);
+
+      if (this.data) {
+        staff.id = this.data.id;
+        super.subscribeUpdate(staff);
+      } else {
+        super.subscribeSave(staff);
+      }
     } else {
       SnackBarUtil.openSnackBar(this.snackBar, 'Popunite obavezna polja');
     }

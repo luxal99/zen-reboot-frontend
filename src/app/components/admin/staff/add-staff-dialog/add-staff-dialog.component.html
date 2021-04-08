@@ -26,7 +26,7 @@
           <div class="inline">
             <mat-form-field appearance="outline" style="width: 25%;margin-left: 1em">
               <mat-label>Pozivni broj</mat-label>
-              <mat-select formControlName="mobilePhonePrefix">
+              <mat-select [(ngModel)]="telephoneValue.prefix" formControlName="mobilePhonePrefix">
                 <mat-option [value]="country.dialCode" *ngFor="let country of listOfCountries">
                   {{country.dialCode + ' ' + country.name }}
                 </mat-option>
@@ -34,13 +34,15 @@
             </mat-form-field>
             <mat-form-field appearance="outline" style="width: 75%;">
               <mat-label>Kontakt telefon</mat-label>
-              <input matInput type="text" placeholder="69 021 1312" formControlName="mobilePhone">
+              <input [(ngModel)]="telephoneValue.value" matInput type="text" placeholder="69 021 1312"
+                     formControlName="mobilePhone">
             </mat-form-field>
           </div>
         </div>
         <div class="right column">
           <div class="" style="margin-right: 1em">
-            <app-form-input [config]="emailInputConfig" [group]="staffForm" label="Email"></app-form-input>
+            <app-form-input [config]="emailInputConfig" [group]="staffForm" [model]="data ? emailValue.value : ''"
+                            label="Email"></app-form-input>
           </div>
         </div>
       </div>

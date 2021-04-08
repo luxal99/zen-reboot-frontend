@@ -28,7 +28,6 @@ export class StaffComponent extends DefaultComponent<Staff> implements OnInit {
   });
 
   searchText = '';
-  searchInputConfig: FieldConfig = {name: FormControlNames.SEARCH_FORM_CONTROL, type: InputTypes.INPUT_TYPE_NAME};
 
   constructor(private dialog: MatDialog, private staffService: StaffService, protected snackBar: MatSnackBar) {
     super(staffService, snackBar);
