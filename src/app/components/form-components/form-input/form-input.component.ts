@@ -20,6 +20,7 @@ export class FormInputComponent implements OnInit, Field {
   @Input() appearance = 'fill';
   @Input() hint!: string;
   @Input() color!: string;
+  @Input() model!: any;
 
   constructor() {
   }

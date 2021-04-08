@@ -28,6 +28,7 @@ import {StaffComponent} from './components/admin/staff/staff.component';
 import {HashLocationStrategy, LocationStrategy} from '@angular/common';
 import {AddStaffDialogComponent} from './components/admin/staff/add-staff-dialog/add-staff-dialog.component';
 import {ColorPickerModule} from 'ngx-color-picker';
+import { StaffPipe } from './pipes/staff.pipe';
 
 // @ts-ignore
 @NgModule({
@@ -50,7 +51,8 @@ import {ColorPickerModule} from 'ngx-color-picker';
     ClientOverviewDialogComponent,
     AddServiceDialogComponent,
     StaffComponent,
-    AddStaffDialogComponent
+    AddStaffDialogComponent,
+    StaffPipe
   ],
   imports: [
     BrowserModule,

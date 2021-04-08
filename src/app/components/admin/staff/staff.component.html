@@ -1,11 +1,48 @@
 <app-header header="Zaposleni"></app-header>
 <div class="staff-content">
-  <mat-spinner #spinner diameter="50"></mat-spinner>
   <div class="container">
-    <div class="text-right">
-      <div>
+    <div class="row">
+      <div class="col-6">
+        <form [formGroup]="searchForm">
+          <mat-form-field appearance="outline">
+            <mat-label>Pretraži</mat-label>
+            <input matInput formControlName="search" [(ngModel)]="searchText">
+            <mat-icon matSuffix>search</mat-icon>
+          </mat-form-field>
+        </form>
+      </div>
+      <div class="col-6 text-right">
         <button mat-button class="default-btn" (click)="openAddStaffDialog()">Dodaj zaposlenog</button>
       </div>
     </div>
+    <div class="staff-binding">
+      <div class="staff-card text-left" *ngFor="let staff of listOfItems|staff:searchText">
+        <div class="row">
+          <div class="col-2 text-center">
+            <div [ngStyle]="{'background-color':staff.color}" class="first-letter-circle">
+            </div>
+          </div>
+          <div class="col">
+            <h2>{{staff.person.firstName + ' ' + staff.person.lastName}}</h2>
+          </div>
+          <div class="col">
+            <h2>{{getEmailForStaff(staff).value}}</h2>
+          </div>
+          <div class="col-2">
+            <button style="margin-top: 1em" mat-icon-button [matMenuTriggerFor]="menu">
+              <mat-icon>expand_more</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item><i class="fa fa-pencil"></i>Izmeni</button>
+              <button (click)="subscribeDelete(staff.id)" mat-menu-item style="color: red"><i class="fa fa-trash"></i>
+                Obriši
+              </button>
+            </mat-menu>
+          </div>
+        </div>
+      </div>
+    </div>
+    <mat-spinner #spinner diameter="50"></mat-spinner>
+
   </div>
 </div>

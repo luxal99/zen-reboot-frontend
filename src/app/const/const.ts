@@ -28,6 +28,7 @@ export class FormControlNames {
   static MOBILE_PHONE_PREFIX_FORM_CONTROL = 'mobilePhonePrefix';
   static CITY_FORM_CONTROL = 'city';
   static COLOR_FORM_CONTROL = 'color';
+  static SEARCH_FORM_CONTROL = 'search';
 }
 
 export class InputTypes {

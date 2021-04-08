@@ -8,6 +8,11 @@ import {DialogUtil} from '../../../util/dialog-util';
 import {AddStaffDialogComponent} from './add-staff-dialog/add-staff-dialog.component';
 import {DefaultComponent} from '../../../util/default-component';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {ContactTypeEnum} from '../../../enums/ContactTypeEnum';
+import {Contact} from '../../../models/contact';
+import {FormControl, FormGroup} from '@angular/forms';
+import {FieldConfig} from '../../../models/FIeldConfig';
+import {FormControlNames, InputTypes} from '../../../const/const';
 
 @Component({
   selector: 'app-staff',
@@ -17,7 +22,13 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 export class StaffComponent extends DefaultComponent<Staff> implements OnInit {
 
   @ViewChild('spinner') spinner!: MatSpinner;
-  listOfStaffs: Staff[] = [];
+
+  searchForm = new FormGroup({
+    search: new FormControl('')
+  });
+
+  searchText = '';
+  searchInputConfig: FieldConfig = {name: FormControlNames.SEARCH_FORM_CONTROL, type: InputTypes.INPUT_TYPE_NAME};
 
   constructor(private dialog: MatDialog, private staffService: StaffService, protected snackBar: MatSnackBar) {
     super(staffService, snackBar);
@@ -25,6 +36,12 @@ export class StaffComponent extends DefaultComponent<Staff> implements OnInit {
 
   ngOnInit(): void {
     super.ngOnInit();
+  }
+
+  getEmailForStaff(staff: Staff): Contact {
+    const person = staff.person;
+    // @ts-ignore
+    return person?.contacts.find((contact) => contact.type === ContactTypeEnum.EMAIL.toString());
   }
 
   openAddStaffDialog(data?: Staff): void {

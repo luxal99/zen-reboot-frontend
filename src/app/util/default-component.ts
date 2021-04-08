@@ -16,7 +16,7 @@ import {Message} from '../const/const';
 export abstract class DefaultComponent<T> implements OnInit {
   protected spinnerService!: SpinnerService;
   @ViewChild('spinner') protected spinner!: MatSpinner;
-  listOfItems: any[] = [];
+  listOfItems: T[] = [];
 
   protected constructor(protected genericService: GenericService<T>, protected snackBar: MatSnackBar) {
     this.spinnerService = new SpinnerService();
@@ -50,6 +50,18 @@ export abstract class DefaultComponent<T> implements OnInit {
     this.genericService.update(entity).subscribe(() => {
       SnackBarUtil.openSnackBar(this.snackBar, Message.SUCCESS);
       this.spinnerService.hide(this.spinner);
+    }, () => {
+      SnackBarUtil.openSnackBar(this.snackBar, Message.ERR);
+      this.spinnerService.hide(this.spinner);
+    });
+  }
+
+  subscribeDelete(id: number): void {
+    this.spinnerService.show(this.spinner);
+    this.genericService.delete(id).subscribe(() => {
+      SnackBarUtil.openSnackBar(this.snackBar, Message.SUCCESS);
+      this.spinnerService.hide(this.spinner);
+      this.getItems();
     }, () => {
       SnackBarUtil.openSnackBar(this.snackBar, Message.ERR);
       this.spinnerService.hide(this.spinner);
