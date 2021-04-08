@@ -40,13 +40,28 @@ export class AddStaffDialogComponent extends DefaultComponent<Staff> implements 
     super(staffService, snackBar);
   }
 
+
+  ngOnInit(): void {
+    super.ngOnInit();
+    this.getAllCountries();
+    this.setValuesToForm();
+  }
+
+  setValuesToForm(): void {
+    if (this.data) {
+
+    } else {
+      this.data = {};
+    }
+  }
+
   save(): void {
     if (this.staffForm.valid) {
       const staff: Staff = {
         color: this.staffForm.get(FormControlNames.COLOR_FORM_CONTROL)?.value.hex,
         person: {
           firstName: this.staffForm.get(FormControlNames.FIRST_NAME_FORM_CONTROL)?.value,
-          lastName: this.staffForm.get(FormControlNames.FIRST_NAME_FORM_CONTROL)?.value,
+          lastName: this.staffForm.get(FormControlNames.LAST_NAME_FORM_CONTROL)?.value,
           contacts: [
             {
               type: ContactTypeEnum.PHONE,
@@ -70,11 +85,6 @@ export class AddStaffDialogComponent extends DefaultComponent<Staff> implements 
     this.countryService.getAll().subscribe((resp) => {
       this.listOfCountries = resp;
     });
-  }
-
-  ngOnInit(): void {
-    super.ngOnInit();
-    this.getAllCountries();
   }
 
 }

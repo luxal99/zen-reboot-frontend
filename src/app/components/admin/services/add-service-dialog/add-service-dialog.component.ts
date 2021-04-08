@@ -8,7 +8,6 @@ import {FieldConfig} from '../../../../models/FIeldConfig';
 import {FormControlNames, InputTypes, Message} from '../../../../const/const';
 import {Treatment} from '../../../../models/treatment';
 import {SnackBarUtil} from '../../../../util/snack-bar-uitl';
-import {Spinner} from '@angular/cli/utilities/spinner';
 import {MatSpinner} from '@angular/material/progress-spinner';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {SpinnerService} from '../../../../service/spinner.service';
