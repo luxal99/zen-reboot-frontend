@@ -4,21 +4,20 @@ import {ClientService} from '../../../service/client.service';
 import {Client} from '../../../models/client';
 import {DialogUtil} from '../../../util/dialog-util';
 import {AddClientDialogComponent} from './add-client-dialog/add-client-dialog.component';
-import {SpinnerService} from '../../../service/spinner.service';
 import {MatSpinner} from '@angular/material/progress-spinner';
 import {FormControl, FormGroup} from '@angular/forms';
 import {SnackBarUtil} from '../../../util/snack-bar-uitl';
-import {MatSnackBar} from '@angular/material/snack-bar';
 import {Message} from '../../../const/const';
 import {ClientOverviewDialogComponent} from './client-overview-dialog/client-overview-dialog.component';
 import {DefaultComponent} from '../../../util/default-component';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-client',
   templateUrl: './client.component.html',
   styleUrls: ['./client.component.sass']
 })
-export class ClientComponent extends DefaultComponent implements OnInit {
+export class ClientComponent extends DefaultComponent<Client> implements OnInit {
 
   @ViewChild('spinner') spinner!: MatSpinner;
   listOfClients: Client[] = [];
@@ -29,12 +28,12 @@ export class ClientComponent extends DefaultComponent implements OnInit {
 
   searchText = '';
 
-  constructor(private dialog: MatDialog, private clientService: ClientService) {
+  constructor(private dialog: MatDialog, private clientService: ClientService, private snackBar: MatSnackBar) {
     super(clientService);
   }
 
   ngOnInit(): void {
-    this.getItems();
+    super.ngOnInit();
   }
 
   openAddClientDialog(): void {
@@ -80,4 +79,5 @@ export class ClientComponent extends DefaultComponent implements OnInit {
       this.spinnerService.hide(this.spinner);
     });
   }
+  
 }

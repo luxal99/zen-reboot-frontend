@@ -6,42 +6,34 @@ import {Staff} from '../../../models/staff';
 import {MatSpinner} from '@angular/material/progress-spinner';
 import {DialogUtil} from '../../../util/dialog-util';
 import {AddStaffDialogComponent} from './add-staff-dialog/add-staff-dialog.component';
+import {DefaultComponent} from '../../../util/default-component';
 
 @Component({
   selector: 'app-staff',
   templateUrl: './staff.component.html',
   styleUrls: ['./staff.component.sass']
 })
-export class StaffComponent implements OnInit {
+export class StaffComponent extends DefaultComponent<Staff> implements OnInit {
 
   @ViewChild('spinner') spinner!: MatSpinner;
   listOfStaffs: Staff[] = [];
 
-  constructor(private dialog: MatDialog, private staffService: StaffService,
-              private spinnerService: SpinnerService) {
+  constructor(private dialog: MatDialog, private staffService: StaffService) {
+    super(staffService);
   }
 
   ngOnInit(): void {
-    this.getAllStaffs();
-  }
-
-  getAllStaffs(): void {
-    this.staffService.getAll().subscribe((staff) => {
-      this.listOfStaffs = staff;
-      this.spinnerService.hide(this.spinner);
-    });
+    super.ngOnInit();
   }
 
   openAddStaffDialog(data?: Staff): void {
     DialogUtil.openDialog(AddStaffDialogComponent, {
-      maxWidth: '100vw',
-      maxHeight: '100vh',
       height: '100%',
-      width: '100%',
+      width: '40%',
+      position: {right: '0'},
       data
     }, this.dialog).afterClosed().subscribe(() => {
-      this.getAllStaffs();
+      this.getItems();
     });
   }
-
 }

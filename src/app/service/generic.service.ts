@@ -48,4 +48,8 @@ export class GenericService<T> {
     });
   }
 
+  test(): any {
+    return this.http.get(`${RestRoutesConst.API}${this.route}`).toPromise();
+  }
+
 }

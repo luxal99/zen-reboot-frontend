@@ -157,7 +157,7 @@ export class AddClientDialogComponent implements OnInit, AfterViewChecked {
 
     if (this.data.id) {
       client.id = this.data.id;
-      const subs = this.clientService.update(client).subscribe(() => {
+      this.clientService.update(client).subscribe(() => {
         SnackBarUtil.openSnackBar(this.snackBar, Message.SUCCESS);
         this.spinnerService.hide(this.spinner);
       }, () => {

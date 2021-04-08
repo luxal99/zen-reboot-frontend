@@ -1,5 +1,6 @@
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
+import {MAT_COLOR_FORMATS, NgxMatColorPickerModule, NGX_MAT_COLOR_FORMATS} from '@angular-material-components/color-picker';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
@@ -25,7 +26,8 @@ import {ClientOverviewDialogComponent} from './components/admin/client/client-ov
 import {AddServiceDialogComponent} from './components/admin/services/add-service-dialog/add-service-dialog.component';
 import {StaffComponent} from './components/admin/staff/staff.component';
 import {HashLocationStrategy, LocationStrategy} from '@angular/common';
-import { AddStaffDialogComponent } from './components/admin/staff/add-staff-dialog/add-staff-dialog.component';
+import {AddStaffDialogComponent} from './components/admin/staff/add-staff-dialog/add-staff-dialog.component';
+import {ColorPickerModule} from 'ngx-color-picker';
 
 // @ts-ignore
 @NgModule({
@@ -54,11 +56,16 @@ import { AddStaffDialogComponent } from './components/admin/staff/add-staff-dial
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    ColorPickerModule,
     MaterialModule,
+    NgxMatColorPickerModule,
     ReactiveFormsModule,
     BrowserAnimationsModule
   ],
-  providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
+  providers: [{provide: LocationStrategy, useClass: HashLocationStrategy},
+    {provide: MAT_COLOR_FORMATS, useValue: NGX_MAT_COLOR_FORMATS}
+
+  ],
   entryComponents: [AddServiceDialogComponent, AddClientDialogComponent, ClientOverviewDialogComponent,
     FormBuilderComponent, OverviewComponent, StaffComponent, ServicesComponent],
   bootstrap: [AppComponent]
