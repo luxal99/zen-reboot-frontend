@@ -68,6 +68,13 @@ button {
   color: #deb767;
 }
 
+.custom-snackbar {
+  font-family: "Work Sans", sans-serif !important;
+}
+.custom-snackbar button {
+  color: #deb767 !important;
+}
+
 @media screen and (max-width: 570px) {
   .desktop {
     display: none;
