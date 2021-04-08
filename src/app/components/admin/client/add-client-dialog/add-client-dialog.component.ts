@@ -19,13 +19,14 @@ import {MatSpinner} from '@angular/material/progress-spinner';
 import {SnackBarUtil} from '../../../../util/snack-bar-uitl';
 import {MatCheckboxChange} from '@angular/material/checkbox';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {DefaultComponent} from '../../../../util/default-component';
 
 @Component({
   selector: 'app-add-client-dialog',
   templateUrl: './add-client-dialog.component.html',
   styleUrls: ['./add-client-dialog.component.sass']
 })
-export class AddClientDialogComponent implements OnInit, AfterViewChecked {
+export class AddClientDialogComponent extends DefaultComponent<Client> implements OnInit, AfterViewChecked {
 
   @ViewChild('spinner') spinner!: MatSpinner;
   listOfNotificationMethods: string[] = [NotificationEnum.EMAIL];
@@ -81,8 +82,10 @@ export class AddClientDialogComponent implements OnInit, AfterViewChecked {
   referralSourceSelectConfig: FieldConfig = {type: InputTypes.SELECT_TYPE_NAME, name: FormControlNames.REFERRAL_SOURCE_FORM_CONTROL};
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: Client, private countryService: CountryService, private cityService: CityService,
-              private spinnerService: SpinnerService, private snackBar: MatSnackBar, private readonly changeDetectorRef: ChangeDetectorRef,
+              protected snackBar: MatSnackBar,
+              private readonly changeDetectorRef: ChangeDetectorRef,
               private referralSourceService: ReferralSourceService, private clientService: ClientService) {
+    super(clientService, snackBar);
   }
 
   ngAfterViewChecked(): void {
@@ -157,23 +160,9 @@ export class AddClientDialogComponent implements OnInit, AfterViewChecked {
 
     if (this.data.id) {
       client.id = this.data.id;
-      this.clientService.update(client).subscribe(() => {
-        SnackBarUtil.openSnackBar(this.snackBar, Message.SUCCESS);
-        this.spinnerService.hide(this.spinner);
-      }, () => {
-        SnackBarUtil.openSnackBar(this.snackBar, Message.ERR);
-        this.spinnerService.hide(this.spinner);
-
-      });
-
+      super.subscribeUpdate(client);
     } else {
-      this.clientService.save(client).subscribe(() => {
-        SnackBarUtil.openSnackBar(this.snackBar, Message.SUCCESS);
-        this.spinnerService.hide(this.spinner);
-      }, () => {
-        SnackBarUtil.openSnackBar(this.snackBar, Message.ERR);
-        this.spinnerService.hide(this.spinner);
-      });
+      super.subscribeSave(client);
     }
   }
 

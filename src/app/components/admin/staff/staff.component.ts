@@ -7,6 +7,7 @@ import {MatSpinner} from '@angular/material/progress-spinner';
 import {DialogUtil} from '../../../util/dialog-util';
 import {AddStaffDialogComponent} from './add-staff-dialog/add-staff-dialog.component';
 import {DefaultComponent} from '../../../util/default-component';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-staff',
@@ -18,8 +19,8 @@ export class StaffComponent extends DefaultComponent<Staff> implements OnInit {
   @ViewChild('spinner') spinner!: MatSpinner;
   listOfStaffs: Staff[] = [];
 
-  constructor(private dialog: MatDialog, private staffService: StaffService) {
-    super(staffService);
+  constructor(private dialog: MatDialog, private staffService: StaffService, protected snackBar: MatSnackBar) {
+    super(staffService, snackBar);
   }
 
   ngOnInit(): void {

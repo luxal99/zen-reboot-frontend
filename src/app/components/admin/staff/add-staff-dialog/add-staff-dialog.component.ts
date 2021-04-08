@@ -5,13 +5,13 @@ import {Staff} from '../../../../models/staff';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {DefaultComponent} from '../../../../util/default-component';
 import {FieldConfig} from '../../../../models/FIeldConfig';
-import {EMAIL_REGEX, FormControlNames, InputTypes, Message} from '../../../../const/const';
+import {EMAIL_REGEX, FormControlNames, InputTypes} from '../../../../const/const';
 import {CountryService} from '../../../../service/country.service';
 import {Country} from '../../../../models/country';
 import {MatSpinner} from '@angular/material/progress-spinner';
 import {ContactTypeEnum} from '../../../../enums/ContactTypeEnum';
-import {MatSnackBar} from '@angular/material/snack-bar';
 import {SnackBarUtil} from '../../../../util/snack-bar-uitl';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-add-staff-dialog',
@@ -36,13 +36,12 @@ export class AddStaffDialogComponent extends DefaultComponent<Staff> implements 
   emailInputConfig: FieldConfig = {type: InputTypes.INPUT_TYPE_NAME, name: FormControlNames.EMAIL_FORM_CONTROL};
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: Staff, private staffService: StaffService,
-              private countryService: CountryService, private snackBar: MatSnackBar) {
-    super(staffService);
+              private countryService: CountryService, protected snackBar: MatSnackBar) {
+    super(staffService, snackBar);
   }
 
   save(): void {
     if (this.staffForm.valid) {
-      this.spinnerService.show(this.spinner);
       const staff: Staff = {
         color: this.staffForm.get(FormControlNames.COLOR_FORM_CONTROL)?.value.hex,
         person: {

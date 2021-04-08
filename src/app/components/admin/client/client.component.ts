@@ -28,8 +28,8 @@ export class ClientComponent extends DefaultComponent<Client> implements OnInit 
 
   searchText = '';
 
-  constructor(private dialog: MatDialog, private clientService: ClientService, private snackBar: MatSnackBar) {
-    super(clientService);
+  constructor(private dialog: MatDialog, private clientService: ClientService, protected snackBar: MatSnackBar) {
+    super(clientService, snackBar);
   }
 
   ngOnInit(): void {
@@ -79,5 +79,5 @@ export class ClientComponent extends DefaultComponent<Client> implements OnInit 
       this.spinnerService.hide(this.spinner);
     });
   }
-  
+
 }
