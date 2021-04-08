@@ -16,7 +16,8 @@
       </div>
       <div class="col-sm">
 
-        <app-form-input [group]="staffForm" [model]="data ? data.person?.firstName:null" [config]="lastNameInputConfig"
+        <app-form-input [group]="staffForm" [model]="data ? data.person?.lastModifiedBy:null"
+                        [config]="lastNameInputConfig"
                         label="Prezime"></app-form-input>
       </div>
     </div>
@@ -53,9 +54,9 @@
     <form [formGroup]="staffForm">
       <mat-form-field style="margin-left: 1em" appearance="outline">
         <mat-label>Boja</mat-label>
-        <input matInput [ngModel]="data ? data.color :''" formControlName="color" [ngxMatColorPicker]="picker">
+        <input matInput formControlName="color" [ngxMatColorPicker]="picker">
         <ngx-mat-color-toggle matSuffix [for]="picker"></ngx-mat-color-toggle>
-        <ngx-mat-color-picker #picker [color]="data ? data.color : '#fff'"></ngx-mat-color-picker>
+        <ngx-mat-color-picker #picker></ngx-mat-color-picker>
       </mat-form-field>
     </form>
   </div>

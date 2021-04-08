@@ -57,6 +57,7 @@ export class AddStaffDialogComponent extends DefaultComponent<Staff> implements 
       this.emailValue = this.data.person?.contacts.find((contact) => contact.type === ContactTypeEnum.EMAIL.toString());
       // @ts-ignore
       this.telephoneValue = this.data.person?.contacts.find((contact) => contact.type === ContactTypeEnum.PHONE.toString());
+      this.staffForm.controls.color.setValue(this.data.color);
     } else {
       this.data = {};
     }
@@ -85,8 +86,9 @@ export class AddStaffDialogComponent extends DefaultComponent<Staff> implements 
         }
       };
 
-      if (this.data) {
+      if (this.data.id) {
         staff.id = this.data.id;
+        staff.color = this.staffForm.get(FormControlNames.COLOR_FORM_CONTROL)?.value;
         super.subscribeUpdate(staff);
       } else {
         super.subscribeSave(staff);
