@@ -27,7 +27,7 @@ export class FormControlNames {
   static OTHER_PHONE_PREFIX_FORM_CONTROL = 'otherPhonePrefix';
   static MOBILE_PHONE_PREFIX_FORM_CONTROL = 'mobilePhonePrefix';
   static CITY_FORM_CONTROL = 'city';
-  static COLOR_FORM_CONTROL='color';
+  static COLOR_FORM_CONTROL = 'color';
 }
 
 export class InputTypes {
@@ -68,3 +68,5 @@ export class RestRoutesConst {
 
 export class TokenConst {
 }
+
+export const EMAIL_REGEX = '^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$';

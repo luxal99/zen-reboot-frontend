@@ -32,6 +32,15 @@ export abstract class DefaultComponent<T> implements OnInit {
   save(): void {
   }
 
+  subscribeSave(entity: T): void {
+    this.spinnerService.show(this.spinner);
+    this.genericService.save(entity).subscribe(() => {
+      this.spinnerService.hide(this.spinner);
+    }, () => {
+      this.spinnerService.hide(this.spinner);
+    });
+  }
+
   delete(): void {
 
   }

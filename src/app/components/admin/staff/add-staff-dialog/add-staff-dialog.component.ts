@@ -5,7 +5,7 @@ import {Staff} from '../../../../models/staff';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {DefaultComponent} from '../../../../util/default-component';
 import {FieldConfig} from '../../../../models/FIeldConfig';
-import {FormControlNames, InputTypes, Message} from '../../../../const/const';
+import {EMAIL_REGEX, FormControlNames, InputTypes, Message} from '../../../../const/const';
 import {CountryService} from '../../../../service/country.service';
 import {Country} from '../../../../models/country';
 import {MatSpinner} from '@angular/material/progress-spinner';
@@ -27,7 +27,7 @@ export class AddStaffDialogComponent extends DefaultComponent<Staff> implements 
     lastName: new FormControl('', Validators.required),
     mobilePhone: new FormControl(),
     mobilePhonePrefix: new FormControl(),
-    email: new FormControl('', Validators.required),
+    email: new FormControl('', Validators.pattern(EMAIL_REGEX)),
     color: new FormControl('', Validators.required)
   });
 
@@ -61,15 +61,7 @@ export class AddStaffDialogComponent extends DefaultComponent<Staff> implements 
           ],
         }
       };
-      this.staffService.save(staff).subscribe(() => {
-        this.spinnerService.hide(this.spinner);
-        SnackBarUtil.openSnackBar(this.snackBar, Message.SUCCESS);
-      }, (err) => {
-        console.log(err);
-        this.spinnerService.hide(this.spinner);
-
-        SnackBarUtil.openSnackBar(this.snackBar, Message.ERR);
-      });
+      super.subscribeSave(staff);
     } else {
       SnackBarUtil.openSnackBar(this.snackBar, 'Popunite obavezna polja');
     }
