@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit, ViewChild} from '@angular/core';
+import {AfterViewChecked, ChangeDetectorRef, Component, Inject, OnInit, ViewChild} from '@angular/core';
 import {StaffService} from '../../../../service/staff.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Staff} from '../../../../models/staff';
@@ -19,7 +19,7 @@ import {Contact} from '../../../../models/contact';
   templateUrl: './add-staff-dialog.component.html',
   styleUrls: ['./add-staff-dialog.component.sass']
 })
-export class AddStaffDialogComponent extends DefaultComponent<Staff> implements OnInit {
+export class AddStaffDialogComponent extends DefaultComponent<Staff> implements OnInit, AfterViewChecked {
 
 
   emailValue: Contact = {};
@@ -40,7 +40,8 @@ export class AddStaffDialogComponent extends DefaultComponent<Staff> implements 
   emailInputConfig: FieldConfig = {type: InputTypes.INPUT_TYPE_NAME, name: FormControlNames.EMAIL_FORM_CONTROL};
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: Staff, private staffService: StaffService,
-              private countryService: CountryService, protected snackBar: MatSnackBar) {
+              private countryService: CountryService, protected snackBar: MatSnackBar,
+              private readonly changeDetectorRef: ChangeDetectorRef) {
     super(staffService, snackBar);
   }
 
@@ -51,13 +52,17 @@ export class AddStaffDialogComponent extends DefaultComponent<Staff> implements 
     this.setValuesToForm();
   }
 
+  ngAfterViewChecked(): void {
+    this.changeDetectorRef.detectChanges();
+  }
+
+
   setValuesToForm(): void {
     if (this.data) {
       // @ts-ignore
       this.emailValue = this.data.person?.contacts.find((contact) => contact.type === ContactTypeEnum.EMAIL.toString());
       // @ts-ignore
       this.telephoneValue = this.data.person?.contacts.find((contact) => contact.type === ContactTypeEnum.PHONE.toString());
-      this.staffForm.controls.color.setValue(this.data.color);
     } else {
       this.data = {};
     }
@@ -72,7 +77,7 @@ export class AddStaffDialogComponent extends DefaultComponent<Staff> implements 
           lastName: this.staffForm.get(FormControlNames.LAST_NAME_FORM_CONTROL)?.value,
           contacts: [
             {
-              id: this.telephoneValue.id || undefined,
+              id: this.telephoneValue ? this.telephoneValue.id : undefined,
               type: ContactTypeEnum.PHONE,
               value: this.staffForm.get(FormControlNames.MOBILE_PHONE_FORM_CONTROL)?.value,
               prefix: this.staffForm.get(FormControlNames.MOBILE_PHONE_PREFIX_FORM_CONTROL)?.value
@@ -88,7 +93,11 @@ export class AddStaffDialogComponent extends DefaultComponent<Staff> implements 
 
       if (this.data.id) {
         staff.id = this.data.id;
-        staff.color = this.staffForm.get(FormControlNames.COLOR_FORM_CONTROL)?.value;
+        if (this.staffForm.get(FormControlNames.COLOR_FORM_CONTROL)?.value.hex) {
+          staff.color = '#' + this.staffForm.get(FormControlNames.COLOR_FORM_CONTROL)?.value.hex;
+        } else {
+          staff.color = this.staffForm.get(FormControlNames.COLOR_FORM_CONTROL)?.value;
+        }
         super.subscribeUpdate(staff);
       } else {
         super.subscribeSave(staff);

@@ -24,8 +24,7 @@ import {DefaultComponent} from '../../../util/default-component';
 export class ServicesComponent extends DefaultComponent<TreatmentCategory> implements OnInit {
 
   @ViewChild('spinner') spinner!: MatSpinner;
-  listOfTreatmentCategory: TreatmentCategory[] = [];
-
+  listOfTreatments: Treatment[] = [];
 
   constructor(private dialog: MatDialog, private treatmentService: TreatmentService,
               private treatmentCategoryService: TreatmentCategoryService, protected snackBar: MatSnackBar) {
@@ -69,6 +68,14 @@ export class ServicesComponent extends DefaultComponent<TreatmentCategory> imple
       data: treatment
     }, this.dialog).afterClosed().subscribe(() => {
       this.getItems();
+    });
+  }
+
+  async test(): Promise<void> {
+    // this.listOfTreatments = await super.otherSubscribe(this.treatmentService);
+    // console.log(this.listOfTreatments);
+    this.treatmentService.getAll().subscribe((resp) => {
+      console.log(resp);
     });
   }
 

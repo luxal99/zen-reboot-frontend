@@ -82,8 +82,7 @@ export class AddClientDialogComponent extends DefaultComponent<Client> implement
   referralSourceSelectConfig: FieldConfig = {type: InputTypes.SELECT_TYPE_NAME, name: FormControlNames.REFERRAL_SOURCE_FORM_CONTROL};
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: Client, private countryService: CountryService, private cityService: CityService,
-              protected snackBar: MatSnackBar,
-              private readonly changeDetectorRef: ChangeDetectorRef,
+              protected snackBar: MatSnackBar, private readonly changeDetectorRef: ChangeDetectorRef,
               private referralSourceService: ReferralSourceService, private clientService: ClientService) {
     super(clientService, snackBar);
   }

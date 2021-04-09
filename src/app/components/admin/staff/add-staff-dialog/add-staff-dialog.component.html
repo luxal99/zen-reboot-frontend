@@ -16,7 +16,7 @@
       </div>
       <div class="col-sm">
 
-        <app-form-input [group]="staffForm" [model]="data ? data.person?.lastModifiedBy:null"
+        <app-form-input [group]="staffForm" [model]="data ? data.person?.lastName:null"
                         [config]="lastNameInputConfig"
                         label="Prezime"></app-form-input>
       </div>
@@ -27,7 +27,7 @@
           <div class="inline">
             <mat-form-field appearance="outline" style="width: 25%;margin-left: 1em">
               <mat-label>Pozivni broj</mat-label>
-              <mat-select [(ngModel)]="telephoneValue.prefix" formControlName="mobilePhonePrefix">
+              <mat-select [ngModel]="telephoneValue ? telephoneValue.prefix : ''" formControlName="mobilePhonePrefix">
                 <mat-option [value]="country.dialCode" *ngFor="let country of listOfCountries">
                   {{country.dialCode + ' ' + country.name }}
                 </mat-option>
@@ -35,7 +35,8 @@
             </mat-form-field>
             <mat-form-field appearance="outline" style="width: 75%;">
               <mat-label>Kontakt telefon</mat-label>
-              <input [(ngModel)]="telephoneValue.value" matInput type="text" placeholder="69 021 1312"
+              <input [ngModel]="telephoneValue ? telephoneValue.value:''" matInput type="text"
+                     placeholder="69 021 1312"
                      formControlName="mobilePhone">
             </mat-form-field>
           </div>
@@ -54,7 +55,7 @@
     <form [formGroup]="staffForm">
       <mat-form-field style="margin-left: 1em" appearance="outline">
         <mat-label>Boja</mat-label>
-        <input matInput formControlName="color" [ngxMatColorPicker]="picker">
+        <input matInput formControlName="color" [ngModel]="data ?data.color :''" [ngxMatColorPicker]="picker">
         <ngx-mat-color-toggle matSuffix [for]="picker"></ngx-mat-color-toggle>
         <ngx-mat-color-picker #picker></ngx-mat-color-picker>
       </mat-form-field>

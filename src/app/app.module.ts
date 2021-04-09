@@ -29,6 +29,8 @@ import {HashLocationStrategy, LocationStrategy} from '@angular/common';
 import {AddStaffDialogComponent} from './components/admin/staff/add-staff-dialog/add-staff-dialog.component';
 import {ColorPickerModule} from 'ngx-color-picker';
 import { StaffPipe } from './pipes/staff.pipe';
+import { StaffShiftsOverviewComponent } from './components/admin/staff/staff-shifts-overview/staff-shifts-overview.component';
+import { StaffOverviewComponent } from './components/admin/staff/staff-overview/staff-overview.component';
 
 // @ts-ignore
 @NgModule({
@@ -52,7 +54,9 @@ import { StaffPipe } from './pipes/staff.pipe';
     AddServiceDialogComponent,
     StaffComponent,
     AddStaffDialogComponent,
-    StaffPipe
+    StaffPipe,
+    StaffShiftsOverviewComponent,
+    StaffOverviewComponent
   ],
   imports: [
     BrowserModule,

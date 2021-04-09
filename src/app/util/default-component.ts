@@ -84,6 +84,11 @@ export abstract class DefaultComponent<T> implements OnInit {
     }
   }
 
+  async otherSubscribe(service: GenericService<any>): Promise<any[]> {
+    return await service.getAll().toPromise();
+
+  }
+
   ngOnInit(): void {
     this.getItems();
   }
