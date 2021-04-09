@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-staff-shifts-overview',
@@ -7,9 +8,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StaffShiftsOverviewComponent implements OnInit {
 
-  constructor() { }
+  startDate!: moment.Moment;
+  endDate!: moment.Moment;
+
+  constructor() {
+  }
 
   ngOnInit(): void {
+    this.getWeek();
+  }
+
+  getWeek(): void {
+    this.startDate = moment().startOf('isoWeek');
+    this.endDate = moment().endOf('isoWeek');
+
+    console.log(this.endDate);
+
   }
 
 }

@@ -28,9 +28,11 @@ import {StaffComponent} from './components/admin/staff/staff.component';
 import {HashLocationStrategy, LocationStrategy} from '@angular/common';
 import {AddStaffDialogComponent} from './components/admin/staff/add-staff-dialog/add-staff-dialog.component';
 import {ColorPickerModule} from 'ngx-color-picker';
-import { StaffPipe } from './pipes/staff.pipe';
-import { StaffShiftsOverviewComponent } from './components/admin/staff/staff-shifts-overview/staff-shifts-overview.component';
-import { StaffOverviewComponent } from './components/admin/staff/staff-overview/staff-overview.component';
+import {StaffPipe} from './pipes/staff.pipe';
+import {StaffShiftsOverviewComponent} from './components/admin/staff/staff-shifts-overview/staff-shifts-overview.component';
+import {StaffOverviewComponent} from './components/admin/staff/staff-overview/staff-overview.component';
+import {CalendarModule} from 'angular-calendar';
+import {SchedulerModule} from 'angular-calendar-scheduler';
 
 // @ts-ignore
 @NgModule({
@@ -66,7 +68,8 @@ import { StaffOverviewComponent } from './components/admin/staff/staff-overview/
     MaterialModule,
     NgxMatColorPickerModule,
     ReactiveFormsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+
   ],
   providers: [{provide: LocationStrategy, useClass: HashLocationStrategy},
     {provide: MAT_COLOR_FORMATS, useValue: NGX_MAT_COLOR_FORMATS}
