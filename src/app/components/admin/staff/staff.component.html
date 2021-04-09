@@ -1,6 +1,6 @@
 <app-header header="Zaposleni"></app-header>
 <div class="staff-content">
-  <mat-tab-group (selectedTabChange)="loadStaffOverviewComponent()">
+  <mat-tab-group animationDuration="200ms" (selectedTabChange)="loadStaffOverviewComponent()">
     <mat-tab label="Raspored po smenama">
       <app-staff-shifts-overview></app-staff-shifts-overview>
     </mat-tab>

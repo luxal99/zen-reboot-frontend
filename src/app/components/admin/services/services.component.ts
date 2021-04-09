@@ -71,14 +71,6 @@ export class ServicesComponent extends DefaultComponent<TreatmentCategory> imple
     });
   }
 
-  async test(): Promise<void> {
-    // this.listOfTreatments = await super.otherSubscribe(this.treatmentService);
-    // console.log(this.listOfTreatments);
-    this.treatmentService.getAll().subscribe((resp) => {
-      console.log(resp);
-    });
-  }
-
   deleteTreatment(id: number): void {
     super.subscribeDelete(id, this.treatmentService);
   }
