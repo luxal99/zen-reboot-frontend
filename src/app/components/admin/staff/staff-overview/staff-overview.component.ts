@@ -31,7 +31,9 @@ export class StaffOverviewComponent extends DefaultComponent<Staff> implements O
   }
 
   ngOnInit(): void {
-    super.ngOnInit();
+    setTimeout(() => {
+      super.ngOnInit();
+    }, 500);
   }
 
   getEmailForStaff(staff: Staff): Contact {
