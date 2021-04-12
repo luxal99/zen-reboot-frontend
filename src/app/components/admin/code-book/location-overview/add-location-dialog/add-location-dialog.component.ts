@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit, ViewChild} from '@angular/core';
+import {AfterViewChecked, ChangeDetectorRef, Component, Inject, OnInit, ViewChild} from '@angular/core';
 import {City} from '../../../../../models/city';
 import {CityService} from '../../../../../service/city.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
@@ -12,14 +12,16 @@ import {MatSpinner} from '@angular/material/progress-spinner';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {Room} from '../../../../../models/room';
 import {SnackBarUtil} from '../../../../../util/snack-bar-uitl';
+import {RoomService} from '../../../../../service/room.service';
 
 @Component({
   selector: 'app-add-location-dialog',
   templateUrl: './add-location-dialog.component.html',
   styleUrls: ['./add-location-dialog.component.sass']
 })
-export class AddLocationDialogComponent extends DefaultComponent<Location> implements OnInit {
+export class AddLocationDialogComponent extends DefaultComponent<Location> implements OnInit, AfterViewChecked {
 
+  selectedRoom: Room = {};
   addressForm = new FormGroup({
     street: new FormControl('', Validators.required),
     number: new FormControl('', Validators.required),
@@ -39,13 +41,18 @@ export class AddLocationDialogComponent extends DefaultComponent<Location> imple
   citySelectConfig: FieldConfig = {name: FormControlNames.CITY_FORM_CONTROL, type: InputTypes.INPUT_TYPE_NAME};
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: Location, private cityService: CityService,
-              private locationService: LocationService, protected snackBar: MatSnackBar) {
+              private readonly changeDetectorRef: ChangeDetectorRef,
+              private locationService: LocationService, protected snackBar: MatSnackBar, private roomService: RoomService) {
     super(locationService, snackBar);
   }
 
   ngOnInit(): void {
     this.getAllCities();
     this.initForm();
+  }
+
+  ngAfterViewChecked(): void {
+    this.changeDetectorRef.detectChanges();
   }
 
   initForm(): void {
@@ -66,10 +73,32 @@ export class AddLocationDialogComponent extends DefaultComponent<Location> imple
     if (this.data.id) {
       location.id = this.data.id;
       location.rooms = this.data.rooms;
+      location.rooms?.filter((room) => {
+        if (room.location) {
+          delete room.location;
+        }
+      });
       super.subscribeUpdate(location);
     } else {
       super.subscribeSave(location);
     }
+  }
+
+  removeRoom(room: Room): void {
+    this.data.rooms?.splice(this.data.rooms?.indexOf(room), 1);
+  }
+
+  selectRoom(room: Room): void {
+    this.roomForm.controls.name.setValue(room.name);
+    this.selectedRoom = room;
+  }
+
+  editRoom(): void {
+    this.data.rooms?.filter((room) => {
+      if (room.id === this.selectedRoom.id) {
+        room.name = this.roomForm.get(FormControlNames.NAME_FORM_CONTROL)?.value;
+      }
+    });
   }
 
   addRoom(): void {

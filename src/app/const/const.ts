@@ -66,6 +66,7 @@ export class RestRoutesConst {
   static TREATMENT = 'treatments';
   static STAFF = 'staffs';
   static LOCATION = 'locations';
+  static ROOM = 'rooms';
 }
 
 export class TokenConst {
