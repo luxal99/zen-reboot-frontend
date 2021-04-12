@@ -9,16 +9,12 @@ import {Validators} from '@angular/forms';
 import {DialogUtil} from '../../../../util/dialog-util';
 import {FormBuilderComponent} from '../../../form-components/form-builder/form-builder.component';
 import {MatDialog} from '@angular/material/dialog';
-import {MatSpinner} from '@angular/material/progress-spinner';
-
 @Component({
   selector: 'app-referral-source-overview',
   templateUrl: './referral-source-overview.component.html',
   styleUrls: ['./referral-source-overview.component.sass']
 })
 export class ReferralSourceOverviewComponent extends DefaultComponent<ReferralSource> implements OnInit {
-
-  @ViewChild('spinner') spinner!: MatSpinner;
 
   constructor(private referralSourceService: ReferralSourceService,
               protected snackBar: MatSnackBar, private dialog: MatDialog) {
@@ -28,8 +24,7 @@ export class ReferralSourceOverviewComponent extends DefaultComponent<ReferralSo
   ngOnInit(): void {
     super.ngOnInit();
   }
-
-
+  
   openAddReferralSourceDialog(referralSource?: ReferralSource): void {
     const configData: FormBuilderConfig = {
       formFields: [{
