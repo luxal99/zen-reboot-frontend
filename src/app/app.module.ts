@@ -33,6 +33,9 @@ import {StaffShiftsOverviewComponent} from './components/admin/staff/staff-shift
 import {StaffOverviewComponent} from './components/admin/staff/staff-overview/staff-overview.component';
 import {CalendarModule} from 'angular-calendar';
 import {SchedulerModule} from 'angular-calendar-scheduler';
+import { ReferralSourceOverviewComponent } from './components/admin/code-book/referral-source-overview/referral-source-overview.component';
+import { CountriesOverviewComponent } from './components/admin/code-book/countries-overview/countries-overview.component';
+import { LocationOverviewComponent } from './components/admin/code-book/location-overview/location-overview.component';
 
 // @ts-ignore
 @NgModule({
@@ -58,7 +61,10 @@ import {SchedulerModule} from 'angular-calendar-scheduler';
     AddStaffDialogComponent,
     StaffPipe,
     StaffShiftsOverviewComponent,
-    StaffOverviewComponent
+    StaffOverviewComponent,
+    ReferralSourceOverviewComponent,
+    CountriesOverviewComponent,
+    LocationOverviewComponent
   ],
   imports: [
     BrowserModule,

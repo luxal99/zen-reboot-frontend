@@ -15,6 +15,9 @@ import {Country} from '../../../models/country';
 import {CountryService} from '../../../service/country.service';
 import {City} from '../../../models/city';
 import {CityService} from '../../../service/city.service';
+import {MatTab, MatTabGroup} from '@angular/material/tabs';
+import {LazyLoadComponentsUtil} from '../../../util/lazy-loading-components';
+import {CountriesOverviewComponent} from './countries-overview/countries-overview.component';
 
 @Component({
   selector: 'app-code-book',
@@ -23,144 +26,23 @@ import {CityService} from '../../../service/city.service';
 })
 export class CodeBookComponent implements OnInit {
 
-  @ViewChild('spinner') spinner!: MatSpinner;
-  listOfReferralSources: ReferralSource[] = [];
-  listOfCountries: Country[] = [];
-  listOfCities: City[] = [];
+  @ViewChild('countriesTab') countriesTab!: MatTab;
 
-  constructor(private dialog: MatDialog, private spinnerService: SpinnerService,
-              private entry: ViewContainerRef, private resolver: ComponentFactoryResolver,
-              private referralSourceService: ReferralSourceService, private cityService: CityService,
-              private snackBar: MatSnackBar, private countryService: CountryService) {
+  @ViewChild('countriesOverview', {read: ViewContainerRef, static: false}) countriesOverviewEntry!: ViewContainerRef;
+
+  constructor(private resolver: ComponentFactoryResolver) {
   }
 
   ngOnInit(): void {
-    this.getAllReferralSource();
-    this.getAllCountries();
-    this.getAllCities();
   }
 
-  getAllCities(): void {
-    this.cityService.getAll().subscribe((resp) => {
-      this.listOfCities = resp;
-    });
+  loadActivatedComponent(): void {
+    if (this.countriesTab.isActive) {
+      setTimeout(() => {
+        LazyLoadComponentsUtil.loadComponent(CountriesOverviewComponent, this.countriesOverviewEntry, this.resolver);
+      }, 250);
+    }
   }
 
-  getAllCountries(): void {
-    this.countryService.getAll().subscribe((resp) => {
-      this.listOfCountries = resp;
-    });
-  }
 
-  getAllReferralSource(): void {
-    this.referralSourceService.getAll().subscribe((resp) => {
-      // @ts-ignore
-      this.listOfReferralSources = resp.map((referralSource) => ({
-        id: referralSource.id,
-        value: referralSource.value,
-        createdDate: new Date(referralSource.createdDate),
-        lastModifiedDate: new Date(referralSource.lastModifiedDate)
-      }));
-      this.spinnerService.hide(this.spinner);
-    });
-  }
-
-  openAddReferralSourceDialog(referralSource?: ReferralSource): void {
-    const configData: FormBuilderConfig = {
-      formFields: [{
-        name: FormControlNames.VALUE_FORM_CONTROL,
-        type: InputTypes.INPUT_TYPE_NAME,
-        validation: [Validators.required],
-        label: 'Dodaj razlog otkazivanja'
-      }],
-      formValues: referralSource,
-      headerText: 'Dodaj razlog otkazivanja',
-      service: this.referralSourceService
-
-    };
-    DialogUtil.openDialog(FormBuilderComponent, {
-      position: {top: '6%'},
-      width: '30%',
-      data: configData
-    }, this.dialog).afterClosed().subscribe(() => {
-      this.getAllReferralSource();
-    });
-  }
-
-  openAddCountryDialog(country?: Country): void {
-    const configData: FormBuilderConfig = {
-      formFields: [{
-        name: FormControlNames.NAME_FORM_CONTROL,
-        type: InputTypes.INPUT_TYPE_NAME,
-        validation: [Validators.required],
-        label: 'Naziv države'
-      }],
-      formValues: country,
-      headerText: 'Dodaj državu',
-      service: this.countryService
-    };
-
-    DialogUtil.openDialog(FormBuilderComponent, {
-      position: {top: '6%'},
-      width: '30%',
-      data: configData
-    }, this.dialog).afterClosed().subscribe(() => {
-      this.getAllCountries();
-    });
-  }
-
-  openAddCityDialog(city?: City): void {
-    const configData: FormBuilderConfig = {
-      formFields: [{
-        name: FormControlNames.NAME_FORM_CONTROL,
-        type: InputTypes.INPUT_TYPE_NAME,
-        validation: [Validators.required],
-        label: 'Naziv grada'
-      }, {
-        name: FormControlNames.COUNTRY_FORM_CONTROL,
-        type: InputTypes.SELECT_TYPE_NAME,
-        validation: [Validators.required],
-        options: this.listOfCountries,
-        label: 'Izaberi državu'
-      }],
-      formValues: city,
-      headerText: 'Dodaj grad',
-      service: this.cityService
-    };
-
-    DialogUtil.openDialog(FormBuilderComponent, {
-      position: {top: '6%'},
-      width: '30%',
-      data: configData
-    }, this.dialog).afterClosed().subscribe(() => {
-      this.getAllCities();
-    });
-  }
-
-  deleteReferralSource(referralSource: ReferralSource): void {
-    // @ts-ignore
-    this.referralSourceService.delete(referralSource.id).subscribe(() => {
-      this.getAllReferralSource();
-    }, () => {
-      SnackBarUtil.openSnackBar(this.snackBar, Message.ERR);
-    });
-  }
-
-  deleteCountry(id: number): void {
-    this.countryService.delete(id).subscribe(() => {
-      this.getAllCountries();
-      SnackBarUtil.openSnackBar(this.snackBar, Message.SUCCESS);
-    }, () => {
-      SnackBarUtil.openSnackBar(this.snackBar, Message.ERR);
-    });
-  }
-
-  deleteCity(id: number): void {
-    this.cityService.delete(id).subscribe(() => {
-      this.getAllCountries();
-      SnackBarUtil.openSnackBar(this.snackBar, Message.SUCCESS);
-    }, () => {
-      SnackBarUtil.openSnackBar(this.snackBar, Message.ERR);
-    });
-  }
 }

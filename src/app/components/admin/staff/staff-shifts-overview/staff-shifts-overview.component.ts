@@ -22,8 +22,6 @@ export class StaffShiftsOverviewComponent implements OnInit {
     this.startDate = moment().startOf('isoWeek');
     this.endDate = moment().endOf('isoWeek');
 
-    console.log(this.endDate);
-
   }
 
 }

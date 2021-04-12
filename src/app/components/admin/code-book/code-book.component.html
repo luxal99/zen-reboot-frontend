@@ -1,93 +1,11 @@
 <app-header header="Šifarnik"></app-header>
 <div class="component-content">
-  <mat-tab-group animationDuration="600ms" mat-stretch-tabs dynamicHeight>
+  <mat-tab-group (selectedTabChange)="loadActivatedComponent()" animationDuration="200ms" mat-stretch-tabs dynamicHeight>
     <mat-tab label="Razlozi otkazivanja">
-      <div class="text-right">
-        <button class="default-btn" mat-button (click)="openAddReferralSourceDialog({})">Dodaj</button>
-      </div>
-      <div class="row header-row text-center">
-        <div class="col-sm">
-          <h3>Naziv</h3>
-        </div>
-        <div class="col-sm">
-          <h3>Datum kreiranja</h3>
-        </div>
-        <div class="col-sm">
-        </div>
-      </div>
-      <div class="row text-center referral-source-row"
-           *ngFor="let referralSource of listOfReferralSources">
-        <div class="col-sm" (click)="openAddReferralSourceDialog(referralSource)">
-          <h3>{{referralSource.value}}</h3>
-        </div>
-        <div class="col-sm" (click)="openAddReferralSourceDialog(referralSource)">
-          <h3>{{referralSource.createdDate.getDate()}}/{{referralSource.createdDate.getMonth() + 1}}
-            /{{referralSource.createdDate.getUTCFullYear()}}</h3>
-        </div>
-        <div class="col-sm">
-          <button mat-button color="warn" (click)="deleteReferralSource(referralSource)">
-            <i class="fa fa-trash"></i>
-          </button>
-
-        </div>
-        <div class="divider"></div>
-      </div>
-      <mat-spinner diameter="50" #spinner></mat-spinner>
+      <app-referral-source-overview></app-referral-source-overview>
     </mat-tab>
-    <mat-tab label="Gradovi i države">
-      <div class="row">
-        <div class="col-sm white-col">
-          <div class="row">
-            <div class="col-sm ">
-              <h1>Države</h1>
-            </div>
-            <div class="col-sm text-right">
-              <button mat-button class="border-btn" (click)="openAddCountryDialog()">Dodaj državu</button>
-            </div>
-          </div>
-          <div class="content">
-            <div *ngFor="let country of listOfCountries">
-              <div class="row">
-                <div class="col">
-                  <h3>{{country.name}}</h3>
-                </div>
-                <div class="col">
-                  <button mat-button color="warn" (click)="deleteCountry(country.id)"><i class="fa fa-trash"></i></button>
-                  <button mat-button (click)="openAddCountryDialog({name:country.name,id:country.id})"><i
-                    class="fa fa-pencil"></i></button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm white-col">
-          <div class="row">
-            <div class="col-sm ">
-              <h1>Države</h1>
-            </div>
-            <div class="col-sm text-right">
-              <button mat-button class="border-btn" (click)="openAddCityDialog()">Dodaj grad</button>
-            </div>
-          </div>
-          <div class="content">
-            <div *ngFor="let city of listOfCities">
-              <div class="row">
-                <div class="col">
-                  <h3>{{city.name}}</h3>
-                </div>
-                <div class="col">
-                  <h3 *ngIf="city.country">{{city.country.name}}</h3>
-                </div>
-                <div class="col">
-                  <button mat-button (click)="deleteCity(city.id)" color="warn"><i class="fa fa-trash"></i></button>
-                  <button mat-button (click)="openAddCityDialog({name:city.name,id:city.id,country:city.country})"><i
-                    class="fa fa-pencil"></i></button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+    <mat-tab label="Gradovi i države" #countriesTab>
+      <div #countriesOverview></div>
     </mat-tab>
     <mat-tab label="Third"> Content 3</mat-tab>
   </mat-tab-group>

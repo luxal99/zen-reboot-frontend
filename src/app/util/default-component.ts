@@ -25,6 +25,13 @@ export abstract class DefaultComponent<T> implements OnInit {
   getItems(): void {
     this.genericService.getAll().subscribe((resp) => {
       this.listOfItems = resp;
+      this.listOfItems.filter((x) => {
+        // @ts-ignore
+        if (x.createdDate) {
+          // @ts-ignore
+          x.createdDate = new Date(x.createdDate);
+        }
+      });
       setTimeout(() => {
         this.spinnerService.hide(this.spinner);
       }, 100);

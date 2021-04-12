@@ -66,7 +66,6 @@ export class FormBuilderComponent implements OnChanges, OnInit, AfterViewChecked
 
   save(): any {
     this.spinnerService.show(this.spinner);
-    console.log(this.form.getRawValue());
     if (!this.configData.formValues) {
       this.configData.service.save(this.form.getRawValue()).subscribe(() => {
         SnackBarUtil.openSnackBar(this.snackBar, Message.SUCCESS);
