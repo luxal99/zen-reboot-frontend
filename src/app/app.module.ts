@@ -36,6 +36,7 @@ import {SchedulerModule} from 'angular-calendar-scheduler';
 import { ReferralSourceOverviewComponent } from './components/admin/code-book/referral-source-overview/referral-source-overview.component';
 import { CountriesOverviewComponent } from './components/admin/code-book/countries-overview/countries-overview.component';
 import { LocationOverviewComponent } from './components/admin/code-book/location-overview/location-overview.component';
+import { AddLocationDialogComponent } from './components/admin/code-book/location-overview/add-location-dialog/add-location-dialog.component';
 
 // @ts-ignore
 @NgModule({
@@ -64,7 +65,8 @@ import { LocationOverviewComponent } from './components/admin/code-book/location
     StaffOverviewComponent,
     ReferralSourceOverviewComponent,
     CountriesOverviewComponent,
-    LocationOverviewComponent
+    LocationOverviewComponent,
+    AddLocationDialogComponent
   ],
   imports: [
     BrowserModule,
