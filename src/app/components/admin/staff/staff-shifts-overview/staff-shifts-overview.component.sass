@@ -1,17 +1,37 @@
 @import "src/styles"
 .inline
   text-align: center
-  width: 300px
+  width: 400px
   border: 1px solid #c2c2c2
   border-radius: 6px
   background-color: #fff
 
   .column
     width: 30%
-    padding-top: 1em
+    padding-top: .25em
+    -webkit-transition: .3s linear
+    cursor: pointer
+
+  .column:hover
+    background-color: $lighter-silver
+    transition: .5s ease
 
   .left
     border-right: 1px solid #c2c2c2
 
   .right
     border-left: 1px solid #c2c2c2
+
+h2
+  cursor: pointer
+
+.header-row
+  margin-top: 2em
+
+  .col-sm
+    background-color: #fff
+    padding-top: 1em
+    border: 1px solid #e1e1e1
+
+::ng-deep.mat-typography h3
+  margin: 0

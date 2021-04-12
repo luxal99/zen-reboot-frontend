@@ -1,19 +1,22 @@
 <div class="component-content">
-  <div
-    class="text-right">
+  <div class="text-right">
     <div class="inline">
-      <div class="column left">
-        <a>
-          <h2><i class="fa fa-angle-left" aria-hidden="true"></i></h2>
-        </a>
+      <div class="column left" (click)="previousWeek()">
+        <h3><i class="fa fa-angle-left" aria-hidden="true"></i></h3>
       </div>
-      <div style="width: 100%;padding-top: 1em">
-        <h2>{{startDate.date() + '-' + endDate.date() + '/' + (endDate.month() + 1) + '/' + endDate.year()}}</h2>
+      <div style="width: 100%;padding-top: .25em">
+        <h3><b>{{startDate.date() + '-' + endDate.date() + ' ' + endDate.format('MMMM') + ', ' + endDate.year()}}</b>
+        </h3>
       </div>
-      <div  class="column right">
-        <a>
-          <h2><i class="fa fa-angle-right" aria-hidden="true"></i></h2>
-        </a>
+      <div class="column right" (click)="nextWeek()">
+        <h3><i class="fa fa-angle-right" aria-hidden="true"></i></h3>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div class="row header-row">
+      <div class="col-sm date-header" *ngFor="let date of daysInWeek">
+        <h4> {{ date.day(date.day).format('dddd') + ' ' + date.date()}}</h4>
       </div>
     </div>
   </div>

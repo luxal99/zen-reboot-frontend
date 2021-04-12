@@ -8,20 +8,33 @@ import * as moment from 'moment';
 })
 export class StaffShiftsOverviewComponent implements OnInit {
 
-  startDate!: moment.Moment;
-  endDate!: moment.Moment;
+  startDate: moment.Moment = moment().startOf('isoWeek');
+  endDate: moment.Moment = moment().endOf('isoWeek');
+  daysInWeek: any [] = [];
 
   constructor() {
   }
 
   ngOnInit(): void {
-    this.getWeek();
+    this.getWeek(this.startDate, this.endDate);
   }
 
-  getWeek(): void {
-    this.startDate = moment().startOf('isoWeek');
-    this.endDate = moment().endOf('isoWeek');
-
+  getWeek(startDate: any, endDate: any): void {
+    this.daysInWeek = [];
+    let day = startDate;
+    while (day < endDate) {
+      this.daysInWeek.push(day);
+      day = day.clone().add(1, 'd');
+    }
   }
 
+  nextWeek(): void {
+    let i = 0;
+    this.getWeek(this.startDate.add(++i, 'w'), this.endDate.add(i++, 'w'));
+  }
+
+  previousWeek(): void {
+    let i = 0;
+    this.getWeek(this.startDate.subtract(++i, 'w'), this.endDate.subtract(i++, 'w'));
+  }
 }
