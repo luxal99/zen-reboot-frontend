@@ -23,11 +23,14 @@ export class LocationOverviewComponent extends DefaultComponent<Location> implem
     super.ngOnInit();
   }
 
-  openAddLocationDialog(): void {
+  openAddLocationDialog(data?: Location): void {
     DialogUtil.openDialog(AddLocationDialogComponent, {
       position: {top: '6%'},
+      data,
       width: '30%',
-    }, this.dialog);
+    }, this.dialog).afterClosed().subscribe(() => {
+      this.getItems();
+    });
   }
 
   deleteLocation(id: number): void {

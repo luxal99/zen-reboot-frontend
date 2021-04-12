@@ -10,6 +10,7 @@
  * Do not edit the class manually.
  */
 import {Address} from './address';
+import {Room} from './room';
 
 
 export interface Location {
@@ -19,5 +20,6 @@ export interface Location {
   lastModifiedBy?: string;
   lastModifiedDate?: string;
   name?: string;
+  rooms?: Room[];
 }
 

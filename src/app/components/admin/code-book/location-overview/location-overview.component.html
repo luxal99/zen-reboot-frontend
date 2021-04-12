@@ -23,13 +23,13 @@
     </div>
     <div class="row text-center location-source-row"
          *ngFor="let location of listOfItems">
-      <div class="col-sm">
+      <div class="col-sm" (click)="openAddLocationDialog(location)">
         <h3>{{location.name}}</h3>
       </div>
-      <div class="col-sm">
+      <div class="col-sm" (click)="openAddLocationDialog(location)">
         <h3>{{location.address?.street + ' ' + location.address?.number + ',' + location.address?.city?.name}}</h3>
       </div>
-      <div class="col-sm">
+      <div class="col-sm" (click)="openAddLocationDialog(location)">
         <h3>{{location.createdDate.getDate()}}/{{location.createdDate.getMonth() + 1}}
           /{{location.createdDate.getUTCFullYear()}}</h3>
       </div>
