@@ -18,6 +18,7 @@ import {CityService} from '../../../service/city.service';
 import {MatTab, MatTabGroup} from '@angular/material/tabs';
 import {LazyLoadComponentsUtil} from '../../../util/lazy-loading-components';
 import {CountriesOverviewComponent} from './countries-overview/countries-overview.component';
+import {LocationOverviewComponent} from './location-overview/location-overview.component';
 
 @Component({
   selector: 'app-code-book',
@@ -27,8 +28,10 @@ import {CountriesOverviewComponent} from './countries-overview/countries-overvie
 export class CodeBookComponent implements OnInit {
 
   @ViewChild('countriesTab') countriesTab!: MatTab;
-
   @ViewChild('countriesOverview', {read: ViewContainerRef, static: false}) countriesOverviewEntry!: ViewContainerRef;
+
+  @ViewChild('locationTab') locationTab!: MatTab;
+  @ViewChild('locationOverview', {read: ViewContainerRef, static: false}) locationOverview!: ViewContainerRef;
 
   constructor(private resolver: ComponentFactoryResolver) {
   }
@@ -37,11 +40,13 @@ export class CodeBookComponent implements OnInit {
   }
 
   loadActivatedComponent(): void {
-    if (this.countriesTab.isActive) {
-      setTimeout(() => {
+    setTimeout(() => {
+      if (this.countriesTab.isActive) {
         LazyLoadComponentsUtil.loadComponent(CountriesOverviewComponent, this.countriesOverviewEntry, this.resolver);
-      }, 250);
-    }
+      } else if (this.locationTab.isActive) {
+        LazyLoadComponentsUtil.loadComponent(LocationOverviewComponent, this.locationOverview, this.resolver);
+      }
+    }, 250);
   }
 
 

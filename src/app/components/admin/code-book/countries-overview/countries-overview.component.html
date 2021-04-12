@@ -8,6 +8,7 @@
         <button mat-button class="border-btn" (click)="openAddCountryDialog()">Dodaj državu</button>
       </div>
     </div>
+    <mat-spinner #spinner diameter="50"></mat-spinner>
     <div class="content">
       <div *ngFor="let country of listOfItems">
         <div class="row">
