@@ -29,12 +29,15 @@ export class FormControlNames {
   static CITY_FORM_CONTROL = 'city';
   static COLOR_FORM_CONTROL = 'color';
   static SEARCH_FORM_CONTROL = 'search';
+  static START_TIME_FORM_CONTROL = 'startTime';
+  static END_TIME_FORM_CONTROL = 'endTime';
 }
 
 export class InputTypes {
   static INPUT_TYPE_NAME = 'input';
   static SELECT_TYPE_NAME = 'select';
   static PASSWORD_TYPE_NAME = 'password';
+  static TIME = 'time';
 }
 
 export class Token {
@@ -67,6 +70,7 @@ export class RestRoutesConst {
   static STAFF = 'staffs';
   static LOCATION = 'locations';
   static ROOM = 'rooms';
+  static SHIFT = 'shifts';
 }
 
 export class TokenConst {

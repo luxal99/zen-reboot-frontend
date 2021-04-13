@@ -1,1 +1,14 @@
-<p>add-shift-dialog works!</p>
+<div class="text-center">
+  <h1>{{data.date}}</h1>
+  <h2><b>{{data.staff?.person?.firstName + ' ' + data.staff?.person?.lastName}}</b></h2>
+  <div class="row">
+    <div class="col-sm left">
+      <app-form-input [config]="startTimeInputConfig" [group]="shiftForm" icon="scheduled"
+                      label="Početak"></app-form-input>
+    </div>
+    <div class="col-sm right">
+      <app-form-input [config]="startTimeInputConfig" [group]="shiftForm" icon="scheduled"
+                      label="Kraj"></app-form-input>
+    </div>
+  </div>
+</div>

@@ -3,6 +3,11 @@ import * as moment from 'moment';
 import {StaffService} from '../../../../service/staff.service';
 import {CriteriaBuilder} from '../../../../util/criteria-builder';
 import {StaffDto} from 'src/app/models/staff-dto';
+import {Staff} from '../../../../models/staff';
+import {DialogUtil} from '../../../../util/dialog-util';
+import {AddShiftDialogComponent} from './add-shift-dialog/add-shift-dialog.component';
+import {MatDialog} from '@angular/material/dialog';
+import {Shift} from '../../../../models/shift';
 
 @Component({
   selector: 'app-staff-shifts-overview',
@@ -16,7 +21,7 @@ export class StaffShiftsOverviewComponent implements OnInit {
   endDate: moment.Moment = moment().endOf('isoWeek');
   daysInWeek: any [] = [];
 
-  constructor(private staffService: StaffService) {
+  constructor(private staffService: StaffService, private dialog: MatDialog) {
   }
 
   ngOnInit(): void {
@@ -52,5 +57,17 @@ export class StaffShiftsOverviewComponent implements OnInit {
     this.staffService.getStaffsShifts(queryBuilder.buildUrlEncoded()).subscribe((resp) => {
       this.listOfScheduled = resp;
     });
+  }
+
+  openAddShiftDialog(staff: any, date: any): void {
+    const shift: Shift = {
+      staff,
+      date
+    };
+    DialogUtil.openDialog(AddShiftDialogComponent, {
+      position: {top: '6%'},
+      data: shift,
+      width: '30%',
+    }, this.dialog);
   }
 }
