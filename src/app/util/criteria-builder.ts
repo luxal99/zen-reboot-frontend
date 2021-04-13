@@ -65,13 +65,13 @@ export class CriteriaBuilder {
     return this;
   }
 
-  public gt(operand1: string, operand2: string): CriteriaBuilder {
+  public gt(operand1: string, operand2: any): CriteriaBuilder {
     this.criteriaList.push(new SearchCriteria(operand1, operand2, CriteriaOperation.GT, this.isCriteriaOr));
     this.isCriteriaOr = false;
     return this;
   }
 
-  public lt(operand1: string, operand2: string): CriteriaBuilder {
+  public lt(operand1: string, operand2: any): CriteriaBuilder {
     this.criteriaList.push(new SearchCriteria(operand1, operand2, CriteriaOperation.LT, this.isCriteriaOr));
     this.isCriteriaOr = false;
     return this;
