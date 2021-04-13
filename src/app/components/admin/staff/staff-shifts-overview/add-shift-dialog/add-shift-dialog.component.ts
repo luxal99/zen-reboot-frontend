@@ -7,6 +7,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import {ShiftService} from '../../../../../service/shift.service';
 import {FormControlNames, InputTypes} from '../../../../../const/const';
 import {FieldConfig} from '../../../../../models/FIeldConfig';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-add-shift-dialog',
@@ -28,12 +29,14 @@ export class AddShiftDialogComponent extends DefaultComponent<Shift> implements 
   }
 
   ngOnInit(): void {
-    console.log(this.data);
   }
 
   save(): void {
     this.data.startTime = this.shiftForm.get(FormControlNames.START_TIME_FORM_CONTROL)?.value;
     this.data.endTime = this.shiftForm.get(FormControlNames.END_TIME_FORM_CONTROL)?.value;
-
+    // @ts-ignore
+    delete this.data.staff.shifts;
+    this.data.date = moment(this.data.date).format('YYYY-MM-DD');
+    super.subscribeSave(this.data);
   }
 }

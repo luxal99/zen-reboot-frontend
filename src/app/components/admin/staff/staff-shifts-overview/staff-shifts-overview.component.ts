@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import * as moment from 'moment';
 import {StaffService} from '../../../../service/staff.service';
 import {CriteriaBuilder} from '../../../../util/criteria-builder';
@@ -8,6 +8,8 @@ import {DialogUtil} from '../../../../util/dialog-util';
 import {AddShiftDialogComponent} from './add-shift-dialog/add-shift-dialog.component';
 import {MatDialog} from '@angular/material/dialog';
 import {Shift} from '../../../../models/shift';
+import {SpinnerService} from '../../../../service/spinner.service';
+import {MatSpinner} from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-staff-shifts-overview',
@@ -16,17 +18,21 @@ import {Shift} from '../../../../models/shift';
 })
 export class StaffShiftsOverviewComponent implements OnInit {
 
+  @ViewChild('spinner') spinner!: MatSpinner;
   listOfScheduled: StaffDto[] = [];
   startDate: moment.Moment = moment().startOf('isoWeek');
   endDate: moment.Moment = moment().endOf('isoWeek');
   daysInWeek: any [] = [];
 
-  constructor(private staffService: StaffService, private dialog: MatDialog) {
+  constructor(private staffService: StaffService, private dialog: MatDialog, private spinnerService: SpinnerService) {
   }
 
   ngOnInit(): void {
     this.getWeek(this.startDate, this.endDate);
-    this.filterShift(this.startDate, this.endDate);
+
+    setTimeout(() => {
+      this.filterShift(this.startDate, this.endDate);
+    }, 100);
   }
 
   getWeek(startDate: any, endDate: any): void {
@@ -50,12 +56,14 @@ export class StaffShiftsOverviewComponent implements OnInit {
   }
 
   filterShift(startDate: any, endDate: any): void {
+    this.spinnerService.show(this.spinner);
     const queryBuilder = new CriteriaBuilder();
     queryBuilder.gt('date', moment(startDate).format('X')).and()
       .lt('date', moment(endDate).format('X'));
 
     this.staffService.getStaffsShifts(queryBuilder.buildUrlEncoded()).subscribe((resp) => {
       this.listOfScheduled = resp;
+      this.spinnerService.hide(this.spinner);
     });
   }
 

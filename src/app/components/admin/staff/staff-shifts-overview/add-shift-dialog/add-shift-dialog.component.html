@@ -7,8 +7,12 @@
                       label="Početak"></app-form-input>
     </div>
     <div class="col-sm right">
-      <app-form-input [config]="startTimeInputConfig" [group]="shiftForm" icon="scheduled"
+      <app-form-input [config]="endTimeInputConfig" [group]="shiftForm" icon="scheduled"
                       label="Kraj"></app-form-input>
     </div>
   </div>
+  <div class="text-right">
+    <button mat-button class="default-btn" style="width: 15%;" (click)="save()">Dodaj</button>
+  </div>
 </div>
+<mat-spinner #spinner diameter="50"></mat-spinner>

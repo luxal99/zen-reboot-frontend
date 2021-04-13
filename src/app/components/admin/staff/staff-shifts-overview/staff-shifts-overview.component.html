@@ -23,6 +23,7 @@
         <h4> {{ date.day(date.day).format('dddd') + ' ' + date.date()}}</h4>
       </div>
     </div>
+    <mat-spinner #spinner diameter="50"></mat-spinner>
     <div class="row" *ngFor="let scheduled of listOfScheduled">
       <div class="col-sm white-col">
         <h3>{{scheduled.person?.firstName + ' ' + scheduled.person?.lastName}}</h3>
