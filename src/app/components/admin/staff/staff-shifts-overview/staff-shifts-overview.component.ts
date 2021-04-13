@@ -88,7 +88,9 @@ export class StaffShiftsOverviewComponent implements OnInit, AfterViewChecked {
       position: {top: '6%'},
       data: shf ? shf : {staff, date},
       width: '30%',
-    }, this.dialog);
+    }, this.dialog).afterClosed().subscribe(() => {
+      this.filterShift(this.startDate, this.endDate);
+    });
   }
 
   getShiftByDate(date: moment.Moment, person: Person): Shift {
