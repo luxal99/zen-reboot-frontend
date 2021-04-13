@@ -11,6 +11,7 @@ import {Shift} from '../../../../models/shift';
 import {SpinnerService} from '../../../../service/spinner.service';
 import {MatSpinner} from '@angular/material/progress-spinner';
 import {Person} from '../../../../models/person';
+import {FormControl, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-staff-shifts-overview',
@@ -19,17 +20,23 @@ import {Person} from '../../../../models/person';
 })
 export class StaffShiftsOverviewComponent implements OnInit, AfterViewChecked {
 
-  constructor(private staffService: StaffService, private dialog: MatDialog,
-              private spinnerService: SpinnerService, private readonly changeDetectorRef: ChangeDetectorRef) {
-  }
-
   @ViewChild('spinner') spinner!: MatSpinner;
+
   listOfScheduled: StaffDto[] = [];
   startDate: moment.Moment = moment().startOf('isoWeek');
   endDate: moment.Moment = moment().endOf('isoWeek');
   daysInWeek: any [] = [];
 
   shiftPerStaff: Shift = {};
+  searchForm = new FormGroup({
+    search: new FormControl('')
+  });
+
+  searchText = '';
+
+  constructor(private staffService: StaffService, private dialog: MatDialog,
+              private spinnerService: SpinnerService, private readonly changeDetectorRef: ChangeDetectorRef) {
+  }
 
   ngOnInit(): void {
     this.getWeek(this.startDate, this.endDate);
@@ -77,13 +84,9 @@ export class StaffShiftsOverviewComponent implements OnInit, AfterViewChecked {
   }
 
   openAddShiftDialog(staff: any, date: any, shf?: Shift): void {
-    const shift: Shift = {
-      staff,
-      date
-    };
     DialogUtil.openDialog(AddShiftDialogComponent, {
       position: {top: '6%'},
-      data: shf ? shf : shift,
+      data: shf ? shf : {staff, date},
       width: '30%',
     }, this.dialog);
   }
