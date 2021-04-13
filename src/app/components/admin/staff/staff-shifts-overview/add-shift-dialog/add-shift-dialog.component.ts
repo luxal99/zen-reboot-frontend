@@ -57,6 +57,7 @@ export class AddShiftDialogComponent extends DefaultComponent<Shift> implements 
 
     shift.date = moment(this.data.date).format('YYYY-MM-DD');
 
+    shift.location?.rooms?.filter((room) => delete room.location);
     if (this.data.id) {
       shift.id = this.data.id;
       super.subscribeUpdate(shift);

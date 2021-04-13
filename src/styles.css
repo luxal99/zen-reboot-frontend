@@ -83,6 +83,10 @@ button {
   .mobile {
     display: block;
   }
+
+  mat-tab-group {
+    display: inline-grid;
+  }
 }
 
 /*# sourceMappingURL=styles.css.map */
