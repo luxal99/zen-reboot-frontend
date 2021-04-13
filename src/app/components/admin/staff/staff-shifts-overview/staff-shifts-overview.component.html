@@ -24,9 +24,9 @@
       </div>
     </div>
     <mat-spinner #spinner diameter="50"></mat-spinner>
-    <div style="margin-top: 2em">
+    <div class="scheduled-binding-div">
       <div class="row" *ngFor="let scheduled of listOfScheduled">
-        <div class="col-sm white-col" [style.color]="scheduled.color">
+        <div class="col-sm full-name-col" [style.color]="scheduled.color">
           <div class="inline staff-name-div">
             <span [style.background-color]="scheduled.color" class="staff-badge"></span>
             <h3 style="color: #121212">{{scheduled.person?.firstName + ' ' + scheduled.person?.lastName}}</h3>
