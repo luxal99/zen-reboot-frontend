@@ -12,6 +12,10 @@
     -webkit-transition: .3s linear
     cursor: pointer
 
+  .mid-column
+    width: 100%
+    padding-top: .25em
+
   .column:hover
     background-color: $lighter-silver
     transition: .5s ease
@@ -74,5 +78,18 @@ mat-spinner
   padding: 1em
   border-bottom: 1px solid #e1e1e1
   border-right: 1px solid #e1e1e1
+
 mat-form-field
   width: 50%
+
+@media screen and (max-width: 570px)
+  .week-filter-div
+    width: 100%
+
+    .column
+      padding: 1em
+
+    .mid-column
+      padding: 1em .25em
+  mat-form-field
+    width: 100%
