@@ -1,4 +1,4 @@
-import {AfterViewChecked, ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewChecked, AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import * as moment from 'moment';
 import {StaffService} from '../../../../service/staff.service';
 import {CriteriaBuilder} from '../../../../util/criteria-builder';
@@ -12,6 +12,7 @@ import {SpinnerService} from '../../../../service/spinner.service';
 import {MatSpinner} from '@angular/material/progress-spinner';
 import {Person} from '../../../../models/person';
 import {FormControl, FormGroup} from '@angular/forms';
+import {element} from 'protractor';
 
 @Component({
   selector: 'app-staff-shifts-overview',
@@ -21,6 +22,7 @@ import {FormControl, FormGroup} from '@angular/forms';
 export class StaffShiftsOverviewComponent implements OnInit, AfterViewChecked {
 
   @ViewChild('spinner') spinner!: MatSpinner;
+  @ViewChild('scheduledBinding') scheduledBinding!: ElementRef;
 
   listOfScheduled: StaffDto[] = [];
   startDate: moment.Moment = moment().startOf('isoWeek');
@@ -38,6 +40,7 @@ export class StaffShiftsOverviewComponent implements OnInit, AfterViewChecked {
               private spinnerService: SpinnerService, private readonly changeDetectorRef: ChangeDetectorRef) {
   }
 
+
   ngOnInit(): void {
     this.getWeek(this.startDate, this.endDate);
 
@@ -47,7 +50,24 @@ export class StaffShiftsOverviewComponent implements OnInit, AfterViewChecked {
   }
 
   ngAfterViewChecked(): void {
+
+    this.setResponsive();
     this.changeDetectorRef.detectChanges();
+  }
+
+  setResponsive(): void {
+    // @ts-ignore
+    const div = document.querySelector('#scheduledBinding');
+
+    if (window.screen.width <= 570) {
+      // @ts-ignore
+      for (const child of div.children) {
+        // @ts-ignore
+        child.classList.remove('row');
+        child.classList.add('inline');
+      }
+
+    }
   }
 
   getWeek(startDate: any, endDate: any): void {
