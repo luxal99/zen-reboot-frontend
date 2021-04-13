@@ -17,7 +17,8 @@
             <h3><i class="fa fa-angle-left" aria-hidden="true"></i></h3>
           </div>
           <div style="width: 100%;padding-top: .25em">
-            <h3><b>{{startDate.date() + '-' + endDate.date() + ' ' + endDate.format('MMMM') + ', ' + endDate.year()}}</b>
+            <h3>
+              <b>{{startDate.date() + '-' + endDate.date() + ' ' + endDate.format('MMMM') + ', ' + endDate.year()}}</b>
             </h3>
           </div>
           <div class="column right" (click)="nextWeek()">
@@ -50,7 +51,9 @@
              (click)="openAddShiftDialog(scheduled,date.format('DD MMMM YYYY'),getShiftByDate(date, scheduled.person))"
              *ngFor="let date of daysInWeek">
           <h3 class="shift-time-h3"
-              [ngStyle]="getShiftByDate(date, scheduled.person)  ? {'background-color':'#deb767','padding':'.25em','border-radius':'5px'}:{'background-color':'#fff'}">
+              [ngStyle]="getShiftByDate(date, scheduled.person)  ?
+              {'background-color':scheduled.color,'padding':'.25em','border-radius':'5px','color':'#fff'}
+              :{'background-color':'#fff'}">
             {{ shiftPerStaff ? shiftPerStaff.startTime + '-' + this.shiftPerStaff.endTime : '' }}
           </h3>
         </div>
