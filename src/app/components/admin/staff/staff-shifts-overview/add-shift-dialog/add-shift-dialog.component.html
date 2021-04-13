@@ -11,6 +11,7 @@
                       label="Kraj"></app-form-input>
     </div>
   </div>
+  <app-form-select label="Izaberi lokaciju" [group]="shiftForm" [config]="locationSelectConfig"></app-form-select>
   <div class="text-right">
     <button mat-button class="default-btn" style="width: 15%;" (click)="save()">Dodaj</button>
   </div>

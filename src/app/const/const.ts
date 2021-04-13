@@ -31,6 +31,7 @@ export class FormControlNames {
   static SEARCH_FORM_CONTROL = 'search';
   static START_TIME_FORM_CONTROL = 'startTime';
   static END_TIME_FORM_CONTROL = 'endTime';
+  static LOCATION_FORM_CONTROL = 'location';
 }
 
 export class InputTypes {

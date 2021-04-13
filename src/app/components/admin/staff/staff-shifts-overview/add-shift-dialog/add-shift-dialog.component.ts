@@ -8,6 +8,7 @@ import {ShiftService} from '../../../../../service/shift.service';
 import {FormControlNames, InputTypes} from '../../../../../const/const';
 import {FieldConfig} from '../../../../../models/FIeldConfig';
 import * as moment from 'moment';
+import {LocationService} from '../../../../../service/location.service';
 
 @Component({
   selector: 'app-add-shift-dialog',
@@ -19,24 +20,36 @@ export class AddShiftDialogComponent extends DefaultComponent<Shift> implements 
   shiftForm = new FormGroup({
     startTime: new FormControl('', Validators.required),
     endTime: new FormControl('', Validators.required),
+    location: new FormControl()
   });
 
   startTimeInputConfig: FieldConfig = {name: FormControlNames.START_TIME_FORM_CONTROL, type: InputTypes.TIME};
   endTimeInputConfig: FieldConfig = {name: FormControlNames.END_TIME_FORM_CONTROL, type: InputTypes.TIME};
+  locationSelectConfig: FieldConfig = {name: FormControlNames.LOCATION_FORM_CONTROL, type: InputTypes.SELECT_TYPE_NAME};
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: Shift, protected snackBar: MatSnackBar, private shiftService: ShiftService) {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: Shift, protected snackBar: MatSnackBar,
+              private shiftService: ShiftService, private locationService: LocationService) {
     super(shiftService, snackBar);
   }
 
   ngOnInit(): void {
+    this.getAllLocations();
+  }
+
+  getAllLocations(): void {
+    this.locationService.getAll().subscribe((resp) => {
+      this.locationSelectConfig.options = resp;
+    });
   }
 
   save(): void {
-    this.data.startTime = this.shiftForm.get(FormControlNames.START_TIME_FORM_CONTROL)?.value;
-    this.data.endTime = this.shiftForm.get(FormControlNames.END_TIME_FORM_CONTROL)?.value;
+    const shift: Shift = this.data;
+    Object.assign(shift, this.shiftForm.getRawValue());
+    console.log(shift);
     // @ts-ignore
-    delete this.data.staff.shifts;
-    this.data.date = moment(this.data.date).format('YYYY-MM-DD');
-    super.subscribeSave(this.data);
+    delete shift.staff.shifts;
+
+    shift.date = moment(this.data.date).format('YYYY-MM-DD');
+    super.subscribeSave(shift);
   }
 }

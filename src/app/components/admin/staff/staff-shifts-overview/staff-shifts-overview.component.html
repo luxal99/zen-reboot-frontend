@@ -24,12 +24,14 @@
       </div>
     </div>
     <mat-spinner #spinner diameter="50"></mat-spinner>
-    <div class="row" *ngFor="let scheduled of listOfScheduled">
-      <div class="col-sm white-col">
-        <h3>{{scheduled.person?.firstName + ' ' + scheduled.person?.lastName}}</h3>
-      </div>
-      <div class="col-sm white-col" (click)="openAddShiftDialog(scheduled,date.format('DD MMMM YYYY'))" *ngFor="let date of daysInWeek">
-        <h2></h2>
+    <div style="margin-top: 2em">
+      <div class="row" *ngFor="let scheduled of listOfScheduled">
+        <div class="col-sm white-col">
+          <h3>{{scheduled.person?.firstName + ' ' + scheduled.person?.lastName}}</h3>
+        </div>
+        <div class="col-sm white-col" (click)="openAddShiftDialog(scheduled,date.format('DD MMMM YYYY'))" *ngFor="let date of daysInWeek">
+          <h2></h2>
+        </div>
       </div>
     </div>
   </div>
