@@ -2,6 +2,7 @@ import {Location} from './location';
 import {Staff} from './staff';
 import {RepeatTypeEnum} from '../enums/RepeatTypeEnum';
 import {Person} from './person';
+import {Shift} from './shift';
 
 export interface StaffDto {
   date?: any;
@@ -11,5 +12,7 @@ export interface StaffDto {
   repeatType?: RepeatTypeEnum;
   person?: Person;
   startTime?: any;
+  shifts: Shift[];
+  color?: string;
 
 }

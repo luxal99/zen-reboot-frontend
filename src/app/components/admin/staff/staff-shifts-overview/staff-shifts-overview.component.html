@@ -1,6 +1,6 @@
 <div class="component-content">
   <div class="text-right">
-    <div class="inline">
+    <div class="inline week-filter-div">
       <div class="column left" (click)="previousWeek()">
         <h3><i class="fa fa-angle-left" aria-hidden="true"></i></h3>
       </div>
@@ -20,17 +20,24 @@
         <h3><b>Zaposleni</b></h3>
       </div>
       <div class="col-sm date-header" *ngFor="let date of daysInWeek">
-        <h4> {{ date.day(date.day).format('dddd') + ' ' + date.date()}}</h4>
+        <h4><b>{{ date.day(date.day).format('dddd') + ' ' + date.date()}}</b></h4>
       </div>
     </div>
     <mat-spinner #spinner diameter="50"></mat-spinner>
     <div style="margin-top: 2em">
       <div class="row" *ngFor="let scheduled of listOfScheduled">
-        <div class="col-sm white-col">
-          <h3>{{scheduled.person?.firstName + ' ' + scheduled.person?.lastName}}</h3>
+        <div class="col-sm white-col" [style.color]="scheduled.color">
+          <div class="inline staff-name-div">
+            <span [style.background-color]="scheduled.color" class="staff-badge"></span>
+            <h3 style="color: #121212">{{scheduled.person?.firstName + ' ' + scheduled.person?.lastName}}</h3>
+          </div>
         </div>
-        <div class="col-sm white-col" (click)="openAddShiftDialog(scheduled,date.format('DD MMMM YYYY'))" *ngFor="let date of daysInWeek">
-          <h2></h2>
+        <div class="col-sm white-col" (click)="openAddShiftDialog(scheduled,date.format('DD MMMM YYYY'))"
+             *ngFor="let date of daysInWeek">
+          <h3 class="shift-time-h3"
+              [ngStyle]="getShiftByDate(date, scheduled.person)  ? {'background-color':'#deb767','padding':'.25em','border-radius':'5px'}:{'background-color':'#fff'}">
+            {{ this.shiftPerStaff ? this.shiftPerStaff.startTime + '-' + this.shiftPerStaff.endTime : '' }}
+          </h3>
         </div>
       </div>
     </div>
