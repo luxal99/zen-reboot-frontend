@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {AfterViewChecked, ChangeDetectorRef, Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {Shift} from '../../../../../models/shift';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
@@ -15,8 +15,9 @@ import {LocationService} from '../../../../../service/location.service';
   templateUrl: './add-shift-dialog.component.html',
   styleUrls: ['./add-shift-dialog.component.sass']
 })
-export class AddShiftDialogComponent extends DefaultComponent<Shift> implements OnInit {
+export class AddShiftDialogComponent extends DefaultComponent<Shift> implements OnInit, AfterViewChecked {
 
+  date = '';
   shiftForm = new FormGroup({
     startTime: new FormControl('', Validators.required),
     endTime: new FormControl('', Validators.required),
@@ -28,12 +29,18 @@ export class AddShiftDialogComponent extends DefaultComponent<Shift> implements 
   locationSelectConfig: FieldConfig = {name: FormControlNames.LOCATION_FORM_CONTROL, type: InputTypes.SELECT_TYPE_NAME};
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: Shift, protected snackBar: MatSnackBar,
+              private readonly changeDetectorRef: ChangeDetectorRef,
               private shiftService: ShiftService, private locationService: LocationService) {
     super(shiftService, snackBar);
   }
 
   ngOnInit(): void {
+    this.date = moment(this.data.date).format('DD MMMM YYYY');
     this.getAllLocations();
+  }
+
+  ngAfterViewChecked(): void {
+    this.changeDetectorRef.detectChanges();
   }
 
   getAllLocations(): void {
@@ -45,11 +52,16 @@ export class AddShiftDialogComponent extends DefaultComponent<Shift> implements 
   save(): void {
     const shift: Shift = this.data;
     Object.assign(shift, this.shiftForm.getRawValue());
-    console.log(shift);
     // @ts-ignore
     delete shift.staff.shifts;
 
     shift.date = moment(this.data.date).format('YYYY-MM-DD');
-    super.subscribeSave(shift);
+
+    if (this.data.id) {
+      shift.id = this.data.id;
+      super.subscribeUpdate(shift);
+    } else {
+      super.subscribeSave(shift);
+    }
   }
 }

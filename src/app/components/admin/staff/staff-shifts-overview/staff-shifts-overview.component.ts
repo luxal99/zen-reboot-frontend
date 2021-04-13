@@ -76,14 +76,14 @@ export class StaffShiftsOverviewComponent implements OnInit, AfterViewChecked {
     });
   }
 
-  openAddShiftDialog(staff: any, date: any): void {
+  openAddShiftDialog(staff: any, date: any, shf?: Shift): void {
     const shift: Shift = {
       staff,
       date
     };
     DialogUtil.openDialog(AddShiftDialogComponent, {
       position: {top: '6%'},
-      data: shift,
+      data: shf ? shf : shift,
       width: '30%',
     }, this.dialog);
   }

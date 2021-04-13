@@ -32,11 +32,11 @@
             <h3 style="color: #121212">{{scheduled.person?.firstName + ' ' + scheduled.person?.lastName}}</h3>
           </div>
         </div>
-        <div class="col-sm white-col" (click)="openAddShiftDialog(scheduled,date.format('DD MMMM YYYY'))"
+        <div class="col-sm white-col" (click)="openAddShiftDialog(scheduled,date.format('DD MMMM YYYY'),getShiftByDate(date, scheduled.person))"
              *ngFor="let date of daysInWeek">
           <h3 class="shift-time-h3"
               [ngStyle]="getShiftByDate(date, scheduled.person)  ? {'background-color':'#deb767','padding':'.25em','border-radius':'5px'}:{'background-color':'#fff'}">
-            {{ this.shiftPerStaff ? this.shiftPerStaff.startTime + '-' + this.shiftPerStaff.endTime : '' }}
+            {{ shiftPerStaff ? shiftPerStaff.startTime + '-' + this.shiftPerStaff.endTime : '' }}
           </h3>
         </div>
       </div>
