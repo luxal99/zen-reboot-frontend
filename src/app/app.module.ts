@@ -36,6 +36,7 @@ import { CountriesOverviewComponent } from './components/admin/code-book/countri
 import { LocationOverviewComponent } from './components/admin/code-book/location-overview/location-overview.component';
 import { AddLocationDialogComponent } from './components/admin/code-book/location-overview/add-location-dialog/add-location-dialog.component';
 import { AddShiftDialogComponent } from './components/admin/staff/staff-shifts-overview/add-shift-dialog/add-shift-dialog.component';
+import { AppointmentComponent } from './components/admin/appointment/appointment.component';
 // @ts-ignore
 @NgModule({
   declarations: [
@@ -65,7 +66,8 @@ import { AddShiftDialogComponent } from './components/admin/staff/staff-shifts-o
     CountriesOverviewComponent,
     LocationOverviewComponent,
     AddLocationDialogComponent,
-    AddShiftDialogComponent
+    AddShiftDialogComponent,
+    AppointmentComponent
   ],
   imports: [
     BrowserModule,
