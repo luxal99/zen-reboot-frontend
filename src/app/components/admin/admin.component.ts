@@ -14,6 +14,7 @@ import {ClientComponent} from './client/client.component';
 import {CodeBookComponent} from './code-book/code-book.component';
 import {ServicesComponent} from './services/services.component';
 import {StaffComponent} from './staff/staff.component';
+import {AppointmentComponent} from './appointment/appointment.component';
 
 @Component({
   selector: 'app-admin',
@@ -85,5 +86,9 @@ export class AdminComponent implements OnInit, AfterViewInit {
 
   loadServiceComponent(): void {
     LazyLoadComponentsUtil.loadComponent(ServicesComponent, this.entry, this.resolver);
+  }
+
+  loadAppointmentComponent(): void {
+    LazyLoadComponentsUtil.loadComponent(AppointmentComponent, this.entry, this.resolver);
   }
 }
