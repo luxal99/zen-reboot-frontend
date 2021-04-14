@@ -12,35 +12,14 @@
           <span class="txt-span">Početna</span>
         </a>
       </a>
-      <a (click)="changeColor($event)" class="inactive">
-        <a class="a-h2 text-center" (click)="loadCodeBookComponent()">
-              <span class="icon-span"><i
-                class="fa fa-id-card-o"></i> </span>
-          <span class="txt-span">Šifarnik</span>
-        </a>
-      </a>
-      <a (click)="changeColor($event)" class="inactive">
-        <a class="a-h2 text-center" (click)="loadClientComponent()">
-              <span class="icon-span"><i
-                class="fa fa-user"></i> </span>
-          <span class="txt-span">Klijenti</span>
-        </a>
-      </a>
-      <a (click)="changeColor($event)" class="inactive">
-        <a class="a-h2 text-center" (click)="loadServiceComponent()">
-              <span class="icon-span"><span class="material-icons">
-article
-</span> </span>
-          <span class="txt-span">Tretmani</span>
-        </a>
-      </a>
-      <a (click)="changeColor($event)" class="inactive">
-        <a class="a-h2 text-center" (click)="loadStaffComponent()">
-              <span class="icon-span"><i class="fa fa-building" aria-hidden="true"></i>
- </span>
-          <span class="txt-span">Zaposleni</span>
-        </a>
-      </a>
+      <app-component-activator icon="fa-id-card-o" title="Šifarnik"
+                               (load)="loadCodeBookComponent()"></app-component-activator>
+      <app-component-activator icon="fa-user" title="Klijenti" (load)="loadClientComponent()"></app-component-activator>
+      <app-component-activator icon="fa-bookmark" title="Tretmani"
+                               (load)="loadServiceComponent()"></app-component-activator>
+      <app-component-activator icon="fa fa-building" title="Zaposleni"
+                               (load)="loadStaffComponent()"></app-component-activator>
+
     </div>
   </div>
   <div class="col">

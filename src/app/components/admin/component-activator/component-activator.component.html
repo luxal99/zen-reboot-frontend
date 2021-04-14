@@ -1,1 +1,7 @@
-<p>component-activator works!</p>
+<a (click)="changeColor($event)" class="inactive">
+  <a class="a-h2 text-center" (click)="loadComponent()">
+              <span class="icon-span"><i
+                class="fa {{icon}}"></i> </span>
+    <span class="txt-span">{{title}}</span>
+  </a>
+</a>
