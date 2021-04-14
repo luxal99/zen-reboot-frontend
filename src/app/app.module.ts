@@ -31,14 +31,15 @@ import {ColorPickerModule} from 'ngx-color-picker';
 import {StaffPipe} from './pipes/staff.pipe';
 import {StaffShiftsOverviewComponent} from './components/admin/staff/staff-shifts-overview/staff-shifts-overview.component';
 import {StaffOverviewComponent} from './components/admin/staff/staff-overview/staff-overview.component';
-import { ReferralSourceOverviewComponent } from './components/admin/code-book/referral-source-overview/referral-source-overview.component';
-import { CountriesOverviewComponent } from './components/admin/code-book/countries-overview/countries-overview.component';
-import { LocationOverviewComponent } from './components/admin/code-book/location-overview/location-overview.component';
-import { AddLocationDialogComponent } from './components/admin/code-book/location-overview/add-location-dialog/add-location-dialog.component';
-import { AddShiftDialogComponent } from './components/admin/staff/staff-shifts-overview/add-shift-dialog/add-shift-dialog.component';
-import { AppointmentComponent } from './components/admin/appointment/appointment.component';
-import { ComponentActivatorComponent } from './components/admin/component-activator/component-activator.component';
-import { AddAppointmentDialogComponent } from './components/admin/appointment/add-appointment-dialog/add-appointment-dialog.component';
+import {ReferralSourceOverviewComponent} from './components/admin/code-book/referral-source-overview/referral-source-overview.component';
+import {CountriesOverviewComponent} from './components/admin/code-book/countries-overview/countries-overview.component';
+import {LocationOverviewComponent} from './components/admin/code-book/location-overview/location-overview.component';
+import {AddLocationDialogComponent} from './components/admin/code-book/location-overview/add-location-dialog/add-location-dialog.component';
+import {AddShiftDialogComponent} from './components/admin/staff/staff-shifts-overview/add-shift-dialog/add-shift-dialog.component';
+import {AppointmentComponent} from './components/admin/appointment/appointment.component';
+import {ComponentActivatorComponent} from './components/admin/component-activator/component-activator.component';
+import {AddAppointmentDialogComponent} from './components/admin/appointment/add-appointment-dialog/add-appointment-dialog.component';
+
 // @ts-ignore
 @NgModule({
   declarations: [
@@ -88,8 +89,11 @@ import { AddAppointmentDialogComponent } from './components/admin/appointment/ad
     {provide: MAT_COLOR_FORMATS, useValue: NGX_MAT_COLOR_FORMATS}
 
   ],
-  entryComponents: [AddServiceDialogComponent, AddClientDialogComponent, ClientOverviewDialogComponent,
-    FormBuilderComponent, OverviewComponent, StaffComponent, ServicesComponent],
+  entryComponents:
+    [
+      AddAppointmentDialogComponent, AddServiceDialogComponent,
+      AddClientDialogComponent, ClientOverviewDialogComponent,
+      FormBuilderComponent, OverviewComponent, StaffComponent, ServicesComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {

@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {MatDialog} from '@angular/material/dialog';
+import {DialogUtil} from '../../../util/dialog-util';
+import {AddAppointmentDialogComponent} from './add-appointment-dialog/add-appointment-dialog.component';
 
 @Component({
   selector: 'app-appointment',
@@ -7,9 +10,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AppointmentComponent implements OnInit {
 
-  constructor() { }
+  constructor(private dialog: MatDialog) {
+  }
 
   ngOnInit(): void {
   }
 
+  openAddAppointmentDialog(): void {
+    DialogUtil.openDialog(AddAppointmentDialogComponent, {}, this.dialog);
+  }
 }
