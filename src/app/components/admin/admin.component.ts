@@ -38,9 +38,14 @@ export class AdminComponent implements OnInit, AfterViewInit {
 
   openSideNav(): void {
     if (this.sideNav.nativeElement.style.width === '300px') {
+      // @ts-ignore
+      document.getElementById('menu-icon').style.transform = 'rotate(90deg)';
       this.sideNav.nativeElement.style.maxWidth = '80px';
       this.sideNav.nativeElement.style.width = '80px';
     } else {
+
+      // @ts-ignore
+      document.getElementById('menu-icon').style.transform = 'rotate(-90deg)';
       this.sideNav.nativeElement.style.maxWidth = '300px';
       this.sideNav.nativeElement.style.width = '300px';
     }

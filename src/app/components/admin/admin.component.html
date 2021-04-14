@@ -2,7 +2,7 @@
   <div class="col side-nav-col" #sideNav>
     <div class="side-nav-col-content ">
       <button (click)="openSideNav()" mat-icon-button color="primary">
-        <mat-icon>keyboard_arrow_right
+        <mat-icon id="menu-icon">open_in_browser
         </mat-icon>
       </button>
       <a (click)="changeColor($event)" class="inactive">
@@ -12,6 +12,8 @@
           <span class="txt-span">Početna</span>
         </a>
       </a>
+      <app-component-activator icon="fa-calendar-o" title="Kalendar"
+                               (load)="loadAppointmentComponent()"></app-component-activator>
       <app-component-activator icon="fa-id-card-o" title="Šifarnik"
                                (load)="loadCodeBookComponent()"></app-component-activator>
       <app-component-activator icon="fa-user" title="Klijenti" (load)="loadClientComponent()"></app-component-activator>
@@ -19,7 +21,6 @@
                                (load)="loadServiceComponent()"></app-component-activator>
       <app-component-activator icon="fa fa-building" title="Zaposleni"
                                (load)="loadStaffComponent()"></app-component-activator>
-
     </div>
   </div>
   <div class="col">
