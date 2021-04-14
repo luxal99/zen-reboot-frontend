@@ -38,6 +38,7 @@ import { AddLocationDialogComponent } from './components/admin/code-book/locatio
 import { AddShiftDialogComponent } from './components/admin/staff/staff-shifts-overview/add-shift-dialog/add-shift-dialog.component';
 import { AppointmentComponent } from './components/admin/appointment/appointment.component';
 import { ComponentActivatorComponent } from './components/admin/component-activator/component-activator.component';
+import { AddAppointmentDialogComponent } from './components/admin/appointment/add-appointment-dialog/add-appointment-dialog.component';
 // @ts-ignore
 @NgModule({
   declarations: [
@@ -69,7 +70,8 @@ import { ComponentActivatorComponent } from './components/admin/component-activa
     AddLocationDialogComponent,
     AddShiftDialogComponent,
     AppointmentComponent,
-    ComponentActivatorComponent
+    ComponentActivatorComponent,
+    AddAppointmentDialogComponent
   ],
   imports: [
     BrowserModule,
