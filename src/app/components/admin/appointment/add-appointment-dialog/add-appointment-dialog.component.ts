@@ -1,4 +1,4 @@
-import {AfterViewChecked, Component, OnInit} from '@angular/core';
+import {AfterViewChecked, Component, OnInit, ViewChild} from '@angular/core';
 import {DefaultComponent} from '../../../../util/default-component';
 import {Appointment} from '../../../../models/appointment';
 import {AppointmentService} from '../../../../service/appointment.service';
@@ -15,6 +15,9 @@ import {Staff} from '../../../../models/staff';
 import * as moment from 'moment';
 import {Treatment} from '../../../../models/treatment';
 import {AppointmentStatusService} from '../../../../service/appointment-status.service';
+import {CKEditorComponent} from '@ckeditor/ckeditor5-angular';
+// @ts-ignore
+import * as ClassicEditor from 'lib/ckeditor5-build-classic';
 
 @Component({
   selector: 'app-add-appointment-dialog',
@@ -23,6 +26,8 @@ import {AppointmentStatusService} from '../../../../service/appointment-status.s
 })
 export class AddAppointmentDialogComponent extends DefaultComponent<Appointment> implements OnInit, AfterViewChecked {
 
+  @ViewChild('editor', {static: false}) editorComponent!: CKEditorComponent;
+  public Editor = ClassicEditor;
   listOfStaffs: Staff[] = [];
   searchText = '';
 
@@ -96,14 +101,15 @@ export class AddAppointmentDialogComponent extends DefaultComponent<Appointment>
   }
 
   save(): void {
-    const appointment = this.appointmentForm.getRawValue();
-    appointment.client = {id: appointment.client.id};
-    appointment.treatment = {id: appointment.treatment.id};
-    appointment.location = {id: appointment.location.id};
+    const appointment: Appointment = this.appointmentForm.getRawValue();
+    appointment.client = {id: appointment.client?.id};
+    appointment.treatment = {id: appointment.treatment?.id};
+    appointment.location = {id: appointment.location?.id};
     appointment.date = moment(appointment.date).format('YYYY-MM-DD');
     appointment.startTime = appointment.startTime + ':00';
     appointment.endTime = appointment.endTime + ':00';
     appointment.duration = appointment.duration.duration;
+    appointment.notes = this.editorComponent.editorInstance?.getData();
     this.subscribeSave(appointment);
   }
 

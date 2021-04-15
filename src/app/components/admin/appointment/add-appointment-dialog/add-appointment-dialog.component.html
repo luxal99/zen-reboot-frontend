@@ -18,6 +18,7 @@
     <app-form-input [config]="startTimeInputConfig" [group]="appointmentForm" label="Početak tretmana"></app-form-input>
     <app-form-select [config]="appointmentStatusSelectConfig" [group]="appointmentForm"
                      label="Status tretmana" bindValue="value"></app-form-select>
+    <ckeditor [editor]="Editor" #editor></ckeditor>
   </mat-step>
   <app-form-input [config]="startTimeInputConfig" [group]="appointmentForm"></app-form-input>
   <mat-step label="Tretman">

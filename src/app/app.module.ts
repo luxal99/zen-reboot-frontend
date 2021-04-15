@@ -39,6 +39,7 @@ import {AddShiftDialogComponent} from './components/admin/staff/staff-shifts-ove
 import {AppointmentComponent} from './components/admin/appointment/appointment.component';
 import {ComponentActivatorComponent} from './components/admin/component-activator/component-activator.component';
 import {AddAppointmentDialogComponent} from './components/admin/appointment/add-appointment-dialog/add-appointment-dialog.component';
+import {CKEditorModule} from '@ckeditor/ckeditor5-angular';
 
 // @ts-ignore
 @NgModule({
@@ -83,6 +84,7 @@ import {AddAppointmentDialogComponent} from './components/admin/appointment/add-
     NgxMatColorPickerModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
+    CKEditorModule
 
   ],
   providers: [{provide: LocationStrategy, useClass: HashLocationStrategy},
