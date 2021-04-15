@@ -12,7 +12,7 @@ export interface StaffDto {
   repeatType?: RepeatTypeEnum;
   person?: Person;
   startTime?: any;
-  shifts: Shift[];
+  shifts?: Shift[];
   color?: string;
 
 }

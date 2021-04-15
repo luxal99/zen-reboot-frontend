@@ -15,6 +15,8 @@
   </div>
   <app-form-select label="Izaberi lokaciju" [model]="data.id ? data.location : null" [group]="shiftForm"
                    [config]="locationSelectConfig"></app-form-select>
+  <app-form-select [config]="repeatTypeSelectConfig" label="Tip ponavljanja" [group]="repeatForm"></app-form-select>
+  <app-form-input [config]="repeatCountInputConfig" [group]="repeatForm" label="Broj ponavljanja" type="number"></app-form-input>
   <div class="text-right">
     <button mat-button class="default-btn" style="width: 15%;" (click)="save()" [disabled]="!shiftForm.valid">Dodaj
     </button>

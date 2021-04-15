@@ -32,6 +32,8 @@ export class FormControlNames {
   static START_TIME_FORM_CONTROL = 'startTime';
   static END_TIME_FORM_CONTROL = 'endTime';
   static LOCATION_FORM_CONTROL = 'location';
+  static REPEAT_TYPE = 'repeatType';
+  static REPEAT_COUNT_FORM_CONTROL = 'repeatCount';
 }
 
 export class InputTypes {

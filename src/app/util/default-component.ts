@@ -41,9 +41,30 @@ export abstract class DefaultComponent<T> implements OnInit {
   save(): void {
   }
 
-  subscribeSave(entity: T): void {
+  subscribeSave(entity: T, otherService?: GenericService<any>): void {
     this.spinnerService.show(this.spinner);
-    this.genericService.save(entity).subscribe(() => {
+    if (otherService) {
+      otherService.save(entity).subscribe(() => {
+        SnackBarUtil.openSnackBar(this.snackBar, Message.SUCCESS);
+        this.spinnerService.hide(this.spinner);
+      }, () => {
+        SnackBarUtil.openSnackBar(this.snackBar, Message.ERR);
+        this.spinnerService.hide(this.spinner);
+      });
+    } else {
+      this.genericService.save(entity).subscribe(() => {
+        SnackBarUtil.openSnackBar(this.snackBar, Message.SUCCESS);
+        this.spinnerService.hide(this.spinner);
+      }, () => {
+        SnackBarUtil.openSnackBar(this.snackBar, Message.ERR);
+        this.spinnerService.hide(this.spinner);
+      });
+    }
+  }
+
+  otherPostSubscribe(subscriber: Observable<any>): void {
+    this.spinnerService.show(this.spinner);
+    subscriber.subscribe(() => {
       SnackBarUtil.openSnackBar(this.snackBar, Message.SUCCESS);
       this.spinnerService.hide(this.spinner);
     }, () => {
