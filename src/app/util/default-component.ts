@@ -9,6 +9,7 @@ import {DialogUtil} from './dialog-util';
 import {ComponentType} from '@angular/cdk/portal';
 import {SnackBarUtil} from './snack-bar-uitl';
 import {Message} from '../const/const';
+import {FieldConfig} from '../models/FIeldConfig';
 
 @Component({
   template: ''
@@ -112,12 +113,16 @@ export abstract class DefaultComponent<T> implements OnInit {
     }
   }
 
-  async otherSubscribe(service: GenericService<any>): Promise<any[]> {
-    return await service.getAll().toPromise();
-
-  }
 
   ngOnInit(): void {
     this.getItems();
   }
+
+  initSelectConfig(service: GenericService<any>, locationSelectConfig: FieldConfig): void {
+    service.getAll().subscribe((resp) => {
+      locationSelectConfig.options = resp;
+      console.log(resp);
+    });
+  }
+
 }

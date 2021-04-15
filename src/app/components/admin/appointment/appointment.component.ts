@@ -17,6 +17,11 @@ export class AppointmentComponent implements OnInit {
   }
 
   openAddAppointmentDialog(): void {
-    DialogUtil.openDialog(AddAppointmentDialogComponent, {}, this.dialog);
+    DialogUtil.openDialog(AddAppointmentDialogComponent, {
+      position: {right: '0'},
+      height: '100vh',
+      width: '40%',
+      maxWidth: '50%'
+    }, this.dialog);
   }
 }

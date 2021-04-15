@@ -34,6 +34,9 @@ export class FormControlNames {
   static LOCATION_FORM_CONTROL = 'location';
   static REPEAT_TYPE = 'repeatType';
   static REPEAT_COUNT_FORM_CONTROL = 'repeatCount';
+  static STAFF_FORM_CONTROL = 'staff';
+  static CLIENT_FORM_CONTROL = 'client';
+  static TREATMENT_FORM_CONTROL = 'treatment';
 }
 
 export class InputTypes {
@@ -74,6 +77,8 @@ export class RestRoutesConst {
   static LOCATION = 'locations';
   static ROOM = 'rooms';
   static SHIFT = 'shifts';
+  static APPOINTMENT = 'appointments';
+  static TREATMENT_DURATION = 'treatment-durations';
 }
 
 export class TokenConst {

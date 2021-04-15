@@ -5,7 +5,7 @@
                 [required]="isRequired">
       <mat-option value="" selected>---</mat-option>
       <mat-option (click)="onOptionClick()" *ngFor="let item of config.options" [value]="item">
-        {{item[bindValue] || item |capitalize }}
+        {{item[bindValue] || item }}
       </mat-option>
     </mat-select>
   </mat-form-field>

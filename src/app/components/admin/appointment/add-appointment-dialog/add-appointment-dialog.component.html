@@ -1,1 +1,27 @@
-<p>add-appointment-dialog works!</p>
+<h1>Dodavanje termina</h1>
+<mat-divider></mat-divider>
+<form [formGroup]="appointmentForm">
+  <mat-form-field appearance="outline">
+    <mat-label>Zaposleni</mat-label>
+    <mat-select formControlName="staff">
+      <form [formGroup]="searchForm">
+        <mat-form-field appearance="standard">
+          <mat-label>Pronađi zaposlenog</mat-label>
+          <input matInput formControlName="search" [(ngModel)]="searchText">
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+      </form>
+      <mat-option value="" selected>---</mat-option>
+      <mat-option *ngFor="let staff of listOfStaffs|staff:searchText" [value]="staff">
+        <div class="inline">
+          <div class="circle" [style.background-color]="staff.color"></div>
+          {{staff.person?.firstName + ' ' + staff.person?.lastName}}
+        </div>
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</form>
+<app-form-select bindValue="name" [config]="locationSelectConfig" [group]="appointmentForm"></app-form-select>
+<app-form-select bindValue="duration" [config]="durationSelectConfig" [group]="appointmentForm"></app-form-select>
+<app-form-select bindValue="name" [config]="treatmentSelectConfig" [group]="appointmentForm"></app-form-select>
+<app-form-select bindValue="fullName" [config]="clientSelectConfig" [group]="appointmentForm"></app-form-select>
