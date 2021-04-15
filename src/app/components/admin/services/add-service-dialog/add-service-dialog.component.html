@@ -61,7 +61,7 @@
       </div>
     </div>
     <div class="text-right">
-      <button class="default-btn" (click)="save()" mat-button>Sačuvaj</button>
+      <button class="default-btn" (click)="save()" [disabled]="!treatmentForm.valid" mat-button>Sačuvaj</button>
     </div>
   </div>
 </div>

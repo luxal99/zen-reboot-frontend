@@ -5,12 +5,10 @@ import {TreatmentCategoryService} from '../../../../service/treatment-category.s
 import {TreatmentDuration} from '../../../../models/treatment-duration';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {FieldConfig} from '../../../../models/FIeldConfig';
-import {FormControlNames, InputTypes, Message} from '../../../../const/const';
+import {FormControlNames, InputTypes} from '../../../../const/const';
 import {Treatment} from '../../../../models/treatment';
-import {SnackBarUtil} from '../../../../util/snack-bar-uitl';
 import {MatSpinner} from '@angular/material/progress-spinner';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import {SpinnerService} from '../../../../service/spinner.service';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {DefaultComponent} from '../../../../util/default-component';
 

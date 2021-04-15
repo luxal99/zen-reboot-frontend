@@ -4,9 +4,6 @@ import {SpinnerService} from '../service/spinner.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {GenericService} from '../service/generic.service';
 import {Observable} from 'rxjs';
-import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
-import {DialogUtil} from './dialog-util';
-import {ComponentType} from '@angular/cdk/portal';
 import {SnackBarUtil} from './snack-bar-uitl';
 import {Message} from '../const/const';
 import {FieldConfig} from '../models/FIeldConfig';
@@ -37,9 +34,6 @@ export abstract class DefaultComponent<T> implements OnInit {
         this.spinnerService.hide(this.spinner);
       }, 100);
     });
-  }
-
-  save(): void {
   }
 
   subscribeSave(entity: T, otherService?: GenericService<any>): void {
@@ -121,7 +115,6 @@ export abstract class DefaultComponent<T> implements OnInit {
   initSelectConfig(service: GenericService<any>, locationSelectConfig: FieldConfig): void {
     service.getAll().subscribe((resp) => {
       locationSelectConfig.options = resp;
-      console.log(resp);
     });
   }
 

@@ -1,27 +1,66 @@
+<div class="text-right">
+  <button mat-icon-button matDialogClose>
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
 <h1>Dodavanje termina</h1>
 <mat-divider></mat-divider>
-<form [formGroup]="appointmentForm">
-  <mat-form-field appearance="outline">
-    <mat-label>Zaposleni</mat-label>
-    <mat-select formControlName="staff">
-      <form [formGroup]="searchForm">
-        <mat-form-field appearance="standard">
-          <mat-label>Pronađi zaposlenog</mat-label>
-          <input matInput formControlName="search" [(ngModel)]="searchText">
-          <mat-icon matSuffix>search</mat-icon>
-        </mat-form-field>
-      </form>
-      <mat-option value="" selected>---</mat-option>
-      <mat-option *ngFor="let staff of listOfStaffs|staff:searchText" [value]="staff">
-        <div class="inline">
-          <div class="circle" [style.background-color]="staff.color"></div>
-          {{staff.person?.firstName + ' ' + staff.person?.lastName}}
-        </div>
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-</form>
-<app-form-select bindValue="name" [config]="locationSelectConfig" [group]="appointmentForm"></app-form-select>
-<app-form-select bindValue="duration" [config]="durationSelectConfig" [group]="appointmentForm"></app-form-select>
-<app-form-select bindValue="name" [config]="treatmentSelectConfig" [group]="appointmentForm"></app-form-select>
-<app-form-select bindValue="fullName" [config]="clientSelectConfig" [group]="appointmentForm"></app-form-select>
+<mat-vertical-stepper>
+  <mat-step label="Datum i vreme">
+    <form [formGroup]="appointmentForm">
+      <mat-form-field appearance="outline">
+        <mat-label>Datum termina</mat-label>
+        <input matInput formControlName="date" [matDatepicker]="picker">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </form>
+    <app-form-input [config]="startTimeInputConfig" [group]="appointmentForm" label="Početak tretmana"></app-form-input>
+    <app-form-select [config]="appointmentStatusSelectConfig" [group]="appointmentForm"
+                     label="Status tretmana" bindValue="value"></app-form-select>
+  </mat-step>
+  <app-form-input [config]="startTimeInputConfig" [group]="appointmentForm"></app-form-input>
+  <mat-step label="Tretman">
+    <app-form-select label="Izaberi lokaciju" bindValue="name" [config]="locationSelectConfig"
+                     [group]="appointmentForm"></app-form-select>
+    <app-form-select bindValue="name" [config]="treatmentSelectConfig" (onChange)="onTreatmentSelect()"
+                     label="Izaberi tretman"
+                     [group]="appointmentForm"></app-form-select>
+    <app-form-select bindValue="duration" (onChange)="sumEndTime()" [isDisabled]="isDurationFCDisabled"
+                     label="Izaberi trajanje"
+                     [config]="durationSelectConfig"
+                     [group]="appointmentForm"></app-form-select>
+    <app-form-input [config]="endTimeInputConfig" [group]="appointmentForm"></app-form-input>
+  </mat-step>
+  <mat-step label="Klijent i zaposleni">
+    <form [formGroup]="appointmentForm">
+      <mat-form-field appearance="outline">
+        <mat-label>Zaposleni</mat-label>
+        <mat-select formControlName="staff">
+          <form [formGroup]="searchForm">
+            <div style="margin: 1em">
+              <mat-form-field appearance="standard">
+                <mat-label>Pronađi zaposlenog</mat-label>
+                <input matInput formControlName="search" [(ngModel)]="searchText">
+                <mat-icon matSuffix>search</mat-icon>
+              </mat-form-field>
+            </div>
+          </form>
+          <mat-option value="" selected>---</mat-option>
+          <mat-option *ngFor="let staff of listOfStaffs|staff:searchText" [value]="staff">
+            <div class="inline">
+              <div class="circle" [style.background-color]="staff.color"></div>
+              {{staff.person?.firstName + ' ' + staff.person?.lastName}}
+            </div>
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </form>
+    <app-form-select bindValue="fullName" [config]="clientSelectConfig" label="Izaberi klijenta"
+                     [group]="appointmentForm"></app-form-select>
+  </mat-step>
+</mat-vertical-stepper>
+<button mat-button class="default-btn" style="width: 20%;" (click)="save()" [disabled]="!appointmentForm.valid">
+  Sačuvaj
+</button>
+<mat-spinner diameter="50" #spinner></mat-spinner>

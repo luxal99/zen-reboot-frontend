@@ -19,6 +19,9 @@ export class FormSelectComponent implements Field, OnInit {
   @Input() width = '100%';
   @Input() model: any;
 
+  // tslint:disable-next-line:no-output-on-prefix
+  @Output() onChange = new EventEmitter();
+  @Input() isDisabled = false;
 
   compareObjects(o1: any, o2: any): boolean {
     if (o2 !== null && o2 !== undefined) {
@@ -32,6 +35,9 @@ export class FormSelectComponent implements Field, OnInit {
   }
 
   onOptionClick(): void {
-    this.clickOnSelect.emit(true);
+    this.onChange.emit(true);
+  }
+
+  onSelectionChange(): void {
   }
 }

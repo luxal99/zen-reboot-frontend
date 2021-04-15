@@ -37,6 +37,7 @@ export class FormControlNames {
   static STAFF_FORM_CONTROL = 'staff';
   static CLIENT_FORM_CONTROL = 'client';
   static TREATMENT_FORM_CONTROL = 'treatment';
+  static APPOINTMENT_STATUS_FORM_CONTROL = 'appointmentStatus';
 }
 
 export class InputTypes {
@@ -79,6 +80,7 @@ export class RestRoutesConst {
   static SHIFT = 'shifts';
   static APPOINTMENT = 'appointments';
   static TREATMENT_DURATION = 'treatment-durations';
+  static APPOINTMENT_STATUS = 'appointment-statuses';
 }
 
 export class TokenConst {

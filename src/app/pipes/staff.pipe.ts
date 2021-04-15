@@ -7,7 +7,6 @@ import {Staff} from '../models/staff';
 export class StaffPipe implements PipeTransform {
 
   transform(listOfStaff: Staff[], searchText: string): Staff[] {
-    console.log(searchText);
     if (!listOfStaff) {
       return [];
     }

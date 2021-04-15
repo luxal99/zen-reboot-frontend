@@ -15,8 +15,11 @@ a
 a:hover
   text-decoration: none
 
-h1, h2, h3, h4, a, mat-checkbox, p
-  font-family: 'Work Sans', sans-serif
+h1, h2, h3, h4, a, mat-checkbox, p, .mat-step-text-label
+  font-family: 'Work Sans', sans-serif !important
+
+.mat-step-text-label
+  font-weight: bold !important
 
 mat-form-field
   font-family: 'Work Sans', sans-serif !important
@@ -72,7 +75,8 @@ button
 
   button
     color: $default-gold !important
-
+.mat-button.mat-button-disabled.mat-button-disabled
+  color: #666 !important
 @media screen and (max-width: 570px)
   .desktop
     display: none

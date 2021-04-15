@@ -12,6 +12,9 @@ import {TreatmentDurationService} from '../../../../service/treatment-duration.s
 import {FieldConfig} from '../../../../models/FIeldConfig';
 import {FormControlNames, InputTypes} from '../../../../const/const';
 import {Staff} from '../../../../models/staff';
+import * as moment from 'moment';
+import {Treatment} from '../../../../models/treatment';
+import {AppointmentStatusService} from '../../../../service/appointment-status.service';
 
 @Component({
   selector: 'app-add-appointment-dialog',
@@ -21,13 +24,14 @@ import {Staff} from '../../../../models/staff';
 export class AddAppointmentDialogComponent extends DefaultComponent<Appointment> implements OnInit, AfterViewChecked {
 
   listOfStaffs: Staff[] = [];
-
   searchText = '';
+
+  isDurationFCDisabled = true;
 
   appointmentForm = new FormGroup({
     appointmentStatus: new FormControl('', Validators.required),
     client: new FormControl('', Validators.required),
-    date: new FormControl('', Validators.required),
+    date: new FormControl(new Date(), Validators.required),
     startTime: new FormControl('', Validators.required),
     endTime: new FormControl('', Validators.required),
     location: new FormControl('', Validators.required),
@@ -43,11 +47,14 @@ export class AddAppointmentDialogComponent extends DefaultComponent<Appointment>
   treatmentSelectConfig: FieldConfig = {name: FormControlNames.TREATMENT_FORM_CONTROL, type: InputTypes.INPUT_TYPE_NAME};
   durationSelectConfig: FieldConfig = {name: FormControlNames.DURATION_FORM_CONTROL, type: InputTypes.INPUT_TYPE_NAME};
   clientSelectConfig: FieldConfig = {name: FormControlNames.CLIENT_FORM_CONTROL, type: InputTypes.INPUT_TYPE_NAME};
+  appointmentStatusSelectConfig: FieldConfig = {name: FormControlNames.APPOINTMENT_STATUS_FORM_CONTROL, type: InputTypes.INPUT_TYPE_NAME};
+  startTimeInputConfig: FieldConfig = {name: FormControlNames.START_TIME_FORM_CONTROL, type: InputTypes.TIME};
+  endTimeInputConfig: FieldConfig = {name: FormControlNames.END_TIME_FORM_CONTROL, type: InputTypes.TIME};
 
   constructor(private appointmentService: AppointmentService, protected snackBar: MatSnackBar,
               private clientService: ClientService, private locationService: LocationService,
               private staffService: StaffService, private treatmentService: TreatmentService,
-              private durationService: TreatmentDurationService) {
+              private appointmentStatusService: AppointmentStatusService) {
     super(appointmentService, snackBar);
   }
 
@@ -56,9 +63,6 @@ export class AddAppointmentDialogComponent extends DefaultComponent<Appointment>
 
   ngOnInit(): void {
     this.initSelects();
-  }
-
-  save(): any {
   }
 
   getAllStaffs(): void {
@@ -76,12 +80,36 @@ export class AddAppointmentDialogComponent extends DefaultComponent<Appointment>
     });
   }
 
+  onTreatmentSelect(): void {
+    this.durationSelectConfig.options = [];
+    const treatment: Treatment = this.appointmentForm.get(FormControlNames.TREATMENT_FORM_CONTROL)?.value;
+    this.durationSelectConfig.options = treatment.durations;
+    this.isDurationFCDisabled = false;
+  }
+
   initSelects(): void {
     super.initSelectConfig(this.treatmentService, this.treatmentSelectConfig);
     super.initSelectConfig(this.locationService, this.locationSelectConfig);
-    super.initSelectConfig(this.durationService, this.durationSelectConfig);
-
+    super.initSelectConfig(this.appointmentStatusService, this.appointmentStatusSelectConfig);
     this.getAllStaffs();
     this.getAllClient();
+  }
+
+  save(): void {
+    const appointment = this.appointmentForm.getRawValue();
+    appointment.client = {id: appointment.client.id};
+    appointment.treatment = {id: appointment.treatment.id};
+    appointment.location = {id: appointment.location.id};
+    appointment.date = moment(appointment.date).format('YYYY-MM-DD');
+    appointment.startTime = appointment.startTime + ':00';
+    appointment.endTime = appointment.endTime + ':00';
+    appointment.duration = appointment.duration.duration;
+    this.subscribeSave(appointment);
+  }
+
+  sumEndTime(): void {
+    const endTime = moment(this.appointmentForm.get(FormControlNames.START_TIME_FORM_CONTROL)?.value, 'hh:mm')
+      .add(this.appointmentForm.get(FormControlNames.DURATION_FORM_CONTROL)?.value.duration, 'minutes');
+    this.appointmentForm.controls.endTime.setValue(endTime.get('hours') + ':' + endTime.get('minutes'));
   }
 }
