@@ -60,10 +60,6 @@ button {
   display: none;
 }
 
-.mat-form-field-appearance-outline .mat-form-field-outline {
-  background-color: #fff;
-}
-
 .border-btn {
   padding: 0.4em 0;
   width: 30%;

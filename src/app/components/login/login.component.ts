@@ -4,9 +4,6 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {FieldConfig} from '../../models/FIeldConfig';
 import {MatSpinner} from '@angular/material/progress-spinner';
 import {FormControlNames, InputTypes, Token} from '../../const/const';
-import {User} from '../../models/user';
-import {first} from 'rxjs/operators';
-import {HttpResponse} from '@angular/common/http';
 import {SpinnerService} from '../../service/spinner.service';
 
 @Component({
