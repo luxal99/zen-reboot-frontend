@@ -59,7 +59,7 @@ export class CriteriaBuilder {
     return this;
   }
 
-  public eq(operand1: string, operand2: string): CriteriaBuilder {
+  public eq(operand1: string, operand2: any): CriteriaBuilder {
     this.criteriaList.push(new SearchCriteria(operand1, operand2, CriteriaOperation.EQ, this.isCriteriaOr));
     this.isCriteriaOr = false;
     return this;

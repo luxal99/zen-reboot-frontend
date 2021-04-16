@@ -3,8 +3,10 @@ import {Staff} from './staff';
 import {RepeatTypeEnum} from '../enums/RepeatTypeEnum';
 import {Person} from './person';
 import {Shift} from './shift';
+import {Appointment} from './appointment';
 
 export interface StaffDto {
+  appointments?: Appointment[];
   date?: any;
   endTime?: any;
   location?: Location;

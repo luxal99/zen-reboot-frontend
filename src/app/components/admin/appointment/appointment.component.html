@@ -3,4 +3,13 @@
   <div class="text-right">
     <button class="default-btn" (click)="openAddAppointmentDialog()" style="width: 10%;" mat-button>Dodaj</button>
   </div>
+
+  <div class="row">
+    <div class="col-12" style="padding-left: 0">
+      <ul>
+        <li *ngFor="let time of listOfTimes">{{time}}</li>
+      </ul>
+    </div>
+  </div>
+
 </div>
