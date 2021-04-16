@@ -15,7 +15,6 @@ export class AppointmentComponent implements OnInit {
   listOfSchedule: StaffDto[] = [];
   listOfTimes: string[] = [];
   now = new Date();
-  events: CalendarEvent[] = [];
 
   constructor(private dialog: MatDialog, private staffService: StaffService) {
   }
