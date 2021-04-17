@@ -40,8 +40,17 @@ import {AppointmentComponent} from './components/admin/appointment/appointment.c
 import {ComponentActivatorComponent} from './components/admin/component-activator/component-activator.component';
 import {AddAppointmentDialogComponent} from './components/admin/appointment/add-appointment-dialog/add-appointment-dialog.component';
 import {CKEditorModule} from '@ckeditor/ckeditor5-angular';
-
+import { FullCalendarModule } from '@fullcalendar/angular'; // the main connector. must go first
+import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin
+import timeGridPlugin from '@fullcalendar/timegrid';
+import { CheckIsAppointmentStartPipe } from './pipes/check-is-appointment-start.pipe';
+import { CheckIsAppointmentBetweenPipe } from './pipes/check-is-appointment-between.pipe'; // a plugin
 // @ts-ignore
+
+FullCalendarModule.registerPlugins([ // register FullCalendar plugins
+  timeGridPlugin,
+  dayGridPlugin
+]);
 @NgModule({
   declarations: [
     AppComponent,
@@ -73,7 +82,9 @@ import {CKEditorModule} from '@ckeditor/ckeditor5-angular';
     AddShiftDialogComponent,
     AppointmentComponent,
     ComponentActivatorComponent,
-    AddAppointmentDialogComponent
+    AddAppointmentDialogComponent,
+    CheckIsAppointmentStartPipe,
+    CheckIsAppointmentBetweenPipe
   ],
   imports: [
     BrowserModule,
@@ -84,7 +95,8 @@ import {CKEditorModule} from '@ckeditor/ckeditor5-angular';
     NgxMatColorPickerModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    CKEditorModule
+    CKEditorModule,
+    FullCalendarModule
 
   ],
   providers: [{provide: LocationStrategy, useClass: HashLocationStrategy},

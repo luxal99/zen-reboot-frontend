@@ -6,17 +6,37 @@ import {StaffService} from '../../../service/staff.service';
 import {StaffDto} from '../../../models/staff-dto';
 import {CriteriaBuilder} from '../../../util/criteria-builder';
 import * as moment from 'moment';
+import {CalendarOptions} from '@fullcalendar/angular';
+import {Appointment} from '../../../models/appointment';
+import {AppointmentDTO} from '../../../models/AppointmentDTO';
+import {DefaultComponent} from '../../../util/default-component';
+import {MatSnackBar} from '@angular/material/snack-bar';
+
 @Component({
   selector: 'app-appointment',
   templateUrl: './appointment.component.html',
   styleUrls: ['./appointment.component.sass']
 })
-export class AppointmentComponent implements OnInit {
+export class AppointmentComponent extends DefaultComponent<Appointment> implements OnInit {
   listOfSchedule: StaffDto[] = [];
   listOfTimes: string[] = [];
-  now = new Date();
 
-  constructor(private dialog: MatDialog, private staffService: StaffService) {
+
+  appointment: AppointmentDTO = {};
+  now = new Date();
+  calendarOptions: CalendarOptions = {
+    initialView: 'timeGridDay',
+    events: [
+      {title: 'EVENT', date: '2021-04-16', startTime: '17:00:00', endTime: '18:00:00'},
+    ]
+  };
+
+  handleDateClick(arg: any): void {
+    alert('date click! ' + arg.dateStr);
+  }
+
+  constructor(private dialog: MatDialog, private staffService: StaffService, protected snackBar: MatSnackBar) {
+    super(staffService, snackBar);
   }
 
   ngOnInit(): void {
@@ -25,10 +45,10 @@ export class AppointmentComponent implements OnInit {
   }
 
   getTimes(): void {
-    const start = moment('07:00:00', 'HH:mm:ss');
-    const end = moment('23:59:59', 'HH:mm:ss');
+    const start = moment('09:00:00', 'HH:mm:ss');
+    const end = moment('21:59:59', 'HH:mm:ss');
     while (start.isSameOrBefore(end)) {
-      this.listOfTimes.push(start.add(30, 'm').format('HH:mm'));
+      this.listOfTimes.push(start.add(15, 'm').format('HH:mm'));
     }
   }
 
@@ -37,8 +57,8 @@ export class AppointmentComponent implements OnInit {
     const today = moment().format('YYYY-MM-DD');
     queryBuilder.eq('date', new Date(today).valueOf());
     this.staffService.getStaffsAppointments(queryBuilder.buildUrlEncoded()).subscribe((resp) => {
-      console.log(resp);
-      this.listOfSchedule = resp;
+      this.listOfSchedule = resp.splice(0, 10);
+      this.spinnerService.hide(this.spinner);
     });
   }
 

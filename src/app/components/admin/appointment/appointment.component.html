@@ -1,15 +1,31 @@
 <app-header header="Kalendar"></app-header>
 <div class="component-content">
+  <mat-spinner diameter="50" #spinner></mat-spinner>
   <div class="text-right">
     <button class="default-btn" (click)="openAddAppointmentDialog()" style="width: 10%;" mat-button>Dodaj</button>
   </div>
 
-  <div class="row">
-    <div class="col-12" style="padding-left: 0">
-      <ul>
-        <li *ngFor="let time of listOfTimes">{{time}}</li>
-      </ul>
+  <div class="row header-row">
+    <div class="col-sm"></div>
+    <div class="col-sm text-center" *ngFor="let staffDto of listOfSchedule">
+      <div class="circle text-center" [style.background-color]="staffDto.color">
+        <h2>{{staffDto.person?.firstName.slice(0, 1)}}</h2></div>
+      <h3> {{staffDto.person?.firstName + ' ' + staffDto.person?.lastName}}</h3>
     </div>
   </div>
-
+  <div class="row" *ngFor="let time of listOfTimes">
+    <div style="border-right: 1px solid #e1e1e1;padding: 1em" class="col-sm-1">
+      <h3 class="text-center">{{time}}</h3>
+    </div>
+    <div class="col-sm appointment-col" [style.background-color]="staffDto|checkIsAppointmentBetween:time"
+         style="border-right: 1px solid #e1e1e1;padding: 1em" *ngFor="let staffDto of listOfSchedule">
+      <div class="appointment-card"
+           *ngIf="staffDto.appointments.length >0 && (staffDto | checkIsAppointmentStart:time);let appointment">
+        <h4> {{appointment.startTime.slice(0, 5) + '-' + appointment.endTime.slice(0, 5) }}
+        </h4>
+        <h4><b>{{ appointment.client?.person?.firstName + ' ' + appointment.client?.person?.lastName}}</b></h4>
+        <h4 class="treatment-name">{{ appointment.treatment?.name}}</h4>
+      </div>
+    </div>
+  </div>
 </div>
