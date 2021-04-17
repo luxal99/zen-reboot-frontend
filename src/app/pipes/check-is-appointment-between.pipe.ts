@@ -15,9 +15,8 @@ export class CheckIsAppointmentBetweenPipe implements PipeTransform {
       currentTime.isBetween(moment(appointment.startTime, 'HH:mm:ss'), moment(appointment.endTime, 'HH:mm:ss')) ||
       currentTime.isSame(moment(appointment.startTime, 'HH:mm:ss')) ||
       currentTime.isSame(moment(appointment.endTime, 'HH:mm:ss')));
-    // @ts-ignore
+
     if (appointmentDto) {
-      // @ts-ignore
       appointmentDto.color = staffDto.color;
     } else {
       // @ts-ignore
