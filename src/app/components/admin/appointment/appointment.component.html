@@ -1,25 +1,55 @@
 <app-header header="Kalendar"></app-header>
 <div class="component-content">
   <mat-spinner diameter="50" #spinner></mat-spinner>
-  <div class="text-right">
-    <button class="default-btn" (click)="openAddAppointmentDialog()" style="width: 10%;" mat-button>Dodaj</button>
+  <div class="row">
+    <div class="col-sm">
+      <form [formGroup]="searchForm">
+        <mat-form-field appearance="outline">
+          <mat-label>Pretraži</mat-label>
+          <input matInput formControlName="search" [(ngModel)]="searchText">
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+      </form>
+    </div>
+    <div class="col-sm text-center">
+      <div class="inline week-filter-div">
+        <div class="column left" (click)="previousDay()">
+          <h3><i class="fa fa-angle-left" aria-hidden="true"></i></h3>
+        </div>
+        <div class="mid-column">
+          <h3>
+            <b>{{currentDate.format('DD MMMM YYYY')}}</b>
+          </h3>
+        </div>
+        <div class="column right" (click)="nextDay()">
+          <h3><i class="fa fa-angle-right" aria-hidden="true"></i></h3>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm">
+      <div class="text-right">
+        <button class="add-btn" (click)="openAddAppointmentDialog()" mat-icon-button>
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+    </div>
   </div>
 
   <div class="row header-row">
-    <div class="col-sm"></div>
-    <div class="col-sm text-center" *ngFor="let staffDto of listOfSchedule">
+    <div class="col-sm-1"></div>
+    <div class="col-sm text-center" *ngFor="let staffDto of listOfSchedule|staff:searchText">
       <div class="circle text-center" [style.background-color]="staffDto.color">
         <h2>{{staffDto.person?.firstName.slice(0, 1)}}</h2></div>
       <h3> {{staffDto.person?.firstName + ' ' + staffDto.person?.lastName}}</h3>
     </div>
   </div>
   <div class="row" *ngFor="let time of listOfTimes">
-    <div style="border-right: 1px solid #e1e1e1;padding: 1em" class="col-sm-1">
+    <div class="col-sm-1">
       <h3 class="text-center">{{time}}</h3>
     </div>
     <div class="col-sm appointment-col"
          [style]="(staffDto|checkIsAppointmentBetween:time )!=='#fff'? {'background-color':(staffDto|checkIsAppointmentBetween:time)}: {'border-top':'.5px solid #e1e1e1'}"
-         style="border-right: 1px solid #e1e1e1;padding: 1em" *ngFor="let staffDto of listOfSchedule">
+         *ngFor="let staffDto of listOfSchedule|staff:searchText">
       <div class="appointment-card"
            *ngIf="staffDto.appointments.length >0 && (staffDto | checkIsAppointmentStart:time);let appointment">
         <h4> {{appointment.startTime.slice(0, 5) + '-' + appointment.endTime.slice(0, 5) }}

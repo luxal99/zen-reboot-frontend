@@ -11,6 +11,7 @@ import {Appointment} from '../../../models/appointment';
 import {AppointmentDTO} from '../../../models/AppointmentDTO';
 import {DefaultComponent} from '../../../util/default-component';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {FormControl, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-appointment',
@@ -21,13 +22,21 @@ export class AppointmentComponent extends DefaultComponent<Appointment> implemen
   listOfSchedule: StaffDto[] = [];
   listOfTimes: string[] = [];
   now = new Date();
+  currentDate = moment();
+  searchForm = new FormGroup({
+    search: new FormControl()
+  });
+
+  searchText = '';
 
   constructor(private dialog: MatDialog, private staffService: StaffService, protected snackBar: MatSnackBar) {
     super(staffService, snackBar);
   }
 
   ngOnInit(): void {
-    this.getAppointments();
+    setTimeout(() => {
+      this.getAppointments();
+    }, 100);
     this.getTimes();
   }
 
@@ -40,9 +49,9 @@ export class AppointmentComponent extends DefaultComponent<Appointment> implemen
   }
 
   getAppointments(): void {
+    this.spinnerService.show(this.spinner);
     const queryBuilder = new CriteriaBuilder();
-    const today = moment().format('YYYY-MM-DD');
-    queryBuilder.eq('date', new Date(today).valueOf());
+    queryBuilder.eq('date', new Date(this.currentDate.format('YYYY-MM-DD')).valueOf());
     this.staffService.getStaffsAppointments(queryBuilder.buildUrlEncoded()).subscribe((resp) => {
       this.listOfSchedule = resp.splice(0, 10);
       this.spinnerService.hide(this.spinner);
@@ -56,5 +65,15 @@ export class AppointmentComponent extends DefaultComponent<Appointment> implemen
       width: '40%',
       maxWidth: '50%'
     }, this.dialog);
+  }
+
+  nextDay(): void {
+    this.currentDate = this.currentDate.add(1, 'd');
+    this.getAppointments();
+  }
+
+  previousDay(): void {
+    this.currentDate = this.currentDate.subtract(1, 'd');
+    this.getAppointments();
   }
 }
