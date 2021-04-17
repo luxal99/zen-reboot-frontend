@@ -74,4 +74,8 @@ export class AppointmentComponent extends DefaultComponent<Appointment> implemen
     this.currentDate = this.currentDate.subtract(1, 'd');
     this.getAppointments();
   }
+
+  test($event: Event) {
+    console.log(event);
+  }
 }
