@@ -20,20 +20,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 export class AppointmentComponent extends DefaultComponent<Appointment> implements OnInit {
   listOfSchedule: StaffDto[] = [];
   listOfTimes: string[] = [];
-
-
-  appointment: AppointmentDTO = {};
   now = new Date();
-  calendarOptions: CalendarOptions = {
-    initialView: 'timeGridDay',
-    events: [
-      {title: 'EVENT', date: '2021-04-16', startTime: '17:00:00', endTime: '18:00:00'},
-    ]
-  };
-
-  handleDateClick(arg: any): void {
-    alert('date click! ' + arg.dateStr);
-  }
 
   constructor(private dialog: MatDialog, private staffService: StaffService, protected snackBar: MatSnackBar) {
     super(staffService, snackBar);
@@ -60,15 +47,6 @@ export class AppointmentComponent extends DefaultComponent<Appointment> implemen
       this.listOfSchedule = resp.splice(0, 10);
       this.spinnerService.hide(this.spinner);
     });
-  }
-
-  setEvent(staffDto: StaffDto): void {
-    // @ts-ignore
-    for (const appointment of staffDto.appointments) {
-
-      // @ts-ignore
-      this.events.push({start: appointment.startTime, end: appointment.endTime});
-    }
   }
 
   openAddAppointmentDialog(): void {
