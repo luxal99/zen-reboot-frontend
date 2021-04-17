@@ -79,7 +79,8 @@ export abstract class DefaultComponent<T> implements OnInit {
     });
   }
 
-  subscribeDelete(id: number, otherService?: GenericService<any>, callBack?: () => {}): void {
+  // tslint:disable-next-line:ban-types
+  subscribeDelete(id: number, otherService?: GenericService<any>, callBack?: Function): any {
 
     this.spinnerService.show(this.spinner);
     if (otherService) {

@@ -1,4 +1,4 @@
-import {AfterViewChecked, Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewChecked, Component, Inject, OnInit, ViewChild} from '@angular/core';
 import {DefaultComponent} from '../../../../util/default-component';
 import {Appointment} from '../../../../models/appointment';
 import {AppointmentService} from '../../../../service/appointment.service';
@@ -18,6 +18,7 @@ import {AppointmentStatusService} from '../../../../service/appointment-status.s
 import {CKEditorComponent} from '@ckeditor/ckeditor5-angular';
 // @ts-ignore
 import * as ClassicEditor from 'lib/ckeditor5-build-classic';
+import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-add-appointment-dialog',
@@ -56,7 +57,7 @@ export class AddAppointmentDialogComponent extends DefaultComponent<Appointment>
   startTimeInputConfig: FieldConfig = {name: FormControlNames.START_TIME_FORM_CONTROL, type: InputTypes.TIME};
   endTimeInputConfig: FieldConfig = {name: FormControlNames.END_TIME_FORM_CONTROL, type: InputTypes.TIME};
 
-  constructor(private appointmentService: AppointmentService, protected snackBar: MatSnackBar,
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private appointmentService: AppointmentService, protected snackBar: MatSnackBar,
               private clientService: ClientService, private locationService: LocationService,
               private staffService: StaffService, private treatmentService: TreatmentService,
               private appointmentStatusService: AppointmentStatusService) {
@@ -67,6 +68,7 @@ export class AddAppointmentDialogComponent extends DefaultComponent<Appointment>
   }
 
   ngOnInit(): void {
+    console.log(this.data);
     this.initSelects();
   }
 

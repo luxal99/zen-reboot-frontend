@@ -40,7 +40,7 @@
     <div class="col-sm text-center" *ngFor="let staffDto of listOfSchedule|staff:searchText">
       <div class="circle text-center" [style.background-color]="staffDto.color">
         <h2>{{staffDto.person?.firstName.slice(0, 1)}}</h2></div>
-      <h4> <b>{{staffDto.person?.firstName + ' ' + staffDto.person?.lastName}}</b></h4>
+      <h4><b>{{staffDto.person?.firstName + ' ' + staffDto.person?.lastName}}</b></h4>
     </div>
   </div>
   <div class="row" *ngFor="let time of listOfTimes">
@@ -52,6 +52,11 @@
          *ngFor="let staffDto of listOfSchedule|staff:searchText">
       <div class="appointment-card"
            *ngIf="staffDto.appointments.length >0 && (staffDto | checkIsAppointmentStart:time);let appointment">
+        <div class="text-right">
+          <button mat-button (click)="deleteAppointment(appointment.id)">
+            <i class="fa fa-trash"></i>
+          </button>
+        </div>
         <h4> {{appointment.startTime.slice(0, 5) + '-' + appointment.endTime.slice(0, 5) }}
         </h4>
         <h4><b>{{ appointment.client?.person?.firstName + ' ' + appointment.client?.person?.lastName}}</b></h4>
