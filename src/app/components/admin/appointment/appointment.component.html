@@ -1,6 +1,5 @@
 <app-header header="Kalendar"></app-header>
 <div class="component-content">
-  <mat-spinner diameter="50" #spinner></mat-spinner>
   <div class="row">
     <div class="col-sm">
       <form [formGroup]="searchForm">
@@ -35,6 +34,7 @@
     </div>
   </div>
 
+  <mat-spinner diameter="50" #spinner></mat-spinner>
   <div class="row header-row">
     <div class="col-sm-1"></div>
     <div class="col-sm text-center" *ngFor="let staffDto of listOfSchedule|staff:searchText">
