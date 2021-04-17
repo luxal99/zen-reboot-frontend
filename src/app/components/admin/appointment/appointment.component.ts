@@ -11,6 +11,7 @@ import {DefaultComponent} from '../../../util/default-component';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {FormControl, FormGroup} from '@angular/forms';
 import {AppointmentService} from '../../../service/appointment.service';
+import {AppointmentOverviewDialogComponent} from './appointment-overview-dialog/appointment-overview-dialog.component';
 
 @Component({
   selector: 'app-appointment',
@@ -27,6 +28,7 @@ export class AppointmentComponent extends DefaultComponent<Appointment> implemen
   });
 
   searchText = '';
+  test = {};
 
   constructor(private dialog: MatDialog, private staffService: StaffService, protected snackBar: MatSnackBar, private appointmentService: AppointmentService) {
     super(staffService, snackBar);
@@ -64,6 +66,17 @@ export class AppointmentComponent extends DefaultComponent<Appointment> implemen
       width: '40%',
       maxWidth: '50%',
       data
+    }, this.dialog).afterClosed().subscribe(() => {
+      this.getAppointments();
+    });
+  }
+
+  openAppointmentOverviewDialog(appointment: Appointment): void {
+    DialogUtil.openDialog(AppointmentOverviewDialogComponent, {
+      maxWidth: '100vw',
+      maxHeight: '100vh',
+      height: '100%',
+      width: '100%'
     }, this.dialog);
   }
 

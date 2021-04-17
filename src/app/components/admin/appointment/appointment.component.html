@@ -47,21 +47,24 @@
     <div class="col-sm-1">
       <h3 class="text-center">{{time}}</h3>
     </div>
-    <div class="col-sm appointment-col"
-         [style]="(staffDto|checkIsAppointmentBetween:time )!=='#fff'? {'background-color':(staffDto|checkIsAppointmentBetween:time)}: {'border-top':'.5px solid #e1e1e1'}"
-         *ngFor="let staffDto of listOfSchedule|staff:searchText">
-      <div class="appointment-card"
-           *ngIf="staffDto.appointments.length >0 && (staffDto | checkIsAppointmentStart:time);let appointment">
-        <div class="text-right">
-          <button mat-button (click)="deleteAppointment(appointment.id)">
-            <i class="fa fa-trash"></i>
-          </button>
+    <ng-container *ngFor="let staffDto of listOfSchedule|staff:searchText">
+      <ng-container *ngIf="(staffDto|checkIsAppointmentBetween:time)  as appointmentInInterval; else emptyCol">
+        <div class="col-sm appointment-col" (click)="openAppointmentOverviewDialog(appointmentInInterval)"
+             [style.background-color]="appointmentInInterval.color">
+          <div class="appointment-card" (click)="openAppointmentOverviewDialog(appointment)"
+               *ngIf="staffDto.appointments.length >0 && (staffDto | checkIsAppointmentStart:time);let appointment;">
+            <div class="text-right">
+            </div>
+            <h4> {{appointment.startTime.slice(0, 5) + '-' + appointment.endTime.slice(0, 5) }}
+            </h4>
+            <h4><b>{{ appointment.client?.person?.firstName + ' ' + appointment.client?.person?.lastName}}</b></h4>
+            <h4 class="treatment-name">{{ appointment.treatment?.name}}</h4>
+          </div>
         </div>
-        <h4> {{appointment.startTime.slice(0, 5) + '-' + appointment.endTime.slice(0, 5) }}
-        </h4>
-        <h4><b>{{ appointment.client?.person?.firstName + ' ' + appointment.client?.person?.lastName}}</b></h4>
-        <h4 class="treatment-name">{{ appointment.treatment?.name}}</h4>
-      </div>
-    </div>
+      </ng-container>
+      <ng-template #emptyCol>
+        <div class="col-sm empty-col" (click)="openAddAppointmentDialog({startTime:time,staff:{id:staffDto.id}})"></div>
+      </ng-template>
+    </ng-container>
   </div>
 </div>

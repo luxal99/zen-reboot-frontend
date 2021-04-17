@@ -15,29 +15,34 @@
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
     </form>
-    <app-form-input [config]="startTimeInputConfig" [group]="appointmentForm" label="Početak tretmana"></app-form-input>
-    <app-form-select [config]="appointmentStatusSelectConfig" [group]="appointmentForm"
+    <app-form-input [config]="startTimeInputConfig" [group]="appointmentForm"
+                    label="Početak tretmana"></app-form-input>
+    <app-form-select [config]="appointmentStatusSelectConfig" [model]="data.id ? data.appointmentStatus : null"
+                     [group]="appointmentForm"
                      label="Status tretmana" bindValue="value"></app-form-select>
     <ckeditor [editor]="Editor" #editor></ckeditor>
   </mat-step>
   <app-form-input [config]="startTimeInputConfig" [group]="appointmentForm"></app-form-input>
   <mat-step label="Tretman">
-    <app-form-select label="Izaberi lokaciju" bindValue="name" [config]="locationSelectConfig"
+    <app-form-select [model]="data ? data.location:null" label="Izaberi lokaciju" bindValue="name"
+                     [config]="locationSelectConfig"
                      [group]="appointmentForm"></app-form-select>
-    <app-form-select bindValue="name" [config]="treatmentSelectConfig" (onChange)="onTreatmentSelect()"
+    <app-form-select [model]="data?data.treatment:null" bindValue="name" [config]="treatmentSelectConfig"
+                     (onChange)="onTreatmentSelect()"
                      label="Izaberi tretman"
                      [group]="appointmentForm"></app-form-select>
     <app-form-select bindValue="duration" (onChange)="sumEndTime()" [isDisabled]="isDurationFCDisabled"
-                     label="Izaberi trajanje"
+                     label="Izaberi trajanje" [model]="data.id ? data.duration :  null"
                      [config]="durationSelectConfig"
                      [group]="appointmentForm"></app-form-select>
-    <app-form-input [config]="endTimeInputConfig" [group]="appointmentForm"></app-form-input>
+    <app-form-input [config]="endTimeInputConfig" [model]="data.id ? data.endTime:null"
+                    [group]="appointmentForm"></app-form-input>
   </mat-step>
   <mat-step label="Klijent i zaposleni">
     <form [formGroup]="appointmentForm">
       <mat-form-field appearance="outline">
         <mat-label>Zaposleni</mat-label>
-        <mat-select formControlName="staff">
+        <mat-select formControlName="staff" [compareWith]="compareObjects" [ngModel]="data.id ? data.staff :null">
           <form [formGroup]="searchForm">
             <div style="margin: 1em">
               <mat-form-field appearance="standard">
@@ -57,7 +62,8 @@
         </mat-select>
       </mat-form-field>
     </form>
-    <app-form-select bindValue="fullName" [config]="clientSelectConfig" label="Izaberi klijenta"
+    <app-form-select [model]="data.id ?data.client :null" bindValue="fullName" [config]="clientSelectConfig"
+                     label="Izaberi klijenta"
                      [group]="appointmentForm"></app-form-select>
   </mat-step>
 </mat-vertical-stepper>

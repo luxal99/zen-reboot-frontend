@@ -40,8 +40,9 @@ import {AppointmentComponent} from './components/admin/appointment/appointment.c
 import {ComponentActivatorComponent} from './components/admin/component-activator/component-activator.component';
 import {AddAppointmentDialogComponent} from './components/admin/appointment/add-appointment-dialog/add-appointment-dialog.component';
 import {CKEditorModule} from '@ckeditor/ckeditor5-angular';
-import { CheckIsAppointmentStartPipe } from './pipes/check-is-appointment-start.pipe';
-import { CheckIsAppointmentBetweenPipe } from './pipes/check-is-appointment-between.pipe';
+import {CheckIsAppointmentStartPipe} from './pipes/check-is-appointment-start.pipe';
+import {CheckIsAppointmentBetweenPipe} from './pipes/check-is-appointment-between.pipe';
+import {AppointmentOverviewDialogComponent} from './components/admin/appointment/appointment-overview-dialog/appointment-overview-dialog.component';
 
 @NgModule({
   declarations: [
@@ -76,7 +77,8 @@ import { CheckIsAppointmentBetweenPipe } from './pipes/check-is-appointment-betw
     ComponentActivatorComponent,
     AddAppointmentDialogComponent,
     CheckIsAppointmentStartPipe,
-    CheckIsAppointmentBetweenPipe
+    CheckIsAppointmentBetweenPipe,
+    AppointmentOverviewDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -97,8 +99,9 @@ import { CheckIsAppointmentBetweenPipe } from './pipes/check-is-appointment-betw
   entryComponents:
     [
       AddAppointmentDialogComponent, AddServiceDialogComponent,
-      AddClientDialogComponent, ClientOverviewDialogComponent,
-      FormBuilderComponent, OverviewComponent, StaffComponent, ServicesComponent],
+      AddClientDialogComponent, AppointmentOverviewDialogComponent, ClientOverviewDialogComponent,
+      FormBuilderComponent, OverviewComponent, StaffComponent,
+      ServicesComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {

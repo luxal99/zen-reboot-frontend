@@ -1,4 +1,4 @@
-import {AfterViewChecked, Component, Inject, OnInit, ViewChild} from '@angular/core';
+import {AfterViewChecked, ChangeDetectorRef, Component, Inject, OnInit, ViewChild} from '@angular/core';
 import {DefaultComponent} from '../../../../util/default-component';
 import {Appointment} from '../../../../models/appointment';
 import {AppointmentService} from '../../../../service/appointment.service';
@@ -57,7 +57,8 @@ export class AddAppointmentDialogComponent extends DefaultComponent<Appointment>
   startTimeInputConfig: FieldConfig = {name: FormControlNames.START_TIME_FORM_CONTROL, type: InputTypes.TIME};
   endTimeInputConfig: FieldConfig = {name: FormControlNames.END_TIME_FORM_CONTROL, type: InputTypes.TIME};
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private appointmentService: AppointmentService, protected snackBar: MatSnackBar,
+  constructor(@Inject(MAT_DIALOG_DATA) public data: Appointment, private appointmentService: AppointmentService,
+              protected snackBar: MatSnackBar, private readonly changeDetectorRef: ChangeDetectorRef,
               private clientService: ClientService, private locationService: LocationService,
               private staffService: StaffService, private treatmentService: TreatmentService,
               private appointmentStatusService: AppointmentStatusService) {
@@ -65,11 +66,16 @@ export class AddAppointmentDialogComponent extends DefaultComponent<Appointment>
   }
 
   ngAfterViewChecked(): void {
+    this.changeDetectorRef.detectChanges();
   }
 
   ngOnInit(): void {
-    console.log(this.data);
     this.initSelects();
+    setTimeout(() => {
+      if (this.data) {
+        this.appointmentForm.controls.startTime.setValue(this.data.startTime);
+      }
+    }, 100);
   }
 
   getAllStaffs(): void {
@@ -112,7 +118,21 @@ export class AddAppointmentDialogComponent extends DefaultComponent<Appointment>
     appointment.endTime = appointment.endTime + ':00';
     appointment.duration = appointment.duration.duration;
     appointment.notes = this.editorComponent.editorInstance?.getData();
-    this.subscribeSave(appointment);
+
+    if (this.data.id) {
+      appointment.id = this.data.id;
+      super.subscribeUpdate(appointment);
+    } else {
+      this.subscribeSave(appointment);
+    }
+  }
+
+  compareObjects(o1: any, o2: any): boolean {
+    if (o2 !== null && o2 !== undefined) {
+      return o1.name === o2.name && o1.id === o2.id;
+    } else {
+      return false;
+    }
   }
 
   sumEndTime(): void {
