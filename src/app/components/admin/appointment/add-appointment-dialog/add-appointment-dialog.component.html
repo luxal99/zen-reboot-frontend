@@ -17,7 +17,7 @@
     </form>
     <app-form-input [config]="startTimeInputConfig" [group]="appointmentForm"
                     label="Početak tretmana"></app-form-input>
-    <app-form-select [config]="appointmentStatusSelectConfig" [model]="data.id ? data.appointmentStatus : null"
+    <app-form-select [config]="appointmentStatusSelectConfig" [model]="data ? data.appointmentStatus : null"
                      [group]="appointmentForm"
                      label="Status tretmana" bindValue="value"></app-form-select>
     <ckeditor [editor]="Editor" #editor></ckeditor>
@@ -32,17 +32,17 @@
                      label="Izaberi tretman"
                      [group]="appointmentForm"></app-form-select>
     <app-form-select bindValue="duration" (onChange)="sumEndTime()" [isDisabled]="isDurationFCDisabled"
-                     label="Izaberi trajanje" [model]="data.id ? data.duration :  null"
+                     label="Izaberi trajanje" [model]="data ? data.duration :  null"
                      [config]="durationSelectConfig"
                      [group]="appointmentForm"></app-form-select>
-    <app-form-input [config]="endTimeInputConfig" [model]="data.id ? data.endTime:null"
+    <app-form-input [config]="endTimeInputConfig" [model]="data ? data.endTime:null"
                     [group]="appointmentForm"></app-form-input>
   </mat-step>
   <mat-step label="Klijent i zaposleni">
     <form [formGroup]="appointmentForm">
       <mat-form-field appearance="outline">
         <mat-label>Zaposleni</mat-label>
-        <mat-select formControlName="staff" [compareWith]="compareObjects" [ngModel]="data.id ? data.staff :null">
+        <mat-select formControlName="staff" [compareWith]="compareObjects" [ngModel]="data? data.staff :null">
           <form [formGroup]="searchForm">
             <div style="margin: 1em">
               <mat-form-field appearance="standard">
@@ -62,7 +62,7 @@
         </mat-select>
       </mat-form-field>
     </form>
-    <app-form-select [model]="data.id ?data.client :null" bindValue="fullName" [config]="clientSelectConfig"
+    <app-form-select [model]="data ?data.client :null" bindValue="fullName" [config]="clientSelectConfig"
                      label="Izaberi klijenta"
                      [group]="appointmentForm"></app-form-select>
   </mat-step>

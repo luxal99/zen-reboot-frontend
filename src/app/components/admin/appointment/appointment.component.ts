@@ -76,7 +76,8 @@ export class AppointmentComponent extends DefaultComponent<Appointment> implemen
       maxWidth: '100vw',
       maxHeight: '100vh',
       height: '100%',
-      width: '100%'
+      width: '100%',
+      data: appointment
     }, this.dialog);
   }
 

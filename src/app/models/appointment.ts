@@ -23,7 +23,7 @@ export interface Appointment {
   appointmentStatus?: AppointmentStatus;
   client?: Client;
   createdDate?: string;
-  date?: string;
+  date?: any;
   id?: number;
   lastModifiedBy?: string;
   lastModifiedDate?: string;
@@ -31,5 +31,6 @@ export interface Appointment {
   notes?: string;
   staff?: Staff;
   treatment?: Treatment;
+  price?: number
 }
 
