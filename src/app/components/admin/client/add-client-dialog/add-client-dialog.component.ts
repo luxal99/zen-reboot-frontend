@@ -18,6 +18,10 @@ import {MatSpinner} from '@angular/material/progress-spinner';
 import {MatCheckboxChange} from '@angular/material/checkbox';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {DefaultComponent} from '../../../../util/default-component';
+import * as moment from 'moment';
+import {CKEditorComponent} from '@ckeditor/ckeditor5-angular';
+// @ts-ignore
+import * as ClassicEditor from 'lib/ckeditor5-build-classic';
 
 @Component({
   selector: 'app-add-client-dialog',
@@ -25,6 +29,12 @@ import {DefaultComponent} from '../../../../util/default-component';
   styleUrls: ['./add-client-dialog.component.sass']
 })
 export class AddClientDialogComponent extends DefaultComponent<Client> implements OnInit, AfterViewChecked {
+
+  mobilePhone = '';
+  otherPhone = '';
+  email = '';
+  @ViewChild('editor', {static: false}) editorComponent!: CKEditorComponent;
+  public Editor = ClassicEditor;
 
   @ViewChild('spinner') spinner!: MatSpinner;
   listOfNotificationMethods: string[] = [NotificationEnum.EMAIL];
@@ -124,7 +134,11 @@ export class AddClientDialogComponent extends DefaultComponent<Client> implement
 
     this.spinnerService.show(this.spinner);
     const client: Client = this.clientForm.getRawValue();
-    client.person = this.personForm.getRawValue();
+    client.person = {
+      firstName: this.personForm.get(FormControlNames.FIRST_NAME_FORM_CONTROL)?.value,
+      lastName: this.personForm.get(FormControlNames.LAST_NAME_FORM_CONTROL)?.value,
+      contacts: []
+    };
     client.address = this.addressForm.getRawValue();
     if (this.clientForm.get(FormControlNames.LANGUAGE_FORM_CONTROL)?.value) {
       client.language = this.clientForm.get(FormControlNames.LANGUAGE_FORM_CONTROL)?.value.name;
@@ -155,6 +169,8 @@ export class AddClientDialogComponent extends DefaultComponent<Client> implement
       },
     ];
 
+    client.birthday = moment(client.birthday).format('YYYY-MM-DD');
+    client.notes = this.editorComponent.editorInstance?.getData();
     if (this.data.id) {
       client.id = this.data.id;
       super.subscribeUpdate(client);
@@ -165,32 +181,17 @@ export class AddClientDialogComponent extends DefaultComponent<Client> implement
 
   setValuesToForm(): void {
     if (this.data) {
-      this.personForm.setValue({
-        firstName: this.data.person?.firstName,
-        lastName: this.data.person?.lastName,
-        email: this.data.person?.contacts.find((telephone) => telephone.type === ContactTypeEnum.EMAIL.toString())?.value || '',
-        mobilePhone: this.data.person?.contacts.find((telephone) => telephone.type === ContactTypeEnum.PHONE.toString())?.value || '',
-        otherPhone: this.data.person?.contacts.find((telephone) => telephone.type === ContactTypeEnum.OTHER.toString())?.value || '',
-        otherPhonePrefix: this.data.person?.contacts.find((telephone) => telephone.type === ContactTypeEnum.OTHER.toString())?.prefix || '',
-        mobilePhonePrefix: this.data.person?.contacts.find((telephone) => telephone.type === ContactTypeEnum.PHONE.toString())?.prefix || '',
-      });
+      this.personForm.controls.otherPhonePrefix
+        .setValue(this.data.person?.contacts.find((telephone) => telephone.type === ContactTypeEnum.OTHER.toString())?.prefix || '');
+      this.personForm.controls.mobilePhonePrefix
+        .setValue(this.data.person?.contacts.find((telephone) => telephone.type === ContactTypeEnum.PHONE.toString())?.prefix || '');
+      // @ts-ignore
+      this.email = this.data.person?.contacts.find((telephone) => telephone.type === ContactTypeEnum.EMAIL.toString()).value;
 
-      this.addressForm.setValue({
-        street: this.data.address?.street || '',
-        number: this.data.address?.number || '',
-        city: this.data.address?.city || ''
-      });
-
-      this.clientForm.setValue({
-        gender: this.data.gender,
-        notificationMethod: this.data.notificationMethod,
-        birthday: this.data.birthday,
-        notes: this.data.notes,
-        language: this.data.language,
-        referralSource: this.data.referralSource
-
-      });
-
+      this.personForm.controls.otherPhone
+        .setValue(this.data.person?.contacts.find((telephone) => telephone.type === ContactTypeEnum.OTHER.toString())?.value || '');
+      this.personForm.controls.mobilePhone
+        .setValue(this.data.person?.contacts.find((telephone) => telephone.type === ContactTypeEnum.PHONE.toString())?.value || '');
     } else {
       this.data = {};
     }

@@ -13,10 +13,12 @@
     <div class="col left-col form-col text-right">
       <div class="row">
         <div class="col-sm input-col-left">
-          <app-form-input label="Ime" [config]="firstNameInputConfig" [group]="personForm"></app-form-input>
+          <app-form-input label="Ime" [model]="data ? data.person?.firstName:null" [config]="firstNameInputConfig"
+                          [group]="personForm"></app-form-input>
         </div>
         <div class="col-sm input-col-right">
-          <app-form-input label="Prezime" [config]="lastNameInputConfig" [group]="personForm"></app-form-input>
+          <app-form-input label="Prezime" [model]="data ? data.person?.lastName:null" [config]="lastNameInputConfig"
+                          [group]="personForm"></app-form-input>
         </div>
       </div>
 
@@ -34,7 +36,8 @@
               </mat-form-field>
               <mat-form-field appearance="outline" style="width: 75%;">
                 <mat-label>Kontakt telefon</mat-label>
-                <input matInput type="text" placeholder="69 021 1312" formControlName="mobilePhone">
+                <input matInput type="text" placeholder="69 021 1312"
+                       formControlName="mobilePhone">
               </mat-form-field>
             </div>
           </div>
@@ -50,22 +53,24 @@
               </mat-form-field>
               <mat-form-field appearance="outline" style="width: 75%;">
                 <mat-label>Kontakt telefon</mat-label>
-                <input formControlName="otherPhone" matInput type="text" placeholder="69 021 1312">
+                <input formControlName="otherPhone" matInput type="text"
+                       placeholder="69 021 1312">
               </mat-form-field>
             </div>
           </div>
         </div>
       </form>
-      <app-form-input label="Email" icon="alternate_email" [config]="emailInputConfig"
+      <app-form-input label="Email" icon="alternate_email" [model]="email" [config]="emailInputConfig"
                       [group]="personForm"></app-form-input>
-      <app-form-select bindValue="name" [model]="{name:data.notificationMethod}"
+      <app-form-select bindValue="name" [model]="data ? {name:data.notificationMethod} : null"
                        [config]="notificationMethodSelectConfig" [group]="clientForm"
                        label="Način slanja notifikacija"></app-form-select>
-      <app-form-select bindValue="name" [model]="{name:data.language}" [config]="languageSelectConfig"
+      <app-form-select bindValue="name" [model]="data ?{name:data.language}:null" [config]="languageSelectConfig"
                        [group]="clientForm"></app-form-select>
 
       <div class="text-left">
-        <mat-checkbox [checked]="data.marketingNotifications" #marketingNotificationCheckBox>Marketing notifikacije</mat-checkbox>
+        <mat-checkbox [checked]="data.marketingNotifications" #marketingNotificationCheckBox>Marketing notifikacije
+        </mat-checkbox>
       </div>
     </div>
     <div class="col form-col">
@@ -74,11 +79,12 @@
           <div class="tab">
             <div class="inline">
               <div class="column left">
-                <app-form-select label="Pol" bindValue="name" [model]="{name:data.gender}" [group]="clientForm"
+                <app-form-select label="Pol" bindValue="name" [model]="data ?{name:data.gender}:null"
+                                 [group]="clientForm"
                                  [config]="genderSelectConfig"></app-form-select>
               </div>
               <div class="column right">
-                <app-form-select label="Način dolaska" [model]="data.referralSource" bindValue="value"
+                <app-form-select label="Način dolaska" [model]="data ?data.referralSource:null " bindValue="value"
                                  [group]="clientForm"
                                  [config]="referralSourceSelectConfig"></app-form-select>
               </div>
@@ -86,26 +92,30 @@
             <div [formGroup]="clientForm">
               <mat-form-field appearance="outline">
                 <mat-label>Datum rođenja</mat-label>
-                <input matInput [matDatepicker]="picker" formControlName="birthday">
+                <input matInput [ngModel]="data.birthday ? data.birthday : null" [matDatepicker]="picker"
+                       formControlName="birthday">
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
               </mat-form-field>
 
             </div>
-            <app-form-input [group]="clientForm" [config]="notesInputConfig" label="Beleška"></app-form-input>
+            <ckeditor [editor]="Editor" [data]="data ? data.notes : null" #editor></ckeditor>
           </div>
         </mat-tab>
         <mat-tab label="Adresa">
           <div class="tab">
             <div class="inline">
               <div class="column left">
-                <app-form-input [config]="streetInputConfig" label="Ulica" [group]="addressForm"></app-form-input>
+                <app-form-input [model]="data ?data.address?.street:null" [config]="streetInputConfig" label="Ulica"
+                                [group]="addressForm"></app-form-input>
               </div>
               <div class="column right">
-                <app-form-input [config]="streetNoInputConfig" label="Broj" [group]="addressForm"></app-form-input>
+                <app-form-input [model]="data ?data.address?.number:null" [config]="streetNoInputConfig" label="Broj"
+                                [group]="addressForm"></app-form-input>
               </div>
             </div>
-            <app-form-select label="Grad" [model]="data.address?.city" bindValue="name" [config]="citySelectConfig"
+            <app-form-select label="Grad" [model]=" data ? data.address?.city:null" bindValue="name"
+                             [config]="citySelectConfig"
                              [group]="addressForm"></app-form-select>
           </div>
         </mat-tab>
