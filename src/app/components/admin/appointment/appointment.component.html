@@ -45,7 +45,7 @@
   </div>
   <div class="row header-row">
     <div class="col-sm-1"></div>
-    <div class="col-sm text-center" data-aos-duration="1500" data-aos="fade-right" data-aos-delay="{{delay+100}}"
+    <div class="col-sm text-center"
          *ngFor="let staffDto of filteredScheduleList|staff:searchText">
       <div class="circle text-center" [style.background-color]="staffDto.color">
         <h2>{{staffDto.person?.firstName.slice(0, 1)}}</h2></div>

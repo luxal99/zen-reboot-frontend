@@ -48,6 +48,7 @@ export class AddShiftDialogComponent extends DefaultComponent<Shift> implements 
   }
 
   ngOnInit(): void {
+    console.log(this.data);
     this.date = moment(this.data.date).format('DD MMMM YYYY');
     this.getAllLocations();
   }
@@ -67,6 +68,8 @@ export class AddShiftDialogComponent extends DefaultComponent<Shift> implements 
     Object.assign(shift, this.shiftForm.getRawValue());
     // @ts-ignore
     delete shift.staff.shifts;
+    // @ts-ignore
+    delete shift.staff.appointments;
 
     shift.date = moment(this.data.date).format('YYYY-MM-DD');
 

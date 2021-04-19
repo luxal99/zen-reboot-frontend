@@ -9,6 +9,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import {AppointmentService} from '../../../../service/appointment.service';
 import {DialogUtil} from '../../../../util/dialog-util';
 import {AddAppointmentDialogComponent} from '../add-appointment-dialog/add-appointment-dialog.component';
+import {AppointmentDTO} from '../../../../models/AppointmentDTO';
 
 @Component({
   selector: 'app-appointment-overview-dialog',
@@ -20,7 +21,7 @@ export class AppointmentOverviewDialogComponent extends DefaultComponent<Appoint
   clientContactNumber: Contact = {};
   day = moment(this.data.date).format('dddd');
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: Appointment, private dialog: MatDialog,
+  constructor(@Inject(MAT_DIALOG_DATA) public data: AppointmentDTO, private dialog: MatDialog,
               protected snackBar: MatSnackBar, private appointmentService: AppointmentService) {
     super(appointmentService, snackBar);
   }
