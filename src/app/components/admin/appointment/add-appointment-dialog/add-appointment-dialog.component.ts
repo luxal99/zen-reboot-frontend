@@ -39,7 +39,7 @@ export class AddAppointmentDialogComponent extends DefaultComponent<Appointment>
   appointmentForm = new FormGroup({
     appointmentStatus: new FormControl('', Validators.required),
     client: new FormControl('', Validators.required),
-    date: new FormControl(new Date(this.data.date), Validators.required),
+    date: new FormControl(this.data ? new Date(this.data.date) : new Date(), Validators.required),
     startTime: new FormControl('', Validators.required),
     endTime: new FormControl('', Validators.required),
     location: new FormControl('', Validators.required),
