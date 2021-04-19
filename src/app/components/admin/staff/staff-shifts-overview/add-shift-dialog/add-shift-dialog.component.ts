@@ -27,8 +27,8 @@ export class AddShiftDialogComponent extends DefaultComponent<Shift> implements 
   });
 
   repeatForm = new FormGroup({
-    repeatType: new FormControl(Validators.required),
-    repeatCount: new FormControl(Validators.required)
+    repeatType: new FormControl('', Validators.required),
+    repeatCount: new FormControl('', Validators.required)
   });
 
   startTimeInputConfig: FieldConfig = {name: FormControlNames.START_TIME_FORM_CONTROL, type: InputTypes.TIME};
@@ -66,13 +66,8 @@ export class AddShiftDialogComponent extends DefaultComponent<Shift> implements 
   save(): void {
     const shift: Shift = this.data;
     Object.assign(shift, this.shiftForm.getRawValue());
-    // @ts-ignore
-    delete shift.staff.shifts;
-    // @ts-ignore
-    delete shift.staff.appointments;
-
+    shift.staff = {id: this.data.staff?.id};
     shift.date = moment(this.data.date).format('YYYY-MM-DD');
-
     shift.location?.rooms?.filter((room) => delete room.location);
 
     if (this.repeatForm.valid) {
