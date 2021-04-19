@@ -43,7 +43,7 @@ export class AddAppointmentDialogComponent extends DefaultComponent<Appointment>
     location: new FormControl('', Validators.required),
     staff: new FormControl('', Validators.required),
     treatment: new FormControl('', Validators.required),
-    duration: new FormControl('', Validators.required),
+    treatmentDuration: new FormControl('', Validators.required),
   });
   searchForm = new FormGroup({
     search: new FormControl()
@@ -111,14 +111,15 @@ export class AddAppointmentDialogComponent extends DefaultComponent<Appointment>
   save(): void {
     const appointment: Appointment = this.appointmentForm.getRawValue();
     appointment.client = {id: appointment.client?.id};
-    appointment.treatment = {id: appointment.treatment?.id};
     appointment.location = {id: appointment.location?.id};
     appointment.date = moment(appointment.date).format('YYYY-MM-DD');
     appointment.startTime = appointment.startTime + ':00';
     appointment.endTime = appointment.endTime + ':00';
-    appointment.duration = appointment.duration.duration;
     appointment.notes = this.editorComponent.editorInstance?.getData();
-
+    // @ts-ignore
+    delete appointment.treatment;
+    delete appointment.treatmentDuration?.treatment?.durations;
+    delete appointment.treatmentDuration?.treatment?.category;
     if (this.data.id) {
       appointment.id = this.data.id;
       super.subscribeUpdate(appointment);

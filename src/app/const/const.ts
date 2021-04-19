@@ -12,7 +12,7 @@ export class FormControlNames {
   static LAST_NAME_FORM_CONTROL = 'lastName';
   static CATEGORY_FORM_CONTROL = 'category';
   static DESCRIPTION_FORM_CONTROL = 'description';
-  static DURATION_FORM_CONTROL = 'duration';
+  static DURATION_FORM_CONTROL = 'treatmentDuration';
   static PRICE_FORM_CONTROL = 'price';
   static NOTES_FORM_CONTROL = 'notes';
   static EMAIL_FORM_CONTROL = 'email';

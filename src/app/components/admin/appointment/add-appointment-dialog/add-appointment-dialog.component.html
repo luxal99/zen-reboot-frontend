@@ -27,7 +27,8 @@
     <app-form-select [model]="data ? data.location:null" label="Izaberi lokaciju" bindValue="name"
                      [config]="locationSelectConfig"
                      [group]="appointmentForm"></app-form-select>
-    <app-form-select [model]="data?data.treatment:null" bindValue="name" [config]="treatmentSelectConfig"
+    <app-form-select [model]="data?data.treatmentDuration?.treatment:null" bindValue="name"
+                     [config]="treatmentSelectConfig"
                      (onChange)="onTreatmentSelect()"
                      label="Izaberi tretman"
                      [group]="appointmentForm"></app-form-select>

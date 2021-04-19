@@ -14,6 +14,7 @@ import {Staff} from './staff';
 import {AppointmentStatus} from './appointment-status';
 import {Client} from './client';
 import {Location} from './location';
+import {TreatmentDuration} from './treatment-duration';
 
 
 export interface Appointment {
@@ -30,7 +31,7 @@ export interface Appointment {
   location?: Location;
   notes?: string;
   staff?: Staff;
-  treatment?: Treatment;
-  price?: number
+  treatmentDuration?: TreatmentDuration;
+  price?: number;
 }
 

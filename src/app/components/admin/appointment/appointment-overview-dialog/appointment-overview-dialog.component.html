@@ -5,33 +5,51 @@
 </div>
 <h1 class="text-center"><b>Pregled termina</b></h1>
 <mat-divider></mat-divider>
-<div class="container">
-  <h1 class="date"><b>{{day}}, {{data.date}}</b></h1>
-  <div class="row">
-    <div class="col-sm-4" style="padding-left: 0">
-      <div class="row">
-        <div class="col-6 ">
-          <h3 class="start-h3"><b>{{data.startTime}}</b></h3>
-        </div>
-        <div class="col-6">
-          <h3 class="end-h3"><b>{{data.endTime}}</b></h3>
+<div class="row">
+  <div class="col-9 ">
+    <h1 class="date text"><b>{{day}}, {{data.date}}</b></h1>
+    <div class="row">
+      <div class="col-sm-4" style="padding-left: 0">
+        <div class="row">
+          <div class="col-6 ">
+            <h3 class="start-h3"><b>{{data.startTime}}</b></h3>
+          </div>
+          <div class="col-6">
+            <h3 class="end-h3"><b>{{data.endTime}}</b></h3>
+          </div>
         </div>
       </div>
+      <div class="col-sm-4">
+        <h5>Naziv tretmana</h5>
+        <h3><b>{{data.treatmentDuration?.treatment?.name }} </b></h3>
+      </div>
+      <div class="col-sm-2">
+        <h5>Trajanje</h5>
+        <h3><b>{{data.treatmentDuration?.duration}}</b></h3>
+      </div>
+      <div class="col-sm-2">
+        <h5>Cena</h5>
+        <h3><b>{{data.price}}</b></h3>
+      </div>
     </div>
-    <div class="col-sm-8">
-      <h5>Naziv tretmana</h5>
-      <h3><b>{{data.treatment?.name}}</b></h3>
+    <h1 style="margin-top: 1em"><b>Zaposleni</b></h1>
+    <mat-divider></mat-divider>
+    <div class="inline">
+      <div class="circle text-center" [style.background-color]="data.staff?.color"><h3>
+        <b>{{data.staff?.person?.firstName.slice(0, 1)}}</b></h3></div>
+      <h3 class="text-center"
+          style="padding: .5em">{{data.staff?.person?.firstName + ' ' + data.staff?.person?.lastName}}</h3>
+    </div>
+    <h1 style="margin-top: 1em"><b>Istorija termina</b></h1>
+    <mat-divider></mat-divider>
+    <h3>Kreiran: <b>{{data.createdDate}}</b></h3>
+  </div>
+  <div class="col-3 text-left">
+    <div class="inline">
+      <div class="big-circle text-center"
+           style=background-color:#c2c2c2>{{data.client?.person?.firstName.slice(0, 1)}}</div>
+      <h3>{{data.client?.person?.firstName + ' ' + data.client?.person?.lastName}}</h3> <br>
+      <h4>{{clientContactNumber}}</h4>
     </div>
   </div>
-  <h1 style="margin-top: 1em"><b>Zaposleni</b></h1>
-  <mat-divider></mat-divider>
-  <div class="inline">
-    <div class="circle text-center" [style.background-color]="data.staff?.color"><h3>
-      <b>{{data.staff?.person?.firstName.slice(0, 1)}}</b></h3></div>
-    <h3 class="text-center"
-        style="padding: .5em">{{data.staff?.person?.firstName + ' ' + data.staff?.person?.lastName}}</h3>
-  </div>
-  <h1 style="margin-top: 1em"><b>Istorija termina</b></h1>
-  <mat-divider></mat-divider>
-  <h3>Kreiran: <b>{{data.createdDate}}</b></h3>
 </div>
