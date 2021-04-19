@@ -1,12 +1,11 @@
 import {Location} from './location';
-import {Staff} from './staff';
 import {RepeatTypeEnum} from '../enums/RepeatTypeEnum';
 import {Person} from './person';
 import {Shift} from './shift';
-import {Appointment} from './appointment';
+import {AppointmentDTO} from './AppointmentDTO';
 
 export interface StaffDto {
-  appointments?: Appointment[];
+  appointments?: AppointmentDTO[];
   date?: any;
   endTime?: any;
   location?: Location;

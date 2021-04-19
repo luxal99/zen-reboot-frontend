@@ -13,6 +13,7 @@ import {FormControl, FormGroup} from '@angular/forms';
 import {AppointmentService} from '../../../service/appointment.service';
 import {AppointmentOverviewDialogComponent} from './appointment-overview-dialog/appointment-overview-dialog.component';
 import {TreatmentService} from '../../../service/treatment.service';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-appointment',
@@ -20,16 +21,22 @@ import {TreatmentService} from '../../../service/treatment.service';
   styleUrls: ['./appointment.component.sass']
 })
 export class AppointmentComponent extends DefaultComponent<Appointment> implements OnInit {
-  listOfSchedule: StaffDto[] = [];
+
+  listOfSchedule: Observable<StaffDto[]> = new Observable<StaffDto[]>();
+  filteredScheduleList: StaffDto[] = [];
   listOfTimes: string[] = [];
-  now = new Date();
+
   currentDate = moment();
+
   searchForm = new FormGroup({
     search: new FormControl()
   });
 
   searchText = '';
-  test = {};
+  initGap = 0;
+  gap = 10;
+  isDisabledNext10 = false;
+  isDisabledPrev10 = false;
 
   constructor(private dialog: MatDialog, private staffService: StaffService, protected snackBar: MatSnackBar,
               private appointmentService: AppointmentService, private treatmentService: TreatmentService) {
@@ -37,10 +44,48 @@ export class AppointmentComponent extends DefaultComponent<Appointment> implemen
   }
 
   ngOnInit(): void {
-    setTimeout(() => {
-      this.getAppointments();
-    }, 100);
+    this.getAppointments(false).then(() => {
+      this.initFilteredList();
+    });
     this.getTimes();
+  }
+
+  nextStaffs(): void {
+    this.listOfSchedule.subscribe((resp) => {
+      if (this.initGap + 10 < resp.length) {
+        this.initGap += 10;
+        this.gap += 10;
+        this.isDisabledPrev10 = false;
+      } else {
+        this.isDisabledNext10 = true;
+      }
+    });
+
+    this.listOfSchedule.subscribe((resp) => {
+      this.filteredScheduleList = resp.slice(this.initGap, this.gap);
+    });
+  }
+
+  initFilteredList(): void {
+    this.listOfSchedule.subscribe((resp) => {
+      this.filteredScheduleList = resp.slice(this.initGap, this.gap);
+      this.spinnerService.hide(this.spinner);
+    }).unsubscribe();
+  }
+
+  previousStaffs(): void {
+    if (this.initGap - 10 >= 0) {
+      this.initGap -= 10;
+      this.isDisabledNext10 = false;
+    } else {
+      this.isDisabledPrev10 = true;
+    }
+    if (this.gap - 10 >= 10) {
+      this.gap -= 10;
+    }
+    this.listOfSchedule.subscribe((resp) => {
+      this.filteredScheduleList = resp.slice(this.initGap, this.gap);
+    }).unsubscribe();
   }
 
   getTimes(): void {
@@ -51,14 +96,22 @@ export class AppointmentComponent extends DefaultComponent<Appointment> implemen
     }
   }
 
-  getAppointments(): void {
-    this.spinnerService.show(this.spinner);
+  async getAppointments(showSpinner?: boolean): Promise<any> {
+    if (showSpinner) {
+      this.spinnerService.show(this.spinner);
+    }
     const queryBuilder = new CriteriaBuilder();
     queryBuilder.eq('date', new Date(this.currentDate.format('YYYY-MM-DD')).valueOf());
-    this.staffService.getStaffsAppointments(queryBuilder.buildUrlEncoded()).subscribe((resp) => {
-      this.listOfSchedule = resp.splice(0, 10);
-      this.spinnerService.hide(this.spinner);
+    const data = await this.staffService.getStaffsAppointments(queryBuilder.buildUrlEncoded()).toPromise();
+    this.listOfSchedule = new Observable<StaffDto[]>(subscriber => {
+      subscriber.next(data);
+      subscriber.complete();
+      subscriber.unsubscribe();
     });
+    if (showSpinner) {
+      this.initFilteredList();
+      this.spinnerService.hide(this.spinner);
+    }
   }
 
   openAddAppointmentDialog(data?: any): void {
@@ -69,7 +122,7 @@ export class AppointmentComponent extends DefaultComponent<Appointment> implemen
       maxWidth: '50%',
       data
     }, this.dialog).afterClosed().subscribe(() => {
-      this.getAppointments();
+      this.getAppointments(true);
     });
   }
 
@@ -87,11 +140,11 @@ export class AppointmentComponent extends DefaultComponent<Appointment> implemen
 
   nextDay(): void {
     this.currentDate = this.currentDate.add(1, 'd');
-    this.getAppointments();
+    this.getAppointments(true);
   }
 
   previousDay(): void {
     this.currentDate = this.currentDate.subtract(1, 'd');
-    this.getAppointments();
+    this.getAppointments(true);
   }
 }

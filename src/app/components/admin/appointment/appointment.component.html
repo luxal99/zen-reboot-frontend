@@ -35,9 +35,17 @@
   </div>
 
   <mat-spinner diameter="50" #spinner></mat-spinner>
+  <div class="text-right">
+    <button mat-button class="border-btn" [disabled]="isDisabledPrev10"
+            (click)="previousStaffs()">-10
+    </button>
+    <button [disabled]="isDisabledNext10" mat-button class="border-btn"  (click)="nextStaffs()">
+      +10
+    </button>
+  </div>
   <div class="row header-row">
     <div class="col-sm-1"></div>
-    <div class="col-sm text-center" *ngFor="let staffDto of listOfSchedule|staff:searchText">
+    <div class="col-sm text-center" *ngFor="let staffDto of filteredScheduleList|staff:searchText">
       <div class="circle text-center" [style.background-color]="staffDto.color">
         <h2>{{staffDto.person?.firstName.slice(0, 1)}}</h2></div>
       <h4><b>{{staffDto.person?.firstName + ' ' + staffDto.person?.lastName}}</b></h4>
@@ -47,7 +55,7 @@
     <div class="col-sm-1">
       <h3 class="text-center">{{time}}</h3>
     </div>
-    <ng-container *ngFor="let staffDto of listOfSchedule|staff:searchText">
+    <ng-container *ngFor="let staffDto of filteredScheduleList|staff:searchText">
       <ng-container *ngIf="(staffDto|checkIsAppointmentBetween:time)  as appointmentInInterval; else emptyCol">
         <div class="col-sm appointment-col" (click)="openAppointmentOverviewDialog(appointmentInInterval)"
              [style.background-color]="appointmentInInterval.color">
@@ -58,12 +66,13 @@
             <h4> {{appointment.startTime.slice(0, 5) + '-' + appointment.endTime.slice(0, 5) }}
             </h4>
             <h4><b>{{ appointment.client?.person?.firstName + ' ' + appointment.client?.person?.lastName}}</b></h4>
-            <h4 class="treatment-name">{{ appointment.treatmentDuration?.treatment.name}}</h4>
+            <h4 class="treatment-name">{{ appointment.treatment?.name}}</h4>
           </div>
         </div>
       </ng-container>
       <ng-template #emptyCol>
-        <div class="col-sm empty-col" (click)="openAddAppointmentDialog({startTime:time,staff:{id:staffDto.id}})"></div>
+        <div class="col-sm empty-col"
+             (click)="openAddAppointmentDialog({startTime:time,staff:{id:staffDto.id},date:currentDate.format('YYYY-MM-DD')})"></div>
       </ng-template>
     </ng-container>
   </div>

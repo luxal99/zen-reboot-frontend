@@ -41,7 +41,7 @@ export class AppointmentOverviewDialogComponent extends DefaultComponent<Appoint
     this.data.createdDate = moment(this.data.createdDate).format('DD MMMM YYYY HH:mm');
   }
 
-  openEditAppointmentDialog(): void {
+  openAddAppointmentDialog(): void {
     DialogUtil.openDialog(AddAppointmentDialogComponent, {
       position: {right: '0'},
       height: '100vh',
