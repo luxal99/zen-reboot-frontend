@@ -43,13 +43,21 @@
     <h1 style="margin-top: 1em"><b>Istorija termina</b></h1>
     <mat-divider></mat-divider>
     <h3>Kreiran: <b>{{data.createdDate}}</b></h3>
+    <div class="text-right">
+      <button mat-button class="default-btn" (click)="openEditAppointmentDialog()">Izmeni</button>
+      <button mat-button class="delete-btn" color="warn" (click)="deleteAppointment()">Obriši</button>
+    </div>
   </div>
   <div class="col-3 text-left">
     <div class="inline">
       <div class="big-circle text-center"
            style=background-color:#c2c2c2>{{data.client?.person?.firstName.slice(0, 1)}}</div>
-      <h3>{{data.client?.person?.firstName + ' ' + data.client?.person?.lastName}}</h3> <br>
-      <h4>{{clientContactNumber}}</h4>
+      <div class="right-col">
+        <h3><b>{{data.client?.person?.firstName + ' ' + data.client?.person?.lastName}}</b></h3>
+        <div><h4 class="contact">{{clientContactNumber.prefix + ' ' + clientContactNumber.value}}</h4></div>
+      </div>
     </div>
+    <p style="margin-top: 1em" [innerHTML]="data.client?.notes"></p>
   </div>
 </div>
+<mat-spinner diameter="30" #spinner></mat-spinner>

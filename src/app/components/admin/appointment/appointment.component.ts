@@ -12,6 +12,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import {FormControl, FormGroup} from '@angular/forms';
 import {AppointmentService} from '../../../service/appointment.service';
 import {AppointmentOverviewDialogComponent} from './appointment-overview-dialog/appointment-overview-dialog.component';
+import {TreatmentService} from '../../../service/treatment.service';
 
 @Component({
   selector: 'app-appointment',
@@ -30,7 +31,8 @@ export class AppointmentComponent extends DefaultComponent<Appointment> implemen
   searchText = '';
   test = {};
 
-  constructor(private dialog: MatDialog, private staffService: StaffService, protected snackBar: MatSnackBar, private appointmentService: AppointmentService) {
+  constructor(private dialog: MatDialog, private staffService: StaffService, protected snackBar: MatSnackBar,
+              private appointmentService: AppointmentService, private treatmentService: TreatmentService) {
     super(staffService, snackBar);
   }
 
@@ -78,7 +80,9 @@ export class AppointmentComponent extends DefaultComponent<Appointment> implemen
       height: '100%',
       width: '100%',
       data: appointment
-    }, this.dialog);
+    }, this.dialog).afterClosed().subscribe(() => {
+      this.getAppointments();
+    });
   }
 
   nextDay(): void {
@@ -89,11 +93,5 @@ export class AppointmentComponent extends DefaultComponent<Appointment> implemen
   previousDay(): void {
     this.currentDate = this.currentDate.subtract(1, 'd');
     this.getAppointments();
-  }
-
-  deleteAppointment(id: number): void {
-    // @ts-ignore
-    super.subscribeDelete(id, this.appointmentService, this.getAppointments());
-
   }
 }

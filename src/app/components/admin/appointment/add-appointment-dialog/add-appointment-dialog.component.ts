@@ -19,6 +19,8 @@ import {CKEditorComponent} from '@ckeditor/ckeditor5-angular';
 // @ts-ignore
 import * as ClassicEditor from 'lib/ckeditor5-build-classic';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {TreatmentDuration} from '../../../../models/treatment-duration';
+import {filter, find, map, mergeAll, mergeMap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-add-appointment-dialog',
@@ -51,17 +53,18 @@ export class AddAppointmentDialogComponent extends DefaultComponent<Appointment>
 
   locationSelectConfig: FieldConfig = {name: FormControlNames.LOCATION_FORM_CONTROL, type: InputTypes.INPUT_TYPE_NAME};
   treatmentSelectConfig: FieldConfig = {name: FormControlNames.TREATMENT_FORM_CONTROL, type: InputTypes.INPUT_TYPE_NAME};
-  durationSelectConfig: FieldConfig = {name: FormControlNames.DURATION_FORM_CONTROL, type: InputTypes.INPUT_TYPE_NAME};
+  durationSelectConfig: FieldConfig = {name: FormControlNames.DURATION_FORM_CONTROL, type: InputTypes.SELECT_TYPE_NAME};
   clientSelectConfig: FieldConfig = {name: FormControlNames.CLIENT_FORM_CONTROL, type: InputTypes.INPUT_TYPE_NAME};
   appointmentStatusSelectConfig: FieldConfig = {name: FormControlNames.APPOINTMENT_STATUS_FORM_CONTROL, type: InputTypes.INPUT_TYPE_NAME};
   startTimeInputConfig: FieldConfig = {name: FormControlNames.START_TIME_FORM_CONTROL, type: InputTypes.TIME};
   endTimeInputConfig: FieldConfig = {name: FormControlNames.END_TIME_FORM_CONTROL, type: InputTypes.TIME};
+  treatment: Treatment = {};
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: Appointment, private appointmentService: AppointmentService,
               protected snackBar: MatSnackBar, private readonly changeDetectorRef: ChangeDetectorRef,
               private clientService: ClientService, private locationService: LocationService,
               private staffService: StaffService, private treatmentService: TreatmentService,
-              private appointmentStatusService: AppointmentStatusService) {
+              private appointmentStatusService: AppointmentStatusService, private treatmentDurationService: TreatmentDurationService) {
     super(appointmentService, snackBar);
   }
 
@@ -71,6 +74,7 @@ export class AddAppointmentDialogComponent extends DefaultComponent<Appointment>
 
   ngOnInit(): void {
     this.initSelects();
+    this.findTreatment();
     setTimeout(() => {
       if (this.data) {
         this.appointmentForm.controls.startTime.setValue(this.data.startTime);
@@ -106,6 +110,23 @@ export class AddAppointmentDialogComponent extends DefaultComponent<Appointment>
     super.initSelectConfig(this.appointmentStatusService, this.appointmentStatusSelectConfig);
     this.getAllStaffs();
     this.getAllClient();
+    if (this.data) {
+      this.treatmentDurationService.getAll().pipe(map(durations => durations.filter(duration =>
+        duration.treatment === this.data.treatmentDuration?.treatment)))
+        .subscribe((durationsResponse) => {
+          this.durationSelectConfig.options = durationsResponse;
+        });
+      this.isDurationFCDisabled = false;
+    }
+  }
+
+  findTreatment(): void {
+    if (this.data) {
+      // @ts-ignore
+      this.treatmentService.findById(this.data.treatmentDuration?.treatment).subscribe((treatment) => {
+        this.treatment = treatment;
+      });
+    }
   }
 
   save(): void {
@@ -113,13 +134,11 @@ export class AddAppointmentDialogComponent extends DefaultComponent<Appointment>
     appointment.client = {id: appointment.client?.id};
     appointment.location = {id: appointment.location?.id};
     appointment.date = moment(appointment.date).format('YYYY-MM-DD');
-    appointment.startTime = appointment.startTime + ':00';
-    appointment.endTime = appointment.endTime + ':00';
     appointment.notes = this.editorComponent.editorInstance?.getData();
     // @ts-ignore
     delete appointment.treatment;
-    delete appointment.treatmentDuration?.treatment?.durations;
-    delete appointment.treatmentDuration?.treatment?.category;
+    // @ts-ignore
+    appointment.treatmentDuration?.treatment = {id: this.appointmentForm.get(FormControlNames.TREATMENT_FORM_CONTROL)?.value.id};
     if (this.data.id) {
       appointment.id = this.data.id;
       super.subscribeUpdate(appointment);
