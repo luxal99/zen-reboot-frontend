@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewChecked, ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import {DialogUtil} from '../../../util/dialog-util';
 import {AddAppointmentDialogComponent} from './add-appointment-dialog/add-appointment-dialog.component';
@@ -37,10 +37,16 @@ export class AppointmentComponent extends DefaultComponent<Appointment> implemen
   gap = 10;
   isDisabledNext10 = false;
   isDisabledPrev10 = false;
+  delay = 100;
 
   constructor(private dialog: MatDialog, private staffService: StaffService, protected snackBar: MatSnackBar,
-              private appointmentService: AppointmentService, private treatmentService: TreatmentService) {
+              private appointmentService: AppointmentService, private treatmentService: TreatmentService,) {
     super(staffService, snackBar);
+  }
+  getDelay(): number {
+    this.delay += 100;
+    console.log(this.delay);
+    return this.delay;
   }
 
   ngOnInit(): void {

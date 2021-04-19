@@ -45,17 +45,18 @@
   </div>
   <div class="row header-row">
     <div class="col-sm-1"></div>
-    <div class="col-sm text-center" data-aos="fade-in" data-aos-duration="1000" *ngFor="let staffDto of filteredScheduleList|staff:searchText">
-      <div class="circle text-center"  [style.background-color]="staffDto.color">
+    <div class="col-sm text-center" data-aos-duration="1500" data-aos="fade-right" data-aos-delay="{{delay+100}}"
+         *ngFor="let staffDto of filteredScheduleList|staff:searchText">
+      <div class="circle text-center" [style.background-color]="staffDto.color">
         <h2>{{staffDto.person?.firstName.slice(0, 1)}}</h2></div>
       <h4><b>{{staffDto.person?.firstName + ' ' + staffDto.person?.lastName}}</b></h4>
     </div>
   </div>
-  <div class="row"  *ngFor="let time of listOfTimes">
+  <div class="row" *ngFor="let time of listOfTimes">
     <div class="col-sm-1">
       <h3 class="text-center">{{time}}</h3>
     </div>
-    <ng-container  *ngFor="let staffDto of filteredScheduleList|staff:searchText">
+    <ng-container *ngFor="let staffDto of filteredScheduleList|staff:searchText">
       <ng-container *ngIf="(staffDto|checkIsAppointmentBetween:time)  as appointmentInInterval; else emptyCol">
         <div class="col-sm appointment-col" (click)="openAppointmentOverviewDialog(appointmentInInterval)"
              [style.background-color]="appointmentInInterval.color">
