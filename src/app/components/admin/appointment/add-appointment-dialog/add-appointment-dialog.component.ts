@@ -73,9 +73,7 @@ export class AddAppointmentDialogComponent extends DefaultComponent<Appointment>
   }
 
   ngOnInit(): void {
-    console.log(this.data);
     this.initSelects();
-    this.findTreatment();
     setTimeout(() => {
       if (this.data) {
         this.appointmentForm.controls.startTime.setValue(this.data.startTime);
@@ -102,6 +100,7 @@ export class AddAppointmentDialogComponent extends DefaultComponent<Appointment>
     this.durationSelectConfig.options = [];
     const treatment: Treatment = this.appointmentForm.get(FormControlNames.TREATMENT_FORM_CONTROL)?.value;
     this.durationSelectConfig.options = treatment.durations;
+    console.log(this.durationSelectConfig.options);
     this.isDurationFCDisabled = false;
   }
 
@@ -111,14 +110,14 @@ export class AddAppointmentDialogComponent extends DefaultComponent<Appointment>
     super.initSelectConfig(this.appointmentStatusService, this.appointmentStatusSelectConfig);
     this.getAllStaffs();
     this.getAllClient();
-    if (this.data) {
-      this.treatmentDurationService.getAll().pipe(map(durations => durations.filter(duration =>
-        duration.treatment === this.data.treatmentDuration?.treatment)))
-        .subscribe((durationsResponse) => {
-          this.durationSelectConfig.options = durationsResponse;
-        });
-      this.isDurationFCDisabled = false;
-    }
+    // if (this.data) {
+    //   this.treatmentDurationService.getAll().pipe(map(durations => durations.filter(duration =>
+    //     duration.treatment === this.data.treatmentDuration?.treatment)))
+    //     .subscribe((durationsResponse) => {
+    //       this.durationSelectConfig.options = durationsResponse;
+    //     });
+    //   this.isDurationFCDisabled = false;
+    // }
   }
 
   findTreatment(): void {
@@ -133,6 +132,7 @@ export class AddAppointmentDialogComponent extends DefaultComponent<Appointment>
   save(): void {
     const appointment: Appointment = this.appointmentForm.getRawValue();
     appointment.client = {id: appointment.client?.id};
+    appointment.staff = {id: appointment.staff?.id};
     appointment.location = {id: appointment.location?.id};
     appointment.date = moment(appointment.date).format('YYYY-MM-DD');
     appointment.notes = this.editorComponent.editorInstance?.getData();
@@ -140,7 +140,7 @@ export class AddAppointmentDialogComponent extends DefaultComponent<Appointment>
     delete appointment.treatment;
     // @ts-ignore
     appointment.treatmentDuration?.treatment = {id: this.appointmentForm.get(FormControlNames.TREATMENT_FORM_CONTROL)?.value.id};
-    if (this.data.id) {
+    if (this.data) {
       appointment.id = this.data.id;
       super.subscribeUpdate(appointment);
     } else {

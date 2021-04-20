@@ -32,7 +32,7 @@
                      (onChange)="onTreatmentSelect()"
                      label="Izaberi tretman"
                      [group]="appointmentForm"></app-form-select>
-    <app-form-select bindValue="duration" (onChange)="sumEndTime()" [isDisabled]="isDurationFCDisabled || !data"
+    <app-form-select bindValue="duration" (onChange)="sumEndTime()" [isDisabled]="data ? isDurationFCDisabled:false"
                      label="Izaberi trajanje" [model]="data ? data.treatmentDuration :  null"
                      [config]="durationSelectConfig"
                      [group]="appointmentForm"></app-form-select>
