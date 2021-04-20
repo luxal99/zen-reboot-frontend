@@ -13,6 +13,8 @@ import {MatSpinner} from '@angular/material/progress-spinner';
 import {Person} from '../../../../models/person';
 import {FormControl, FormGroup} from '@angular/forms';
 import {element} from 'protractor';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
 
 @Component({
   selector: 'app-staff-shifts-overview',
@@ -25,6 +27,8 @@ export class StaffShiftsOverviewComponent implements OnInit, AfterViewChecked {
   @ViewChild('scheduledBinding') scheduledBinding!: ElementRef;
 
   listOfScheduled: StaffDto[] = [];
+  filteredListOfScheduled: StaffDto[] = [];
+  observableListOfScheduled: Observable<StaffDto[]> = new Observable<StaffDto[]>();
   startDate: moment.Moment = moment().startOf('isoWeek');
   endDate: moment.Moment = moment().endOf('isoWeek');
   daysInWeek: any [] = [];
@@ -36,6 +40,9 @@ export class StaffShiftsOverviewComponent implements OnInit, AfterViewChecked {
 
   searchText = '';
 
+  initGap = 0;
+  gap = 10;
+
   constructor(private staffService: StaffService, private dialog: MatDialog,
               private spinnerService: SpinnerService, private readonly changeDetectorRef: ChangeDetectorRef) {
   }
@@ -43,7 +50,6 @@ export class StaffShiftsOverviewComponent implements OnInit, AfterViewChecked {
 
   ngOnInit(): void {
     this.getWeek(this.startDate, this.endDate);
-
     setTimeout(() => {
       this.filterShift(this.startDate, this.endDate);
     }, 100);
@@ -58,7 +64,6 @@ export class StaffShiftsOverviewComponent implements OnInit, AfterViewChecked {
   setResponsive(): void {
     // @ts-ignore
     const div = document.querySelector('#scheduledBinding');
-
     if (window.screen.width <= 570) {
       // @ts-ignore
       for (const child of div.children) {
@@ -91,16 +96,30 @@ export class StaffShiftsOverviewComponent implements OnInit, AfterViewChecked {
     this.filterShift(this.startDate, this.endDate);
   }
 
+  nextStaffPage(): void {
+    this.initGap += 10;
+    this.gap += 10;
+    this.filterShift(this.startDate, this.endDate);
+  }
+
+  previousStaffPage(): void {
+    this.initGap -= 10;
+    this.gap -= 10;
+    this.filterShift(this.startDate, this.endDate);
+  }
+
   filterShift(startDate: any, endDate: any): void {
     this.spinnerService.show(this.spinner);
     const queryBuilder = new CriteriaBuilder();
     queryBuilder.gt('date', new Date(startDate).valueOf()).and()
       .lt('date', new Date(endDate).valueOf());
 
-    this.staffService.getStaffsShifts(queryBuilder.buildUrlEncoded()).subscribe((resp) => {
-      this.listOfScheduled = resp;
-      this.spinnerService.hide(this.spinner);
-    });
+    this.staffService.getStaffsShifts(queryBuilder.buildUrlEncoded())
+      .pipe(map(value => value.slice(this.initGap, this.gap)))
+      .subscribe((resp) => {
+        this.listOfScheduled = resp;
+        this.spinnerService.hide(this.spinner);
+      });
   }
 
   openAddShiftDialog(staff: any, date: any, shf?: Shift): void {
