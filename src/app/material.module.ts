@@ -26,6 +26,7 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatTableModule} from '@angular/material/table';
 import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 @NgModule({
   imports: [
@@ -49,7 +50,8 @@ import {MatSidenavModule} from '@angular/material/sidenav';
     MatTableModule,
     MatAutocompleteModule,
     MatSnackBarModule,
-    MatTabsModule
+    MatTabsModule,
+    MatPaginatorModule
   ],
   exports: [
     A11yModule,
@@ -78,7 +80,8 @@ import {MatSidenavModule} from '@angular/material/sidenav';
     MatInputModule,
     ScrollingModule,
     DragDropModule,
-    MatTabsModule
+    MatTabsModule,
+    MatPaginatorModule
   ],
   declarations: []
 })

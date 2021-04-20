@@ -19,21 +19,48 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 })
 export class ClientComponent extends DefaultComponent<Client> implements OnInit {
 
+  numberOfPage = 0;
   @ViewChild('spinner') spinner!: MatSpinner;
-  listOfClients: Client[] = [];
 
   searchForm = new FormGroup({
     search: new FormControl()
   });
 
   searchText = '';
+  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
 
   constructor(private dialog: MatDialog, private clientService: ClientService, protected snackBar: MatSnackBar) {
     super(clientService, snackBar);
   }
 
   ngOnInit(): void {
-    super.ngOnInit();
+    this.getClientWithPagination();
+  }
+
+  getClientWithPagination(): void {
+    this.clientService.getPaginationClients(this.numberOfPage).subscribe((clients) => {
+      this.listOfItems = clients;
+      this.spinnerService.hide(this.spinner);
+    });
+  }
+
+  getNext(): void {
+
+    this.spinnerService.show(this.spinner);
+    this.clientService.getPaginationClients(++this.numberOfPage).subscribe((clients) => {
+      this.listOfItems = clients;
+      this.spinnerService.hide(this.spinner);
+    });
+  }
+
+  getPrevious(): void {
+    if (this.numberOfPage !== 0) {
+      this.spinnerService.show(this.spinner);
+      this.clientService.getPaginationClients(--this.numberOfPage).subscribe((clients) => {
+        this.listOfItems = clients;
+        this.spinnerService.hide(this.spinner);
+      });
+    }
   }
 
   openAddClientDialog(): void {

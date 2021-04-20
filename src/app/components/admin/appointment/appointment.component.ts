@@ -43,6 +43,7 @@ export class AppointmentComponent extends DefaultComponent<Appointment> implemen
               private appointmentService: AppointmentService, private treatmentService: TreatmentService,) {
     super(staffService, snackBar);
   }
+
   getDelay(): number {
     this.delay += 100;
     console.log(this.delay);
@@ -152,5 +153,10 @@ export class AppointmentComponent extends DefaultComponent<Appointment> implemen
   previousDay(): void {
     this.currentDate = this.currentDate.subtract(1, 'd');
     this.getAppointments(true);
+  }
+
+  getFilteredList($event: any): void {
+    console.log($event);
+    this.filteredScheduleList = $event;
   }
 }

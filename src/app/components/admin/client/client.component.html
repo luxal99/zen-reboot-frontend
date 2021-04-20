@@ -1,4 +1,6 @@
 <app-header header="Klijenti"></app-header>
+
+<mat-spinner diameter="50" #spinner></mat-spinner>
 <div class="component-content">
   <div class="row header">
     <div class="col-sm">
@@ -13,6 +15,10 @@
     <div class="col-sm text-right">
       <button class="default-btn" mat-button (click)="openAddClientDialog()">Dodaj</button>
     </div>
+  </div>
+  <div class="text-right">
+    <button mat-button (click)="getPrevious()" class="border-btn"><i class="fa fa-angle-left"></i></button>
+    <button mat-button (click)="getNext()" class="border-btn"><i class="fa fa-angle-right"></i></button>
   </div>
   <div class="client-binding">
     <div class="row header-row desktop">
@@ -30,7 +36,6 @@
       </div>
       <div class="col-sm"></div>
     </div>
-    <mat-spinner diameter="50" #spinner></mat-spinner>
     <div class="binding desktop">
       <div class="row client-row" style="padding-top: 1em" *ngFor="let client of listOfItems|client:searchText">
         <div class="col-sm" (click)="openClientOverviewDialog(client)">
@@ -66,7 +71,7 @@
       </div>
     </div>
     <div class="binding mobile">
-      <div class="row client-row" style="padding-top: 1em" *ngFor="let client of listOfClients|client:searchText">
+      <div class="row client-row" style="padding-top: 1em" *ngFor="let client of listOfItems|client:searchText">
         <div class="col">
           <h1 class="first-letter-h1">{{client.person.firstName.substr(0, 1)}}</h1>
         </div>

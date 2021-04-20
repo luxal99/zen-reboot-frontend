@@ -43,6 +43,7 @@ import {CKEditorModule} from '@ckeditor/ckeditor5-angular';
 import {CheckIsAppointmentStartPipe} from './pipes/check-is-appointment-start.pipe';
 import {CheckIsAppointmentBetweenPipe} from './pipes/check-is-appointment-between.pipe';
 import {AppointmentOverviewDialogComponent} from './components/admin/appointment/appointment-overview-dialog/appointment-overview-dialog.component';
+import { PaginatorComponent } from './components/paginator/paginator.component';
 
 @NgModule({
   declarations: [
@@ -78,7 +79,8 @@ import {AppointmentOverviewDialogComponent} from './components/admin/appointment
     AddAppointmentDialogComponent,
     CheckIsAppointmentStartPipe,
     CheckIsAppointmentBetweenPipe,
-    AppointmentOverviewDialogComponent
+    AppointmentOverviewDialogComponent,
+    PaginatorComponent
   ],
   imports: [
     BrowserModule,
