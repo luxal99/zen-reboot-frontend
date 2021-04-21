@@ -4,7 +4,7 @@
       <form [formGroup]="searchForm">
         <mat-form-field appearance="outline">
           <mat-label>Pretraži</mat-label>
-          <input matInput type="text" formControlName="search" [(ngModel)]="searchText">
+          <input (input)="search()" matInput type="text" formControlName="search" [(ngModel)]="searchText">
           <mat-icon matPrefix>search</mat-icon>
         </mat-form-field>
       </form>
@@ -40,7 +40,8 @@
     </div>
     <mat-spinner #spinner diameter="50"></mat-spinner>
     <div class="scheduled-binding-div" id="scheduledBinding">
-      <div class="row" *ngFor="let scheduled of listOfScheduled|staff:searchText">
+      <div class="row"
+           *ngFor="let scheduled of listOfScheduled">
         <div class="col full-name-col" [style.color]="scheduled.color">
           <div class="inline staff-name-div">
             <span [style.background-color]="scheduled.color" class="staff-badge"></span>
@@ -50,13 +51,15 @@
         <div class="col-sm white-col"
              (click)="openAddShiftDialog(scheduled,date.format('DD MMMM YYYY'),getShiftByDate(date, scheduled.person))"
              *ngFor="let date of daysInWeek">
-          <h3 class="shift-time-h3 text-center"
-              [ngStyle]="getShiftByDate(date, scheduled.person)  ?
+          <ng-container *ngIf="scheduled|checkShift:date.format('YYYY-MM-DD') as shift">
+            <h3 class="shift-time-h3 text-center"
+                [ngStyle]="shift ?
               {'background-color':scheduled.color,'padding':'.25em','border-radius':'5px','color':'#fff'}
               :{'background-color':'#fff'}">
-            {{ shiftPerStaff ? shiftPerStaff.startTime.slice(0, shiftPerStaff.startTime.length - 3) + '-' +
-            this.shiftPerStaff.endTime.slice(0, shiftPerStaff.endTime.length - 3) : '' }}
-          </h3>
+              {{ shift ? shift.startTime.slice(0, shift.startTime.length - 3) + '-' +
+              shift.endTime.slice(0, shift.endTime.length - 3) : '' }}
+            </h3>
+          </ng-container>
         </div>
       </div>
     </div>

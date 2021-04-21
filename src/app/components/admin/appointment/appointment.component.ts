@@ -141,4 +141,12 @@ export class AppointmentComponent extends DefaultComponent<Appointment> implemen
     this.currentDate = this.currentDate.subtract(1, 'd');
     await this.getAppointments();
   }
+
+  search(): void {
+    this.listOfSchedule.subscribe((resp) => {
+      this.filteredScheduleList = resp.filter((staff) =>
+        staff.person?.firstName?.toLowerCase().startsWith(this.searchText.toLowerCase())
+        || staff.person?.lastName?.startsWith(this.searchText.toLowerCase())).slice(0, 10);
+    });
+  }
 }

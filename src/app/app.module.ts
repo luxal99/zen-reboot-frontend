@@ -44,6 +44,7 @@ import {CheckIsAppointmentStartPipe} from './pipes/check-is-appointment-start.pi
 import {CheckIsAppointmentBetweenPipe} from './pipes/check-is-appointment-between.pipe';
 import {AppointmentOverviewDialogComponent} from './components/admin/appointment/appointment-overview-dialog/appointment-overview-dialog.component';
 import { PaginatorComponent } from './components/paginator/paginator.component';
+import { CheckShiftPipe } from './pipes/chech-shift.pipe';
 
 @NgModule({
   declarations: [
@@ -80,7 +81,8 @@ import { PaginatorComponent } from './components/paginator/paginator.component';
     CheckIsAppointmentStartPipe,
     CheckIsAppointmentBetweenPipe,
     AppointmentOverviewDialogComponent,
-    PaginatorComponent
+    PaginatorComponent,
+    CheckShiftPipe
   ],
   imports: [
     BrowserModule,

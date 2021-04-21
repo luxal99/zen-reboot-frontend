@@ -5,7 +5,7 @@
       <form [formGroup]="searchForm">
         <mat-form-field appearance="outline">
           <mat-label>Pretraži</mat-label>
-          <input matInput formControlName="search" [(ngModel)]="searchText">
+          <input (input)="search()" matInput formControlName="search" [(ngModel)]="searchText">
           <mat-icon matSuffix>search</mat-icon>
         </mat-form-field>
       </form>
@@ -39,7 +39,7 @@
   <div class="row header-row">
     <div class="col-sm-1"></div>
     <div class="col-sm text-center"
-         *ngFor="let staffDto of filteredScheduleList|staff:searchText">
+         *ngFor="let staffDto of filteredScheduleList">
       <div class="circle text-center" [style.background-color]="staffDto.color">
         <h2>{{staffDto.person?.firstName.slice(0, 1)}}</h2></div>
       <h4><b>{{staffDto.person?.firstName + ' ' + staffDto.person?.lastName}}</b></h4>
@@ -49,7 +49,7 @@
     <div class="col-sm-1">
       <h3 class="text-center">{{time}}</h3>
     </div>
-    <ng-container *ngFor="let staffDto of filteredScheduleList|staff:searchText">
+    <ng-container *ngFor="let staffDto of filteredScheduleList ">
       <ng-container *ngIf="(staffDto|checkIsAppointmentBetween:time)  as appointmentInInterval; else emptyCol">
         <div class="col-sm appointment-col" (click)="openAppointmentOverviewDialog(appointmentInInterval)"
              [style.background-color]="appointmentInInterval.color">

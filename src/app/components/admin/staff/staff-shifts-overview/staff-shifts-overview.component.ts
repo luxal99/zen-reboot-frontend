@@ -1,9 +1,8 @@
-import {AfterViewChecked, AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {AfterViewChecked, ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import * as moment from 'moment';
 import {StaffService} from '../../../../service/staff.service';
 import {CriteriaBuilder} from '../../../../util/criteria-builder';
 import {StaffDto} from 'src/app/models/staff-dto';
-import {Staff} from '../../../../models/staff';
 import {DialogUtil} from '../../../../util/dialog-util';
 import {AddShiftDialogComponent} from './add-shift-dialog/add-shift-dialog.component';
 import {MatDialog} from '@angular/material/dialog';
@@ -12,9 +11,8 @@ import {SpinnerService} from '../../../../service/spinner.service';
 import {MatSpinner} from '@angular/material/progress-spinner';
 import {Person} from '../../../../models/person';
 import {FormControl, FormGroup} from '@angular/forms';
-import {element} from 'protractor';
 import {Observable} from 'rxjs';
-import {map, takeUntil} from 'rxjs/operators';
+import {map} from 'rxjs/operators';
 
 @Component({
   selector: 'app-staff-shifts-overview',
@@ -27,8 +25,6 @@ export class StaffShiftsOverviewComponent implements OnInit, AfterViewChecked {
   @ViewChild('scheduledBinding') scheduledBinding!: ElementRef;
 
   listOfScheduled: StaffDto[] = [];
-  filteredListOfScheduled: StaffDto[] = [];
-  observableListOfScheduled: Observable<StaffDto[]> = new Observable<StaffDto[]>();
   startDate: moment.Moment = moment().startOf('isoWeek');
   endDate: moment.Moment = moment().endOf('isoWeek');
   daysInWeek: any [] = [];
@@ -42,9 +38,11 @@ export class StaffShiftsOverviewComponent implements OnInit, AfterViewChecked {
 
   initGap = 0;
   gap = 10;
-  responseLength = 0;
+  responseArray!: Observable<StaffDto[]>;
+  responseSize = 0;
+  urlEncoded = '';
 
-  constructor(private staffService: StaffService, private dialog: MatDialog,
+  constructor(public staffService: StaffService, private dialog: MatDialog,
               private spinnerService: SpinnerService, private readonly changeDetectorRef: ChangeDetectorRef) {
   }
 
@@ -52,8 +50,17 @@ export class StaffShiftsOverviewComponent implements OnInit, AfterViewChecked {
   ngOnInit(): void {
     this.getWeek(this.startDate, this.endDate);
     setTimeout(() => {
-      this.filterShift(this.startDate, this.endDate);
+      this.filterShift();
     }, 100);
+  }
+
+  getUrlEncoded(): void {
+    const queryBuilder = new CriteriaBuilder();
+    // @ts-ignore
+    queryBuilder.gt('date', new Date(this.startDate).valueOf()).and()
+      // @ts-ignore
+      .lt('date', new Date(this.endDate).valueOf());
+    this.urlEncoded = queryBuilder.buildUrlEncoded();
   }
 
   ngAfterViewChecked(): void {
@@ -88,20 +95,20 @@ export class StaffShiftsOverviewComponent implements OnInit, AfterViewChecked {
   nextWeek(): void {
     let i = 0;
     this.getWeek(this.startDate.add(++i, 'w'), this.endDate.add(i++, 'w'));
-    this.filterShift(this.startDate, this.endDate);
+    this.filterShift();
   }
 
   previousWeek(): void {
     let i = 0;
     this.getWeek(this.startDate.subtract(++i, 'w'), this.endDate.subtract(i++, 'w'));
-    this.filterShift(this.startDate, this.endDate);
+    this.filterShift();
   }
 
   nextStaffPage(): void {
-    if (this.initGap + 10 < this.responseLength) {
+    if (this.initGap + 10 < this.responseSize) {
       this.initGap += 10;
       this.gap += 10;
-      this.filterShift(this.startDate, this.endDate);
+      this.filterShift();
     }
   }
 
@@ -109,20 +116,24 @@ export class StaffShiftsOverviewComponent implements OnInit, AfterViewChecked {
     if (!(this.initGap - 10 < 0)) {
       this.initGap -= 10;
       this.gap -= 10;
-      this.filterShift(this.startDate, this.endDate);
+      this.filterShift();
     }
   }
 
-  filterShift(startDate: any, endDate: any): void {
+  filterShift(): void {
     this.spinnerService.show(this.spinner);
-    const queryBuilder = new CriteriaBuilder();
-    queryBuilder.gt('date', new Date(startDate).valueOf()).and()
-      .lt('date', new Date(endDate).valueOf());
-
+    this.getUrlEncoded();
     // @ts-ignore
-    this.staffService.getStaffsShifts(queryBuilder.buildUrlEncoded())
+    this.staffService.getStaffsShifts(this.urlEncoded)
       .pipe(map(value => {
-        this.responseLength = value.length;
+        if (!this.responseArray) {
+          this.responseSize = value.length;
+          this.responseArray = new Observable<StaffDto[]>(subscriber => {
+            subscriber.next(value);
+            subscriber.complete();
+            subscriber.unsubscribe();
+          });
+        }
         return value.slice(this.initGap, this.gap);
       }))
       .subscribe((resp) => {
@@ -137,7 +148,7 @@ export class StaffShiftsOverviewComponent implements OnInit, AfterViewChecked {
       data: shf ? shf : {staff, date},
       width: '30%',
     }, this.dialog).afterClosed().subscribe(() => {
-      this.filterShift(this.startDate, this.endDate);
+      this.filterShift();
     });
   }
 
@@ -146,5 +157,13 @@ export class StaffShiftsOverviewComponent implements OnInit, AfterViewChecked {
     // @ts-ignore
     this.shiftPerStaff = staff.shifts?.find((shift) => shift.date === date.format('YYYY-MM-DD'));
     return this.shiftPerStaff;
+  }
+
+  search(): void {
+    this.responseArray.subscribe((resp) => {
+      this.listOfScheduled = resp.filter((staff) =>
+        staff.person?.firstName?.toLowerCase().startsWith(this.searchText.toLowerCase())
+        || staff.person?.lastName?.startsWith(this.searchText.toLowerCase())).slice(0, 10);
+    });
   }
 }
