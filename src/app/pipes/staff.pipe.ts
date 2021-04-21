@@ -1,22 +1,22 @@
-import {ChangeDetectorRef, Injector, Pipe, PipeTransform} from '@angular/core';
+import {Pipe, PipeTransform} from '@angular/core';
 import {Staff} from '../models/staff';
-import {observable, Observable} from 'rxjs';
-import {AsyncPipe} from '@angular/common';
+
 
 @Pipe({
-  name: 'staff',
-  pure: false
+  name: 'staff'
 })
 export class StaffPipe implements PipeTransform {
 
-  asyncPipe: AsyncPipe;
-
-  constructor(private inject: Injector) {
-    this.asyncPipe = new AsyncPipe(this.inject.get(ChangeDetectorRef));
-  }
-
-  // @ts-ignore
-  transform(listOfStaff: Observable<Staff[]>, searchText: string): any {
+  transform(listOfStaff: Staff[], searchText: string): any {
+    if (!listOfStaff) {
+      return [];
+    }
+    if (!searchText) {
+      return listOfStaff;
+    }
+    return listOfStaff.filter((staff) =>
+      staff.person?.firstName?.toLowerCase().startsWith(searchText.toLowerCase())
+      || staff.person?.lastName?.startsWith(searchText.toLowerCase()));
 
   }
 

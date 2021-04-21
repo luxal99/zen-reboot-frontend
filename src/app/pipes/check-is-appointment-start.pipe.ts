@@ -8,10 +8,8 @@ import {AppointmentDTO} from '../models/AppointmentDTO';
   name: 'checkIsAppointmentStart'
 })
 export class CheckIsAppointmentStartPipe implements PipeTransform {
-
   transform(staffDtoList: StaffDto, time: string): AppointmentDTO {
     // @ts-ignore
     return staffDtoList.appointments?.find((appointment) => moment(time, 'HH:mm:ss').isSame(moment(appointment.startTime, 'HH:mm:ss')));
   }
-
 }
