@@ -11,6 +11,7 @@ import {Message} from '../../../const/const';
 import {ClientOverviewDialogComponent} from './client-overview-dialog/client-overview-dialog.component';
 import {DefaultComponent} from '../../../util/default-component';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {CriteriaBuilder} from '../../../util/criteria-builder';
 
 @Component({
   selector: 'app-client',
@@ -35,6 +36,9 @@ export class ClientComponent extends DefaultComponent<Client> implements OnInit 
 
   ngOnInit(): void {
     this.getClientWithPagination();
+    const queryBuilder = new CriteriaBuilder();
+    queryBuilder.like('person.firstName', 'aleksa');
+    console.log(queryBuilder.buildUrlEncoded());
   }
 
   getClientWithPagination(): void {

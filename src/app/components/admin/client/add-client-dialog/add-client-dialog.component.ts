@@ -44,9 +44,9 @@ export class AddClientDialogComponent extends DefaultComponent<Client> implement
   @ViewChild('marketingNotificationCheckBox') marketingNotificationCheckBox!: MatCheckboxChange;
 
   personForm = new FormGroup({
-    firstName: new FormControl(''),
+    firstName: new FormControl('', Validators.required),
     lastName: new FormControl('', Validators.required),
-    mobilePhone: new FormControl(),
+    mobilePhone: new FormControl('', Validators.required),
     otherPhone: new FormControl(''),
     otherPhonePrefix: new FormControl(),
     mobilePhonePrefix: new FormControl(),
@@ -54,17 +54,17 @@ export class AddClientDialogComponent extends DefaultComponent<Client> implement
   });
   clientForm = new FormGroup({
     notes: new FormControl(''),
-    birthday: new FormControl(''),
+    birthday: new FormControl('', Validators.required),
     notificationMethod: new FormControl(''),
     referralSource: new FormControl('', Validators.required),
-    gender: new FormControl(''),
+    gender: new FormControl('', Validators.required),
     language: new FormControl(),
   });
 
   addressForm = new FormGroup({
-    street: new FormControl(''),
+    street: new FormControl('', Validators.required),
     number: new FormControl(''),
-    city: new FormControl(''),
+    city: new FormControl('', Validators.required),
   });
 
   streetInputConfig: FieldConfig = {type: InputTypes.INPUT_TYPE_NAME, name: FormControlNames.STREET_FORM_CONTROL};
@@ -79,7 +79,6 @@ export class AddClientDialogComponent extends DefaultComponent<Client> implement
     name: FormControlNames.GENDER_FORM_CONTROL,
     options: [{name: GenderEnum.MALE}, {name: GenderEnum.FEMALE}]
   };
-  notesInputConfig: FieldConfig = {type: InputTypes.INPUT_TYPE_NAME, name: FormControlNames.NOTES_FORM_CONTROL};
 
   notificationMethodSelectConfig: FieldConfig = {
     type: InputTypes.SELECT_TYPE_NAME,

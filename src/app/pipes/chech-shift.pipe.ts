@@ -1,6 +1,5 @@
 import {Pipe, PipeTransform} from '@angular/core';
 import {StaffDto} from '../models/staff-dto';
-import * as moment from 'moment';
 import {Shift} from '../models/shift';
 
 @Pipe({
