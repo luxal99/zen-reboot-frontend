@@ -1,4 +1,4 @@
-import {AfterViewChecked, ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import {DialogUtil} from '../../../util/dialog-util';
 import {AddAppointmentDialogComponent} from './add-appointment-dialog/add-appointment-dialog.component';
@@ -10,10 +10,9 @@ import {Appointment} from '../../../models/appointment';
 import {DefaultComponent} from '../../../util/default-component';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {FormControl, FormGroup} from '@angular/forms';
-import {AppointmentService} from '../../../service/appointment.service';
 import {AppointmentOverviewDialogComponent} from './appointment-overview-dialog/appointment-overview-dialog.component';
-import {TreatmentService} from '../../../service/treatment.service';
 import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
 
 @Component({
   selector: 'app-appointment',
@@ -33,66 +32,58 @@ export class AppointmentComponent extends DefaultComponent<Appointment> implemen
   });
 
   searchText = '';
+
   initGap = 0;
   gap = 10;
-  isDisabledNext10 = false;
-  isDisabledPrev10 = false;
-  delay = 100;
 
-  constructor(private dialog: MatDialog, private staffService: StaffService, protected snackBar: MatSnackBar,
-              private appointmentService: AppointmentService, private treatmentService: TreatmentService,) {
+  isDisabledNext10 = false;
+  isDisabledPrev10 = true;
+
+  responseSize = 0;
+
+  constructor(private dialog: MatDialog, private staffService: StaffService, protected snackBar: MatSnackBar) {
     super(staffService, snackBar);
   }
 
-  getDelay(): number {
-    this.delay += 100;
-    console.log(this.delay);
-    return this.delay;
-  }
-
   ngOnInit(): void {
-    this.getAppointments(false).then(() => {
-      this.initFilteredList();
-    });
+    setTimeout(async () => {
+      this.getAppointments().then(() => {
+        this.initDefault();
+      });
+    }, 100);
     this.getTimes();
   }
 
-  nextStaffs(): void {
-    this.listOfSchedule.subscribe((resp) => {
-      if (this.initGap + 10 < resp.length) {
-        this.initGap += 10;
-        this.gap += 10;
-        this.isDisabledPrev10 = false;
-      } else {
-        this.isDisabledNext10 = true;
-      }
-    });
-
-    this.listOfSchedule.subscribe((resp) => {
-      this.filteredScheduleList = resp.slice(this.initGap, this.gap);
+  initDefault(): void {
+    this.listOfSchedule.pipe(map(value => value.slice(this.initGap, this.gap))).subscribe((resp) => {
+      this.filteredScheduleList = resp;
     });
   }
 
-  initFilteredList(): void {
-    this.listOfSchedule.subscribe((resp) => {
-      this.filteredScheduleList = resp.slice(this.initGap, this.gap);
-      this.spinnerService.hide(this.spinner);
-    }).unsubscribe();
+  nextStaffs(): void {
+
+    if (this.initGap + 10 < this.responseSize) {
+      this.initGap += 10;
+      this.gap += 10;
+      this.listOfSchedule.pipe(map(value => value.slice(this.initGap, this.gap))).subscribe((resp) => {
+        this.filteredScheduleList = resp;
+      });
+    }
+    if (this.initGap > 0) {
+      this.isDisabledPrev10 = false;
+    }
   }
 
   previousStaffs(): void {
     if (this.initGap - 10 >= 0) {
       this.initGap -= 10;
-      this.isDisabledNext10 = false;
+      this.gap -= 10;
+      this.listOfSchedule.pipe(map(value => value.slice(this.initGap, this.gap))).subscribe((resp) => {
+        this.filteredScheduleList = resp;
+      }).unsubscribe();
     } else {
       this.isDisabledPrev10 = true;
     }
-    if (this.gap - 10 >= 10) {
-      this.gap -= 10;
-    }
-    this.listOfSchedule.subscribe((resp) => {
-      this.filteredScheduleList = resp.slice(this.initGap, this.gap);
-    }).unsubscribe();
   }
 
   getTimes(): void {
@@ -103,10 +94,8 @@ export class AppointmentComponent extends DefaultComponent<Appointment> implemen
     }
   }
 
-  async getAppointments(showSpinner?: boolean): Promise<any> {
-    if (showSpinner) {
-      this.spinnerService.show(this.spinner);
-    }
+  async getAppointments(): Promise<void> {
+    this.spinnerService.show(this.spinner);
     const queryBuilder = new CriteriaBuilder();
     queryBuilder.eq('date', new Date(this.currentDate.format('YYYY-MM-DD')).valueOf());
     const data = await this.staffService.getStaffsAppointments(queryBuilder.buildUrlEncoded()).toPromise();
@@ -115,10 +104,8 @@ export class AppointmentComponent extends DefaultComponent<Appointment> implemen
       subscriber.complete();
       subscriber.unsubscribe();
     });
-    if (showSpinner) {
-      this.initFilteredList();
-      this.spinnerService.hide(this.spinner);
-    }
+    this.responseSize = data.length;
+    this.spinnerService.hide(this.spinner);
   }
 
   openAddAppointmentDialog(data?: any): void {
@@ -128,8 +115,8 @@ export class AppointmentComponent extends DefaultComponent<Appointment> implemen
       width: '40%',
       maxWidth: '50%',
       data
-    }, this.dialog).afterClosed().subscribe(() => {
-      this.getAppointments(true);
+    }, this.dialog).afterClosed().subscribe(async () => {
+      await this.getAppointments();
     });
   }
 
@@ -140,23 +127,18 @@ export class AppointmentComponent extends DefaultComponent<Appointment> implemen
       height: '100%',
       width: '100%',
       data: appointment
-    }, this.dialog).afterClosed().subscribe(() => {
-      this.getAppointments();
+    }, this.dialog).afterClosed().subscribe(async () => {
+      await this.getAppointments();
     });
   }
 
-  nextDay(): void {
+  async nextDay(): Promise<void> {
     this.currentDate = this.currentDate.add(1, 'd');
-    this.getAppointments(true);
+    await this.getAppointments();
   }
 
-  previousDay(): void {
+  async previousDay(): Promise<void> {
     this.currentDate = this.currentDate.subtract(1, 'd');
-    this.getAppointments(true);
-  }
-
-  getFilteredList($event: any): void {
-    console.log($event);
-    this.filteredScheduleList = $event;
+    await this.getAppointments();
   }
 }

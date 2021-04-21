@@ -36,8 +36,6 @@ export class PaginatorComponent implements OnInit {
     });
 
     this.response.subscribe((resp) => {
-      console.log(this.initGap);
-      console.log(this.gap);
       this.filteredList = resp.slice(this.initGap, this.gap);
       this.output.emit(this.filteredList);
 

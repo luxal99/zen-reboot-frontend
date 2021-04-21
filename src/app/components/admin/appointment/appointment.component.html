@@ -35,7 +35,15 @@
   </div>
 
   <mat-spinner diameter="50" #spinner></mat-spinner>
-  <app-paginator [gap]="10" (output)="getFilteredList($event)" [filteredList]="filteredScheduleList" [response]="listOfSchedule"></app-paginator>
+  <div class="text-right">
+    <button mat-button class="border-btn" [disabled]="isDisabledPrev10"
+            (click)="previousStaffs()"><i class="fa fa-angle-left" aria-hidden="true"></i>
+    </button>
+    <button [disabled]="isDisabledNext10" mat-button class="border-btn" (click)="nextStaffs()">
+      <i class="fa fa-angle-right" aria-hidden="true"></i>
+    </button>
+  </div>
+
   <div class="row header-row">
     <div class="col-sm-1"></div>
     <div class="col-sm text-center"
