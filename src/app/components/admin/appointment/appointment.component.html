@@ -35,7 +35,7 @@
   </div>
 
   <mat-spinner diameter="50" #spinner></mat-spinner>
-  <app-paginator [gap]="10" (output)="getFilteredList($event)" [filteredList]="filteredScheduleList" [response]="listOfSchedule"></app-paginator>
+  <app-paginator (prev)="previousStaffs()" (next)="nextStaffs()"></app-paginator>
   <div class="row header-row">
     <div class="col-sm-1"></div>
     <div class="col-sm text-center"

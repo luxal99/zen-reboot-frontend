@@ -29,11 +29,7 @@
     </div>
   </div>
   <div class="scheduled-div">
-
-    <div class="text-right">
-      <button mat-button (click)="previousStaffPage()">Prev</button>
-      <button mat-button (click)="nextStaffPage()">Next</button>
-    </div>
+    <app-paginator (next)="nextStaffPage()" (prev)="previousStaffPage()"></app-paginator>
     <div class="inline header-row text-center">
       <div class="header-col">
         <h3><b>Zaposleni</b></h3>

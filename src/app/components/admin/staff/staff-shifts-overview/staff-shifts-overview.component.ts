@@ -14,7 +14,7 @@ import {Person} from '../../../../models/person';
 import {FormControl, FormGroup} from '@angular/forms';
 import {element} from 'protractor';
 import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
+import {map, takeUntil} from 'rxjs/operators';
 
 @Component({
   selector: 'app-staff-shifts-overview',
@@ -42,6 +42,7 @@ export class StaffShiftsOverviewComponent implements OnInit, AfterViewChecked {
 
   initGap = 0;
   gap = 10;
+  responseLength = 0;
 
   constructor(private staffService: StaffService, private dialog: MatDialog,
               private spinnerService: SpinnerService, private readonly changeDetectorRef: ChangeDetectorRef) {
@@ -97,15 +98,19 @@ export class StaffShiftsOverviewComponent implements OnInit, AfterViewChecked {
   }
 
   nextStaffPage(): void {
-    this.initGap += 10;
-    this.gap += 10;
-    this.filterShift(this.startDate, this.endDate);
+    if (this.initGap + 10 < this.responseLength) {
+      this.initGap += 10;
+      this.gap += 10;
+      this.filterShift(this.startDate, this.endDate);
+    }
   }
 
   previousStaffPage(): void {
-    this.initGap -= 10;
-    this.gap -= 10;
-    this.filterShift(this.startDate, this.endDate);
+    if (!(this.initGap - 10 < 0)) {
+      this.initGap -= 10;
+      this.gap -= 10;
+      this.filterShift(this.startDate, this.endDate);
+    }
   }
 
   filterShift(startDate: any, endDate: any): void {
@@ -114,8 +119,12 @@ export class StaffShiftsOverviewComponent implements OnInit, AfterViewChecked {
     queryBuilder.gt('date', new Date(startDate).valueOf()).and()
       .lt('date', new Date(endDate).valueOf());
 
+    // @ts-ignore
     this.staffService.getStaffsShifts(queryBuilder.buildUrlEncoded())
-      .pipe(map(value => value.slice(this.initGap, this.gap)))
+      .pipe(map(value => {
+        this.responseLength = value.length;
+        return value.slice(this.initGap, this.gap);
+      }))
       .subscribe((resp) => {
         this.listOfScheduled = resp;
         this.spinnerService.hide(this.spinner);

@@ -104,9 +104,10 @@ export class AppointmentComponent extends DefaultComponent<Appointment> implemen
   }
 
   async getAppointments(showSpinner?: boolean): Promise<any> {
-    if (showSpinner) {
+    setTimeout(() => {
       this.spinnerService.show(this.spinner);
-    }
+
+    }, 100);
     const queryBuilder = new CriteriaBuilder();
     queryBuilder.eq('date', new Date(this.currentDate.format('YYYY-MM-DD')).valueOf());
     const data = await this.staffService.getStaffsAppointments(queryBuilder.buildUrlEncoded()).toPromise();
@@ -115,9 +116,9 @@ export class AppointmentComponent extends DefaultComponent<Appointment> implemen
       subscriber.complete();
       subscriber.unsubscribe();
     });
+    this.spinnerService.hide(this.spinner);
     if (showSpinner) {
       this.initFilteredList();
-      this.spinnerService.hide(this.spinner);
     }
   }
 
@@ -153,10 +154,5 @@ export class AppointmentComponent extends DefaultComponent<Appointment> implemen
   previousDay(): void {
     this.currentDate = this.currentDate.subtract(1, 'd');
     this.getAppointments(true);
-  }
-
-  getFilteredList($event: any): void {
-    console.log($event);
-    this.filteredScheduleList = $event;
   }
 }
