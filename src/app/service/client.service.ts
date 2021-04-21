@@ -3,6 +3,7 @@ import {GenericService} from './generic.service';
 import {Client} from '../models/client';
 import {RestRoutesConst} from '../const/const';
 import {Observable} from 'rxjs';
+import {AppointmentDTO} from '../models/AppointmentDTO';
 
 @Injectable({
   providedIn: 'root'
@@ -15,5 +16,9 @@ export class ClientService extends GenericService<Client> {
       gap = 10;
     }
     return this.http.get<Client[]>(RestRoutesConst.API + this.route + `?page=${numberOfPage},${gap}`);
+  }
+
+  findAppointmentsForClient(idClient: number): Observable<AppointmentDTO[]> {
+    return this.http.get<AppointmentDTO[]>(RestRoutesConst.API + this.route + '/' + idClient + RestRoutesConst.APPOINTMENT, {responseType: 'json'});
   }
 }

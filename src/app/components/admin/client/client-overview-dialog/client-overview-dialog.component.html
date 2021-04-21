@@ -1,1 +1,23 @@
-<p>client-overview-dialog works!</p>
+<div class="container">
+  <div class="inline">
+    <div class="column"></div>
+    <div class="column">
+      <div class="header"></div>
+      <div>
+        <mat-tab-group>
+          <mat-tab class="Istorija tretmana">
+            <div class="treatment-client-card"
+                 *ngFor="let appointment of clientService.findAppointmentsForClient(data?.id) | async">
+              <div class="row">
+                <div class="col-sm-2"></div>
+                <div class="col-sm">
+                  {{appointment.createdDate}}
+                </div>
+              </div>
+            </div>
+          </mat-tab>
+        </mat-tab-group>
+      </div>
+    </div>
+  </div>
+</div>

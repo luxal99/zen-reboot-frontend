@@ -74,7 +74,7 @@ export class ClientComponent extends DefaultComponent<Client> implements OnInit 
       height: '100%',
       width: '100%'
     }, this.dialog).afterClosed().subscribe(() => {
-      this.getItems();
+      this.getCurrentPage();
     });
   }
 
@@ -86,7 +86,7 @@ export class ClientComponent extends DefaultComponent<Client> implements OnInit 
       width: '100%',
       data
     }, this.dialog).afterClosed().subscribe(() => {
-      this.getItems();
+      this.getCurrentPage();
     });
   }
 
@@ -98,13 +98,21 @@ export class ClientComponent extends DefaultComponent<Client> implements OnInit 
     }, this.dialog);
   }
 
+  getCurrentPage(): void {
+    this.spinnerService.show(this.spinner);
+    this.clientService.getPaginationClients(this.numberOfPage).subscribe((clients) => {
+      this.listOfItems = clients;
+      this.spinnerService.hide(this.spinner);
+    });
+  }
+
   deleteClient(id: number): void {
     console.log(id);
     this.spinnerService.show(this.spinner);
     this.clientService.delete(id).subscribe(() => {
       SnackBarUtil.openSnackBar(this.snackBar, Message.SUCCESS);
       this.spinnerService.hide(this.spinner);
-      this.getItems();
+      this.getCurrentPage();
     }, () => {
       SnackBarUtil.openSnackBar(this.snackBar, Message.ERR);
       this.spinnerService.hide(this.spinner);
@@ -119,7 +127,7 @@ export class ClientComponent extends DefaultComponent<Client> implements OnInit 
     this.clientService.getAllSearchByQueryParam(queryBuilder.buildUrlEncoded())
       .pipe()
       .subscribe((resp) => {
-      this.listOfItems = resp;
-    });
+        this.listOfItems = resp;
+      });
   }
 }
