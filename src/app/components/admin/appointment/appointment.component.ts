@@ -96,6 +96,11 @@ export class AppointmentComponent extends DefaultComponent<Appointment> implemen
 
   async getAppointments(): Promise<void> {
     this.spinnerService.show(this.spinner);
+  async getAppointments(showSpinner?: boolean): Promise<any> {
+    setTimeout(() => {
+      this.spinnerService.show(this.spinner);
+
+    }, 100);
     const queryBuilder = new CriteriaBuilder();
     queryBuilder.eq('date', new Date(this.currentDate.format('YYYY-MM-DD')).valueOf());
     const data = await this.staffService.getStaffsAppointments(queryBuilder.buildUrlEncoded()).toPromise();
@@ -106,6 +111,10 @@ export class AppointmentComponent extends DefaultComponent<Appointment> implemen
     });
     this.responseSize = data.length;
     this.spinnerService.hide(this.spinner);
+    this.spinnerService.hide(this.spinner);
+    if (showSpinner) {
+      this.initFilteredList();
+    }
   }
 
   openAddAppointmentDialog(data?: any): void {
