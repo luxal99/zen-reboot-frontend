@@ -48,8 +48,8 @@ export class GenericService<T> {
     });
   }
 
-  test(): any {
-    return this.http.get(`${RestRoutesConst.API}${this.route}`).toPromise();
+  getAllSearchByQueryParam(urlEncoded: string): Observable<T[]> {
+    return this.http.get<T[]>(RestRoutesConst.API + this.route + '?q=' + urlEncoded, {responseType: 'json'});
   }
 
 }

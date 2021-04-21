@@ -7,7 +7,7 @@ import {AddClientDialogComponent} from './add-client-dialog/add-client-dialog.co
 import {MatSpinner} from '@angular/material/progress-spinner';
 import {FormControl, FormGroup} from '@angular/forms';
 import {SnackBarUtil} from '../../../util/snack-bar-uitl';
-import {Message} from '../../../const/const';
+import {FormControlNames, Message} from '../../../const/const';
 import {ClientOverviewDialogComponent} from './client-overview-dialog/client-overview-dialog.component';
 import {DefaultComponent} from '../../../util/default-component';
 import {MatSnackBar} from '@angular/material/snack-bar';
@@ -111,4 +111,15 @@ export class ClientComponent extends DefaultComponent<Client> implements OnInit 
     });
   }
 
+  search(): void {
+    const queryBuilder = new CriteriaBuilder();
+    queryBuilder.startsWith('person.firstName', this.searchForm.get(FormControlNames.SEARCH_FORM_CONTROL)?.value).or()
+      .startsWith('person.contacts.value', this.searchForm.get(FormControlNames.SEARCH_FORM_CONTROL)?.value);
+    queryBuilder.criteriaList = queryBuilder.criteriaList.filter((searchCriteria) => searchCriteria.secondOperand);
+    this.clientService.getAllSearchByQueryParam(queryBuilder.buildUrlEncoded())
+      .pipe()
+      .subscribe((resp) => {
+      this.listOfItems = resp;
+    });
+  }
 }
