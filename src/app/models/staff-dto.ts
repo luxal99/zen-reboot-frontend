@@ -15,5 +15,6 @@ export interface StaffDto {
   startTime?: any;
   shifts?: Shift[];
   color?: string;
+  id?: number;
 
 }

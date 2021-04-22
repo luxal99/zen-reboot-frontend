@@ -92,6 +92,15 @@ button {
   color: #666 !important;
 }
 
+.dialog {
+  padding: 24px;
+  height: 100%;
+}
+
+.mat-dialog-container {
+  padding: 0 !important;
+}
+
 @media screen and (max-width: 570px) {
   .desktop {
     display: none;
