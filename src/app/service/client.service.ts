@@ -19,6 +19,6 @@ export class ClientService extends GenericService<Client> {
   }
 
   findAppointmentsForClient(idClient: number): Observable<AppointmentDTO[]> {
-    return this.http.get<AppointmentDTO[]>(RestRoutesConst.API + this.route + '/' + idClient + RestRoutesConst.APPOINTMENT, {responseType: 'json'});
+    return this.http.get<AppointmentDTO[]>(RestRoutesConst.API + this.route + '/' + idClient + '/' + RestRoutesConst.APPOINTMENT, {responseType: 'json'});
   }
 }

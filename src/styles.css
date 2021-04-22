@@ -22,6 +22,10 @@ h1, h2, h3, h4, h5, a, li, mat-checkbox, p, .mat-step-text-label {
   margin: 0 !important;
 }
 
+.mat-typography h4 {
+  margin: 0 !important;
+}
+
 mat-form-field {
   font-family: "Work Sans", sans-serif !important;
 }
@@ -42,7 +46,8 @@ button {
   background-color: #212121;
   padding: 0.3em 0 !important;
   font-weight: bold;
-  color: #deb767;
+  color: #ffffff;
+  font-size: 18px;
 }
 
 .component-content {

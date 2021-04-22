@@ -1,0 +1,58 @@
+@import "src/styles"
+
+.circle
+  text-align: center
+  width: 150px
+  height: 150px
+  margin: 2em auto
+  background-color: $component-background
+  border-radius: 50%
+
+  h1
+    padding-top: 1.5em
+    font-size: 36px
+    font-weight: bold
+
+.default-btn
+  width: 50%
+  margin: 1em 3em
+
+.inline
+  width: 100%
+  margin-top: 2em
+  align-items: flex-start
+
+  .column
+    width: 50%
+
+  .column-4
+    width: 40%
+    background-color: #fff
+    box-shadow: 0 2px 5px 0 rgb(164 173 186 / 25%)
+    margin: 0 .5em
+
+  .column-6
+    @extend .column-4
+    width: 60%
+    background-color: transparent
+
+.paragraf-div
+  padding: 2em
+
+::ng-deep.mat-dialog-container
+  background-color: $component-background
+
+.silver
+  color: $light-silver
+
+.row
+  padding: 2em
+  border-bottom: .5px $most-light-silver
+
+.header
+  background-color: #fff
+  padding: 2em
+  margin-bottom: 1em
+
+.tab-div
+  background-color: #fff

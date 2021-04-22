@@ -94,7 +94,8 @@ export class ClientComponent extends DefaultComponent<Client> implements OnInit 
     DialogUtil.openDialog(ClientOverviewDialogComponent, {
       position: {right: '0'},
       width: '95%',
-      height: '100vh'
+      height: '100vh',
+      data
     }, this.dialog);
   }
 
