@@ -1,5 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialog} from '@angular/material/dialog';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {Appointment} from '../../../../models/appointment';
 import * as moment from 'moment';
 import {ContactTypeEnum} from '../../../../enums/ContactTypeEnum';
@@ -22,7 +22,8 @@ export class AppointmentOverviewDialogComponent extends DefaultComponent<Appoint
   day = moment(this.data.date).format('dddd');
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: AppointmentDTO, private dialog: MatDialog,
-              protected snackBar: MatSnackBar, private appointmentService: AppointmentService) {
+              protected snackBar: MatSnackBar, private dialogRef: MatDialogRef<AppointmentOverviewDialogComponent>,
+              private appointmentService: AppointmentService) {
     super(appointmentService, snackBar);
   }
 
@@ -47,9 +48,11 @@ export class AppointmentOverviewDialogComponent extends DefaultComponent<Appoint
       position: {right: '0'},
       height: '100vh',
       width: '90%',
-      maxWidth: '00%',
+      maxWidth: '100%',
       data: this.data
-    }, this.dialog);
+    }, this.dialog).afterClosed().subscribe(() => {
+      this.dialogRef.close();
+    });
   }
 
   deleteAppointment(): void {

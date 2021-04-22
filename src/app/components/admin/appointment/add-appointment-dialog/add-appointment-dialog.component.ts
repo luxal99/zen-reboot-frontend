@@ -18,7 +18,7 @@ import {AppointmentStatusService} from '../../../../service/appointment-status.s
 import {CKEditorComponent} from '@ckeditor/ckeditor5-angular';
 // @ts-ignore
 import * as ClassicEditor from 'lib/ckeditor5-build-classic';
-import {MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {AppointmentDTO} from '../../../../models/AppointmentDTO';
 import {TreatmentDuration} from '../../../../models/treatment-duration';
 import {Client} from '../../../../models/client';
@@ -78,7 +78,8 @@ export class AddAppointmentDialogComponent extends DefaultComponent<Appointment>
               protected snackBar: MatSnackBar, private readonly changeDetectorRef: ChangeDetectorRef,
               private clientService: ClientService, private locationService: LocationService,
               private staffService: StaffService, private treatmentService: TreatmentService,
-              private appointmentStatusService: AppointmentStatusService, private treatmentDurationService: TreatmentDurationService) {
+              private appointmentStatusService: AppointmentStatusService, private treatmentDurationService: TreatmentDurationService,
+              private dialogRef: MatDialogRef<AddAppointmentDialogComponent>) {
     super(appointmentService, snackBar);
   }
 
@@ -160,7 +161,7 @@ export class AddAppointmentDialogComponent extends DefaultComponent<Appointment>
     }
   }
 
-  save(): void {
+  async save(): Promise<void> {
     const appointment: Appointment = this.appointmentForm.getRawValue();
     appointment.client = {id: this.selectedClient.id};
     appointment.staff = {id: appointment.staff?.id};
@@ -174,6 +175,7 @@ export class AddAppointmentDialogComponent extends DefaultComponent<Appointment>
     if (this.data) {
       appointment.id = this.data.id;
       super.subscribeUpdate(appointment);
+
     } else {
       this.subscribeSave(appointment);
     }

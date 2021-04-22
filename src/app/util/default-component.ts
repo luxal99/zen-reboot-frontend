@@ -66,6 +66,7 @@ export abstract class DefaultComponent<T> implements OnInit {
       SnackBarUtil.openSnackBar(this.snackBar, Message.ERR);
       this.spinnerService.hide(this.spinner);
     });
+
   }
 
   subscribeUpdate(entity: T): void {
