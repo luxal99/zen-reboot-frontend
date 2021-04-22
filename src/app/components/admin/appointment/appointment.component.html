@@ -12,7 +12,7 @@
     </div>
     <div class="col-sm text-center">
       <div class="inline week-filter-div">
-        <div class="column left" (click)="previousDay()">
+        <div class="column" (click)="previousDay()">
           <h3><i class="fa fa-angle-left" aria-hidden="true"></i></h3>
         </div>
         <div class="mid-column">
@@ -20,7 +20,7 @@
             <b>{{currentDate.format('DD MMMM YYYY')}}</b>
           </h3>
         </div>
-        <div class="column right" (click)="nextDay()">
+        <div class="column" (click)="nextDay()">
           <h3><i class="fa fa-angle-right" aria-hidden="true"></i></h3>
         </div>
       </div>
@@ -38,7 +38,7 @@
   <app-paginator (prev)="previousStaffs()" (next)="nextStaffs()"></app-paginator>
   <div class="row header-row">
     <div class="col-sm-1"></div>
-    <div class="col-sm text-center"
+    <div class="col-sm text-center staff-col"
          *ngFor="let staffDto of filteredScheduleList">
       <div class="circle text-center" [style.background-color]="staffDto.color">
         <h2>{{staffDto.person?.firstName.slice(0, 1)}}</h2></div>
@@ -47,7 +47,7 @@
   </div>
   <div class="row" *ngFor="let time of listOfTimes">
     <div class="col-sm-1">
-      <h3 class="text-center">{{time}}</h3>
+      <h3 class="text-center"><b>{{time}}</b></h3>
     </div>
     <ng-container *ngFor="let staffDto of filteredScheduleList ">
       <ng-container *ngIf="(staffDto|checkIsAppointmentBetween:time)  as appointmentInInterval; else emptyCol">

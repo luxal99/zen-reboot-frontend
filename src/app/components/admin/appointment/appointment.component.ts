@@ -132,14 +132,14 @@ export class AppointmentComponent extends DefaultComponent<Appointment> implemen
     });
   }
 
-  async nextDay(): Promise<void> {
+  nextDay(): void {
     this.currentDate = this.currentDate.add(1, 'd');
-    await this.getAppointments();
+    this.initDefault();
   }
 
-  async previousDay(): Promise<void> {
+  previousDay(): void {
     this.currentDate = this.currentDate.subtract(1, 'd');
-    await this.getAppointments();
+    this.initDefault();
   }
 
   search(): void {
