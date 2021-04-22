@@ -112,8 +112,8 @@ export class AppointmentComponent extends DefaultComponent<Appointment> implemen
     DialogUtil.openDialog(AddAppointmentDialogComponent, {
       position: {right: '0'},
       height: '100vh',
-      width: '40%',
-      maxWidth: '50%',
+      width: '90%',
+      maxWidth: '90%',
       data
     }, this.dialog).afterClosed().subscribe(async () => {
       await this.getAppointments();

@@ -1,4 +1,4 @@
-import {AfterViewChecked, ChangeDetectorRef, Component, Inject, OnInit, ViewChild} from '@angular/core';
+import {AfterViewChecked, ChangeDetectorRef, Component, HostListener, Inject, OnInit, ViewChild} from '@angular/core';
 import {DefaultComponent} from '../../../../util/default-component';
 import {Appointment} from '../../../../models/appointment';
 import {AppointmentService} from '../../../../service/appointment.service';
@@ -21,7 +21,7 @@ import * as ClassicEditor from 'lib/ckeditor5-build-classic';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {AppointmentDTO} from '../../../../models/AppointmentDTO';
 import {TreatmentDuration} from '../../../../models/treatment-duration';
-import {filter, map} from 'rxjs/operators';
+import {Client} from '../../../../models/client';
 
 @Component({
   selector: 'app-add-appointment-dialog',
@@ -37,6 +37,8 @@ export class AddAppointmentDialogComponent extends DefaultComponent<Appointment>
   treatment: Treatment = {};
   treatmentDuration: TreatmentDuration = {};
   isDurationFCDisabled = true;
+  clientPage = 0;
+  listOfClients: Client[] = [];
 
   appointmentForm = new FormGroup({
     appointmentStatus: new FormControl('', Validators.required),
@@ -89,13 +91,12 @@ export class AddAppointmentDialogComponent extends DefaultComponent<Appointment>
     });
   }
 
+  @HostListener('document:wheel', ['$event.target'])
   getAllClient(): void {
-    this.clientService.getAll().subscribe((resp) => {
-      this.clientSelectConfig.options = resp.map((client) => ({
-        id: client.id,
-        fullName: client.person?.firstName + ' ' + client.person?.lastName
-      }));
-    });
+    this.clientService.getPaginationClients(this.clientPage++)
+      .subscribe((resp) => {
+        this.listOfClients = this.listOfClients.concat(resp);
+      });
   }
 
   onTreatmentSelect(): void {

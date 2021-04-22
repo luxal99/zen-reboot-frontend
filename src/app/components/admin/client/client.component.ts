@@ -122,13 +122,19 @@ export class ClientComponent extends DefaultComponent<Client> implements OnInit 
 
   search(): void {
     const queryBuilder = new CriteriaBuilder();
-    queryBuilder.startsWith('person.firstName', this.searchForm.get(FormControlNames.SEARCH_FORM_CONTROL)?.value).or()
-      .startsWith('person.contacts.value', this.searchForm.get(FormControlNames.SEARCH_FORM_CONTROL)?.value);
-    queryBuilder.criteriaList = queryBuilder.criteriaList.filter((searchCriteria) => searchCriteria.secondOperand);
-    this.clientService.getAllSearchByQueryParam(queryBuilder.buildUrlEncoded())
-      .pipe()
-      .subscribe((resp) => {
-        this.listOfItems = resp;
-      });
+    const search: string = this.searchForm.get(FormControlNames.SEARCH_FORM_CONTROL)?.value;
+    queryBuilder.startsWith('person.firstName', search).or()
+      .startsWith('person.contacts.value', search);
+    queryBuilder.criteriaList = queryBuilder.criteriaList.filter((searchCriteria) => searchCriteria.secondOperand !== '');
+    console.log(queryBuilder.build());
+    if (search.length > 3) {
+      this.clientService.getAllSearchByQueryParam(queryBuilder.buildUrlEncoded())
+        .pipe()
+        .subscribe((resp) => {
+          this.listOfItems = resp;
+        });
+    } else if (search.length === 0) {
+      this.getCurrentPage();
+    }
   }
 }
