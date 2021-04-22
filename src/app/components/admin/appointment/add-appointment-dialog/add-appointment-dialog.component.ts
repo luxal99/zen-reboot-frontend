@@ -43,7 +43,7 @@ export class AddAppointmentDialogComponent extends DefaultComponent<Appointment>
 
   clientPage = 0;
 
-  selectedClient: Client = {};
+  selectedClient: Client = this.data ? this.data.client : {};
   listOfClients: Client[] = [];
 
 
