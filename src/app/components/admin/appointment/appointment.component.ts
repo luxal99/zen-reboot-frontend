@@ -47,16 +47,16 @@ export class AppointmentComponent extends DefaultComponent<Appointment> implemen
 
   ngOnInit(): void {
     setTimeout(async () => {
-      this.getAppointments().then(() => {
-        this.initDefault();
-      });
+      this.initDefault();
     }, 100);
     this.getTimes();
   }
 
   initDefault(): void {
-    this.listOfSchedule.pipe(map(value => value.slice(this.initGap, this.gap))).subscribe((resp) => {
-      this.filteredScheduleList = resp;
+    this.getAppointments().then(() => {
+      this.listOfSchedule.pipe(map(value => value.slice(this.initGap, this.gap))).subscribe((resp) => {
+        this.filteredScheduleList = resp;
+      });
     });
   }
 
@@ -116,7 +116,7 @@ export class AppointmentComponent extends DefaultComponent<Appointment> implemen
       maxWidth: '90%',
       data
     }, this.dialog).afterClosed().subscribe(async () => {
-      await this.getAppointments();
+      this.initDefault();
     });
   }
 
@@ -128,7 +128,7 @@ export class AppointmentComponent extends DefaultComponent<Appointment> implemen
       width: '100%',
       data: appointment
     }, this.dialog).afterClosed().subscribe(async () => {
-      await this.getAppointments();
+      this.initDefault();
     });
   }
 

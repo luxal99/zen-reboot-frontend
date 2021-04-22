@@ -1,7 +1,6 @@
 @import "src/styles"
 h1
   font-weight: bold
-  margin-top: 2em
 
 .circle
   width: 20px
@@ -15,3 +14,36 @@ mat-form-field
 mat-spinner
   margin-left: 45%
   display: none
+
+.big-circle
+  @extend .circle
+  padding: 1em
+  background-color: #63dfff !important
+  width: 60px
+  height: 60px
+  font-size: 20px
+  font-weight: bold
+
+.contact
+  color: $light-silver
+  font-weight: bold
+
+.right-col
+  font-weight: bold
+  padding: 1em
+
+.col-4
+  border-left: 1px solid $most-light-silver
+
+.search-div
+  padding: 2em
+  border-bottom: 1px solid $most-light-silver
+
+.client-div:hover
+  background-color: $component-background
+  transition: .5s ease
+
+.client-div
+  cursor: pointer
+  margin: .5em 0
+  -webkit-transition: .5s linear

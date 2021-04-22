@@ -1,7 +1,8 @@
 <div [formGroup]="group">
   <mat-form-field appearance="outline">
     <mat-label>{{label}}</mat-label>
-    <input [(ngModel)]="model" [style.color]="color" [formControlName]="config.name" matInput [type]="config.type"
+    <input (input)="change.emit(true)" [(ngModel)]="model" [style.color]="color" [formControlName]="config.name"
+           matInput [type]="config.type"
            [required]="isRequired">
     <mat-icon matSuffix>{{icon}}</mat-icon>
     <mat-hint>{{hint}}</mat-hint>

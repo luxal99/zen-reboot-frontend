@@ -22,6 +22,7 @@ import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {AppointmentDTO} from '../../../../models/AppointmentDTO';
 import {TreatmentDuration} from '../../../../models/treatment-duration';
 import {Client} from '../../../../models/client';
+import {CriteriaBuilder} from '../../../../util/criteria-builder';
 
 @Component({
   selector: 'app-add-appointment-dialog',
@@ -33,16 +34,21 @@ export class AddAppointmentDialogComponent extends DefaultComponent<Appointment>
   @ViewChild('editor', {static: false}) editorComponent!: CKEditorComponent;
   public Editor = ClassicEditor;
   listOfStaffs: Staff[] = [];
+
   searchText = '';
+
   treatment: Treatment = {};
   treatmentDuration: TreatmentDuration = {};
   isDurationFCDisabled = true;
+
   clientPage = 0;
+
+  selectedClient: Client = {};
   listOfClients: Client[] = [];
+
 
   appointmentForm = new FormGroup({
     appointmentStatus: new FormControl('', Validators.required),
-    client: new FormControl('', Validators.required),
     date: new FormControl(this.data ? new Date(this.data.date) : new Date(), Validators.required),
     startTime: new FormControl('', Validators.required),
     endTime: new FormControl('', Validators.required),
@@ -55,13 +61,18 @@ export class AddAppointmentDialogComponent extends DefaultComponent<Appointment>
     search: new FormControl()
   });
 
+  searchClientForm = new FormGroup({
+    search: new FormControl('')
+  });
+
+
   locationSelectConfig: FieldConfig = {name: FormControlNames.LOCATION_FORM_CONTROL, type: InputTypes.INPUT_TYPE_NAME};
   treatmentSelectConfig: FieldConfig = {name: FormControlNames.TREATMENT_FORM_CONTROL, type: InputTypes.INPUT_TYPE_NAME};
   durationSelectConfig: FieldConfig = {name: FormControlNames.DURATION_FORM_CONTROL, type: InputTypes.SELECT_TYPE_NAME};
-  clientSelectConfig: FieldConfig = {name: FormControlNames.CLIENT_FORM_CONTROL, type: InputTypes.INPUT_TYPE_NAME};
   appointmentStatusSelectConfig: FieldConfig = {name: FormControlNames.APPOINTMENT_STATUS_FORM_CONTROL, type: InputTypes.INPUT_TYPE_NAME};
   startTimeInputConfig: FieldConfig = {name: FormControlNames.START_TIME_FORM_CONTROL, type: InputTypes.TIME};
   endTimeInputConfig: FieldConfig = {name: FormControlNames.END_TIME_FORM_CONTROL, type: InputTypes.TIME};
+  searchInputConfig: FieldConfig = {name: FormControlNames.SEARCH_FORM_CONTROL, type: InputTypes.INPUT_TYPE_NAME};
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: AppointmentDTO, private appointmentService: AppointmentService,
               protected snackBar: MatSnackBar, private readonly changeDetectorRef: ChangeDetectorRef,
@@ -76,13 +87,17 @@ export class AddAppointmentDialogComponent extends DefaultComponent<Appointment>
   }
 
   ngOnInit(): void {
-    this.initSelects();
     this.findTreatmentDuration();
     setTimeout(() => {
+      this.initSelects();
       if (this.data) {
         this.appointmentForm.controls.startTime.setValue(this.data.startTime);
       }
     }, 100);
+  }
+
+  selectClient(client: Client): void {
+    this.selectedClient = client;
   }
 
   getAllStaffs(): void {
@@ -91,11 +106,26 @@ export class AddAppointmentDialogComponent extends DefaultComponent<Appointment>
     });
   }
 
-  @HostListener('document:wheel', ['$event.target'])
-  getAllClient(): void {
-    this.clientService.getPaginationClients(this.clientPage++)
+  @HostListener('scroll', ['$event'])
+  getAllClient(event: any): void {
+    if (event.target.offsetHeight + event.target.scrollTop >= event.target.scrollHeight) {
+      this.spinnerService.show(this.spinner);
+      setTimeout(() => {
+        this.clientService.getPaginationClients(this.clientPage++)
+          .subscribe((resp) => {
+            this.listOfClients = this.listOfClients.concat(resp);
+            this.spinnerService.hide(this.spinner);
+          });
+      }, 500);
+    }
+  }
+
+  getClient(): void {
+    this.spinnerService.show(this.spinner);
+    this.clientService.getPaginationClients(this.clientPage)
       .subscribe((resp) => {
         this.listOfClients = this.listOfClients.concat(resp);
+        this.spinnerService.hide(this.spinner);
       });
   }
 
@@ -110,12 +140,12 @@ export class AddAppointmentDialogComponent extends DefaultComponent<Appointment>
     super.initSelectConfig(this.locationService, this.locationSelectConfig);
     super.initSelectConfig(this.appointmentStatusService, this.appointmentStatusSelectConfig);
     this.getAllStaffs();
-    this.getAllClient();
+    this.getClient();
 
   }
 
   findTreatmentDuration(): void {
-    if (this.data) {
+    if (this.data && this.data.id) {
       // @ts-ignore
       this.treatmentService.findById(this.data.treatment.treatmentId).subscribe((treatment) => {
         this.treatment = treatment;
@@ -132,7 +162,7 @@ export class AddAppointmentDialogComponent extends DefaultComponent<Appointment>
 
   save(): void {
     const appointment: Appointment = this.appointmentForm.getRawValue();
-    appointment.client = {id: appointment.client?.id};
+    appointment.client = {id: this.selectedClient.id};
     appointment.staff = {id: appointment.staff?.id};
     appointment.location = {id: appointment.location?.id};
     appointment.date = moment(appointment.date).format('YYYY-MM-DD');
@@ -161,5 +191,23 @@ export class AddAppointmentDialogComponent extends DefaultComponent<Appointment>
     const endTime = moment(this.appointmentForm.get(FormControlNames.START_TIME_FORM_CONTROL)?.value, 'hh:mm')
       .add(this.appointmentForm.get(FormControlNames.DURATION_FORM_CONTROL)?.value.duration, 'minutes');
     this.appointmentForm.controls.endTime.setValue(endTime.get('hours') + ':' + endTime.get('minutes'));
+  }
+
+  search(): void {
+    const queryBuilder = new CriteriaBuilder();
+    const search: string = this.searchClientForm.get(FormControlNames.SEARCH_FORM_CONTROL)?.value;
+    queryBuilder.startsWith('person.firstName', search).or()
+      .startsWith('person.contacts.value', search);
+    queryBuilder.criteriaList = queryBuilder.criteriaList.filter((searchCriteria) => searchCriteria.secondOperand !== '');
+    if (search.length > 3) {
+      this.clientService.getAllSearchByQueryParam(queryBuilder.buildUrlEncoded())
+        .pipe()
+        .subscribe((resp) => {
+          this.listOfClients = resp;
+          console.log(resp);
+        });
+    } else if (search.length === 0) {
+      this.getClient();
+    }
   }
 }

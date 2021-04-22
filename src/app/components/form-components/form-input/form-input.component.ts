@@ -1,7 +1,8 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, Output} from '@angular/core';
 import {Field} from '../../../models/Field';
 import {FieldConfig} from '../../../models/FIeldConfig';
 import {FormGroup} from '@angular/forms';
+import {EventEmitter} from '@angular/core';
 
 @Component({
   selector: 'app-form-input',
@@ -20,6 +21,8 @@ export class FormInputComponent implements OnInit, Field {
   @Input() hint!: string;
   @Input() color!: string;
   @Input() model!: any;
+  // tslint:disable-next-line:no-output-native
+  @Output() change = new EventEmitter();
 
   constructor() {
   }
