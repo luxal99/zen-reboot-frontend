@@ -11,7 +11,7 @@
       </div>
       <h1 class="text-center"><b>{{data.person?.firstName + ' ' + data.person?.lastName}}</b></h1>
       <div class="text-center">
-        <button mat-button class="default-btn">Dodaj tretman</button>
+        <button mat-button class="default-btn" (click)="openAddAppointmentDialog()">Dodaj tretman</button>
       </div>
       <div class="paragraf-div">
         <p [innerHTML]="data.notes"></p>

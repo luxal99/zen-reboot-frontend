@@ -7,6 +7,8 @@ import {ContactTypeEnum} from '../../../../enums/ContactTypeEnum';
 import {AppointmentDTO} from '../../../../models/AppointmentDTO';
 import * as moment from 'moment';
 import {AppointmentStatuses} from '../../../../const/const';
+import {DialogUtil} from '../../../../util/dialog-util';
+import {AddAppointmentDialogComponent} from '../../appointment/add-appointment-dialog/add-appointment-dialog.component';
 
 @Component({
   selector: 'app-client-overview-dialog',
@@ -34,6 +36,16 @@ export class ClientOverviewDialogComponent implements OnInit {
 
   initDefault(): void {
 
+  }
+
+  openAddAppointmentDialog(): void {
+    DialogUtil.openDialog(AddAppointmentDialogComponent, {
+      position: {right: '0'},
+      height: '100vh',
+      width: '90%',
+      maxWidth: '90%',
+      data: {client: this.data}
+    }, this.dialog);
   }
 
   getAppointments(): void {
