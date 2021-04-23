@@ -150,11 +150,17 @@ export class AppointmentComponent extends DefaultComponent<Appointment> implemen
   }
 
   search(): void {
-    this.listOfSchedule.pipe(map(value => value.filter((staff) =>
-      staff.person?.firstName?.toLowerCase().startsWith(this.searchText.toLowerCase())
-      || staff.person?.lastName?.startsWith(this.searchText.toLowerCase())).slice(0, 10)))
-      .subscribe((resp) => {
-        this.filteredScheduleList = resp;
-      });
+    if (this.searchText.length > 2) {
+      const queryBuilder = new CriteriaBuilder();
+      queryBuilder.eq('date', new Date(this.currentDate.format('YYYY-MM-DD')).valueOf());
+      this.staffService.getStaffsAppointments(queryBuilder.buildUrlEncoded())
+        .pipe(map(value => value.filter((staffDto) =>
+          staffDto.person?.firstName?.toLowerCase().startsWith(this.searchText.toLowerCase())).slice(0, 10)))
+        .subscribe((resp) => {
+          this.filteredScheduleList = resp;
+        });
+    } else if (this.searchText.length === 0) {
+      this.getAppointments();
+    }
   }
 }
