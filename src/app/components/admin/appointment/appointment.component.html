@@ -38,8 +38,15 @@
           </mat-form-field>
         </div>
         <div>
-          <app-form-select (onChange)="initDefault()" [model]="defaultLocation" [group]="locationForm"
-                           [config]="locationSelectConfig"></app-form-select>
+          <!--          <app-form-select (onChange)="initDefault()" [model]="defaultLocation" [group]="locationForm"-->
+          <!--                           [config]="locationSelectConfig"></app-form-select>-->
+          <div class="inline location-div">
+            <div class="location-active" (click)="changeLocation($event,firstLocation)"
+                 *ngFor="let firstLocation of listOfLocations|slice:0:1"><h3>{{firstLocation.name | capitalize}}</h3>
+            </div>
+            <div class="location-inactive" (click)="changeLocation($event,location)"
+                 *ngFor="let location of listOfLocations|slice:1"><h3>{{location.name | capitalize}}</h3></div>
+          </div>
         </div>
       </div>
 

@@ -12,10 +12,9 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import {FormControl, FormGroup} from '@angular/forms';
 import {AppointmentOverviewDialogComponent} from './appointment-overview-dialog/appointment-overview-dialog.component';
 import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
-import {FieldConfig} from '../../../models/FIeldConfig';
-import {FormControlNames, InputTypes} from '../../../const/const';
+import {filter, map} from 'rxjs/operators';
 import {LocationService} from '../../../service/location.service';
+import {Location} from '../../../models/location';
 
 @Component({
   selector: 'app-appointment',
@@ -34,11 +33,8 @@ export class AppointmentComponent extends DefaultComponent<Appointment> implemen
     search: new FormControl()
   });
 
-  locationForm = new FormGroup({
-    location: new FormControl('')
-  });
   searchText = '';
-  defaultLocation = {};
+  defaultLocation: Location = {};
   initGap = 0;
   gap = 10;
 
@@ -46,63 +42,52 @@ export class AppointmentComponent extends DefaultComponent<Appointment> implemen
   isDisabledPrev10 = true;
 
   responseSize = 0;
-  locationSelectConfig: FieldConfig = {type: InputTypes.SELECT_TYPE_NAME, name: FormControlNames.LOCATION_FORM_CONTROL};
+
+  listOfLocations: Location[] = [];
 
   constructor(private dialog: MatDialog, private staffService: StaffService,
-              protected snackBar: MatSnackBar, private locationService: LocationService) {
+              protected snackBar: MatSnackBar, public locationService: LocationService) {
     super(staffService, snackBar);
   }
 
   ngOnInit(): void {
     this.getTimes();
-    this.getAllLocations();
+    this.getLocations();
     setTimeout(async () => {
-      this.initDefault();
+      this.getAppointments();
     }, 100);
   }
 
-  initDefault(): void {
-    this.getAppointments().then(() => {
-      this.listOfSchedule.pipe(map(value => {
-        return value.slice(this.initGap, this.gap).filter((staffDto) => {
-          return staffDto.appointments = staffDto.appointments?.filter((app) =>
-            app.location.id === this.locationForm.get(FormControlNames.LOCATION_FORM_CONTROL)?.value.id);
-        });
-      })).subscribe((resp) => {
-        console.log(resp);
-        this.filteredScheduleList = resp;
-      });
-    });
-  }
-
-  getAllLocations(): void {
+  getLocations(): void {
     this.locationService.getAll().subscribe((resp) => {
-      this.locationSelectConfig.options = resp;
+      this.listOfLocations = resp;
       this.defaultLocation = resp[0];
     });
   }
 
-  nextStaffs(): void {
+  changeLocation(forwardedElement: any, location: Location): void {
+    const element = document.querySelectorAll('.location-active');
+    [].forEach.call(element, (el: any) => {
+      el.classList.remove('location-active');
+      el.classList.add('location-inactive');
+    });
+    forwardedElement.target.className = 'location-active';
+    this.defaultLocation = location;
+    this.getAppointments();
+  }
 
-    if (this.initGap + 10 < this.responseSize) {
-      this.initGap += 10;
-      this.gap += 10;
-      this.listOfSchedule.pipe(map(value => value.slice(this.initGap, this.gap))).subscribe((resp) => {
-        this.filteredScheduleList = resp;
-      });
-    }
-    if (this.initGap > 0) {
-      this.isDisabledPrev10 = false;
-    }
+
+  nextStaffs(): void {
+    this.initGap += 10;
+    this.gap += 10;
+    this.getAppointments();
   }
 
   previousStaffs(): void {
     if (this.initGap - 10 >= 0) {
       this.initGap -= 10;
       this.gap -= 10;
-      this.listOfSchedule.pipe(map(value => value.slice(this.initGap, this.gap))).subscribe((resp) => {
-        this.filteredScheduleList = resp;
-      }).unsubscribe();
+      this.getAppointments();
     } else {
       this.isDisabledPrev10 = true;
     }
@@ -116,29 +101,29 @@ export class AppointmentComponent extends DefaultComponent<Appointment> implemen
     }
   }
 
-  async getAppointments(): Promise<void> {
+  getAppointments(): void {
     this.spinnerService.show(this.spinner);
     const queryBuilder = new CriteriaBuilder();
     queryBuilder.eq('date', new Date(this.currentDate.format('YYYY-MM-DD')).valueOf());
-    const data = await this.staffService.getStaffsAppointments(queryBuilder.buildUrlEncoded()).toPromise();
-    this.listOfSchedule = new Observable<StaffDto[]>(subscriber => {
-      subscriber.next(data);
-      subscriber.complete();
-      subscriber.unsubscribe();
-    });
-    this.responseSize = data.length;
-    this.spinnerService.hide(this.spinner);
+    this.staffService.getStaffsAppointments(queryBuilder.buildUrlEncoded())
+      .pipe(map(value => value.slice(this.initGap, this.gap)))
+      .pipe(map(value => value.filter((staffDto) =>
+        staffDto.appointments = staffDto.appointments?.filter((appointment) => appointment.location.id === this.defaultLocation.id))))
+      .subscribe((resp) => {
+        this.filteredScheduleList = resp;
+        this.spinnerService.hide(this.spinner);
+      });
   }
 
   openAddAppointmentDialog(data?: any): void {
     DialogUtil.openDialog(AddAppointmentDialogComponent, {
       position: {right: '0'},
       height: '100vh',
-      width: '90%',
-      maxWidth: '90%',
+      width: '70%',
+      maxWidth: '70%',
       data
     }, this.dialog).afterClosed().subscribe(async () => {
-      this.initDefault();
+      this.getAppointments();
     });
   }
 
@@ -150,25 +135,26 @@ export class AppointmentComponent extends DefaultComponent<Appointment> implemen
       width: '100%',
       data: appointment
     }, this.dialog).afterClosed().subscribe(async () => {
-      this.initDefault();
+      this.getAppointments();
     });
   }
 
   nextDay(): void {
     this.currentDate = this.currentDate.add(1, 'd');
-    this.initDefault();
+    this.getAppointments();
   }
 
   previousDay(): void {
     this.currentDate = this.currentDate.subtract(1, 'd');
-    this.initDefault();
+    this.getAppointments();
   }
 
   search(): void {
-    this.listOfSchedule.subscribe((resp) => {
-      this.filteredScheduleList = resp.filter((staff) =>
-        staff.person?.firstName?.toLowerCase().startsWith(this.searchText.toLowerCase())
-        || staff.person?.lastName?.startsWith(this.searchText.toLowerCase())).slice(0, 10);
-    });
+    this.listOfSchedule.pipe(map(value => value.filter((staff) =>
+      staff.person?.firstName?.toLowerCase().startsWith(this.searchText.toLowerCase())
+      || staff.person?.lastName?.startsWith(this.searchText.toLowerCase())).slice(0, 10)))
+      .subscribe((resp) => {
+        this.filteredScheduleList = resp;
+      });
   }
 }

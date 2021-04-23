@@ -47,8 +47,8 @@ export class AppointmentOverviewDialogComponent extends DefaultComponent<Appoint
     DialogUtil.openDialog(AddAppointmentDialogComponent, {
       position: {right: '0'},
       height: '100vh',
-      width: '90%',
-      maxWidth: '100%',
+      width: '70%',
+      maxWidth: '70%',
       data: this.data
     }, this.dialog).afterClosed().subscribe(() => {
       this.dialogRef.close();

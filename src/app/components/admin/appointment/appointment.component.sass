@@ -85,3 +85,34 @@ mat-spinner
   background-color: #ffffff
   margin: 1px
   padding: 2em 1em
+
+.location-active, .location-inactive
+  margin: 0 .5em
+  border-radius: 6px
+  padding: .25em .5em
+  -webkit-transition: .3s linear
+
+  h3
+    pointer-events: none
+
+.location-inactive
+  background-color: $component-background
+  color: $light-silver
+  cursor: pointer
+
+  h3
+    font-weight: bold
+
+.location-active
+  background-color: #fff
+  color: $default-gold
+  box-shadow: 0 2px 5px 0 rgb(164 173 186 / 25%)
+
+  h3
+    font-weight: bold
+
+.location-div
+  background-color: $most-light-silver
+  margin-left: 1em
+  padding: 1em
+  border-radius: 6px
