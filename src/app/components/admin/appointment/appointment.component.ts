@@ -13,6 +13,9 @@ import {FormControl, FormGroup} from '@angular/forms';
 import {AppointmentOverviewDialogComponent} from './appointment-overview-dialog/appointment-overview-dialog.component';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
+import {FieldConfig} from '../../../models/FIeldConfig';
+import {FormControlNames, InputTypes} from '../../../const/const';
+import {LocationService} from '../../../service/location.service';
 
 @Component({
   selector: 'app-appointment',
@@ -31,8 +34,11 @@ export class AppointmentComponent extends DefaultComponent<Appointment> implemen
     search: new FormControl()
   });
 
+  locationForm = new FormGroup({
+    location: new FormControl('')
+  });
   searchText = '';
-
+  defaultLocation = {};
   initGap = 0;
   gap = 10;
 
@@ -40,23 +46,39 @@ export class AppointmentComponent extends DefaultComponent<Appointment> implemen
   isDisabledPrev10 = true;
 
   responseSize = 0;
+  locationSelectConfig: FieldConfig = {type: InputTypes.SELECT_TYPE_NAME, name: FormControlNames.LOCATION_FORM_CONTROL};
 
-  constructor(private dialog: MatDialog, private staffService: StaffService, protected snackBar: MatSnackBar) {
+  constructor(private dialog: MatDialog, private staffService: StaffService,
+              protected snackBar: MatSnackBar, private locationService: LocationService) {
     super(staffService, snackBar);
   }
 
   ngOnInit(): void {
+    this.getTimes();
+    this.getAllLocations();
     setTimeout(async () => {
       this.initDefault();
     }, 100);
-    this.getTimes();
   }
 
   initDefault(): void {
     this.getAppointments().then(() => {
-      this.listOfSchedule.pipe(map(value => value.slice(this.initGap, this.gap))).subscribe((resp) => {
+      this.listOfSchedule.pipe(map(value => {
+        return value.slice(this.initGap, this.gap).filter((staffDto) => {
+          return staffDto.appointments = staffDto.appointments?.filter((app) =>
+            app.location.id === this.locationForm.get(FormControlNames.LOCATION_FORM_CONTROL)?.value.id);
+        });
+      })).subscribe((resp) => {
+        console.log(resp);
         this.filteredScheduleList = resp;
       });
+    });
+  }
+
+  getAllLocations(): void {
+    this.locationService.getAll().subscribe((resp) => {
+      this.locationSelectConfig.options = resp;
+      this.defaultLocation = resp[0];
     });
   }
 
