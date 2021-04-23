@@ -1,25 +1,29 @@
-<div class="text-center">
-  <h1>{{date}}</h1>
-  <h2><b>{{data.staff?.person?.firstName + ' ' + data.staff?.person?.lastName}}</b></h2>
-  <div class="row">
-    <div class="col-sm left">
-      <app-form-input [model]="data.id ? data.startTime : null" [config]="startTimeInputConfig" [group]="shiftForm"
-                      icon="scheduled"
-                      label="Početak"></app-form-input>
+<div class="dialog">
+  <div class="text-center">
+    <h1>{{date}}</h1>
+    <h2><b>{{data.staff?.person?.firstName + ' ' + data.staff?.person?.lastName}}</b></h2>
+    <div class="row">
+      <div class="col-sm left">
+        <app-form-input [model]="data.id ? data.startTime : null" [config]="startTimeInputConfig" [group]="shiftForm"
+                        icon="scheduled"
+                        label="Početak"></app-form-input>
+      </div>
+      <div class="col-sm right">
+        <app-form-input [model]="data.id ? data.endTime : null" [config]="endTimeInputConfig" [group]="shiftForm"
+                        icon="scheduled"
+                        label="Kraj"></app-form-input>
+      </div>
     </div>
-    <div class="col-sm right">
-      <app-form-input [model]="data.id ? data.endTime : null" [config]="endTimeInputConfig" [group]="shiftForm"
-                      icon="scheduled"
-                      label="Kraj"></app-form-input>
+    <app-form-select label="Izaberi lokaciju" [model]="data.id ? data.location : null" [group]="shiftForm"
+                     [config]="locationSelectConfig"></app-form-select>
+    <app-form-select [config]="repeatTypeSelectConfig" label="Tip ponavljanja" [group]="repeatForm"></app-form-select>
+    <app-form-input [config]="repeatCountInputConfig" [group]="repeatForm" label="Broj ponavljanja"
+                    type="number"></app-form-input>
+    <div class="text-right">
+      <button mat-button class="default-btn" style="width: 15%;" (click)="save()" [disabled]="!shiftForm.valid">Dodaj
+      </button>
     </div>
   </div>
-  <app-form-select label="Izaberi lokaciju" [model]="data.id ? data.location : null" [group]="shiftForm"
-                   [config]="locationSelectConfig"></app-form-select>
-  <app-form-select [config]="repeatTypeSelectConfig" label="Tip ponavljanja" [group]="repeatForm"></app-form-select>
-  <app-form-input [config]="repeatCountInputConfig" [group]="repeatForm" label="Broj ponavljanja" type="number"></app-form-input>
-  <div class="text-right">
-    <button mat-button class="default-btn" style="width: 15%;" (click)="save()" [disabled]="!shiftForm.valid">Dodaj
-    </button>
-  </div>
+  <mat-spinner #spinner diameter="50"></mat-spinner>
+
 </div>
-<mat-spinner #spinner diameter="50"></mat-spinner>
