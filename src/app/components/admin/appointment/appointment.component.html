@@ -38,8 +38,6 @@
           </mat-form-field>
         </div>
         <div>
-          <!--          <app-form-select (onChange)="initDefault()" [model]="defaultLocation" [group]="locationForm"-->
-          <!--                           [config]="locationSelectConfig"></app-form-select>-->
           <div class="inline location-div">
             <div class="location-active" (click)="changeLocation($event,firstLocation)"
                  *ngFor="let firstLocation of listOfLocations|slice:0:1"><h3>{{firstLocation.name | capitalize}}</h3>
@@ -66,7 +64,7 @@
     </div>
   </div>
   <div class="row" *ngFor="let time of listOfTimes">
-    <div class="col-sm-1">
+    <div class="col-sm-1" style="background-color: #f7f7f8">
       <h3 class="text-center"><b>{{time}}</b></h3>
     </div>
     <ng-container *ngFor="let staffDto of filteredScheduleList ">
