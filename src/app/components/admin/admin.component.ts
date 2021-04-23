@@ -94,6 +94,8 @@ export class AdminComponent implements OnInit, AfterViewInit {
   }
 
   loadAppointmentComponent(): void {
-    LazyLoadComponentsUtil.loadComponent(AppointmentComponent, this.entry, this.resolver);
+    setTimeout(() => {
+      LazyLoadComponentsUtil.loadComponent(AppointmentComponent, this.entry, this.resolver);
+    }, 200);
   }
 }
