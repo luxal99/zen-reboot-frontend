@@ -46,6 +46,7 @@ import {AppointmentOverviewDialogComponent} from './components/admin/appointment
 import { PaginatorComponent } from './components/paginator/paginator.component';
 import { CheckShiftPipe } from './pipes/chech-shift.pipe';
 import { EmptyResultComponent } from './components/empty-result/empty-result.component';
+import { InvoiceOverviewComponent } from './components/admin/invoice-overview/invoice-overview.component';
 
 @NgModule({
   declarations: [
@@ -84,7 +85,8 @@ import { EmptyResultComponent } from './components/empty-result/empty-result.com
     AppointmentOverviewDialogComponent,
     PaginatorComponent,
     CheckShiftPipe,
-    EmptyResultComponent
+    EmptyResultComponent,
+    InvoiceOverviewComponent
   ],
   imports: [
     BrowserModule,
