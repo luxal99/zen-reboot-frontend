@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {InvoiceService} from '../../../service/invoice.service';
+import {FormControl, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-invoice-overview',
@@ -6,10 +8,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./invoice-overview.component.sass']
 })
 export class InvoiceOverviewComponent implements OnInit {
+  invoiceFilterForm = new FormGroup({
+    startDate: new FormControl(),
+    endDate: new FormControl(),
+  });
 
-  constructor() { }
+  constructor(private invoiceService: InvoiceService) {
+  }
 
   ngOnInit(): void {
+  }
+
+  getDate(): void {
+    console.log(this.invoiceFilterForm.getRawValue());
   }
 
 }
