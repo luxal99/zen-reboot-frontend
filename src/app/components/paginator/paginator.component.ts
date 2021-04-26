@@ -1,21 +1,22 @@
-import {Component, OnInit, Output} from '@angular/core';
+import {Component, Input, OnInit, Output} from '@angular/core';
 import {EventEmitter} from '@angular/core';
 
 @Component({
-  selector: 'app-paginator',
-  templateUrl: './paginator.component.html',
-  styleUrls: ['./paginator.component.sass']
+    selector: 'app-paginator',
+    templateUrl: './paginator.component.html',
+    styleUrls: ['./paginator.component.sass']
 })
 export class PaginatorComponent implements OnInit {
 
 
-  @Output() next = new EventEmitter();
-  @Output() prev = new EventEmitter();
+    @Input() showNext = true;
+    @Output() next = new EventEmitter();
+    @Output() prev = new EventEmitter();
 
-  constructor() {
-  }
+    constructor() {
+    }
 
-  ngOnInit(): void {
-  }
+    ngOnInit(): void {
+    }
 
 }

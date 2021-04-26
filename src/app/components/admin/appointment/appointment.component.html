@@ -50,7 +50,8 @@
 
     </div>
     <div class="col-sm">
-      <app-paginator (prev)="previousStaffs()" (next)="nextStaffs()"></app-paginator>
+      <app-paginator (prev)="previousStaffs()" (next)="nextStaffs()"
+                     [showNext]="filteredScheduleList.length >0"></app-paginator>
     </div>
 
   </div>

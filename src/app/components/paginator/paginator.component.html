@@ -2,7 +2,7 @@
   <button mat-button
           (click)="prev.emit(true)"><i class="fa fa-angle-left" aria-hidden="true"></i>
   </button>
-  <button mat-button (click)="next.emit(true)">
+  <button *ngIf="showNext" mat-button (click)="next.emit(true)">
     <i class="fa fa-angle-right" aria-hidden="true"></i>
   </button>
 </div>
