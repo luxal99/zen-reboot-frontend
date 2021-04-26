@@ -6,7 +6,6 @@
   </div>
   <h1>Dodavanje termina</h1>
   <mat-divider></mat-divider>
-
   <div class="row">
     <div class="col-8">
       <mat-vertical-stepper>
@@ -28,9 +27,19 @@
         </mat-step>
         <app-form-input [config]="startTimeInputConfig" [group]="appointmentForm"></app-form-input>
         <mat-step label="Tretman">
-          <app-form-select [model]="data ? data.location:null" label="Izaberi lokaciju" bindValue="name"
-                           [config]="locationSelectConfig"
-                           [group]="appointmentForm"></app-form-select>
+        <form [formGroup]="appointmentForm">
+          <mat-form-field appearance="outline">
+            <mat-label>Soba</mat-label>
+            <mat-select formControlName="room">
+              <mat-option>-- None --</mat-option>
+              <mat-optgroup *ngFor="let location of locationSelectConfig.options" [label]="location.name | capitalize">
+                <mat-option *ngFor="let room of location.rooms" [value]="room.id">
+                  {{room.name}}
+                </mat-option>
+              </mat-optgroup>
+            </mat-select>
+          </mat-form-field>
+        </form>
           <app-form-select [model]="data ? treatment :null" bindValue="name"
                            [config]="treatmentSelectConfig"
                            (onChange)="onTreatmentSelect()"
@@ -102,5 +111,4 @@
     Sačuvaj
   </button>
   <mat-spinner diameter="50" #spinner></mat-spinner>
-
 </div>

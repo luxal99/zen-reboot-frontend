@@ -4,6 +4,7 @@ import {Client} from './client';
 import {Location} from './location';
 import {TreatmentDuration} from './treatment-duration';
 import {Treatment} from './treatment';
+import {Room} from './room';
 
 export interface Appointment {
   endTime?: string;
@@ -15,7 +16,7 @@ export interface Appointment {
   id?: number;
   lastModifiedBy?: string;
   lastModifiedDate?: string;
-  location?: Location;
+  room?: Room;
   notes?: string;
   staff?: Staff;
   treatmentDuration?: TreatmentDuration;

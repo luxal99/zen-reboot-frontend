@@ -23,6 +23,7 @@ import {AppointmentDTO} from '../../../../models/AppointmentDTO';
 import {TreatmentDuration} from '../../../../models/treatment-duration';
 import {Client} from '../../../../models/client';
 import {CriteriaBuilder} from '../../../../util/criteria-builder';
+import {Location} from 'src/app/models/location';
 
 @Component({
   selector: 'app-add-appointment-dialog',
@@ -33,6 +34,8 @@ export class AddAppointmentDialogComponent extends DefaultComponent<Appointment>
 
   @ViewChild('editor', {static: false}) editorComponent!: CKEditorComponent;
   public Editor = ClassicEditor;
+
+  listOfLocations: Location[] = [];
   listOfStaffs: Staff[] = [];
 
   searchText = '';
@@ -52,7 +55,7 @@ export class AddAppointmentDialogComponent extends DefaultComponent<Appointment>
     date: new FormControl(this.data ? new Date(this.data.date) : new Date(), Validators.required),
     startTime: new FormControl('', Validators.required),
     endTime: new FormControl('', Validators.required),
-    location: new FormControl('', Validators.required),
+    room: new FormControl('', Validators.required),
     staff: new FormControl('', Validators.required),
     treatment: new FormControl('', Validators.required),
     treatmentDuration: new FormControl('', Validators.required),
@@ -106,6 +109,7 @@ export class AddAppointmentDialogComponent extends DefaultComponent<Appointment>
       this.listOfStaffs = resp;
     });
   }
+
 
   @HostListener('scroll', ['$event'])
   getAllClient(event: any): void {
@@ -165,9 +169,10 @@ export class AddAppointmentDialogComponent extends DefaultComponent<Appointment>
     const appointment: Appointment = this.appointmentForm.getRawValue();
     appointment.client = {id: this.selectedClient.id};
     appointment.staff = {id: appointment.staff?.id};
-    appointment.location = {id: appointment.location?.id};
     appointment.date = moment(appointment.date).format('YYYY-MM-DD');
     appointment.notes = this.editorComponent.editorInstance?.getData();
+    appointment.room = {id: this.appointmentForm.get(FormControlNames.ROOM_FORM_CONTROL)?.value};
+    delete appointment.treatmentDuration?.treatment;
     // @ts-ignore
     delete appointment.treatment;
     // @ts-ignore

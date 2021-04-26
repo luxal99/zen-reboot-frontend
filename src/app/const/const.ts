@@ -38,6 +38,7 @@ export class FormControlNames {
   static CLIENT_FORM_CONTROL = 'client';
   static TREATMENT_FORM_CONTROL = 'treatment';
   static APPOINTMENT_STATUS_FORM_CONTROL = 'appointmentStatus';
+  static ROOM_FORM_CONTROL='room';
 }
 
 export class InputTypes {

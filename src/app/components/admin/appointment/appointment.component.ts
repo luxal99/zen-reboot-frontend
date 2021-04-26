@@ -53,9 +53,9 @@ export class AppointmentComponent extends DefaultComponent<Appointment> implemen
   ngOnInit(): void {
     this.getTimes();
     this.getLocations();
-    setTimeout(async () => {
-      this.getAppointments();
-    }, 100);
+    // setTimeout(async () => {
+    //   this.getAppointments();
+    // }, 100);
   }
 
   getLocations(): void {
@@ -73,7 +73,6 @@ export class AppointmentComponent extends DefaultComponent<Appointment> implemen
     });
     forwardedElement.target.className = 'location-active';
     this.defaultLocation = location;
-    this.getAppointments();
   }
 
 
@@ -123,7 +122,6 @@ export class AppointmentComponent extends DefaultComponent<Appointment> implemen
       maxWidth: '70%',
       data
     }, this.dialog).afterClosed().subscribe(async () => {
-      this.getAppointments();
     });
   }
 
@@ -135,7 +133,6 @@ export class AppointmentComponent extends DefaultComponent<Appointment> implemen
       width: '100%',
       data: appointment
     }, this.dialog).afterClosed().subscribe(async () => {
-      this.getAppointments();
     });
   }
 
