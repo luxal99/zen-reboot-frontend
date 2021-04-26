@@ -27,6 +27,7 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatTableModule} from '@angular/material/table';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 @NgModule({
   imports: [
@@ -51,7 +52,8 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     MatAutocompleteModule,
     MatSnackBarModule,
     MatTabsModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatTooltipModule
   ],
   exports: [
     A11yModule,
@@ -81,7 +83,8 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     ScrollingModule,
     DragDropModule,
     MatTabsModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatTooltipModule
   ],
   declarations: []
 })

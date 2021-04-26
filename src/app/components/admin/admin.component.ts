@@ -15,6 +15,7 @@ import {CodeBookComponent} from './code-book/code-book.component';
 import {ServicesComponent} from './services/services.component';
 import {StaffComponent} from './staff/staff.component';
 import {AppointmentComponent} from './appointment/appointment.component';
+import {InvoiceOverviewComponent} from './invoice-overview/invoice-overview.component';
 
 @Component({
   selector: 'app-admin',
@@ -93,6 +94,9 @@ export class AdminComponent implements OnInit, AfterViewInit {
     LazyLoadComponentsUtil.loadComponent(ServicesComponent, this.entry, this.resolver);
   }
 
+  loadInvoiceComponent(): void {
+    LazyLoadComponentsUtil.loadComponent(InvoiceOverviewComponent, this.entry, this.resolver);
+  }
   loadAppointmentComponent(): void {
     setTimeout(() => {
       LazyLoadComponentsUtil.loadComponent(AppointmentComponent, this.entry, this.resolver);

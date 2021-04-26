@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col side-nav-col" #sideNav>
     <div class="side-nav-col-content ">
-      <button (click)="openSideNav()" mat-icon-button >
+      <button (click)="openSideNav()" mat-icon-button>
         <mat-icon id="menu-icon">open_in_browser
         </mat-icon>
       </button>
@@ -21,6 +21,8 @@
                                (load)="loadServiceComponent()"></app-component-activator>
       <app-component-activator icon="fa fa-building" title="Zaposleni"
                                (load)="loadStaffComponent()"></app-component-activator>
+      <app-component-activator icon="fa fa-cc-visa" title="Fakture"
+                               (load)="loadInvoiceComponent()"></app-component-activator>
     </div>
   </div>
   <div class="col">

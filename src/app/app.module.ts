@@ -43,10 +43,10 @@ import {CKEditorModule} from '@ckeditor/ckeditor5-angular';
 import {CheckIsAppointmentStartPipe} from './pipes/check-is-appointment-start.pipe';
 import {CheckIsAppointmentBetweenPipe} from './pipes/check-is-appointment-between.pipe';
 import {AppointmentOverviewDialogComponent} from './components/admin/appointment/appointment-overview-dialog/appointment-overview-dialog.component';
-import { PaginatorComponent } from './components/paginator/paginator.component';
-import { CheckShiftPipe } from './pipes/chech-shift.pipe';
-import { EmptyResultComponent } from './components/empty-result/empty-result.component';
-import { InvoiceOverviewComponent } from './components/admin/invoice-overview/invoice-overview.component';
+import {PaginatorComponent} from './components/paginator/paginator.component';
+import {CheckShiftPipe} from './pipes/chech-shift.pipe';
+import {EmptyResultComponent} from './components/empty-result/empty-result.component';
+import {InvoiceOverviewComponent} from './components/admin/invoice-overview/invoice-overview.component';
 
 @NgModule({
   declarations: [
@@ -109,6 +109,7 @@ import { InvoiceOverviewComponent } from './components/admin/invoice-overview/in
       AddAppointmentDialogComponent, AddServiceDialogComponent,
       AddClientDialogComponent, AppointmentOverviewDialogComponent, ClientOverviewDialogComponent,
       FormBuilderComponent, OverviewComponent, StaffComponent,
+      InvoiceOverviewComponent,
       ServicesComponent],
   bootstrap: [AppComponent]
 })
