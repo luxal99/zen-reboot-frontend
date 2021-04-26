@@ -55,7 +55,7 @@ export class AddAppointmentDialogComponent extends DefaultComponent<Appointment>
     date: new FormControl(this.data ? new Date(this.data.date) : new Date(), Validators.required),
     startTime: new FormControl('', Validators.required),
     endTime: new FormControl('', Validators.required),
-    room: new FormControl('', Validators.required),
+    room: new FormControl(this.data.room ? this.data.room.id : '', Validators.required),
     staff: new FormControl('', Validators.required),
     treatment: new FormControl('', Validators.required),
     treatmentDuration: new FormControl('', Validators.required),

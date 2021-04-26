@@ -57,34 +57,33 @@
   <div class="row header-row">
     <div class="col-sm-1"></div>
     <div class="col-sm text-center staff-col"
-         *ngFor="let staffDto of filteredScheduleList">
-      <div class="circle text-center" [style.background-color]="staffDto.color">
-        <h2>{{staffDto.person?.firstName.slice(0, 1)}}</h2></div>
-      <h4><b>{{staffDto.person?.firstName + ' ' + staffDto.person?.lastName}}</b></h4>
+         *ngFor="let roomDto of filteredScheduleList">
+      <h4><b>{{roomDto.name}}</b></h4>
     </div>
   </div>
   <div class="row" *ngFor="let time of listOfTimes">
     <div class="col-sm-1" style="background-color: #f7f7f8">
       <h3 class="text-center"><b>{{time}}</b></h3>
     </div>
-    <ng-container *ngFor="let staffDto of filteredScheduleList ">
-      <ng-container *ngIf="(staffDto|checkIsAppointmentBetween:time)  as appointmentInInterval; else emptyCol">
+    <ng-container *ngFor="let roomDto of filteredScheduleList ">
+      <ng-container *ngIf="(roomDto|checkIsAppointmentBetween:time)  as appointmentInInterval; else emptyCol">
         <div class="col-sm appointment-col" (click)="openAppointmentOverviewDialog(appointmentInInterval)"
-             [style.background-color]="appointmentInInterval.color">
+             [style.background-color]="appointmentInInterval.staff.color">
           <div class="appointment-card" (click)="openAppointmentOverviewDialog(appointment)"
-               *ngIf="staffDto.appointments.length >0 && (staffDto | checkIsAppointmentStart:time);let appointment;">
+               *ngIf="roomDto.appointments.length >0 && (roomDto | checkIsAppointmentStart:time);let appointment;">
             <div class="text-right">
             </div>
             <h4> {{appointment.startTime.slice(0, 5) + '-' + appointment.endTime.slice(0, 5) }}
             </h4>
             <h4><b>{{ appointment.client?.person?.firstName + ' ' + appointment.client?.person?.lastName}}</b></h4>
             <h4 class="treatment-name">{{ appointment.treatment?.name}}</h4>
+            <h4><b>{{ appointment.staff?.person?.firstName + ' ' + appointment.staff?.person?.lastName}}</b></h4>
           </div>
         </div>
       </ng-container>
       <ng-template #emptyCol>
         <div class="col-sm empty-col"
-             (click)="openAddAppointmentDialog({startTime:time,staff:{id:staffDto.id},date:currentDate.format('YYYY-MM-DD'),client:{}})"></div>
+             (click)="openAddAppointmentDialog({startTime:time,room:{id:roomDto.id},date:currentDate.format('YYYY-MM-DD'),client:{}})"></div>
       </ng-template>
     </ng-container>
   </div>

@@ -10,6 +10,7 @@ import {AppointmentService} from '../../../../service/appointment.service';
 import {DialogUtil} from '../../../../util/dialog-util';
 import {AddAppointmentDialogComponent} from '../add-appointment-dialog/add-appointment-dialog.component';
 import {AppointmentDTO} from '../../../../models/AppointmentDTO';
+import {LocationService} from '../../../../service/location.service';
 
 @Component({
   selector: 'app-appointment-overview-dialog',
@@ -23,19 +24,27 @@ export class AppointmentOverviewDialogComponent extends DefaultComponent<Appoint
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: AppointmentDTO, private dialog: MatDialog,
               protected snackBar: MatSnackBar, private dialogRef: MatDialogRef<AppointmentOverviewDialogComponent>,
-              private appointmentService: AppointmentService) {
+              private appointmentService: AppointmentService, private locationService: LocationService) {
     super(appointmentService, snackBar);
   }
 
   ngOnInit(): void {
-    console.log(this.data);
     this.formatAppointment();
     this.getClientContactNumber();
+    this.getLocation();
   }
 
   getClientContactNumber(): void {
     // @ts-ignore
     this.clientContactNumber = this.data.client?.person?.contacts?.find((contact) => contact.type === ContactTypeEnum.PHONE.toString());
+  }
+
+  getLocation(): void {
+    // @ts-ignore
+    this.locationService.findById(this.data.room.location).subscribe((location) => {
+      // @ts-ignore
+      this.data.room?.location = location;
+    });
   }
 
   formatAppointment(): void {

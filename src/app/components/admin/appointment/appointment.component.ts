@@ -15,6 +15,7 @@ import {Observable} from 'rxjs';
 import {filter, map} from 'rxjs/operators';
 import {LocationService} from '../../../service/location.service';
 import {Location} from '../../../models/location';
+import {RoomDto} from '../../../models/room-dto';
 
 @Component({
   selector: 'app-appointment',
@@ -22,9 +23,7 @@ import {Location} from '../../../models/location';
   styleUrls: ['./appointment.component.sass']
 })
 export class AppointmentComponent extends DefaultComponent<Appointment> implements OnInit {
-
-  listOfSchedule: Observable<StaffDto[]> = new Observable<StaffDto[]>();
-  filteredScheduleList: StaffDto[] = [];
+  filteredScheduleList: RoomDto[] = [];
   listOfTimes: string[] = [];
 
   currentDate = moment();
@@ -36,7 +35,7 @@ export class AppointmentComponent extends DefaultComponent<Appointment> implemen
   searchText = '';
   defaultLocation: Location = {};
   initGap = 0;
-  gap = 10;
+  gap = 7;
 
   isDisabledNext10 = false;
   isDisabledPrev10 = true;
@@ -45,24 +44,20 @@ export class AppointmentComponent extends DefaultComponent<Appointment> implemen
 
   listOfLocations: Location[] = [];
 
-  constructor(private dialog: MatDialog, private staffService: StaffService,
-              protected snackBar: MatSnackBar, public locationService: LocationService) {
-    super(staffService, snackBar);
+  constructor(private dialog: MatDialog, protected snackBar: MatSnackBar, public locationService: LocationService) {
+    super(locationService, snackBar);
   }
 
   ngOnInit(): void {
     this.getTimes();
-    this.getLocations();
-    // setTimeout(async () => {
-    //   this.getAppointments();
-    // }, 100);
+    this.getLocations().then(() => {
+      this.getAppointments();
+    });
   }
 
-  getLocations(): void {
-    this.locationService.getAll().subscribe((resp) => {
-      this.listOfLocations = resp;
-      this.defaultLocation = resp[0];
-    });
+  async getLocations(): Promise<void> {
+    this.listOfLocations = await this.locationService.getAll().toPromise();
+    this.defaultLocation = this.listOfLocations[0];
   }
 
   changeLocation(forwardedElement: any, location: Location): void {
@@ -73,19 +68,21 @@ export class AppointmentComponent extends DefaultComponent<Appointment> implemen
     });
     forwardedElement.target.className = 'location-active';
     this.defaultLocation = location;
+
+    this.getAppointments();
   }
 
 
   nextStaffs(): void {
-    this.initGap += 10;
-    this.gap += 10;
+    this.initGap += 7;
+    this.gap += 7;
     this.getAppointments();
   }
 
   previousStaffs(): void {
-    if (this.initGap - 10 >= 0) {
-      this.initGap -= 10;
-      this.gap -= 10;
+    if (this.initGap - 7 >= 0) {
+      this.initGap -= 7;
+      this.gap -= 7;
       this.getAppointments();
     } else {
       this.isDisabledPrev10 = true;
@@ -104,11 +101,10 @@ export class AppointmentComponent extends DefaultComponent<Appointment> implemen
     this.spinnerService.show(this.spinner);
     const queryBuilder = new CriteriaBuilder();
     queryBuilder.eq('date', new Date(this.currentDate.format('YYYY-MM-DD')).valueOf());
-    this.staffService.getStaffsAppointments(queryBuilder.buildUrlEncoded())
+    this.locationService.getAppointmentPerRoom(this.defaultLocation.id, queryBuilder.buildUrlEncoded())
       .pipe(map(value => value.slice(this.initGap, this.gap)))
-      .pipe(map(value => value.filter((staffDto) =>
-        staffDto.appointments = staffDto.appointments?.filter((appointment) => appointment.location.id === this.defaultLocation.id))))
       .subscribe((resp) => {
+        console.log(resp);
         this.filteredScheduleList = resp;
         this.spinnerService.hide(this.spinner);
       });
@@ -147,17 +143,17 @@ export class AppointmentComponent extends DefaultComponent<Appointment> implemen
   }
 
   search(): void {
-    if (this.searchText.length > 2) {
-      const queryBuilder = new CriteriaBuilder();
-      queryBuilder.eq('date', new Date(this.currentDate.format('YYYY-MM-DD')).valueOf());
-      this.staffService.getStaffsAppointments(queryBuilder.buildUrlEncoded())
-        .pipe(map(value => value.filter((staffDto) =>
-          staffDto.person?.firstName?.toLowerCase().startsWith(this.searchText.toLowerCase())).slice(0, 10)))
-        .subscribe((resp) => {
-          this.filteredScheduleList = resp;
-        });
-    } else if (this.searchText.length === 0) {
-      this.getAppointments();
-    }
+    // if (this.searchText.length > 2) {
+    //   const queryBuilder = new CriteriaBuilder();
+    //   queryBuilder.eq('date', new Date(this.currentDate.format('YYYY-MM-DD')).valueOf());
+    //   this.staffService.getStaffsAppointments(queryBuilder.buildUrlEncoded())
+    //     .pipe(map(value => value.filter((staffDto) =>
+    //       staffDto.person?.firstName?.toLowerCase().startsWith(this.searchText.toLowerCase())).slice(0, 10)))
+    //     .subscribe((resp) => {
+    //       this.filteredScheduleList = resp;
+    //     });
+    // } else if (this.searchText.length === 0) {
+    //   this.getAppointments();
+    // }
   }
 }

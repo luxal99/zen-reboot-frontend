@@ -32,12 +32,14 @@
         </button>
       </div>
     </div>
-    <div  class="row room-row" *ngFor="let room of data.rooms">
-      <div class="col-6" (click)="selectRoom(room)">
-        <h4><span>Naziv:</span> {{room.name}}</h4>
-      </div>
-      <div class="col-6">
-        <button mat-button color="warn" (click)="removeRoom(room)"><i class="fa fa-trash"></i></button>
+    <div class="room-div">
+      <div  class="row room-row" *ngFor="let room of data.rooms">
+        <div class="col-6" (click)="selectRoom(room)">
+          <h4><span>Naziv:</span> {{room.name}}</h4>
+        </div>
+        <div class="col-6">
+          <button mat-button color="warn" (click)="removeRoom(room)"><i class="fa fa-trash"></i></button>
+        </div>
       </div>
     </div>
   </div>

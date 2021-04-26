@@ -3,6 +3,7 @@ import {Client} from './client';
 import {Location} from './location';
 import {Staff} from './staff';
 import {TreatmentDto} from './TreatmentDto';
+import {Room} from './room';
 
 // tslint:disable-next-line:no-empty-interface
 export interface AppointmentDTO {
@@ -12,7 +13,7 @@ export interface AppointmentDTO {
   date: any;
   endTime: string;
   id?: number;
-  location: Location;
+  room?: Room;
   notes: string;
   price: number;
   startTime: string;
