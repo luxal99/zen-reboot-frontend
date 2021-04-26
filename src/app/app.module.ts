@@ -47,6 +47,7 @@ import {PaginatorComponent} from './components/paginator/paginator.component';
 import {CheckShiftPipe} from './pipes/chech-shift.pipe';
 import {EmptyResultComponent} from './components/empty-result/empty-result.component';
 import {InvoiceOverviewComponent} from './components/admin/invoice-overview/invoice-overview.component';
+import { EditInvoiceDialogComponent } from './components/admin/appointment/appointment-overview-dialog/edit-invoice-dialog/edit-invoice-dialog.component';
 
 @NgModule({
   declarations: [
@@ -86,7 +87,8 @@ import {InvoiceOverviewComponent} from './components/admin/invoice-overview/invo
     PaginatorComponent,
     CheckShiftPipe,
     EmptyResultComponent,
-    InvoiceOverviewComponent
+    InvoiceOverviewComponent,
+    EditInvoiceDialogComponent
   ],
   imports: [
     BrowserModule,
