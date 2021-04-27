@@ -46,7 +46,7 @@ export class AddAppointmentDialogComponent extends DefaultComponent<Appointment>
 
   clientPage = 0;
 
-  selectedClient: Client = this.data ? this.data.client : {};
+  selectedClient: Client = this.data.client ? this.data.client : {};
   listOfClients: Client[] = [];
 
 
@@ -55,7 +55,9 @@ export class AddAppointmentDialogComponent extends DefaultComponent<Appointment>
     date: new FormControl(this.data ? new Date(this.data.date) : new Date(), Validators.required),
     startTime: new FormControl('', Validators.required),
     endTime: new FormControl('', Validators.required),
-    room: new FormControl(this.data.room ? this.data.room.id : '', Validators.required),
+
+    // @ts-ignore
+    room: new FormControl(this.data ? this.data.room.id : '', Validators.required),
     staff: new FormControl('', Validators.required),
     treatment: new FormControl('', Validators.required),
     treatmentDuration: new FormControl('', Validators.required),
@@ -65,7 +67,7 @@ export class AddAppointmentDialogComponent extends DefaultComponent<Appointment>
   });
 
   searchClientForm = new FormGroup({
-    search: new FormControl('')
+    searchClient: new FormControl('')
   });
 
 
@@ -177,7 +179,7 @@ export class AddAppointmentDialogComponent extends DefaultComponent<Appointment>
     delete appointment.treatment;
     // @ts-ignore
     appointment.treatmentDuration?.treatment = {id: this.appointmentForm.get(FormControlNames.TREATMENT_FORM_CONTROL)?.value.id};
-    if (this.data) {
+    if (this.data.id) {
       appointment.id = this.data.id;
       super.subscribeUpdate(appointment);
 

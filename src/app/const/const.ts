@@ -29,6 +29,8 @@ export class FormControlNames {
   static CITY_FORM_CONTROL = 'city';
   static COLOR_FORM_CONTROL = 'color';
   static SEARCH_FORM_CONTROL = 'search';
+  static SEARCH_CLIENT_FORM_CONTROL = 'searchClient';
+  static SEARCH_BILLED_CLIENT_FORM_CONTROL = 'searchBilledClient';
   static START_TIME_FORM_CONTROL = 'startTime';
   static END_TIME_FORM_CONTROL = 'endTime';
   static LOCATION_FORM_CONTROL = 'location';
@@ -39,6 +41,7 @@ export class FormControlNames {
   static TREATMENT_FORM_CONTROL = 'treatment';
   static APPOINTMENT_STATUS_FORM_CONTROL = 'appointmentStatus';
   static ROOM_FORM_CONTROL = 'room';
+  static INVOICE_STATUS_FORM_CONTROL = 'invoiceStatus';
 }
 
 export class InputTypes {
@@ -83,6 +86,7 @@ export class RestRoutesConst {
   static TREATMENT_DURATION = 'treatment-durations';
   static APPOINTMENT_STATUS = 'appointment-statuses';
   static INVOICE = 'invoices';
+  static INVOICE_STATUS = 'invoice-statuses';
 }
 
 export class TokenConst {

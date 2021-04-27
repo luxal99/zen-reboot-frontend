@@ -5,7 +5,7 @@ import {InvoiceStatus} from './invoice-status';
 export interface Invoice {
   appointments?: Appointment[];
   billedClient?: Client;
-  client: Client;
+  client?: Client;
   date?: any;
   gross?: number;
   invoiceStatus?: InvoiceStatus;

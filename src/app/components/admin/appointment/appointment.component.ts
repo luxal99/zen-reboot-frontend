@@ -104,7 +104,6 @@ export class AppointmentComponent extends DefaultComponent<Appointment> implemen
     this.locationService.getAppointmentPerRoom(this.defaultLocation.id, queryBuilder.buildUrlEncoded())
       .pipe(map(value => value.slice(this.initGap, this.gap)))
       .subscribe((resp) => {
-        console.log(resp);
         this.filteredScheduleList = resp;
         this.spinnerService.hide(this.spinner);
       });
@@ -118,6 +117,7 @@ export class AppointmentComponent extends DefaultComponent<Appointment> implemen
       maxWidth: '70%',
       data
     }, this.dialog).afterClosed().subscribe(async () => {
+      this.getAppointments();
     });
   }
 

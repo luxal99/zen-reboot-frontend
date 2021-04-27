@@ -26,11 +26,18 @@ export class GenericService<T> {
     });
   }
 
-  getAll(token?: string): Observable<T[]> {
-    return this.http.get<T[]>(`${RestRoutesConst.API}${this.route}`, {
-      responseType: 'json',
-      headers: {Authorization: ''}
-    });
+  getAll(query?: string): Observable<T[]> {
+    if (query) {
+      return this.http.get<T[]>(`${RestRoutesConst.API}${this.route}?q=` + query, {
+        responseType: 'json',
+        headers: {Authorization: ''}
+      });
+    } else {
+      return this.http.get<T[]>(`${RestRoutesConst.API}${this.route}`, {
+        responseType: 'json',
+        headers: {Authorization: ''}
+      });
+    }
   }
 
   update(entity: T, token?: string): Observable<any> {

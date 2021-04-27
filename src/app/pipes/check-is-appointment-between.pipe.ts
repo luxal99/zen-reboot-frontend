@@ -18,7 +18,6 @@ export class CheckIsAppointmentBetweenPipe implements PipeTransform {
 
     if (appointmentDto) {
       appointmentDto.color = staffDto.color;
-      console.log(appointmentDto);
     }
     // @ts-ignore
     // tslint:disable-next-line:no-bitwise

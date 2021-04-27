@@ -47,7 +47,8 @@ import {PaginatorComponent} from './components/paginator/paginator.component';
 import {CheckShiftPipe} from './pipes/chech-shift.pipe';
 import {EmptyResultComponent} from './components/empty-result/empty-result.component';
 import {InvoiceOverviewComponent} from './components/admin/invoice-overview/invoice-overview.component';
-import { EditInvoiceDialogComponent } from './components/admin/appointment/appointment-overview-dialog/edit-invoice-dialog/edit-invoice-dialog.component';
+import {EditInvoiceDialogComponent} from './components/admin/appointment/appointment-overview-dialog/edit-invoice-dialog/edit-invoice-dialog.component';
+import { FindClientPhoneNumberPipe } from './pipes/find-client-phone-number.pipe';
 
 @NgModule({
   declarations: [
@@ -88,7 +89,8 @@ import { EditInvoiceDialogComponent } from './components/admin/appointment/appoi
     CheckShiftPipe,
     EmptyResultComponent,
     InvoiceOverviewComponent,
-    EditInvoiceDialogComponent
+    EditInvoiceDialogComponent,
+    FindClientPhoneNumberPipe
   ],
   imports: [
     BrowserModule,
@@ -111,7 +113,7 @@ import { EditInvoiceDialogComponent } from './components/admin/appointment/appoi
       AddAppointmentDialogComponent, AddServiceDialogComponent,
       AddClientDialogComponent, AppointmentOverviewDialogComponent, ClientOverviewDialogComponent,
       FormBuilderComponent, OverviewComponent, StaffComponent,
-      InvoiceOverviewComponent,
+      InvoiceOverviewComponent, EditInvoiceDialogComponent,
       ServicesComponent],
   bootstrap: [AppComponent]
 })

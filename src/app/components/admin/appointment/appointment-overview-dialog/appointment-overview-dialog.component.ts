@@ -11,6 +11,7 @@ import {DialogUtil} from '../../../../util/dialog-util';
 import {AddAppointmentDialogComponent} from '../add-appointment-dialog/add-appointment-dialog.component';
 import {AppointmentDTO} from '../../../../models/AppointmentDTO';
 import {LocationService} from '../../../../service/location.service';
+import {EditInvoiceDialogComponent} from './edit-invoice-dialog/edit-invoice-dialog.component';
 
 @Component({
   selector: 'app-appointment-overview-dialog',
@@ -64,10 +65,21 @@ export class AppointmentOverviewDialogComponent extends DefaultComponent<Appoint
     });
   }
 
+  openEditInvoiceDialog(): void {
+    DialogUtil.openDialog(EditInvoiceDialogComponent, {
+      position: {right: '0'},
+      height: '100vh',
+      width: '50%',
+      maxWidth: '50%',
+      data: this.data
+    }, this.dialog).afterClosed().subscribe(() => {
+      this.dialogRef.close();
+    });
+  }
+
   deleteAppointment(): void {
     // @ts-ignore
     super.subscribeDelete(this.data.id);
-
   }
 
 }

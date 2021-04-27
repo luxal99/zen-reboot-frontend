@@ -1,1 +1,115 @@
-<p>edit-invoice-dialog works!</p>
+<div class="dialog">
+  <div class="row">
+    <div class="col-sm">
+      <h1>Izrada fakkture</h1>
+    </div>
+    <div class="col-sm">
+      <h2 class="text-right">{{invoice.date}}</h2>
+    </div>
+  </div>
+  <mat-divider></mat-divider>
+  <mat-horizontal-stepper>
+    <mat-step label="Izbor platioca">
+      <app-form-input (change)="searchBilledClient()" icon="search" label="Pretraži" [group]="searchForm"
+                      [config]="searchBilledInputConfig"></app-form-input>
+      <div class="client-binding">
+        <h1 class="light-h1" *ngIf="listOfClients.length===0">Započni kucanje...</h1>
+        <div class="client-div" (click)="selectBilledClient(client)" *ngFor="let client of listOfClients">
+          <div class="inline">
+            <div class="big-circle text-center"
+                 style=background-color:#c2c2c2>{{client.person?.firstName.slice(0, 1)}}</div>
+            <div class="right-col">
+              <h3><b>{{client.person?.firstName + ' ' + client.person?.lastName}}</b></h3>
+              <h4>{{client.person.contacts|findClientPhoneNumber}}</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="inline client-div" *ngIf="selectedBilledClient.id"
+           (click)="openClientOverviewDialog(selectedBilledClient)">
+        <div class="black-circle text-center"
+             style=background-color:#c2c2c2>{{selectedBilledClient.person?.firstName.slice(0, 1)}}</div>
+        <div class="right-col">
+          <h3><b>{{selectedBilledClient.person?.firstName + ' ' + selectedBilledClient.person?.lastName}}</b></h3>
+          <h4>{{selectedBilledClient.person?.contacts|findClientPhoneNumber}}</h4>
+        </div>
+      </div>
+
+      <div *ngIf="this.selectedBilledClient.id">
+        <button class="default-btn" mat-button matStepperNext>Napred</button>
+      </div>
+
+    </mat-step>
+    <mat-step label="Izbor klijenta">
+      <app-form-input (change)="searchClient()" icon="search" label="Pretraži" [group]="searchForm"
+                      [config]="searchClientInputConfig"></app-form-input>
+      <div class="client-binding">
+        <h1 class="light-h1" *ngIf="listOfClients.length===0">Započni kucanje...</h1>
+        <div class="client-div" (click)="selectClient(client)" *ngFor="let client of listOfClients">
+          <div class="inline">
+            <div class="big-circle text-center"
+                 style=background-color:#c2c2c2>{{client.person?.firstName.slice(0, 1)}}</div>
+            <div class="right-col">
+              <h3><b>{{client.person?.firstName + ' ' + client.person?.lastName}}</b></h3>
+              <h4>{{client.person.contacts|findClientPhoneNumber}}</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="inline client-div" *ngIf="selectedClient.id"
+           (click)="openClientOverviewDialog(selectedClient)">
+        <div class="black-circle text-center"
+             style=background-color:#c2c2c2>{{selectedClient.person?.firstName.slice(0, 1)}}</div>
+        <div class="right-col">
+          <h3><b>{{selectedClient.person?.firstName + ' ' + selectedClient.person?.lastName}}</b></h3>
+          <h4>{{selectedClient.person?.contacts|findClientPhoneNumber}}</h4>
+        </div>
+      </div>
+
+      <div *ngIf="this.selectedClient.id">
+        <button class="white-btn" mat-button matStepperPrevious>Nazad</button>
+        <button class="default-btn" mat-button matStepperNext>Napred</button>
+      </div>
+
+    </mat-step>
+    <mat-step label="Selekcija tretmana">
+      <app-form-input (change)="searchAppointment()" icon="search" label="Pretraži" [group]="searchForm"
+                      [config]="searchClientInputConfig"></app-form-input>
+      <h1 class="light-h1" *ngIf="listOfAppointments.length===0">Pronađi dodatni tretman...</h1>
+      <div class="row">
+        <div class="col-12" (click)="selectClient(appointment)" *ngFor="let appointment of listOfAppointments">
+          <div class="row">
+            <div class="col-sm">
+              <h3><b>{{appointment.date}}</b></h3>
+            </div>
+            <div class="col-sm">
+              <div class="inline">
+                <h3 class="start-h3">{{appointment.startTime}}</h3>
+                <h3 class="end-h3">{{appointment.endTime}}</h3>
+              </div>
+            </div>
+          </div>
+          <h2 style="margin-top: 1em">{{appointment.treatment.name}}</h2>
+          <h3><b>{{appointment.client.person?.firstName + ' ' + appointment.client.person?.lastName}}</b></h3>
+          <h4>{{appointment.client.person.contacts|findClientPhoneNumber}}</h4>
+          <div class="text-right" (click)="selectAppointment(appointment)">
+            <button class="white-btn" mat-button><i class="fa fa-plus"></i></button>
+          </div>
+        </div>
+      </div>
+      <button class="white-btn" mat-button matStepperPrevious>Nazad</button>
+      <button class="default-btn" mat-button matStepperNext>Napred</button>
+    </mat-step>
+    <mat-step label="Ostale informacije">
+      <app-form-select bindValue="name" [group]="invoiceForm" [config]="invoiceStatusSelectConfig"
+                       label="Status fakture"></app-form-select>
+      <app-form-select bindValue="name" [group]="invoiceForm" [config]="locationSelectConfig"
+                       label="Lokacija"></app-form-select>
+      <button class="white-btn" mat-button matStepperPrevious>Nazad</button>
+      <button class="default-btn" mat-button matStepperNext>Napred</button>
+    </mat-step>
+  </mat-horizontal-stepper>
+</div>
+<mat-spinner #spinner diameter="50"></mat-spinner>

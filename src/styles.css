@@ -50,6 +50,16 @@ button {
   font-size: 18px;
 }
 
+.white-btn {
+  box-shadow: 0 2px 5px 0 rgba(164, 173, 186, 0.25);
+  width: 20%;
+  background-color: #ffffff;
+  color: #212121;
+  padding: 0.3em 0 !important;
+  font-weight: bold;
+  font-size: 18px;
+}
+
 .component-content {
   padding: 4em 2em;
 }
