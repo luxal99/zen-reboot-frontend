@@ -8,20 +8,20 @@ import {AppointmentDTO} from '../models/AppointmentDTO';
 })
 export class CheckIsAppointmentBetweenPipe implements PipeTransform {
 
-  transform(staffDto: StaffDto, time: string): AppointmentDTO {
+  transform(roomDto: StaffDto, time: string): AppointmentDTO {
     const currentTime = moment(time, 'HH:mm:ss');
     // @ts-ignore
-    const appointmentDto: AppointmentDTO = staffDto.appointments.find((appointment) =>
+    const appointmentDto: AppointmentDTO = roomDto.appointments.find((appointment) =>
       currentTime.isBetween(moment(appointment.startTime, 'HH:mm:ss'), moment(appointment.endTime, 'HH:mm:ss')) ||
       currentTime.isSame(moment(appointment.startTime, 'HH:mm:ss')) ||
       currentTime.isSame(moment(appointment.endTime, 'HH:mm:ss')));
 
-    if (appointmentDto) {
-      appointmentDto.color = staffDto.color;
+    if (appointmentDto && appointmentDto.appointmentStatus?.value === 'NEW') {
+      return appointmentDto;
+    } else {
+      // @ts-ignore
+      return null;
     }
-    // @ts-ignore
-    // tslint:disable-next-line:no-bitwise
-    return appointmentDto;
   }
 
 }

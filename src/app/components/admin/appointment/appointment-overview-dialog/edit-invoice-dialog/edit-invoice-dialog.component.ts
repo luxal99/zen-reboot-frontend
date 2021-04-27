@@ -22,6 +22,8 @@ import {Appointment} from '../../../../../models/appointment';
 import {InvoiceStatus} from '../../../../../models/invoice-status';
 import {LocationService} from '../../../../../service/location.service';
 import {SnackBarUtil} from '../../../../../util/snack-bar-uitl';
+import {AppointmentStatusService} from '../../../../../service/appointment-status.service';
+import {AppointmentStatus} from '../../../../../models/appointment-status';
 
 @Component({
   selector: 'app-edit-invoice-dialog',
@@ -58,6 +60,7 @@ export class EditInvoiceDialogComponent extends DefaultComponent<Invoice> implem
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: AppointmentDTO,
               private invoiceService: InvoiceService, protected snackBar: MatSnackBar,
+              private appointmentStatusService: AppointmentStatusService,
               private clientService: ClientService, private dialog: MatDialog, private locationService: LocationService,
               private invoiceStatusService: InvoiceStatusService, private appointmentService: AppointmentService) {
     super(invoiceService, snackBar);
@@ -164,23 +167,30 @@ export class EditInvoiceDialogComponent extends DefaultComponent<Invoice> implem
     this.listOfSelectedAppointments.splice(this.listOfSelectedAppointments.indexOf(appointment), 1);
   }
 
-  save(): void {
+  async save(): Promise<void> {
     const invoice: Invoice = {
       id: this.invoice.id,
       client: {id: this.selectedClient.id},
       billedClient: {id: this.selectedBilledClient.id},
-      invoiceStatus: this.invoiceForm.get(FormControlNames.INVOICE_STATUS_FORM_CONTROL)?.value,
-      // @ts-ignore
-      location: {id: this.invoiceForm.get(FormControlNames.LOCATION_FORM_CONTROL)?.value.id}
-    };
-    this.invoiceService.update(invoice).subscribe(() => {
-      for (const appointment of this.listOfSelectedAppointments) {
-        this.invoiceService.addAppointmentToInvoice(invoice.id, appointment).subscribe(() => {
-          SnackBarUtil.openSnackBar(this.snackBar, Message.SUCCESS);
-        }, () => {
-          SnackBarUtil.openSnackBar(this.snackBar, Message.ERR);
-        });
+      invoiceStatus: {id: this.invoiceForm.get(FormControlNames.INVOICE_STATUS_FORM_CONTROL)?.value.id},
+      date: moment().format('YYYY-MM-DD'),
+      appointments: this.listOfSelectedAppointments,
+      location: {
+        // @ts-ignore
+        id: this.invoiceForm.get(FormControlNames.LOCATION_FORM_CONTROL)?.value.id,
       }
+    };
+
+    invoice.appointments = invoice.appointments?.map((appointment) => ({id: appointment.id, price: appointment.price}));
+
+    super.otherSubscribe(this.invoiceService.update(invoice));
+
+    const completeStatus: AppointmentStatus[] =
+      await this.appointmentStatusService.getAll(new CriteriaBuilder().eq('value', 'COMPLETED').buildUrlEncoded()).toPromise();
+    this.listOfSelectedAppointments.forEach((appointment) => {
+      appointment.appointmentStatus = completeStatus[0];
+      super.otherSubscribe(this.appointmentService.update(appointment));
     });
+    super.otherSubscribe(this.appointmentService.update({}));
   }
 }

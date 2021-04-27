@@ -57,7 +57,8 @@ export abstract class DefaultComponent<T> implements OnInit {
     }
   }
 
-  otherPostSubscribe(subscriber: Observable<any>): void {
+
+  otherSubscribe(subscriber: Observable<any>, service?: GenericService<any>): void {
     this.spinnerService.show(this.spinner);
     subscriber.subscribe(() => {
       SnackBarUtil.openSnackBar(this.snackBar, Message.SUCCESS);
@@ -68,6 +69,7 @@ export abstract class DefaultComponent<T> implements OnInit {
     });
 
   }
+
 
   subscribeUpdate(entity: T): void {
     this.spinnerService.show(this.spinner);

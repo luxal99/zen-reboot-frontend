@@ -10,6 +10,9 @@
     <mat-tab label="Nedeljni pregled ">
       <div class="table-wrapper">
         <app-table-binding [dataSource]="listOfCurrentWeekInvoices"></app-table-binding>
+        <div class="text-right">
+          <h2 style="margin-top: 1em"><b>{{listOfCurrentWeekInvoices|sumGross}} RSD</b></h2>
+        </div>
       </div>
     </mat-tab>
     <mat-tab label="Dnevni pregled ">
@@ -28,7 +31,9 @@
           <mat-datepicker-toggle matSuffix [for]="rangePicker"></mat-datepicker-toggle>
           <mat-date-range-picker #rangePicker>
             <mat-date-range-picker-actions>
-              <button mat-button  style="width: 100%;" class="border-btn" (click)="getDate()" matDateRangePickerApply>Filtriraj</button>
+              <button mat-button style="width: 100%;" class="border-btn" (click)="getDate()" matDateRangePickerApply>
+                Filtriraj
+              </button>
             </mat-date-range-picker-actions>
           </mat-date-range-picker>
         </mat-form-field>

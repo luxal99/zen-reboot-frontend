@@ -75,7 +75,7 @@ export class AddShiftDialogComponent extends DefaultComponent<Shift> implements 
       Object.assign(staffDto, shift);
       staffDto.repeatCount = this.repeatForm.get(FormControlNames.REPEAT_COUNT_FORM_CONTROL)?.value;
       staffDto.repeatType = this.repeatForm.get(FormControlNames.REPEAT_TYPE)?.value;
-      super.otherPostSubscribe(this.shiftService.generateMultipleShifts(staffDto));
+      super.otherSubscribe(this.shiftService.generateMultipleShifts(staffDto));
     }
     if (this.data.id) {
       shift.id = this.data.id;

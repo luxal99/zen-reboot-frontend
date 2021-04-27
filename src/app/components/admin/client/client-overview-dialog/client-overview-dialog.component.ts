@@ -58,11 +58,12 @@ export class ClientOverviewDialogComponent implements OnInit {
         this.mobilePhone = this.data.person?.contacts?.find((contact) => contact.type === ContactTypeEnum.PHONE.toString()) || {};
         this.otherPhone = this.data.person?.contacts?.find((contact) => contact.type === ContactTypeEnum.OTHER.toString()) || {};
         this.email = this.data.person?.contacts?.find((contact) => contact.type === ContactTypeEnum.EMAIL.toString()) || {};
+        // @ts-ignore
         this.total += appointment.price;
 
-        if (appointment.appointmentStatus.value?.toUpperCase() === AppointmentStatuses.CANCELED) {
+        if (appointment.appointmentStatus?.value?.toUpperCase() === AppointmentStatuses.CANCELED) {
           this.numberOfCanceled += 1;
-        } else if (appointment.appointmentStatus.value?.toUpperCase() === AppointmentStatuses.COMPLETED) {
+        } else if (appointment.appointmentStatus?.value?.toUpperCase() === AppointmentStatuses.COMPLETED) {
           this.numberOfCompleted += 1;
         }
       });

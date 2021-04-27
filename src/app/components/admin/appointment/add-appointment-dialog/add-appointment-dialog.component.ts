@@ -67,7 +67,7 @@ export class AddAppointmentDialogComponent extends DefaultComponent<Appointment>
   });
 
   searchClientForm = new FormGroup({
-    searchClient: new FormControl('')
+    search: new FormControl('')
   });
 
 
@@ -78,6 +78,7 @@ export class AddAppointmentDialogComponent extends DefaultComponent<Appointment>
   startTimeInputConfig: FieldConfig = {name: FormControlNames.START_TIME_FORM_CONTROL, type: InputTypes.TIME};
   endTimeInputConfig: FieldConfig = {name: FormControlNames.END_TIME_FORM_CONTROL, type: InputTypes.TIME};
   searchInputConfig: FieldConfig = {name: FormControlNames.SEARCH_FORM_CONTROL, type: InputTypes.INPUT_TYPE_NAME};
+
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: AppointmentDTO, private appointmentService: AppointmentService,
               protected snackBar: MatSnackBar, private readonly changeDetectorRef: ChangeDetectorRef,
@@ -161,7 +162,7 @@ export class AddAppointmentDialogComponent extends DefaultComponent<Appointment>
       this.treatmentService.getTreatmentDurations(this.data.treatment?.treatmentId).subscribe((treatmentDurations) => {
         this.durationSelectConfig.options = treatmentDurations;
         this.treatmentDuration = treatmentDurations.find((treatmentDuration) =>
-          treatmentDuration.id === this.data.treatment.treatmentDurationId) || {};
+          treatmentDuration.id === this.data.treatment?.treatmentDurationId) || {};
         this.isDurationFCDisabled = false;
       });
     }
@@ -208,7 +209,7 @@ export class AddAppointmentDialogComponent extends DefaultComponent<Appointment>
     queryBuilder.startsWith('person.firstName', search).or()
       .startsWith('person.contacts.value', search);
     queryBuilder.criteriaList = queryBuilder.criteriaList.filter((searchCriteria) => searchCriteria.secondOperand !== '');
-    if (search.length > 3) {
+    if (search.length > 1) {
       this.clientService.getAllSearchByQueryParam(queryBuilder.buildUrlEncoded())
         .pipe()
         .subscribe((resp) => {
@@ -218,5 +219,9 @@ export class AddAppointmentDialogComponent extends DefaultComponent<Appointment>
     } else if (search.length === 0) {
       this.getClient();
     }
+  }
+
+  displayFn(staff: Staff): Staff | string {
+    return staff ? staff.person?.firstName + ' ' + staff.person?.lastName : '';
   }
 }

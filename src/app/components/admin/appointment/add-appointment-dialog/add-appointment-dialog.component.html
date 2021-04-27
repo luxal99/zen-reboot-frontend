@@ -27,19 +27,20 @@
         </mat-step>
         <app-form-input [config]="startTimeInputConfig" [group]="appointmentForm"></app-form-input>
         <mat-step label="Tretman">
-        <form [formGroup]="appointmentForm">
-          <mat-form-field appearance="outline">
-            <mat-label>Soba</mat-label>
-            <mat-select formControlName="room">
-              <mat-option>-- None --</mat-option>
-              <mat-optgroup *ngFor="let location of locationSelectConfig.options" [label]="location.name | capitalize">
-                <mat-option *ngFor="let room of location.rooms" [value]="room.id">
-                  {{room.name}}
-                </mat-option>
-              </mat-optgroup>
-            </mat-select>
-          </mat-form-field>
-        </form>
+          <form [formGroup]="appointmentForm">
+            <mat-form-field appearance="outline">
+              <mat-label>Soba</mat-label>
+              <mat-select formControlName="room">
+                <mat-option>-- None --</mat-option>
+                <mat-optgroup *ngFor="let location of locationSelectConfig.options"
+                              [label]="location.name | capitalize">
+                  <mat-option *ngFor="let room of location.rooms" [value]="room.id">
+                    {{room.name}}
+                  </mat-option>
+                </mat-optgroup>
+              </mat-select>
+            </mat-form-field>
+          </form>
           <app-form-select [model]="data ? treatment :null" bindValue="name"
                            [config]="treatmentSelectConfig"
                            (onChange)="onTreatmentSelect()"
@@ -57,24 +58,17 @@
           <form [formGroup]="appointmentForm">
             <mat-form-field appearance="outline">
               <mat-label>Zaposleni</mat-label>
-              <mat-select formControlName="staff" [compareWith]="compareObjects" [ngModel]="data? data.staff :null">
-                <form [formGroup]="searchForm">
-                  <div style="margin: 1em">
-                    <mat-form-field appearance="standard">
-                      <mat-label>Pronađi zaposlenog</mat-label>
-                      <input matInput formControlName="search" [(ngModel)]="searchText">
-                      <mat-icon matSuffix>search</mat-icon>
-                    </mat-form-field>
-                  </div>
-                </form>
-                <mat-option value="" selected>---</mat-option>
-                <mat-option *ngFor="let staff of listOfStaffs|staff:searchText" [value]="staff">
-                  <div class="inline">
-                    <div class="circle" [style.background-color]="staff.color"></div>
-                    {{staff.person?.firstName + ' ' + staff.person?.lastName}}
-                  </div>
+              <input type="text"
+                     placeholder="Pick one"
+                     aria-label="Number"
+                     matInput [(ngModel)]="searchText"
+                     formControlName="staff"
+                     [matAutocomplete]="auto">
+              <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+                <mat-option *ngFor="let staff of listOfStaffs | staff:searchText" [value]="staff">
+                  {{staff.person?.firstName}} {{staff.person?.lastName}}
                 </mat-option>
-              </mat-select>
+              </mat-autocomplete>
             </mat-form-field>
           </form>
         </mat-step>
