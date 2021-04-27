@@ -10,7 +10,7 @@ import * as moment from 'moment';
 import {AppointmentService} from '../../../../../service/appointment.service';
 import {Client} from '../../../../../models/client';
 import {CriteriaBuilder} from '../../../../../util/criteria-builder';
-import {FormControlNames, InputTypes} from '../../../../../const/const';
+import {FormControlNames, InputTypes, Message} from '../../../../../const/const';
 import {ClientService} from '../../../../../service/client.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ContactTypeEnum} from '../../../../../enums/ContactTypeEnum';
@@ -21,6 +21,7 @@ import {ClientOverviewDialogComponent} from '../../../client/client-overview-dia
 import {Appointment} from '../../../../../models/appointment';
 import {InvoiceStatus} from '../../../../../models/invoice-status';
 import {LocationService} from '../../../../../service/location.service';
+import {SnackBarUtil} from '../../../../../util/snack-bar-uitl';
 
 @Component({
   selector: 'app-edit-invoice-dialog',
@@ -40,8 +41,6 @@ export class EditInvoiceDialogComponent extends DefaultComponent<Invoice> implem
   selectedBilledClient: Client = {};
 
   invoiceForm = new FormGroup({
-    client: new FormControl('', Validators.required),
-    billedClient: new FormControl('', Validators.required),
     invoiceStatus: new FormControl('', Validators.required),
     location: new FormControl('', Validators.required)
   });
@@ -64,8 +63,8 @@ export class EditInvoiceDialogComponent extends DefaultComponent<Invoice> implem
     super(invoiceService, snackBar);
   }
 
-  ngOnInit(): void {
-    this.findInvoice();
+  async ngOnInit(): Promise<void> {
+    await this.findInvoice();
     this.initSelect();
   }
 
@@ -74,12 +73,10 @@ export class EditInvoiceDialogComponent extends DefaultComponent<Invoice> implem
     super.initSelectConfig(this.locationService, this.locationSelectConfig);
   }
 
-  findInvoice(): void {
-    this.appointmentService.findInvoiceForAppointment(this.data.id).subscribe((invoice) => {
-      this.invoice = invoice;
-      this.invoice.date = moment(invoice.date).format('DD MMMM YYYY');
-      this.spinnerService.hide(this.spinner);
-    });
+  async findInvoice(): Promise<void> {
+    this.invoice = await this.appointmentService.findInvoiceForAppointment(this.data.id).toPromise();
+    this.invoice.date = moment(this.invoice.date).format('DD MMMM YYYY');
+    this.spinnerService.hide(this.spinner);
   }
 
   searchBilledClient(): void {
@@ -149,6 +146,7 @@ export class EditInvoiceDialogComponent extends DefaultComponent<Invoice> implem
 
   selectAppointment(appointment: Appointment): void {
     if (this.listOfSelectedAppointments.indexOf(appointment) === -1) {
+      console.log('Ovde');
       this.listOfSelectedAppointments.push(appointment);
     }
   }
@@ -160,5 +158,29 @@ export class EditInvoiceDialogComponent extends DefaultComponent<Invoice> implem
       height: '100vh',
       data
     }, this.dialog);
+  }
+
+  removeAppointment(appointment: Appointment): void {
+    this.listOfSelectedAppointments.splice(this.listOfSelectedAppointments.indexOf(appointment), 1);
+  }
+
+  save(): void {
+    const invoice: Invoice = {
+      id: this.invoice.id,
+      client: {id: this.selectedClient.id},
+      billedClient: {id: this.selectedBilledClient.id},
+      invoiceStatus: this.invoiceForm.get(FormControlNames.INVOICE_STATUS_FORM_CONTROL)?.value,
+      // @ts-ignore
+      location: {id: this.invoiceForm.get(FormControlNames.LOCATION_FORM_CONTROL)?.value.id}
+    };
+    this.invoiceService.update(invoice).subscribe(() => {
+      for (const appointment of this.listOfSelectedAppointments) {
+        this.invoiceService.addAppointmentToInvoice(invoice.id, appointment).subscribe(() => {
+          SnackBarUtil.openSnackBar(this.snackBar, Message.SUCCESS);
+        }, () => {
+          SnackBarUtil.openSnackBar(this.snackBar, Message.ERR);
+        });
+      }
+    });
   }
 }

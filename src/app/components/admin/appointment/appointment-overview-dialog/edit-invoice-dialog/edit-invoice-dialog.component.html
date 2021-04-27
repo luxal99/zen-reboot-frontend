@@ -60,7 +60,7 @@
 
       <div class="inline client-div" *ngIf="selectedClient.id"
            (click)="openClientOverviewDialog(selectedClient)">
-        <div class="black-circle text-center"
+        <div class="gold-circle text-center"
              style=background-color:#c2c2c2>{{selectedClient.person?.firstName.slice(0, 1)}}</div>
         <div class="right-col">
           <h3><b>{{selectedClient.person?.firstName + ' ' + selectedClient.person?.lastName}}</b></h3>
@@ -78,25 +78,25 @@
       <app-form-input (change)="searchAppointment()" icon="search" label="Pretraži" [group]="searchForm"
                       [config]="searchClientInputConfig"></app-form-input>
       <h1 class="light-h1" *ngIf="listOfAppointments.length===0">Pronađi dodatni tretman...</h1>
-      <div class="row">
-        <div class="col-12" (click)="selectClient(appointment)" *ngFor="let appointment of listOfAppointments">
-          <div class="row">
-            <div class="col-sm">
-              <h3><b>{{appointment.date}}</b></h3>
-            </div>
-            <div class="col-sm">
-              <div class="inline">
-                <h3 class="start-h3">{{appointment.startTime}}</h3>
-                <h3 class="end-h3">{{appointment.endTime}}</h3>
-              </div>
+      <div *ngFor="let appointment of listOfAppointments">
+        <div class="row">
+          <div class="col-sm">
+            <h3><b>{{appointment.date}}</b></h3>
+          </div>
+          <div class="col-sm">
+            <div class="inline" style="width: 100%;">
+              <h3 class="start-h3">{{appointment.startTime}}</h3>
+              <h3 class="end-h3">{{appointment.endTime}}</h3>
             </div>
           </div>
-          <h2 style="margin-top: 1em">{{appointment.treatment.name}}</h2>
-          <h3><b>{{appointment.client.person?.firstName + ' ' + appointment.client.person?.lastName}}</b></h3>
-          <h4>{{appointment.client.person.contacts|findClientPhoneNumber}}</h4>
-          <div class="text-right" (click)="selectAppointment(appointment)">
-            <button class="white-btn" mat-button><i class="fa fa-plus"></i></button>
-          </div>
+        </div>
+        <h2 style="margin-top: 1em">{{appointment.treatment.name}}</h2>
+        <h3><b>{{appointment.client.person?.firstName + ' ' + appointment.client.person?.lastName}}</b></h3>
+        <h4>{{appointment.client.person.contacts|findClientPhoneNumber}}</h4>
+        <div class="text-right">
+          <button class="white-btn" (click)="selectAppointment(appointment)" mat-button>
+            +
+          </button>
         </div>
       </div>
       <button class="white-btn" mat-button matStepperPrevious>Nazad</button>
@@ -109,6 +109,52 @@
                        label="Lokacija"></app-form-select>
       <button class="white-btn" mat-button matStepperPrevious>Nazad</button>
       <button class="default-btn" mat-button matStepperNext>Napred</button>
+    </mat-step>
+    <mat-step label="Pregled">
+      <div class="inline client-div" *ngIf="selectedBilledClient.id"
+           (click)="openClientOverviewDialog(selectedBilledClient)">
+        <div class="black-circle text-center"
+             style=background-color:#c2c2c2>{{selectedBilledClient.person?.firstName.slice(0, 1)}}</div>
+        <div class="right-col">
+          <h3><b>{{selectedBilledClient.person?.firstName + ' ' + selectedBilledClient.person?.lastName}}</b></h3>
+          <h4>{{selectedBilledClient.person?.contacts|findClientPhoneNumber}}</h4>
+        </div>
+      </div>
+      <div class="inline client-div" *ngIf="selectedClient.id"
+           (click)="openClientOverviewDialog(selectedClient)">
+        <div class="gold-circle text-center"
+             style=background-color:#c2c2c2>{{selectedClient.person?.firstName.slice(0, 1)}}</div>
+        <div class="right-col">
+          <h3><b>{{selectedClient.person?.firstName + ' ' + selectedClient.person?.lastName}}</b></h3>
+          <h4>{{selectedClient.person?.contacts|findClientPhoneNumber}}</h4>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12" *ngFor="let appointment of listOfSelectedAppointments">
+          <div class="row">
+            <div class="col-sm">
+              <h3><b>{{appointment.date}}</b></h3>
+            </div>
+            <div class="col-sm">
+              <div class="inline" style="width: 100%">
+                <h3 class="start-h3">{{appointment.startTime}}</h3>
+                <h3 class="end-h3">{{appointment.endTime}}</h3>
+              </div>
+            </div>
+          </div>
+          <h2 style="margin-top: 1em">{{appointment.treatment.name}}</h2>
+          <h3><b>{{appointment.client.person?.firstName + ' ' + appointment.client.person?.lastName}}</b></h3>
+          <h4>{{appointment.client.person.contacts|findClientPhoneNumber}}</h4>
+          <div class="text-right" (click)="removeAppointment(appointment)">
+            <button class="white-btn" mat-button><i class="fa fa-minus"></i></button>
+          </div>
+        </div>
+      </div>
+
+      <button class="white-btn" mat-button matStepperPrevious>Nazad</button>
+      <button class="default-btn" mat-button (click)="save()"
+              [disabled]="!invoiceForm.valid ">Sačuvaj
+      </button>
     </mat-step>
   </mat-horizontal-stepper>
 </div>

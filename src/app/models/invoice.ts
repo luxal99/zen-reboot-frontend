@@ -7,7 +7,9 @@ export interface Invoice {
   billedClient?: Client;
   client?: Client;
   date?: any;
+  id?: number
   gross?: number;
   invoiceStatus?: InvoiceStatus;
   tips?: number;
+  location?: Location
 }

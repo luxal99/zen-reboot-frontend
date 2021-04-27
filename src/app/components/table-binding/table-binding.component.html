@@ -1,0 +1,36 @@
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  <ng-container matColumnDef="location">
+    <th mat-header-cell *matHeaderCellDef> Lokacija</th>
+    <td mat-cell *matCellDef="let element"> {{element.location.name | capitalize}} </td>
+  </ng-container>
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="client">
+    <th mat-header-cell *matHeaderCellDef> Klijent</th>
+    <td mat-cell
+        *matCellDef="let element"> {{element.client?.person?.firstName}} {{element.client.person?.lastName}} </td>
+  </ng-container>
+
+  <!-- Weight Column -->
+  <ng-container matColumnDef="gross">
+    <th mat-header-cell *matHeaderCellDef> Iznos</th>
+    <td mat-cell *matCellDef="let element"> {{element.gross}} </td>
+  </ng-container>
+
+  <!-- Symbol Column -->
+  <ng-container matColumnDef="billedClient">
+    <th mat-header-cell *matHeaderCellDef> Platilac</th>
+    <td mat-cell
+        *matCellDef="let element"> {{element.billedClient.person?.firstName}} {{element.billedClient.person?.lastName}} </td>
+  </ng-container>
+  <ng-container matColumnDef="option">
+    <th mat-header-cell *matHeaderCellDef> </th>
+    <td mat-cell
+        *matCellDef="let element">
+      <button mat-button >Pregled</button>
+    </td>
+  </ng-container>
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+

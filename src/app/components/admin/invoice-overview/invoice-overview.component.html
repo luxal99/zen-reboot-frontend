@@ -1,38 +1,43 @@
 <app-header header="Fakture"></app-header>
 <div class="component-content">
-  <div class="row">
-    <div class="col-sm-10">
-      <div class="inline">
-        <form [formGroup]="invoiceFilterForm">
-          <mat-form-field appearance="outline" class="example-form-field">
-            <mat-label>Enter a date range</mat-label>
-            <mat-date-range-input [rangePicker]="rangePicker">
-              <input matStartDate placeholder="Start date" formControlName="startDate">
-              <input matEndDate placeholder="End date" formControlName="endDate">
-            </mat-date-range-input>
-            <mat-datepicker-toggle matSuffix [for]="rangePicker"></mat-datepicker-toggle>
-            <mat-date-range-picker #rangePicker>
-              <mat-date-range-picker-actions>
-                <button mat-button class="border-btn" (click)="getDate()" matDateRangePickerApply>Filtriraj</button>
-              </mat-date-range-picker-actions>
-            </mat-date-range-picker>
-          </mat-form-field>
-
-        </form>
-        <button mat-icon-button [matMenuTriggerFor]="menu">
-          <mat-icon>expand_more</mat-icon>
-        </button>
-        <mat-menu #menu="matMenu">
-          <button mat-menu-item>Nedeljni pregled</button>
-          <button mat-menu-item>Mesečni</button>
-        </mat-menu>
-      </div>
+  <div class=" text-right">
+    <div class="text-center">
+      <h2><b>{{currentDate.format('DD MMMM YYYY')}}</b></h2>
     </div>
-    <div class="col-sm text-right">
-      <div class="text-center">
-        <h2>{{currentDate.format('DD MMMM YYYY')}}</h2>
-      </div>
 
-    </div>
   </div>
+  <mat-tab-group dynamicHeight>
+    <mat-tab label="Nedeljni pregled ">
+      <div class="table-wrapper">
+        <app-table-binding [dataSource]="listOfCurrentWeekInvoices"></app-table-binding>
+      </div>
+    </mat-tab>
+    <mat-tab label="Dnevni pregled ">
+      <div class="table-wrapper">
+        <app-table-binding [dataSource]="listOfCurrentDayInvoices"></app-table-binding>
+      </div>
+    </mat-tab>
+    <mat-tab label="Prilagođeno ">
+      <form style="margin-top: 2em" [formGroup]="invoiceFilterForm">
+        <mat-form-field appearance="outline" class="example-form-field">
+          <mat-label>Željeni datumi</mat-label>
+          <mat-date-range-input [rangePicker]="rangePicker">
+            <input matStartDate placeholder="Start date" formControlName="startDate">
+            <input matEndDate placeholder="End date" formControlName="endDate">
+          </mat-date-range-input>
+          <mat-datepicker-toggle matSuffix [for]="rangePicker"></mat-datepicker-toggle>
+          <mat-date-range-picker #rangePicker>
+            <mat-date-range-picker-actions>
+              <button mat-button  style="width: 100%;" class="border-btn" (click)="getDate()" matDateRangePickerApply>Filtriraj</button>
+            </mat-date-range-picker-actions>
+          </mat-date-range-picker>
+        </mat-form-field>
+
+      </form>
+      <div class="table-wrapper">
+        <app-table-binding [dataSource]="listOfCurrentWeekInvoices"></app-table-binding>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+  <mat-spinner #spinner diameter="50"></mat-spinner>
 </div>
