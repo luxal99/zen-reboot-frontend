@@ -34,7 +34,7 @@ export class EditInvoiceDialogComponent extends DefaultComponent<Invoice> implem
 
   invoice: Invoice = {};
 
-  listOfSelectedAppointments: Appointment[] = [this.data];
+  listOfSelectedAppointments: AppointmentDTO[] = [this.data];
   listOfClients: Client[] = [];
   listOfAppointments: Appointment[] = [];
   listOfInvoiceStatuses: InvoiceStatus[] = [];
@@ -78,6 +78,8 @@ export class EditInvoiceDialogComponent extends DefaultComponent<Invoice> implem
 
   async findInvoice(): Promise<void> {
     this.invoice = await this.appointmentService.findInvoiceForAppointment(this.data.id).toPromise();
+
+    console.log(this.invoice);
     this.invoice.date = moment(this.invoice.date).format('DD MMMM YYYY');
     this.spinnerService.hide(this.spinner);
   }
@@ -183,14 +185,24 @@ export class EditInvoiceDialogComponent extends DefaultComponent<Invoice> implem
 
     invoice.appointments = invoice.appointments?.map((appointment) => ({id: appointment.id, price: appointment.price}));
 
-    super.otherSubscribe(this.invoiceService.update(invoice));
+    super.subscribeUpdate(invoice);
 
     const completeStatus: AppointmentStatus[] =
       await this.appointmentStatusService.getAll(new CriteriaBuilder().eq('value', 'COMPLETED').buildUrlEncoded()).toPromise();
-    this.listOfSelectedAppointments.forEach((appointment) => {
-      appointment.appointmentStatus = completeStatus[0];
+    this.listOfSelectedAppointments.forEach((appointmentDto) => {
+      const appointment: Appointment = {
+        id: appointmentDto.id,
+        staff: {id: appointmentDto.staff?.id},
+        client: {id: appointmentDto.client?.id},
+        room: {id: appointmentDto.room?.id},
+        date: moment(appointmentDto.date).format('YYYY-MM-DD'),
+        appointmentStatus: {id: completeStatus[0].id},
+        treatmentDuration: {id: appointmentDto.treatment?.treatmentDurationId, price: appointmentDto.treatment?.price},
+        startTime: appointmentDto.startTime,
+        endTime: appointmentDto.endTime
+      };
+      delete appointment.createdDate;
       super.otherSubscribe(this.appointmentService.update(appointment));
     });
-    super.otherSubscribe(this.appointmentService.update({}));
   }
 }
