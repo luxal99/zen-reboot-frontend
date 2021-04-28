@@ -1,73 +1,76 @@
-<div class="text-right">
-  <div class="text-right">
-    <button mat-dialog-close mat-icon-button>
-      <mat-icon>close</mat-icon>
-    </button>
-  </div>
-  <h1 class="title-h1">Dodavanje zaposlenog</h1>
-  <div class="content">
-    <div class="container">
-      <div class="header">
-        <h2>Osnovne informacije</h2>
-      </div>
-      <div class="row">
-        <div class="col-sm">
-          <app-form-input [group]="staffForm" [model]="data ? data.person?.firstName:null"
-                          [config]="firstNameInputConfig"
-                          label="Ime"></app-form-input>
+<div class="dialog">
+  <div class="">
+    <div class="text-right">
+      <button mat-dialog-close mat-icon-button>
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <h1 class="title-h1">Dodavanje zaposlenog</h1>
+    <div class="content">
+      <div class="container">
+        <div class="header">
+          <h2>Osnovne informacije</h2>
         </div>
-        <div class="col-sm">
-
-          <app-form-input [group]="staffForm" [model]="data ? data.person?.lastName:null"
-                          [config]="lastNameInputConfig"
-                          label="Prezime"></app-form-input>
-        </div>
-      </div>
-      <form [formGroup]="staffForm">
-        <div class="inline">
-          <div class="left column">
-            <div class="inline">
-              <mat-form-field appearance="outline" style="width: 25%;margin-left: 1em">
-                <mat-label>Pozivni broj</mat-label>
-                <mat-select [ngModel]="telephoneValue ? telephoneValue.prefix : ''" formControlName="mobilePhonePrefix">
-                  <mat-option [value]="country.dialCode" *ngFor="let country of listOfCountries">
-                    {{country.dialCode + ' ' + country.name }}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-              <mat-form-field appearance="outline" style="width: 75%;">
-                <mat-label>Kontakt telefon</mat-label>
-                <input [ngModel]="telephoneValue ? telephoneValue.value:''" matInput type="text"
-                       placeholder="69 021 1312"
-                       formControlName="mobilePhone">
-              </mat-form-field>
-            </div>
+        <div class="row">
+          <div class="col-sm">
+            <app-form-input [group]="staffForm" [model]="data ? data.person?.firstName:null"
+                            [config]="firstNameInputConfig"
+                            label="Ime"></app-form-input>
           </div>
-          <div class="right column">
-            <div class="" style="margin-right: 1em">
-              <app-form-input [config]="emailInputConfig" [group]="staffForm" [model]="data ? emailValue.value : ''"
-                              label="Email"></app-form-input>
-            </div>
+          <div class="col-sm">
+
+            <app-form-input [group]="staffForm" [model]="data ? data.person?.lastName:null"
+                            [config]="lastNameInputConfig"
+                            label="Prezime"></app-form-input>
           </div>
         </div>
-      </form>
-      <div class="header">
-        <h2>Boja</h2>
+        <form [formGroup]="staffForm">
+          <div class="inline">
+            <div class="left column">
+              <div class="inline">
+                <mat-form-field appearance="outline" style="width: 25%;margin-left: 1em">
+                  <mat-label>Pozivni broj</mat-label>
+                  <mat-select [ngModel]="telephoneValue ? telephoneValue.prefix : ''" formControlName="mobilePhonePrefix">
+                    <mat-option [value]="country.dialCode" *ngFor="let country of listOfCountries">
+                      {{country.dialCode + ' ' + country.name }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <mat-form-field appearance="outline" style="width: 75%;">
+                  <mat-label>Kontakt telefon</mat-label>
+                  <input [ngModel]="telephoneValue ? telephoneValue.value:''" matInput type="text"
+                         placeholder="69 021 1312"
+                         formControlName="mobilePhone">
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="right column">
+              <div class="" style="margin-right: 1em">
+                <app-form-input [config]="emailInputConfig" [group]="staffForm" [model]="data ? emailValue.value : ''"
+                                label="Email"></app-form-input>
+              </div>
+            </div>
+          </div>
+        </form>
+        <div class="header">
+          <h2>Boja</h2>
+        </div>
+        <form [formGroup]="staffForm">
+          <mat-form-field style="margin-left: 1em" appearance="outline">
+            <mat-label>Boja</mat-label>
+            <input matInput formControlName="color" [ngModel]="data ?data.color :''" [ngxMatColorPicker]="picker">
+            <ngx-mat-color-toggle matSuffix [for]="picker"></ngx-mat-color-toggle>
+            <ngx-mat-color-picker #picker></ngx-mat-color-picker>
+          </mat-form-field>
+        </form>
       </div>
-      <form [formGroup]="staffForm">
-        <mat-form-field style="margin-left: 1em" appearance="outline">
-          <mat-label>Boja</mat-label>
-          <input matInput formControlName="color" [ngModel]="data ?data.color :''" [ngxMatColorPicker]="picker">
-          <ngx-mat-color-toggle matSuffix [for]="picker"></ngx-mat-color-toggle>
-          <ngx-mat-color-picker #picker></ngx-mat-color-picker>
-        </mat-form-field>
-      </form>
-    </div>
-    <div>
-      <button class="default-btn" mat-button (click)="save()">Sačuvaj</button>
+      <div>
+        <button class="default-btn" mat-button (click)="save()">Sačuvaj</button>
+      </div>
+
+      <mat-spinner #spinner diameter="50"></mat-spinner>
     </div>
 
-    <mat-spinner #spinner diameter="50"></mat-spinner>
   </div>
 
 </div>

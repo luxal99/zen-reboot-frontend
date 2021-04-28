@@ -21,7 +21,6 @@ import {ClientOverviewDialogComponent} from '../../../client/client-overview-dia
 import {Appointment} from '../../../../../models/appointment';
 import {InvoiceStatus} from '../../../../../models/invoice-status';
 import {LocationService} from '../../../../../service/location.service';
-import {SnackBarUtil} from '../../../../../util/snack-bar-uitl';
 import {AppointmentStatusService} from '../../../../../service/appointment-status.service';
 import {AppointmentStatus} from '../../../../../models/appointment-status';
 
