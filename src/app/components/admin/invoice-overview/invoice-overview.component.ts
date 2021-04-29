@@ -6,6 +6,7 @@ import {CriteriaBuilder} from '../../../util/criteria-builder';
 import {Invoice} from '../../../models/invoice';
 import {DefaultComponent} from '../../../util/default-component';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {DateFilter} from '../../../models/date-filter';
 
 @Component({
   selector: 'app-invoice-overview',
@@ -16,7 +17,7 @@ export class InvoiceOverviewComponent extends DefaultComponent<Invoice> implemen
 
   listOfCurrentWeekInvoices: Invoice[] = [];
   listOfCurrentDayInvoices: Invoice[] = [];
-
+  listOfFilteredInvoices: Invoice[] = [];
 
   startDate: moment.Moment = moment().startOf('isoWeek');
   endDate: moment.Moment = moment().endOf('isoWeek');
@@ -55,8 +56,20 @@ export class InvoiceOverviewComponent extends DefaultComponent<Invoice> implemen
     });
   }
 
-  getDate(): void {
+  getDateFromRange(): void {
+    const dateFilter: DateFilter = this.invoiceFilterForm.getRawValue();
+    dateFilter.startDate = new Date(dateFilter.startDate).valueOf();
+    dateFilter.endDate = new Date(dateFilter.endDate).valueOf();
+    const queryBuilder = new CriteriaBuilder();
 
+    queryBuilder.gt('date', new Date(dateFilter.startDate).valueOf())
+      .or().eq('date', dateFilter.startDate)
+      .and()
+      .lt('date', dateFilter.endDate).or()
+      .eq('date', dateFilter.endDate);
+    this.invoiceService.getAll(queryBuilder.buildUrlEncoded()).subscribe((resp) => {
+      this.listOfFilteredInvoices = resp;
+    });
   }
 
 }

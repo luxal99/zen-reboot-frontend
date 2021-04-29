@@ -42,6 +42,8 @@ export class FormControlNames {
   static APPOINTMENT_STATUS_FORM_CONTROL = 'appointmentStatus';
   static ROOM_FORM_CONTROL = 'room';
   static INVOICE_STATUS_FORM_CONTROL = 'invoiceStatus';
+  static START_DATE_FORM_CONTROL = 'startDate';
+  static END_DATE_FORM_CONTROL = 'endDate';
 }
 
 export class InputTypes {

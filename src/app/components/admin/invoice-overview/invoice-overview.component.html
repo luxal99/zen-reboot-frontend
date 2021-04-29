@@ -31,7 +31,8 @@
           <mat-datepicker-toggle matSuffix [for]="rangePicker"></mat-datepicker-toggle>
           <mat-date-range-picker #rangePicker>
             <mat-date-range-picker-actions>
-              <button mat-button style="width: 100%;" class="border-btn" (click)="getDate()" matDateRangePickerApply>
+              <button mat-button style="width: 100%;" class="border-btn" (click)="getDateFromRange()"
+                      matDateRangePickerApply>
                 Filtriraj
               </button>
             </mat-date-range-picker-actions>
@@ -40,7 +41,7 @@
 
       </form>
       <div class="table-wrapper">
-        <app-table-binding [dataSource]="listOfCurrentWeekInvoices"></app-table-binding>
+        <app-table-binding [dataSource]="listOfFilteredInvoices"></app-table-binding>
       </div>
     </mat-tab>
   </mat-tab-group>
