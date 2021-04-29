@@ -2,7 +2,6 @@ import {
   AfterViewInit,
   Component,
   ComponentFactoryResolver,
-  ComponentRef,
   ElementRef,
   OnInit,
   ViewChild,

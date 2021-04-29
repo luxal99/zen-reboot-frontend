@@ -169,6 +169,7 @@ export class AddAppointmentDialogComponent extends DefaultComponent<Appointment>
   }
 
   async save(): Promise<void> {
+    this.spinnerService.show(this.spinner);
     const appointment: Appointment = this.appointmentForm.getRawValue();
     appointment.client = {id: this.selectedClient.id};
     appointment.staff = {id: appointment.staff?.id};
@@ -183,9 +184,11 @@ export class AddAppointmentDialogComponent extends DefaultComponent<Appointment>
     if (this.data.id) {
       appointment.id = this.data.id;
       super.subscribeUpdate(appointment);
+      this.spinnerService.hide(this.spinner);
 
     } else {
       this.subscribeSave(appointment);
+      this.spinnerService.hide(this.spinner);
     }
   }
 

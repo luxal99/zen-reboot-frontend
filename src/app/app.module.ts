@@ -48,9 +48,9 @@ import {CheckShiftPipe} from './pipes/chech-shift.pipe';
 import {EmptyResultComponent} from './components/empty-result/empty-result.component';
 import {InvoiceOverviewComponent} from './components/admin/invoice-overview/invoice-overview.component';
 import {EditInvoiceDialogComponent} from './components/admin/appointment/appointment-overview-dialog/edit-invoice-dialog/edit-invoice-dialog.component';
-import { FindClientPhoneNumberPipe } from './pipes/find-client-phone-number.pipe';
-import { TableBindingComponent } from './components/table-binding/table-binding.component';
-import { SumGrossPipe } from './pipes/sum-gross.pipe';
+import {FindClientPhoneNumberPipe} from './pipes/find-client-phone-number.pipe';
+import {InvoiceTableBindingComponent} from './components/table-binding/invoice-table-binding.component';
+import {SumGrossPipe} from './pipes/sum-gross.pipe';
 
 @NgModule({
   declarations: [
@@ -93,7 +93,7 @@ import { SumGrossPipe } from './pipes/sum-gross.pipe';
     InvoiceOverviewComponent,
     EditInvoiceDialogComponent,
     FindClientPhoneNumberPipe,
-    TableBindingComponent,
+    InvoiceTableBindingComponent,
     SumGrossPipe
   ],
   imports: [
