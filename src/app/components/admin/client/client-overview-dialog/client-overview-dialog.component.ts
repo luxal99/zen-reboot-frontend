@@ -9,6 +9,10 @@ import * as moment from 'moment';
 import {AppointmentStatuses} from '../../../../const/const';
 import {DialogUtil} from '../../../../util/dialog-util';
 import {AddAppointmentDialogComponent} from '../../appointment/add-appointment-dialog/add-appointment-dialog.component';
+import {InvoiceService} from '../../../../service/invoice.service';
+import {CriteriaBuilder} from '../../../../util/criteria-builder';
+import {Invoice} from '../../../../models/invoice';
+import {map} from 'rxjs/operators';
 
 @Component({
   selector: 'app-client-overview-dialog',
@@ -24,18 +28,20 @@ export class ClientOverviewDialogComponent implements OnInit {
   numberOfCompleted = 0;
   numberOfCanceled = 0;
   listOfAppointments: AppointmentDTO [] = [];
+  listOfInvoices: Invoice[] = [];
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: Client, public clientService: ClientService, private dialog: MatDialog) {
-    // @ts-ignore
+  constructor(@Inject(MAT_DIALOG_DATA) public data: Client,
+              private invoiceService: InvoiceService,
+              public clientService: ClientService, private dialog: MatDialog) {
   }
 
   ngOnInit(): void {
     this.initDefault();
     this.getAppointments();
+    this.getInvoices();
   }
 
   initDefault(): void {
-
   }
 
   openAddAppointmentDialog(): void {
@@ -68,5 +74,13 @@ export class ClientOverviewDialogComponent implements OnInit {
         }
       });
     });
+  }
+
+  getInvoices(): void {
+    this.invoiceService.getAll(new CriteriaBuilder().eq('client.id', JSON.stringify(this.data.id)).buildUrlEncoded())
+      .pipe(map(value => value.filter((invoice) => invoice.date = moment(invoice.date))))
+      .subscribe((resp) => {
+        this.listOfInvoices = resp;
+      });
   }
 }

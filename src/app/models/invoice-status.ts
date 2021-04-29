@@ -1,3 +1,4 @@
-export interface InvoiceStatus{
-
+export interface InvoiceStatus {
+  id?: number;
+  name?: number;
 }

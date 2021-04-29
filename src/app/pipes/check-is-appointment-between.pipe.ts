@@ -11,16 +11,13 @@ export class CheckIsAppointmentBetweenPipe implements PipeTransform {
   transform(roomDto: StaffDto, time: string): AppointmentDTO {
     const currentTime = moment(time, 'HH:mm:ss');
     // @ts-ignore
-    const appointmentDto: AppointmentDTO = roomDto.appointments.find((appointment) => {
+    return roomDto.appointments.find((appointment) => {
       if (currentTime.isBetween(moment(appointment.startTime, 'HH:mm:ss'), moment(appointment.endTime, 'HH:mm:ss')) ||
         currentTime.isSame(moment(appointment.startTime, 'HH:mm:ss')) ||
-        currentTime.isSame(moment(appointment.endTime, 'HH:mm:ss')) && appointmentDto.appointmentStatus?.value === 'NEW') {
+        currentTime.isSame(moment(appointment.endTime, 'HH:mm:ss')) && appointment.appointmentStatus?.value === 'NEW') {
         return appointment;
       }
-    });
-
-    console.log(appointmentDto);
-    return appointmentDto;
+    }) || null;
   }
 
 }
