@@ -43,14 +43,14 @@ export class InvoiceOverviewComponent extends DefaultComponent<Invoice> implemen
     queryBuilder.gt('date', new Date(this.startDate).valueOf()).and()
       // @ts-ignore
       .lt('date', new Date(this.endDate).valueOf());
-    this.invoiceService.getAll(queryBuilder.buildUrlEncoded()).subscribe((resp) => {
+    this.invoiceService.getInvoicesDtos(queryBuilder.buildUrlEncoded()).subscribe((resp) => {
       this.listOfCurrentWeekInvoices = resp;
       this.spinnerService.hide(this.spinner);
     });
   }
 
   getCurrentDayOverview(): void {
-    this.invoiceService.getAll(new CriteriaBuilder().eq('date',
+    this.invoiceService.getInvoicesDtos(new CriteriaBuilder().eq('date',
       new Date(this.currentDate.format('YYYY-MM-DD')).valueOf()).buildUrlEncoded()).subscribe((resp) => {
       this.listOfCurrentDayInvoices = resp;
     });
@@ -67,7 +67,7 @@ export class InvoiceOverviewComponent extends DefaultComponent<Invoice> implemen
       .and()
       .lt('date', dateFilter.endDate).or()
       .eq('date', dateFilter.endDate);
-    this.invoiceService.getAll(queryBuilder.buildUrlEncoded()).subscribe((resp) => {
+    this.invoiceService.getInvoicesDtos(queryBuilder.buildUrlEncoded()).subscribe((resp) => {
       this.listOfFilteredInvoices = resp;
     });
   }

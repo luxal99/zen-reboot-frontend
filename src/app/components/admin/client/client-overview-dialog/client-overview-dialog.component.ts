@@ -77,7 +77,7 @@ export class ClientOverviewDialogComponent implements OnInit {
   }
 
   getInvoices(): void {
-    this.invoiceService.getAll(new CriteriaBuilder().eq('client.id', JSON.stringify(this.data.id)).buildUrlEncoded())
+    this.invoiceService.getInvoicesDtos(new CriteriaBuilder().eq('client.id', JSON.stringify(this.data.id)).buildUrlEncoded())
       .pipe(map(value => value.filter((invoice) => invoice.date = moment(invoice.date))))
       .subscribe((resp) => {
         this.listOfInvoices = resp;

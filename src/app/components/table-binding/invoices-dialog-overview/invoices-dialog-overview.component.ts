@@ -16,7 +16,10 @@ export class InvoicesDialogOverviewComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.data);
+    this.formatAppointmentDate();
   }
 
+  formatAppointmentDate(): void {
+    this.data.appointments?.forEach((appointment) => appointment.date = moment(appointment.date).format('DD MMMM YYYY'));
+  }
 }

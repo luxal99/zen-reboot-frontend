@@ -15,4 +15,8 @@ export class InvoiceService extends GenericService<Invoice> {
     return this.http.post<Invoice>(RestRoutesConst.API + this.route + '/' + invoiceId +
       RestRoutesConst.APPOINTMENT, appointment, {responseType: 'json'});
   }
+
+  getInvoicesDtos(q?: string): Observable<Invoice[]> {
+    return this.http.get<Invoice[]>(RestRoutesConst.API + this.route + '/dtos' + (q ? '?q=' + q : ''), {responseType: 'json'});
+  }
 }
