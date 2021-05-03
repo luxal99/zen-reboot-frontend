@@ -14,4 +14,8 @@ export class AppointmentService extends GenericService<Appointment> {
   findInvoiceForAppointment(idAppointment: any): Observable<Invoice> {
     return this.http.get<Invoice>(RestRoutesConst.API + this.route + '/' + idAppointment + '/' + RestRoutesConst.INVOICE, {responseType: 'json'});
   }
+
+  setCompleteStatus(id: any): Observable<Appointment> {
+    return this.http.put<Appointment>(RestRoutesConst.API + this.route + '/' + id + '/complete', {}, {responseType: 'json'});
+  }
 }

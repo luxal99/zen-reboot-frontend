@@ -23,6 +23,8 @@ import {InvoiceStatus} from '../../../../../models/invoice-status';
 import {LocationService} from '../../../../../service/location.service';
 import {AppointmentStatusService} from '../../../../../service/appointment-status.service';
 import {AppointmentStatus} from '../../../../../models/appointment-status';
+import {map} from 'rxjs/operators';
+import {SnackBarUtil} from '../../../../../util/snack-bar-uitl';
 
 @Component({
   selector: 'app-edit-invoice-dialog',
@@ -127,7 +129,6 @@ export class EditInvoiceDialogComponent extends DefaultComponent<Invoice> implem
   }
 
   selectBilledClient(client: Client): void {
-    console.log(client);
     this.selectedBilledClient = client;
   }
 
@@ -139,10 +140,14 @@ export class EditInvoiceDialogComponent extends DefaultComponent<Invoice> implem
     queryBuilder.criteriaList = queryBuilder.criteriaList.filter((searchCriteria) => searchCriteria.secondOperand !== '');
 
     if (search.length > 2) {
-      this.appointmentService.getAll(queryBuilder.buildUrlEncoded()).subscribe((resp) => {
-        this.listOfAppointments = resp;
-        this.listOfAppointments.filter((app) => app.date = moment(app.date).format('DD MMMM YYYY'));
-      });
+      this.appointmentService.getAll(queryBuilder.buildUrlEncoded())
+        .pipe(map(value => {
+          return value.filter((appointment) => appointment.appointmentStatus?.value === 'NEW');
+        }))
+        .subscribe((resp) => {
+          this.listOfAppointments = resp;
+          this.listOfAppointments.filter((app) => app.date = moment(app.date).format('DD MMMM YYYY'));
+        });
     } else {
       this.listOfAppointments = [];
     }
@@ -184,24 +189,9 @@ export class EditInvoiceDialogComponent extends DefaultComponent<Invoice> implem
 
     invoice.appointments = invoice.appointments?.map((appointment) => ({id: appointment.id, price: appointment.price}));
 
-    super.subscribeUpdate(invoice);
+    super.subscribeUpdate(invoice, [() => {
+      invoice.appointments?.filter((appointment) => super.otherSubscribe(this.appointmentService.setCompleteStatus(appointment.id)));
+    }]);
 
-    const completeStatus: AppointmentStatus[] =
-      await this.appointmentStatusService.getAll(new CriteriaBuilder().eq('value', 'COMPLETED').buildUrlEncoded()).toPromise();
-    this.listOfSelectedAppointments.forEach((appointmentDto) => {
-      const appointment: Appointment = {
-        id: appointmentDto.id,
-        staff: {id: appointmentDto.staff?.id},
-        client: {id: appointmentDto.client?.id},
-        room: {id: appointmentDto.room?.id},
-        date: moment(appointmentDto.date).format('YYYY-MM-DD'),
-        appointmentStatus: {id: completeStatus[0].id},
-        treatmentDuration: {id: appointmentDto.treatment?.treatmentDurationId, price: appointmentDto.treatment?.price},
-        startTime: appointmentDto.startTime,
-        endTime: appointmentDto.endTime
-      };
-      delete appointment.createdDate;
-      super.otherSubscribe(this.appointmentService.update(appointment));
-    });
   }
 }

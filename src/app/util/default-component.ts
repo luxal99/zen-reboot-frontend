@@ -71,11 +71,15 @@ export abstract class DefaultComponent<T> implements OnInit {
   }
 
 
-  subscribeUpdate(entity: T): void {
+  // tslint:disable-next-line:ban-types
+  subscribeUpdate(entity: T, chain?: Function[]): void {
     this.spinnerService.show(this.spinner);
     this.genericService.update(entity).subscribe(() => {
       SnackBarUtil.openSnackBar(this.snackBar, Message.SUCCESS);
       this.spinnerService.hide(this.spinner);
+      chain?.forEach((func) => {
+        func();
+      });
     }, () => {
       SnackBarUtil.openSnackBar(this.snackBar, Message.ERR);
       this.spinnerService.hide(this.spinner);

@@ -40,9 +40,9 @@ export class InvoiceOverviewComponent extends DefaultComponent<Invoice> implemen
   getCurrentWeekOverview(): void {
     const queryBuilder = new CriteriaBuilder();
     // @ts-ignore
-    queryBuilder.gt('date', new Date(this.startDate).valueOf()).and()
+    queryBuilder.gt('checkoutDate', new Date(this.startDate).valueOf()).and()
       // @ts-ignore
-      .lt('date', new Date(this.endDate).valueOf());
+      .lt('checkoutDate', new Date(this.endDate).valueOf());
     this.invoiceService.getInvoicesDtos(queryBuilder.buildUrlEncoded()).subscribe((resp) => {
       this.listOfCurrentWeekInvoices = resp;
       this.spinnerService.hide(this.spinner);
@@ -50,7 +50,7 @@ export class InvoiceOverviewComponent extends DefaultComponent<Invoice> implemen
   }
 
   getCurrentDayOverview(): void {
-    this.invoiceService.getInvoicesDtos(new CriteriaBuilder().eq('date',
+    this.invoiceService.getInvoicesDtos(new CriteriaBuilder().eq('checkoutDate',
       new Date(this.currentDate.format('YYYY-MM-DD')).valueOf()).buildUrlEncoded()).subscribe((resp) => {
       this.listOfCurrentDayInvoices = resp;
     });
@@ -62,11 +62,11 @@ export class InvoiceOverviewComponent extends DefaultComponent<Invoice> implemen
     dateFilter.endDate = new Date(dateFilter.endDate).valueOf();
     const queryBuilder = new CriteriaBuilder();
 
-    queryBuilder.gt('date', new Date(dateFilter.startDate).valueOf())
-      .or().eq('date', dateFilter.startDate)
+    queryBuilder.gt('checkoutDate', new Date(dateFilter.startDate).valueOf())
+      .or().eq('checkoutDate', dateFilter.startDate)
       .and()
-      .lt('date', dateFilter.endDate).or()
-      .eq('date', dateFilter.endDate);
+      .lt('checkoutDate', dateFilter.endDate).or()
+      .eq('checkoutDate', dateFilter.endDate);
     this.invoiceService.getInvoicesDtos(queryBuilder.buildUrlEncoded()).subscribe((resp) => {
       this.listOfFilteredInvoices = resp;
     });
