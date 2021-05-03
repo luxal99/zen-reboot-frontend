@@ -103,9 +103,9 @@
       <button class="default-btn" mat-button matStepperNext>Napred</button>
     </mat-step>
     <mat-step label="Ostale informacije">
-      <app-form-select bindValue="name" [group]="invoiceForm" [config]="invoiceStatusSelectConfig"
+      <app-form-select bindValue="name" [group]="invoiceForm" [model]="{id:1}" [config]="invoiceStatusSelectConfig"
                        label="Status fakture"></app-form-select>
-      <app-form-select bindValue="name" [group]="invoiceForm" [config]="locationSelectConfig"
+      <app-form-select bindValue="name" [group]="invoiceForm" [model]="{id:1}" [config]="locationSelectConfig"
                        label="Lokacija"></app-form-select>
       <button class="white-btn" mat-button matStepperPrevious>Nazad</button>
       <button class="default-btn" mat-button matStepperNext>Napred</button>

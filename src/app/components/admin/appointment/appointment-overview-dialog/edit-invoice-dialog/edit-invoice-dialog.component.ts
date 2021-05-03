@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {AfterViewChecked, ChangeDetectorRef, Component, Inject, OnInit} from '@angular/core';
 import {InvoiceService} from '../../../../../service/invoice.service';
 import {InvoiceStatusService} from '../../../../../service/invoice-status.service';
 import {Invoice} from '../../../../../models/invoice';
@@ -10,7 +10,7 @@ import * as moment from 'moment';
 import {AppointmentService} from '../../../../../service/appointment.service';
 import {Client} from '../../../../../models/client';
 import {CriteriaBuilder} from '../../../../../util/criteria-builder';
-import {FormControlNames, InputTypes, Message} from '../../../../../const/const';
+import {FormControlNames, InputTypes} from '../../../../../const/const';
 import {ClientService} from '../../../../../service/client.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ContactTypeEnum} from '../../../../../enums/ContactTypeEnum';
@@ -22,16 +22,14 @@ import {Appointment} from '../../../../../models/appointment';
 import {InvoiceStatus} from '../../../../../models/invoice-status';
 import {LocationService} from '../../../../../service/location.service';
 import {AppointmentStatusService} from '../../../../../service/appointment-status.service';
-import {AppointmentStatus} from '../../../../../models/appointment-status';
 import {map} from 'rxjs/operators';
-import {SnackBarUtil} from '../../../../../util/snack-bar-uitl';
 
 @Component({
   selector: 'app-edit-invoice-dialog',
   templateUrl: './edit-invoice-dialog.component.html',
   styleUrls: ['./edit-invoice-dialog.component.sass']
 })
-export class EditInvoiceDialogComponent extends DefaultComponent<Invoice> implements OnInit {
+export class EditInvoiceDialogComponent extends DefaultComponent<Invoice> implements OnInit, AfterViewChecked {
 
   invoice: Invoice = {};
 
@@ -40,8 +38,11 @@ export class EditInvoiceDialogComponent extends DefaultComponent<Invoice> implem
   listOfAppointments: Appointment[] = [];
   listOfInvoiceStatuses: InvoiceStatus[] = [];
 
-  selectedClient: Client = {};
-  selectedBilledClient: Client = {};
+  // @ts-ignore
+  selectedClient: Client = this.data.client;
+
+  // @ts-ignore
+  selectedBilledClient: Client = this.data.client;
 
   invoiceForm = new FormGroup({
     invoiceStatus: new FormControl('', Validators.required),
@@ -61,7 +62,7 @@ export class EditInvoiceDialogComponent extends DefaultComponent<Invoice> implem
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: AppointmentDTO,
               private invoiceService: InvoiceService, protected snackBar: MatSnackBar,
-              private appointmentStatusService: AppointmentStatusService,
+              private appointmentStatusService: AppointmentStatusService, private readonly changeDetectorRef: ChangeDetectorRef,
               private clientService: ClientService, private dialog: MatDialog, private locationService: LocationService,
               private invoiceStatusService: InvoiceStatusService, private appointmentService: AppointmentService) {
     super(invoiceService, snackBar);
@@ -72,6 +73,10 @@ export class EditInvoiceDialogComponent extends DefaultComponent<Invoice> implem
     this.initSelect();
   }
 
+  ngAfterViewChecked(): void {
+    this.changeDetectorRef.detectChanges();
+  }
+
   initSelect(): void {
     super.initSelectConfig(this.invoiceStatusService, this.invoiceStatusSelectConfig);
     super.initSelectConfig(this.locationService, this.locationSelectConfig);
@@ -79,8 +84,6 @@ export class EditInvoiceDialogComponent extends DefaultComponent<Invoice> implem
 
   async findInvoice(): Promise<void> {
     this.invoice = await this.appointmentService.findInvoiceForAppointment(this.data.id).toPromise();
-
-    console.log(this.invoice);
     this.invoice.date = moment(this.invoice.date).format('DD MMMM YYYY');
     this.spinnerService.hide(this.spinner);
   }
