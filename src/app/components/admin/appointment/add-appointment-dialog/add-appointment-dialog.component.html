@@ -1,4 +1,5 @@
 <div class="dialog">
+  <mat-spinner #spinner id="spinner" diameter="25"></mat-spinner>
   <div class="text-right">
     <button mat-icon-button matDialogClose>
       <mat-icon>close</mat-icon>
@@ -89,7 +90,7 @@
             </div>
           </div>
         </div>
-        <mat-spinner #spinner diameter="50"></mat-spinner>
+        <mat-spinner #clientSpinner id="client-spinner" diameter="50"></mat-spinner>
       </div>
 
       <div class="inline" *ngIf="selectedClient.id">
@@ -104,5 +105,4 @@
   <button mat-button class="default-btn" style="width: 20%;" (click)="save()" [disabled]="!appointmentForm.valid">
     Sačuvaj
   </button>
-  <mat-spinner diameter="50" #spinner></mat-spinner>
 </div>

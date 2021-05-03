@@ -126,6 +126,7 @@ export class AppointmentComponent extends DefaultComponent<Appointment> implemen
       width: '100%',
       data: appointment
     }, this.dialog).afterClosed().subscribe(async () => {
+      this.getAppointments()
     });
   }
 

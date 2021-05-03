@@ -24,6 +24,7 @@ import {TreatmentDuration} from '../../../../models/treatment-duration';
 import {Client} from '../../../../models/client';
 import {CriteriaBuilder} from '../../../../util/criteria-builder';
 import {Location} from 'src/app/models/location';
+import {MatSpinner} from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-add-appointment-dialog',
@@ -32,6 +33,7 @@ import {Location} from 'src/app/models/location';
 })
 export class AddAppointmentDialogComponent extends DefaultComponent<Appointment> implements OnInit, AfterViewChecked {
 
+  @ViewChild('clientSpinner') clientSpinner!: MatSpinner;
   @ViewChild('editor', {static: false}) editorComponent!: CKEditorComponent;
   public Editor = ClassicEditor;
 
@@ -117,12 +119,12 @@ export class AddAppointmentDialogComponent extends DefaultComponent<Appointment>
   @HostListener('scroll', ['$event'])
   getAllClient(event: any): void {
     if (event.target.offsetHeight + event.target.scrollTop >= event.target.scrollHeight) {
-      this.spinnerService.show(this.spinner);
+      this.spinnerService.show(this.clientSpinner);
       setTimeout(() => {
         this.clientService.getPaginationClients(this.clientPage++)
           .subscribe((resp) => {
             this.listOfClients = this.listOfClients.concat(resp);
-            this.spinnerService.hide(this.spinner);
+            this.spinnerService.hide(this.clientSpinner);
           });
       }, 500);
     }
