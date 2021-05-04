@@ -89,6 +89,7 @@ button {
   background-color: transparent;
   border: 1px solid #deb767;
   color: #deb767;
+  font-size: 18px;
 }
 
 .custom-snackbar {
