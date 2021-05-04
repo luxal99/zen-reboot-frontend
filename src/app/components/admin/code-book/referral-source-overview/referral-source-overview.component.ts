@@ -9,6 +9,8 @@ import {Validators} from '@angular/forms';
 import {DialogUtil} from '../../../../util/dialog-util';
 import {FormBuilderComponent} from '../../../form-components/form-builder/form-builder.component';
 import {MatDialog} from '@angular/material/dialog';
+import {DialogOptions} from '../../../../util/dialog-options';
+
 @Component({
   selector: 'app-referral-source-overview',
   templateUrl: './referral-source-overview.component.html',
@@ -24,7 +26,7 @@ export class ReferralSourceOverviewComponent extends DefaultComponent<ReferralSo
   ngOnInit(): void {
     super.ngOnInit();
   }
-  
+
   openAddReferralSourceDialog(referralSource?: ReferralSource): void {
     const configData: FormBuilderConfig = {
       formFields: [{
@@ -38,11 +40,12 @@ export class ReferralSourceOverviewComponent extends DefaultComponent<ReferralSo
       service: this.referralSourceService
 
     };
-    DialogUtil.openDialog(FormBuilderComponent, {
-      position: {top: '6%'},
-      width: '30%',
-      data: configData
-    }, this.dialog).afterClosed().subscribe(() => {
+    DialogUtil.openDialog(FormBuilderComponent,
+      DialogOptions.setDialogConfig({
+        position: {top: '6%'},
+        width: '30%',
+        data: configData
+      }), this.dialog).afterClosed().subscribe(() => {
       this.getItems();
     });
   }

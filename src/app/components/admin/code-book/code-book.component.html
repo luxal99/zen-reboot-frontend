@@ -1,14 +1,14 @@
-<div class="component-content">
-  <mat-tab-group (selectedIndexChange)="loadActivatedComponent()" animationDuration="200ms" mat-stretch-tabs dynamicHeight>
-    <mat-tab label="Razlozi otkazivanja">
+<mat-tab-group (selectedIndexChange)="loadActivatedComponent()" animationDuration="200ms" mat-stretch-tabs
+               dynamicHeight>
+  <mat-tab label="Razlozi otkazivanja">
+    <div class="wrapper">
       <app-referral-source-overview></app-referral-source-overview>
-    </mat-tab>
-    <mat-tab label="Gradovi i države" #countriesTab>
-      <div #countriesOverview></div>
-    </mat-tab>
-    <mat-tab label="Lokacija" #locationTab>
-      <div #locationOverview></div>
-    </mat-tab>
-  </mat-tab-group>
-
-</div>
+    </div>
+  </mat-tab>
+  <mat-tab label="Gradovi i države" #countriesTab>
+    <div class="wrapper" #countriesOverview></div>
+  </mat-tab>
+  <mat-tab label="Lokacija" #locationTab>
+    <div class="wrapper" #locationOverview></div>
+  </mat-tab>
+</mat-tab-group>
