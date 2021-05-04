@@ -1,3 +1,8 @@
+<div class="text-right">
+  <button mat-dialog-close mat-icon-button>
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
 <div class="dialog">
   <h1><b>Dodaj lokaciju</b></h1>
   <mat-divider></mat-divider>
@@ -11,13 +16,14 @@
                       label="Ulica"></app-form-input>
     </div>
     <div class="col-3 right">
-      <app-form-input [model]="data ? data.address?.number:null" [group]="addressForm" [config]="streetNumberInputConfig"
+      <app-form-input [model]="data ? data.address?.number:null" [group]="addressForm"
+                      [config]="streetNumberInputConfig"
                       label="Broj"></app-form-input>
     </div>
   </div>
   <app-form-select label="Grad" [config]="citySelectConfig" [model]="data ?data.address?.city : null"
                    [group]="addressForm"></app-form-select>
-  <div *ngIf="data">
+  <div>
     <h3>Sobe</h3>
     <div class="row">
       <div class="col-8 left">
@@ -32,8 +38,8 @@
         </button>
       </div>
     </div>
-    <div class="room-div">
-      <div  class="row room-row" *ngFor="let room of data.rooms">
+    <div class="room-div" *ngIf="data.rooms?.length >0">
+      <div class="row room-row" *ngFor="let room of data.rooms">
         <div class="col-6" (click)="selectRoom(room)">
           <h4><span>Naziv:</span> {{room.name}}</h4>
         </div>
