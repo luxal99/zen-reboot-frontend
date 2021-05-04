@@ -9,10 +9,11 @@ import {DefaultComponent} from '../../../util/default-component';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {FormControl, FormGroup} from '@angular/forms';
 import {AppointmentOverviewDialogComponent} from './appointment-overview-dialog/appointment-overview-dialog.component';
-import { map} from 'rxjs/operators';
+import {map} from 'rxjs/operators';
 import {LocationService} from '../../../service/location.service';
 import {Location} from '../../../models/location';
 import {RoomDto} from '../../../models/room-dto';
+import set = Reflect.set;
 
 @Component({
   selector: 'app-appointment',
@@ -46,6 +47,9 @@ export class AppointmentComponent extends DefaultComponent<Appointment> implemen
   }
 
   ngOnInit(): void {
+    setTimeout(() => {
+      this.setResponsive();
+    }, 100);
     this.getTimes();
     this.getLocations().then(() => {
       this.getAppointments();
@@ -126,7 +130,7 @@ export class AppointmentComponent extends DefaultComponent<Appointment> implemen
       width: '100%',
       data: appointment
     }, this.dialog).afterClosed().subscribe(async () => {
-      this.getAppointments()
+      this.getAppointments();
     });
   }
 
@@ -140,18 +144,20 @@ export class AppointmentComponent extends DefaultComponent<Appointment> implemen
     this.getAppointments();
   }
 
+  setResponsive(): void {
+    // @ts-ignore
+    const div = document.querySelector('#calendarBinding');
+    if (window.screen.width <= 570) {
+      // @ts-ignore
+      for (const child of div.children) {
+        // @ts-ignore
+        child.classList.remove('row');
+        child.classList.add('inline');
+      }
+
+    }
+  }
+
   search(): void {
-    // if (this.searchText.length > 2) {
-    //   const queryBuilder = new CriteriaBuilder();
-    //   queryBuilder.eq('date', new Date(this.currentDate.format('YYYY-MM-DD')).valueOf());
-    //   this.staffService.getStaffsAppointments(queryBuilder.buildUrlEncoded())
-    //     .pipe(map(value => value.filter((staffDto) =>
-    //       staffDto.person?.firstName?.toLowerCase().startsWith(this.searchText.toLowerCase())).slice(0, 10)))
-    //     .subscribe((resp) => {
-    //       this.filteredScheduleList = resp;
-    //     });
-    // } else if (this.searchText.length === 0) {
-    //   this.getAppointments();
-    // }
   }
 }

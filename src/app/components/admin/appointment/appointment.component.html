@@ -1,8 +1,6 @@
-<app-header header="Kalendar"></app-header>
 <div class="component-content">
   <div class="row">
-
-    <div class="col-sm " style="padding-left: 0">
+    <div class="col-10 " style="padding-left: 0">
       <div class="inline week-filter-div">
         <div class="column" (click)="previousDay()">
           <h3><i class="fa fa-angle-left" aria-hidden="true"></i></h3>
@@ -17,7 +15,7 @@
         </div>
       </div>
     </div>
-    <div class="col-sm">
+    <div class="col-2">
       <div class="text-right">
         <button class="add-btn" (click)="openAddAppointmentDialog({room:{}})" mat-icon-button>
           <mat-icon>add</mat-icon>
@@ -29,7 +27,7 @@
   <mat-spinner diameter="50" #spinner></mat-spinner>
   <div class="row">
     <div class="col-sm">
-      <div class="inline">
+      <div class="inline location-inline">
         <div [formGroup]="searchForm">
           <mat-form-field appearance="outline">
             <mat-label>Pretraži</mat-label>
@@ -55,37 +53,41 @@
     </div>
 
   </div>
-  <div class="row header-row">
-    <div class="col-sm-1"></div>
-    <div class="col-sm text-center staff-col"
-         *ngFor="let roomDto of filteredScheduleList">
-      <h4><b>{{roomDto.name}}</b></h4>
-    </div>
-  </div>
-  <div class="row" *ngFor="let time of listOfTimes">
-    <div class="col-sm-1" style="background-color: #f7f7f8">
-      <h3 class="text-center"><b>{{time}}</b></h3>
-    </div>
-    <ng-container *ngFor="let roomDto of filteredScheduleList ">
-      <ng-container *ngIf="(roomDto|checkIsAppointmentBetween:time)  as appointmentInInterval; else emptyCol">
-        <div class="col-sm appointment-col" (click)="openAppointmentOverviewDialog(appointmentInInterval)"
-             [style.background-color]="appointmentInInterval.staff.color">
-          <div class="appointment-card" (click)="openAppointmentOverviewDialog(appointment)"
-               *ngIf="roomDto.appointments.length >0 && (roomDto | checkIsAppointmentStart:time);let appointment;">
-            <div class="text-right">
-            </div>
-            <h4> {{appointment.startTime.slice(0, 5) + '-' + appointment.endTime.slice(0, 5) }}
-            </h4>
-            <h4><b>{{ appointment.client?.person?.firstName + ' ' + appointment.client?.person?.lastName}}</b></h4>
-            <h4 class="treatment-name">{{ appointment.treatment?.name}}</h4>
-            <h4><b>{{ appointment.staff?.person?.firstName + ' ' + appointment.staff?.person?.lastName}}</b></h4>
-          </div>
+  <div class="calendar">
+    <div class="calendar-wrapper" id="calendarBinding">
+      <div class="row header-row">
+        <div class="col-sm time-col"></div>
+        <div class="col-sm text-center staff-col"
+             *ngFor="let roomDto of filteredScheduleList">
+          <h4><b>{{roomDto.name}}</b></h4>
         </div>
-      </ng-container>
-      <ng-template #emptyCol>
-        <div class="col-sm empty-col"
-             (click)="openAddAppointmentDialog({startTime:time,room:{id:roomDto.id},date:currentDate.format('YYYY-MM-DD'),client:{}})"></div>
-      </ng-template>
-    </ng-container>
+      </div>
+      <div class="row" *ngFor="let time of listOfTimes">
+        <div class="col-sm time-col" style="background-color: #f7f7f8">
+          <h3 class="text-center"><b>{{time}}</b></h3>
+        </div>
+        <ng-container *ngFor="let roomDto of filteredScheduleList ">
+          <ng-container *ngIf="(roomDto|checkIsAppointmentBetween:time)  as appointmentInInterval; else emptyCol">
+            <div class="col-sm  appointment-col" (click)="openAppointmentOverviewDialog(appointmentInInterval)"
+                 [style.background-color]="appointmentInInterval.staff.color">
+              <div class="appointment-card" (click)="openAppointmentOverviewDialog(appointment)"
+                   *ngIf="roomDto.appointments.length >0 && (roomDto | checkIsAppointmentStart:time);let appointment;">
+                <div class="text-right">
+                </div>
+                <h4> {{appointment.startTime.slice(0, 5) + '-' + appointment.endTime.slice(0, 5) }}
+                </h4>
+                <h4><b>{{ appointment.client?.person?.firstName + ' ' + appointment.client?.person?.lastName}}</b></h4>
+                <h4 class="treatment-name">{{ appointment.treatment?.name}}</h4>
+                <h4><b>{{ appointment.staff?.person?.firstName + ' ' + appointment.staff?.person?.lastName}}</b></h4>
+              </div>
+            </div>
+          </ng-container>
+          <ng-template #emptyCol>
+            <div class="col-sm empty-col"
+                 (click)="openAddAppointmentDialog({startTime:time,room:{id:roomDto.id},date:currentDate.format('YYYY-MM-DD'),client:{}})"></div>
+          </ng-template>
+        </ng-container>
+      </div>
+    </div>
   </div>
 </div>

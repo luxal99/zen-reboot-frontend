@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 @Component({
   selector: 'app-header',
@@ -8,6 +8,7 @@ import {Component, Input, OnInit} from '@angular/core';
 export class HeaderComponent implements OnInit {
 
   @Input() header = '';
+  @Output() openSideNav = new EventEmitter();
 
   constructor() {
   }

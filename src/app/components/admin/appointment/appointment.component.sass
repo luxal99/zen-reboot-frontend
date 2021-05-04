@@ -60,7 +60,8 @@ mat-spinner
   font-weight: bold
   margin-bottom: 2em
 
-.col-sm-1
+
+.time-col
   padding: 1em
   background-color: #ffffff
   margin: 1px
@@ -119,3 +120,25 @@ mat-spinner
   margin-left: 1em
   padding: 1em
   border-radius: 6px
+
+@media screen and (max-width: 570px)
+  .week-filter-div
+    width: 100%
+  mat-form-field
+    width: 100%
+  .location-inline
+    display: block
+
+  .location-div
+    margin-left: 0
+    margin-bottom: 1em
+  .calendar
+    overflow-x: scroll
+  .calendar-col
+    flex-basis: 0 !important
+    flex-grow: 1 !important
+    max-width: 100% !important
+  .calendar-wrapper
+    width: 960px
+  .inline
+    width: 100%

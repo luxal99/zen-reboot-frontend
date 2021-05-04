@@ -23,8 +23,9 @@ import {InvoiceOverviewComponent} from './invoice-overview/invoice-overview.comp
 })
 export class AdminComponent implements OnInit, AfterViewInit {
 
-  @ViewChild('target', {read: ViewContainerRef, static: false}) entry!: ViewContainerRef;
   @ViewChild('sideNav', {static: false}) sideNav!: ElementRef;
+  @ViewChild('target', {read: ViewContainerRef, static: false}) entry!: ViewContainerRef;
+  header = 'Pregled';
 
   constructor(private resolver: ComponentFactoryResolver) {
   }
@@ -35,6 +36,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     this.initDefaultMenu();
   }
+
 
   openSideNav(): void {
     if (this.sideNav.nativeElement.style.width === '300px') {
@@ -53,8 +55,13 @@ export class AdminComponent implements OnInit, AfterViewInit {
 
   initDefaultMenu(): void {
     setTimeout(() => {
-      // @ts-ignore
-      document.getElementById('overview-btn').click();
+      if (window.screen.width <= 700) {
+        // @ts-ignore
+        document.getElementById('overview-side-btn').click();
+      } else {
+        // @ts-ignore
+        document.getElementById('overview-btn').click();
+      }
     }, 10);
   }
 
@@ -86,6 +93,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
   }
 
   loadStaffComponent(): void {
+    this.header = 'Zaposleni';
     LazyLoadComponentsUtil.loadComponent(StaffComponent, this.entry, this.resolver);
   }
 
@@ -96,8 +104,10 @@ export class AdminComponent implements OnInit, AfterViewInit {
   loadInvoiceComponent(): void {
     LazyLoadComponentsUtil.loadComponent(InvoiceOverviewComponent, this.entry, this.resolver);
   }
+
   loadAppointmentComponent(): void {
     setTimeout(() => {
+      this.header = 'Kalendar';
       LazyLoadComponentsUtil.loadComponent(AppointmentComponent, this.entry, this.resolver);
     }, 200);
   }

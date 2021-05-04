@@ -64,7 +64,6 @@ export class StaffShiftsOverviewComponent implements OnInit, AfterViewChecked {
   }
 
   ngAfterViewChecked(): void {
-
     this.setResponsive();
     this.changeDetectorRef.detectChanges();
   }

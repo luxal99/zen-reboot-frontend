@@ -7,4 +7,14 @@ header h1 {
   font-weight: bold;
 }
 
+.sidenav-btn {
+  visibility: hidden;
+}
+
+@media screen and (max-width: 570px) {
+  .sidenav-btn {
+    visibility: visible;
+  }
+}
+
 /*# sourceMappingURL=header.component.css.map */

@@ -6,6 +6,29 @@
   -webkit-transition: .3s linear
   background-color: $less-black
 
+a
+  display: flex
+  overflow: hidden
+  min-width: 44px
+  width: 100%
+  align-items: center
+  text-decoration: none
+  color: unset
+
+.a-h2
+  color: $light-silver
+  margin-top: 1em
+  cursor: pointer
+
+.icon-span
+  margin: 1em
+
+i
+  font-size: 30px
+
+.txt-span
+  margin-left: .5em
+  font-size: 20px
 
 .side-nav-col-content
   background-color: $component-background
@@ -14,30 +37,6 @@
   width: inherit
   flex-direction: column
   position: fixed
-
-  a
-    display: flex
-    overflow: hidden
-    min-width: 44px
-    width: 100%
-    align-items: center
-    text-decoration: none
-    color: unset
-
-  .a-h2
-    color: $light-silver
-    margin-top: 1em
-    cursor: pointer
-
-  .icon-span
-    margin: 1em
-
-    i
-      font-size: 30px
-
-  .txt-span
-    margin-left: .5em
-    font-size: 20px
 
 #menu-icon
   -webkit-transition: .3s linear
@@ -73,3 +72,11 @@
 
 ::ng-deep.mat-form-field-appearance-outline .mat-form-field-outline
   background-color: #fff !important
+
+mat-drawer
+  padding: 2em 1em
+  width: 250px
+
+@media screen and (max-width: 700px)
+  .side-nav-col
+    display: none

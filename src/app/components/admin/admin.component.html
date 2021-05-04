@@ -1,12 +1,8 @@
-<div class="row">
-  <div class="col side-nav-col" #sideNav>
-    <div class="side-nav-col-content ">
-      <button (click)="openSideNav()" mat-icon-button>
-        <mat-icon id="menu-icon">open_in_browser
-        </mat-icon>
-      </button>
-      <a (click)="changeColor($event)" class="inactive">
-        <a class="a-h2 text-center" (click)="loadOverviewComponent()" id="overview-btn">
+<mat-drawer-container hasBackdrop="true">
+  <mat-drawer fullscreen #drawer mode="over">
+    <div>
+      <a  (click)="changeColor($event)" class="inactive overview-a">
+        <a class="a-h2 text-center overview-a" (click)="loadOverviewComponent()" id="overview-side-btn">
               <span class="icon-span"><i disabled
                                          class="fa fa-home"></i> </span>
           <span class="txt-span">Početna</span>
@@ -16,7 +12,8 @@
                                (load)="loadAppointmentComponent()"></app-component-activator>
       <app-component-activator icon="fa-id-card-o" title="Šifarnik"
                                (load)="loadCodeBookComponent()"></app-component-activator>
-      <app-component-activator icon="fa-user" title="Klijenti" (load)="loadClientComponent()"></app-component-activator>
+      <app-component-activator icon="fa-user" title="Klijenti"
+                               (load)="loadClientComponent()"></app-component-activator>
       <app-component-activator icon="fa-bookmark" title="Tretmani"
                                (load)="loadServiceComponent()"></app-component-activator>
       <app-component-activator icon="fa fa-building" title="Zaposleni"
@@ -24,8 +21,40 @@
       <app-component-activator icon="fa fa-cc-visa" title="Fakture"
                                (load)="loadInvoiceComponent()"></app-component-activator>
     </div>
-  </div>
-  <div class="col">
-    <div #target></div>
-  </div>
-</div>
+  </mat-drawer>
+  <mat-drawer-content >
+    <div class="row">
+      <div class="col side-nav-col" #sideNav>
+        <div class="side-nav-col-content ">
+          <button (click)="openSideNav()" mat-icon-button>
+            <mat-icon id="menu-icon">open_in_browser
+            </mat-icon>
+          </button>
+          <a (click)="changeColor($event)" class="inactive">
+            <a class="a-h2 text-center" (click)="loadOverviewComponent()" id="overview-btn">
+              <span class="icon-span"><i disabled
+                                         class="fa fa-home"></i> </span>
+              <span class="txt-span">Početna</span>
+            </a>
+          </a>
+          <app-component-activator icon="fa-calendar-o" title="Kalendar"
+                                   (load)="loadAppointmentComponent()"></app-component-activator>
+          <app-component-activator icon="fa-id-card-o" title="Šifarnik"
+                                   (load)="loadCodeBookComponent()"></app-component-activator>
+          <app-component-activator icon="fa-user" title="Klijenti"
+                                   (load)="loadClientComponent()"></app-component-activator>
+          <app-component-activator icon="fa-bookmark" title="Tretmani"
+                                   (load)="loadServiceComponent()"></app-component-activator>
+          <app-component-activator icon="fa fa-building" title="Zaposleni"
+                                   (load)="loadStaffComponent()"></app-component-activator>
+          <app-component-activator icon="fa fa-cc-visa" title="Fakture"
+                                   (load)="loadInvoiceComponent()"></app-component-activator>
+        </div>
+      </div>
+      <div class="col">
+        <app-header (openSideNav)="drawer.toggle()" [header]="header"></app-header>
+        <div #target></div>
+      </div>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>
