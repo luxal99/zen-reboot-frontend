@@ -45,10 +45,10 @@ mat-form-field
     width: 50%
 
   .left
-    margin-right: 1em
+    padding-right: 1em
 
   .right
-    margin-left: 1em
+    padding-left: 1em
 
 .tab
   padding-top: 2em
@@ -56,3 +56,17 @@ mat-form-field
 mat-spinner
   padding: 2em
   display: none
+
+@media screen and (max-width: 900px)
+  .col-sm
+    padding-left: 0 !important
+    padding-right: 0 !important
+
+  .wrapper, .left-col, .border-col
+    border: none
+
+  .form-col
+    padding: 1em
+
+  .default-btn
+    width: 80%
