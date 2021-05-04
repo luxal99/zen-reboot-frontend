@@ -89,7 +89,6 @@ export class EditInvoiceDialogComponent extends DefaultComponent<Invoice> implem
   }
 
   searchBilledClient(): void {
-
     const search = this.searchForm.get(FormControlNames.SEARCH_BILLED_CLIENT_FORM_CONTROL)?.value;
     const queryBuilder = new CriteriaBuilder();
     queryBuilder.startsWith('person.firstName', search).or()
