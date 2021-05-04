@@ -15,6 +15,7 @@ import {ServicesComponent} from './services/services.component';
 import {StaffComponent} from './staff/staff.component';
 import {AppointmentComponent} from './appointment/appointment.component';
 import {InvoiceOverviewComponent} from './invoice-overview/invoice-overview.component';
+import {MatDrawer} from '@angular/material/sidenav';
 
 @Component({
   selector: 'app-admin',
@@ -24,6 +25,7 @@ import {InvoiceOverviewComponent} from './invoice-overview/invoice-overview.comp
 export class AdminComponent implements OnInit, AfterViewInit {
 
   @ViewChild('sideNav', {static: false}) sideNav!: ElementRef;
+  @ViewChild('drawer', {static: false}) drawer!: MatDrawer;
   @ViewChild('target', {read: ViewContainerRef, static: false}) entry!: ViewContainerRef;
   header = 'Pregled';
 
@@ -81,34 +83,64 @@ export class AdminComponent implements OnInit, AfterViewInit {
   }
 
   loadOverviewComponent(): void {
-    LazyLoadComponentsUtil.loadComponent(OverviewComponent, this.entry, this.resolver);
+    this.closeDrawer().then(() => {
+      this.setHeader('Pregled');
+      LazyLoadComponentsUtil.loadComponent(OverviewComponent, this.entry, this.resolver);
+    });
   }
 
   loadCodeBookComponent(): void {
-    LazyLoadComponentsUtil.loadComponent(CodeBookComponent, this.entry, this.resolver);
+    this.closeDrawer().then(() => {
+      this.setHeader('Šifarnik');
+      LazyLoadComponentsUtil.loadComponent(CodeBookComponent, this.entry, this.resolver);
+    });
   }
 
   loadClientComponent(): void {
-    LazyLoadComponentsUtil.loadComponent(ClientComponent, this.entry, this.resolver);
+    this.closeDrawer().then(() => {
+      this.setHeader('Klijenti');
+      LazyLoadComponentsUtil.loadComponent(ClientComponent, this.entry, this.resolver);
+    });
   }
 
   loadStaffComponent(): void {
-    this.header = 'Zaposleni';
-    LazyLoadComponentsUtil.loadComponent(StaffComponent, this.entry, this.resolver);
+    this.closeDrawer().then(() => {
+      this.header = 'Zaposleni';
+      LazyLoadComponentsUtil.loadComponent(StaffComponent, this.entry, this.resolver);
+
+    });
   }
 
   loadServiceComponent(): void {
-    LazyLoadComponentsUtil.loadComponent(ServicesComponent, this.entry, this.resolver);
+    this.closeDrawer().then(() => {
+      this.setHeader('Tretmani');
+      LazyLoadComponentsUtil.loadComponent(ServicesComponent, this.entry, this.resolver);
+    });
   }
 
   loadInvoiceComponent(): void {
-    LazyLoadComponentsUtil.loadComponent(InvoiceOverviewComponent, this.entry, this.resolver);
+    this.closeDrawer().then(() => {
+      this.setHeader('Fakture');
+      LazyLoadComponentsUtil.loadComponent(InvoiceOverviewComponent, this.entry, this.resolver);
+    });
   }
 
   loadAppointmentComponent(): void {
     setTimeout(() => {
-      this.header = 'Kalendar';
-      LazyLoadComponentsUtil.loadComponent(AppointmentComponent, this.entry, this.resolver);
+      this.closeDrawer().then(() => {
+        this.setHeader('Kalendar');
+        LazyLoadComponentsUtil.loadComponent(AppointmentComponent, this.entry, this.resolver);
+      });
     }, 200);
+  }
+
+  async closeDrawer(): Promise<void> {
+    if (window.screen.width <= 960) {
+      await this.drawer.close();
+    }
+  }
+
+  private setHeader(text: string): void {
+    this.header = text;
   }
 }

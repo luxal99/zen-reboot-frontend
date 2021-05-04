@@ -56,14 +56,14 @@
   <div class="calendar">
     <div class="calendar-wrapper" id="calendarBinding">
       <div class="row header-row">
-        <div class="col-sm time-col"></div>
+        <div class="col-sm-1 time-col"></div>
         <div class="col-sm text-center staff-col"
              *ngFor="let roomDto of filteredScheduleList">
           <h4><b>{{roomDto.name}}</b></h4>
         </div>
       </div>
       <div class="row" *ngFor="let time of listOfTimes">
-        <div class="col-sm time-col" style="background-color: #f7f7f8">
+        <div class="col-sm-1 time-col" style="background-color: #f7f7f8">
           <h3 class="text-center"><b>{{time}}</b></h3>
         </div>
         <ng-container *ngFor="let roomDto of filteredScheduleList ">

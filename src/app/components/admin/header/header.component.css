@@ -1,20 +1,17 @@
-header {
-  padding: 2em 1em 0.5em 1em;
-  background-color: #fff;
-}
-header h1 {
-  font-size: 28px;
-  font-weight: bold;
-}
+/* Error: Can't find stylesheet to import.
+ *   ,
+ * 1 | @import "src/styles"
+ *   |         ^^^^^^^^^^^^
+ *   '
+ *   header.component.sass 1:9  root stylesheet */
 
-.sidenav-btn {
-  visibility: hidden;
+body::before {
+  font-family: "Source Code Pro", "SF Mono", Monaco, Inconsolata, "Fira Mono",
+      "Droid Sans Mono", monospace, monospace;
+  white-space: pre;
+  display: block;
+  padding: 1em;
+  margin-bottom: 1em;
+  border-bottom: 2px solid black;
+  content: "Error: Can't find stylesheet to import.\a   \2577 \a 1 \2502  @import \"src/styles\"\a   \2502          ^^^^^^^^^^^^\a   \2575 \a   header.component.sass 1:9  root stylesheet";
 }
-
-@media screen and (max-width: 570px) {
-  .sidenav-btn {
-    visibility: visible;
-  }
-}
-
-/*# sourceMappingURL=header.component.css.map */
