@@ -8,7 +8,7 @@
   <h1>Dodavanje termina</h1>
   <mat-divider></mat-divider>
   <div class="row">
-    <div class="col-8">
+    <div class="col-sm-8">
       <mat-vertical-stepper>
         <mat-step label="Datum i vreme">
           <form [formGroup]="appointmentForm">
@@ -75,7 +75,7 @@
         </mat-step>
       </mat-vertical-stepper>
     </div>
-    <div class="col-4">
+    <div class="col-sm-4">
       <div class="client-binding" (scroll)="getAllClient($event)">
         <div class="search-div">
           <app-form-input (change)="search()" icon="search" label="Pretraži" [group]="searchClientForm"

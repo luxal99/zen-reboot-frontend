@@ -14,6 +14,7 @@ import {LocationService} from '../../../service/location.service';
 import {Location} from '../../../models/location';
 import {RoomDto} from '../../../models/room-dto';
 import set = Reflect.set;
+import {DialogOptions} from '../../../util/dialog-options';
 
 @Component({
   selector: 'app-appointment',
@@ -111,25 +112,27 @@ export class AppointmentComponent extends DefaultComponent<Appointment> implemen
   }
 
   openAddAppointmentDialog(data?: any): void {
-    DialogUtil.openDialog(AddAppointmentDialogComponent, {
-      position: {right: '0'},
-      height: '100vh',
-      width: '70%',
-      maxWidth: '70%',
-      data
-    }, this.dialog).afterClosed().subscribe(async () => {
+    DialogUtil.openDialog(AddAppointmentDialogComponent,
+      DialogOptions.setDialogConfig({
+        position: {right: '0'},
+        height: '100vh',
+        width: '70%',
+        maxWidth: '70%',
+        data
+      }), this.dialog).afterClosed().subscribe(async () => {
       this.getAppointments();
     });
   }
 
   openAppointmentOverviewDialog(appointment: Appointment): void {
-    DialogUtil.openDialog(AppointmentOverviewDialogComponent, {
-      maxWidth: '100vw',
-      maxHeight: '100vh',
-      height: '100%',
-      width: '100%',
-      data: appointment
-    }, this.dialog).afterClosed().subscribe(async () => {
+    DialogUtil.openDialog(AppointmentOverviewDialogComponent,
+      DialogOptions.setDialogConfig({
+        maxWidth: '100vw',
+        maxHeight: '100vh',
+        height: '100%',
+        width: '100%',
+        data: appointment
+      }), this.dialog).afterClosed().subscribe(async () => {
       this.getAppointments();
     });
   }
