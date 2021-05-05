@@ -13,6 +13,9 @@ import {InvoiceService} from '../../../../service/invoice.service';
 import {CriteriaBuilder} from '../../../../util/criteria-builder';
 import {Invoice} from '../../../../models/invoice';
 import {map} from 'rxjs/operators';
+import {DialogOptions} from '../../../../util/dialog-options';
+import {Appointment} from '../../../../models/appointment';
+import {InvoicesDialogOverviewComponent} from '../../../table-binding/invoices-dialog-overview/invoices-dialog-overview.component';
 
 @Component({
   selector: 'app-client-overview-dialog',
@@ -45,13 +48,40 @@ export class ClientOverviewDialogComponent implements OnInit {
   }
 
   openAddAppointmentDialog(): void {
-    DialogUtil.openDialog(AddAppointmentDialogComponent, {
-      position: {right: '0'},
-      height: '100vh',
-      width: '90%',
-      maxWidth: '90%',
-      data: {client: this.data}
-    }, this.dialog);
+    DialogUtil.openDialog(AddAppointmentDialogComponent,
+      DialogOptions.setDialogConfig(
+        {
+          position: {right: '0'},
+          height: '100vh',
+          width: '90%',
+          maxWidth: '90%',
+          data: {client: this.data}
+        }
+      ), this.dialog);
+  }
+
+  openAppointmentOverviewDialog(appointment: Appointment): void {
+    DialogUtil.openDialog(AddAppointmentDialogComponent,
+      DialogOptions.setDialogConfig({
+        maxWidth: '100vw',
+        maxHeight: '100vh',
+        height: '100%',
+        width: '100%',
+        data: appointment
+      }), this.dialog);
+
+  }
+
+  openInvoiceOverviewDialog(data: Invoice): void {
+    DialogUtil.openDialog(InvoicesDialogOverviewComponent,
+      DialogOptions.setDialogConfig(
+        {
+          height: '100%',
+          width: '40%',
+          position: {right: '0'},
+          data
+        }
+      ), this.dialog);
   }
 
   getAppointments(): void {

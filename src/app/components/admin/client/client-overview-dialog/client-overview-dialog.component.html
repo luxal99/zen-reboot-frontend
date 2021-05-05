@@ -45,7 +45,8 @@
         <div class="tab-div">
           <mat-tab-group mat-stretch-tabs animationDuration="300ms" dynamicHeight>
             <mat-tab label="Istorija tretmana">
-              <div class="row treatment-client-card" *ngFor="let appointment of listOfAppointments">
+              <div class="row treatment-client-card" (click)="openAppointmentOverviewDialog(appointment)"
+                   *ngFor="let appointment of listOfAppointments">
                 <div class="col-sm-2">
                   <h1>{{appointment.date.get('date')}}</h1>
                   <h2 style="line-height: 5px">{{appointment.date.format('MMMM')}}</h2>
@@ -60,7 +61,7 @@
               </div>
             </mat-tab>
             <mat-tab label="Fakture">
-              <div class="row" *ngFor="let invoice of listOfInvoices">
+              <div class="row invoice-row" (click)="openInvoiceOverviewDialog(invoice)" *ngFor="let invoice of listOfInvoices">
                 <div class="col-sm-2">
                   <h1>{{invoice.date.get('date')}}</h1>
                   <h2 style="line-height: 5px">{{invoice.date.format('MMMM')}}</h2>

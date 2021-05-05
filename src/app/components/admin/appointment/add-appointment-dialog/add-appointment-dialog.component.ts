@@ -59,7 +59,7 @@ export class AddAppointmentDialogComponent extends DefaultComponent<Appointment>
     endTime: new FormControl('', Validators.required),
 
     // @ts-ignore
-    room: new FormControl(this.data ? this.data.room.id : '', Validators.required),
+    room: new FormControl(this.data.room ? this.data.room.id : '', Validators.required),
     staff: new FormControl('', Validators.required),
     treatment: new FormControl('', Validators.required),
     treatmentDuration: new FormControl('', Validators.required),
