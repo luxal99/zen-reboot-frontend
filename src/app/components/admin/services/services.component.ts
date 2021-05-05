@@ -15,6 +15,7 @@ import {Treatment} from '../../../models/treatment';
 import {SnackBarUtil} from '../../../util/snack-bar-uitl';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {DefaultComponent} from '../../../util/default-component';
+import {DialogOptions} from '../../../util/dialog-options';
 
 @Component({
   selector: 'app-services',
@@ -50,17 +51,19 @@ export class ServicesComponent extends DefaultComponent<TreatmentCategory> imple
       ]
     };
 
-    DialogUtil.openDialog(FormBuilderComponent, {
-      position: {top: '6%'},
-      width: '30%',
-      data: configData
-    }, this.dialog).afterClosed().subscribe(() => {
+    DialogUtil.openDialog(FormBuilderComponent, DialogOptions.setDialogConfig(
+      {
+        position: {top: '6%'},
+        width: '30%',
+        data: configData
+      }
+    ), this.dialog).afterClosed().subscribe(() => {
       this.getItems();
     });
   }
 
   openAddServiceDialog(treatment?: Treatment): void {
-    DialogUtil.openDialog(AddServiceDialogComponent, {
+    DialogUtil.openDialog(AddServiceDialogComponent,       {
       maxWidth: '100vw',
       maxHeight: '100vh',
       height: '100%',
