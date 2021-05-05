@@ -66,16 +66,29 @@
       </div>
     </div>
     <div class="binding mobile">
-      <div class="row client-row" (click)="openClientOverviewDialog(client)" style="padding-top: 1em" *ngFor="let client of listOfItems|client:searchText">
-        <div class="col">
+      <div class="row client-row" style="padding-top: 1em" *ngFor="let client of listOfItems|client:searchText">
+        <div class="col-3" (click)="openClientOverviewDialog(client)">
           <h1 class="first-letter-h1">{{client.person.firstName.substr(0, 1)}}</h1>
         </div>
-
-        <div class="col">
+        <div (click)="openClientOverviewDialog(client)" class="col-6">
           <h3>{{client.person?.firstName + ' ' + client.person.lastName}}</h3>
           <h4 *ngIf="client.person.contacts.length>0">{{ client.person.contacts[0].value}}</h4>
         </div>
+        <div class="col-3">
+          <button style="margin-top: 1em" mat-icon-button [matMenuTriggerFor]="menu">
+            <mat-icon>expand_more</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="openEditClientDialog(client)"><i class="fa fa-pencil" aria-hidden="true"></i>
+              Izmeni
+            </button>
+            <button mat-menu-item (click)="deleteClient(client.id)"><i class="fa fa-trash" aria-hidden="true"></i>
+              Obriši
+            </button>
+          </mat-menu>
+          `
 
+        </div>
       </div>
     </div>
   </div>
