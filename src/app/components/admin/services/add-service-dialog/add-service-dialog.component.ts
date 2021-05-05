@@ -23,6 +23,7 @@ export class AddServiceDialogComponent extends DefaultComponent<Treatment> imple
   listOfCategories: TreatmentCategory[] = [];
   listOfDurations: TreatmentDuration[] = [];
 
+  isMobile = false;
   durationBeforeEdit!: TreatmentDuration;
 
   treatmentForm = new FormGroup({
@@ -53,6 +54,13 @@ export class AddServiceDialogComponent extends DefaultComponent<Treatment> imple
     this.getAllCategories().then(() => {
       this.setDataToForm();
     });
+    this.setIsMobile();
+  }
+
+  setIsMobile(): void {
+    if (window.screen.width <= 570) {
+      this.isMobile = true;
+    }
   }
 
   ngAfterViewChecked(): void {

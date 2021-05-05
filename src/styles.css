@@ -83,7 +83,7 @@ button {
   display: none;
 }
 
-.border-btn {
+.border-btn, .black-border-btn {
   padding: 0.4em 0;
   width: 30%;
   background-color: transparent;
@@ -118,6 +118,11 @@ button {
 
 .mat-elevation-z8 {
   box-shadow: 0 2px 5px 0 rgba(164, 173, 186, 0.25) !important;
+}
+
+.black-border-btn {
+  border: 1px solid #121212;
+  color: #121212;
 }
 
 @media screen and (max-width: 570px) {

@@ -4,7 +4,7 @@
       <mat-icon>close</mat-icon>
     </button>
 
-    <h1 class="text-center">Dodavanje tretmana</h1>
+    <h1 class="text-center header-h1">Dodavanje tretmana</h1>
     <div class="container">
       <mat-spinner #spinner diameter="30"></mat-spinner>
       <div class="column">
@@ -18,7 +18,8 @@
           <app-form-select bindValue="name" [model]="this.data.category" [group]="treatmentForm"
                            [config]="categorySelectConfig"
                            label="Kategorija"></app-form-select>
-          <app-form-input [group]="treatmentForm" [model]="data ? data.description : ''" [config]="descriptionInputConfig"
+          <app-form-input [group]="treatmentForm" [model]="data ? data.description : ''"
+                          [config]="descriptionInputConfig"
                           label="Opis"></app-form-input>
         </div>
       </div>
@@ -29,17 +30,17 @@
         </div>
         <div class="column-content">
           <div class="row">
-            <div class="col-5">
+            <div [class]="isMobile ? 'col-12' : 'col-5'">
               <app-form-input type="number" label="Trajanje" icon="more_time" [group]="durationForm"
                               [config]="durationInputConfig"></app-form-input>
             </div>
-            <div class="col-5">
+            <div [class]="isMobile ? 'col-12' : 'col-5'">
               <app-form-input type="number" label="Cena" icon="attach_money" [group]="durationForm"
                               [config]="priceInputConfig"></app-form-input>
             </div>
-            <div class="col-2 text-right">
+            <div class="col-sm-2 text-right">
               <div class="inline">
-                <button class="border-btn" (click)="addDuration()" mat-button>Dodaj</button>
+                <button class="black-border-btn" (click)="addDuration()" mat-button>Dodaj</button>
                 <button class="border-btn" (click)="editDuration()" mat-button>Izmeni</button>
               </div>
             </div>
