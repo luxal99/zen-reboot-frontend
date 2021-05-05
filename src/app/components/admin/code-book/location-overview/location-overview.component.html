@@ -9,31 +9,27 @@
   </div>
   <div>
     <div class="row header-row text-center">
-      <div class="col-sm">
+      <div class="col-3">
         <h3>Naziv</h3>
       </div>
-      <div class="col-sm">
+      <div class="col-3">
         <h3>Adresa</h3>
       </div>
-      <div class="col-sm">
+      <div class="col-3">
         <h3>Datum kreiranja</h3>
       </div>
-      <div class="col-sm">
+      <div class="col-3">
       </div>
     </div>
     <div class="row text-center location-source-row"
          *ngFor="let location of listOfItems">
-      <div class="col-sm" (click)="openAddLocationDialog(location)">
+      <div class="col-3" (click)="openAddLocationDialog(location)">
         <h3>{{location.name}}</h3>
       </div>
-      <div class="col-sm" (click)="openAddLocationDialog(location)">
+      <div class="col-6" (click)="openAddLocationDialog(location)">
         <h3>{{location.address?.street + ' ' + location.address?.number + ',' + location.address?.city?.name}}</h3>
       </div>
-      <div class="col-sm" (click)="openAddLocationDialog(location)">
-        <h3>{{location.createdDate.getDate()}}/{{location.createdDate.getMonth() + 1}}
-          /{{location.createdDate.getUTCFullYear()}}</h3>
-      </div>
-      <div class="col-sm">
+      <div class="col-3">
         <button mat-button color="warn" (click)="deleteLocation(location.id)">
           <i class="fa fa-trash"></i>
         </button>

@@ -13,6 +13,7 @@ import {Person} from '../../../../models/person';
 import {FormControl, FormGroup} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
+import {DialogOptions} from '../../../../util/dialog-options';
 
 @Component({
   selector: 'app-staff-shifts-overview',
@@ -142,11 +143,13 @@ export class StaffShiftsOverviewComponent implements OnInit, AfterViewChecked {
   }
 
   openAddShiftDialog(staff: any, date: any, shf?: Shift): void {
-    DialogUtil.openDialog(AddShiftDialogComponent, {
-      position: {top: '6%'},
-      data: shf ? shf : {staff, date},
-      width: '30%',
-    }, this.dialog).afterClosed().subscribe(() => {
+    DialogUtil.openDialog(AddShiftDialogComponent, DialogOptions.setDialogConfig(
+      {
+        position: {top: '6%'},
+        data: shf ? shf : {staff, date},
+        width: '30%',
+      }
+    ), this.dialog).afterClosed().subscribe(() => {
       this.filterShift();
     });
   }
