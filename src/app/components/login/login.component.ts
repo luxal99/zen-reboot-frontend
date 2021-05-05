@@ -32,8 +32,7 @@ export class LoginComponent implements OnInit {
 
   auth(): void {
     this.spinnerService.show(this.spinner);
-    this.authService.auth(this.loginForm.getRawValue()).subscribe((resp) => {
-      console.log(resp.headers.get(Token.HEADER_NAME));
+    this.authService.auth(this.loginForm.getRawValue()).subscribe((resp) => {;
       this.spinnerService.hide(this.spinner);
     });
   }

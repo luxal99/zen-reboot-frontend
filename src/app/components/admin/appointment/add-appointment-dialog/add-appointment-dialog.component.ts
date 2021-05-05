@@ -219,7 +219,6 @@ export class AddAppointmentDialogComponent extends DefaultComponent<Appointment>
         .pipe()
         .subscribe((resp) => {
           this.listOfClients = resp;
-          console.log(resp);
         });
     } else if (search.length === 0) {
       this.getClient();

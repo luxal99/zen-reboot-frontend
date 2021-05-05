@@ -157,7 +157,6 @@ export class EditInvoiceDialogComponent extends DefaultComponent<Invoice> implem
 
   selectAppointment(appointment: Appointment): void {
     if (this.listOfSelectedAppointments.indexOf(appointment) === -1) {
-      console.log('Ovde');
       this.listOfSelectedAppointments.push(appointment);
     }
   }

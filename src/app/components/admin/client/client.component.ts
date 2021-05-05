@@ -39,7 +39,6 @@ export class ClientComponent extends DefaultComponent<Client> implements OnInit 
     this.getClientWithPagination();
     const queryBuilder = new CriteriaBuilder();
     queryBuilder.like('person.firstName', 'aleksa');
-    console.log(queryBuilder.buildUrlEncoded());
   }
 
   getClientWithPagination(): void {
@@ -111,7 +110,6 @@ export class ClientComponent extends DefaultComponent<Client> implements OnInit 
   }
 
   deleteClient(id: number): void {
-    console.log(id);
     this.spinnerService.show(this.spinner);
     this.clientService.delete(id).subscribe(() => {
       SnackBarUtil.openSnackBar(this.snackBar, Message.SUCCESS);
@@ -129,7 +127,6 @@ export class ClientComponent extends DefaultComponent<Client> implements OnInit 
     queryBuilder.startsWith('person.firstName', search).or()
       .startsWith('person.contacts.value', search);
     queryBuilder.criteriaList = queryBuilder.criteriaList.filter((searchCriteria) => searchCriteria.secondOperand !== '');
-    console.log(queryBuilder.build());
     if (search.length > 3) {
       this.clientService.getAllSearchByQueryParam(queryBuilder.buildUrlEncoded())
         .pipe()

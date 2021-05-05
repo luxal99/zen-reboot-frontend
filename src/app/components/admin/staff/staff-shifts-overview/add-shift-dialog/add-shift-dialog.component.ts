@@ -48,7 +48,6 @@ export class AddShiftDialogComponent extends DefaultComponent<Shift> implements 
   }
 
   ngOnInit(): void {
-    console.log(this.data);
     this.date = moment(this.data.date).format('DD MMMM YYYY');
     this.getAllLocations();
   }
