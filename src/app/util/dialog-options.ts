@@ -6,7 +6,7 @@ export class DialogOptions {
       return {
         width: '100%',
         minWidth: '100%',
-        height: '85vh',
+        height: '80vh',
         position: {bottom: '0'},
         data: config.data
       };

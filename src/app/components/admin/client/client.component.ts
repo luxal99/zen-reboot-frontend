@@ -12,6 +12,7 @@ import {ClientOverviewDialogComponent} from './client-overview-dialog/client-ove
 import {DefaultComponent} from '../../../util/default-component';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {CriteriaBuilder} from '../../../util/criteria-builder';
+import {DialogOptions} from '../../../util/dialog-options';
 
 @Component({
   selector: 'app-client',
@@ -68,12 +69,13 @@ export class ClientComponent extends DefaultComponent<Client> implements OnInit 
   }
 
   openAddClientDialog(): void {
-    DialogUtil.openDialog(AddClientDialogComponent, {
-      maxWidth: '100vw',
-      maxHeight: '100vh',
-      height: '100%',
-      width: '100%'
-    }, this.dialog).afterClosed().subscribe(() => {
+    DialogUtil.openDialog(AddClientDialogComponent,
+      DialogOptions.setDialogConfig({
+        maxWidth: '100vw',
+        maxHeight: '100vh',
+        height: '100%',
+        width: '100%'
+      }), this.dialog).afterClosed().subscribe(() => {
       this.getCurrentPage();
     });
   }

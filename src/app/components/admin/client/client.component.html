@@ -66,7 +66,7 @@
       </div>
     </div>
     <div class="binding mobile">
-      <div class="row client-row" style="padding-top: 1em" *ngFor="let client of listOfItems|client:searchText">
+      <div class="row client-row" (click)="openClientOverviewDialog(client)" style="padding-top: 1em" *ngFor="let client of listOfItems|client:searchText">
         <div class="col">
           <h1 class="first-letter-h1">{{client.person.firstName.substr(0, 1)}}</h1>
         </div>
