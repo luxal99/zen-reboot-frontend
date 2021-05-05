@@ -93,12 +93,13 @@ export class ClientComponent extends DefaultComponent<Client> implements OnInit 
   }
 
   openClientOverviewDialog(data: Client): void {
-    DialogUtil.openDialog(ClientOverviewDialogComponent, {
-      position: {right: '0'},
-      width: '95%',
-      height: '100vh',
-      data
-    }, this.dialog);
+    DialogUtil.openDialog(ClientOverviewDialogComponent,
+      DialogOptions.setDialogConfig({
+        position: {right: '0'},
+        width: '95%',
+        height: '100vh',
+        data
+      }), this.dialog);
   }
 
   getCurrentPage(): void {
