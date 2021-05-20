@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {VoucherService} from '../../../service/voucher.service';
 
 @Component({
   selector: 'app-vouchers',
@@ -7,7 +8,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class VouchersComponent implements OnInit {
 
-  constructor() { }
+  constructor(private voucherService: VoucherService) {
+  }
 
   ngOnInit(): void {
   }

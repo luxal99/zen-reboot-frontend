@@ -89,6 +89,7 @@ export class RestRoutesConst {
   static APPOINTMENT_STATUS = 'appointment-statuses';
   static INVOICE = 'invoices';
   static INVOICE_STATUS = 'invoice-statuses';
+  static VOUCHER = 'voucher';
 }
 
 export class TokenConst {
