@@ -53,6 +53,7 @@ import {InvoiceTableBindingComponent} from './components/table-binding/invoice-t
 import {SumGrossPipe} from './pipes/sum-gross.pipe';
 import { InvoicesDialogOverviewComponent } from './components/table-binding/invoices-dialog-overview/invoices-dialog-overview.component';
 import { VouchersComponent } from './components/admin/vouchers/vouchers.component';
+import { AddVoucherDialogComponent } from './components/admin/vouchers/add-voucher-dialog/add-voucher-dialog.component';
 
 @NgModule({
   declarations: [
@@ -98,7 +99,8 @@ import { VouchersComponent } from './components/admin/vouchers/vouchers.componen
     InvoiceTableBindingComponent,
     SumGrossPipe,
     InvoicesDialogOverviewComponent,
-    VouchersComponent
+    VouchersComponent,
+    AddVoucherDialogComponent
   ],
   imports: [
     BrowserModule,
