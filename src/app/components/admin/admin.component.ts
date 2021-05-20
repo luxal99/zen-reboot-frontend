@@ -17,7 +17,7 @@ import {AppointmentComponent} from './appointment/appointment.component';
 import {InvoiceOverviewComponent} from './invoice-overview/invoice-overview.component';
 import {MatDrawer} from '@angular/material/sidenav';
 import {ComponentType} from '@angular/cdk/portal';
-import {VouchersComponent} from '../../vouchers/vouchers.component';
+import {VouchersComponent} from './vouchers/vouchers.component';
 
 @Component({
   selector: 'app-admin',
