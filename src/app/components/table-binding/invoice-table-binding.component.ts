@@ -3,7 +3,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {DialogUtil} from '../../util/dialog-util';
 import {InvoicesDialogOverviewComponent} from './invoices-dialog-overview/invoices-dialog-overview.component';
 import {Invoice} from '../../models/invoice';
-import {DialogOptions} from '../../util/dialog-options';
+import {setDialogConfig} from '../../util/dialog-options';
 
 @Component({
   selector: 'app-table-binding',
@@ -22,7 +22,7 @@ export class InvoiceTableBindingComponent implements OnInit {
   }
 
   openInvoiceDialogOverview(data: Invoice): void {
-    DialogUtil.openDialog(InvoicesDialogOverviewComponent, DialogOptions.setDialogConfig({
+    DialogUtil.openDialog(InvoicesDialogOverviewComponent, setDialogConfig({
       height: '100%',
       width: '40%',
       position: {right: '0'},

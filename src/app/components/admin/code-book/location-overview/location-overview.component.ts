@@ -7,7 +7,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {Location} from 'src/app/models/location';
 
 import {AddLocationDialogComponent} from './add-location-dialog/add-location-dialog.component';
-import {DialogOptions} from '../../../../util/dialog-options';
+import {setDialogConfig} from '../../../../util/dialog-options';
 
 @Component({
   selector: 'app-location-overview',
@@ -25,7 +25,7 @@ export class LocationOverviewComponent extends DefaultComponent<Location> implem
   }
 
   openAddLocationDialog(data?: Location): void {
-    DialogUtil.openDialog(AddLocationDialogComponent, DialogOptions.setDialogConfig({
+    DialogUtil.openDialog(AddLocationDialogComponent, setDialogConfig({
       position: {top: '6%'},
       data,
       width: '30%',

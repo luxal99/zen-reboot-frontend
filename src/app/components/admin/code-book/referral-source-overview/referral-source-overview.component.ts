@@ -9,7 +9,7 @@ import {Validators} from '@angular/forms';
 import {DialogUtil} from '../../../../util/dialog-util';
 import {FormBuilderComponent} from '../../../form-components/form-builder/form-builder.component';
 import {MatDialog} from '@angular/material/dialog';
-import {DialogOptions} from '../../../../util/dialog-options';
+import {setDialogConfig} from '../../../../util/dialog-options';
 
 @Component({
   selector: 'app-referral-source-overview',
@@ -41,7 +41,7 @@ export class ReferralSourceOverviewComponent extends DefaultComponent<ReferralSo
 
     };
     DialogUtil.openDialog(FormBuilderComponent,
-      DialogOptions.setDialogConfig({
+      setDialogConfig({
         position: {top: '6%'},
         width: '30%',
         data: configData

@@ -12,6 +12,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import {MatDialog} from '@angular/material/dialog';
 import {CityService} from '../../../../service/city.service';
 import {MatSpinner} from '@angular/material/progress-spinner';
+import {setDialogConfig} from '../../../../util/dialog-options';
 
 @Component({
   selector: 'app-countries-overview',
@@ -52,11 +53,11 @@ export class CountriesOverviewComponent extends DefaultComponent<Country> implem
       service: this.countryService
     };
 
-    DialogUtil.openDialog(FormBuilderComponent, {
+    DialogUtil.openDialog(FormBuilderComponent, setDialogConfig({
       position: {top: '6%'},
       width: '30%',
       data: configData
-    }, this.dialog).afterClosed().subscribe(() => {
+    }), this.dialog).afterClosed().subscribe(() => {
       this.getItems();
     });
   }
@@ -80,11 +81,11 @@ export class CountriesOverviewComponent extends DefaultComponent<Country> implem
       service: this.cityService
     };
 
-    DialogUtil.openDialog(FormBuilderComponent, {
+    DialogUtil.openDialog(FormBuilderComponent, setDialogConfig({
       position: {top: '6%'},
       width: '30%',
       data: configData
-    }, this.dialog).afterClosed().subscribe(() => {
+    }), this.dialog).afterClosed().subscribe(() => {
       this.getItems();
     });
   }

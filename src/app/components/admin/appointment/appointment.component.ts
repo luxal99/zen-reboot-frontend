@@ -13,7 +13,7 @@ import {map} from 'rxjs/operators';
 import {LocationService} from '../../../service/location.service';
 import {Location} from '../../../models/location';
 import {RoomDto} from '../../../models/room-dto';
-import {DialogOptions} from '../../../util/dialog-options';
+import {setDialogConfig} from '../../../util/dialog-options';
 import {RoomService} from '../../../service/room.service';
 
 @Component({
@@ -117,7 +117,7 @@ export class AppointmentComponent extends DefaultComponent<Appointment> implemen
 
   openAddAppointmentDialog(data?: any): void {
     DialogUtil.openDialog(AddAppointmentDialogComponent,
-      DialogOptions.setDialogConfig({
+      setDialogConfig({
         position: {right: '0'},
         height: '100vh',
         width: '70%',
@@ -130,7 +130,7 @@ export class AppointmentComponent extends DefaultComponent<Appointment> implemen
 
   openAppointmentOverviewDialog(appointment: Appointment): void {
     DialogUtil.openDialog(AppointmentOverviewDialogComponent,
-      DialogOptions.setDialogConfig({
+      setDialogConfig({
         maxWidth: '100vw',
         maxHeight: '100vh',
         height: '100%',

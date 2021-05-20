@@ -1,21 +1,19 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
-import {SpinnerService} from '../../../service/spinner.service';
 import {TreatmentService} from '../../../service/treatment.service';
 import {TreatmentCategoryService} from '../../../service/treatment-category.service';
 import {TreatmentCategory} from '../../../models/treatment-category';
 import {FormBuilderConfig} from '../../../models/FormBuilderConfig';
-import {FormControlNames, InputTypes, Message} from '../../../const/const';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormControlNames, InputTypes} from '../../../const/const';
+import { Validators} from '@angular/forms';
 import {DialogUtil} from '../../../util/dialog-util';
 import {FormBuilderComponent} from '../../form-components/form-builder/form-builder.component';
 import {MatSpinner} from '@angular/material/progress-spinner';
 import {AddServiceDialogComponent} from './add-service-dialog/add-service-dialog.component';
 import {Treatment} from '../../../models/treatment';
-import {SnackBarUtil} from '../../../util/snack-bar-uitl';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {DefaultComponent} from '../../../util/default-component';
-import {DialogOptions} from '../../../util/dialog-options';
+import { setDialogConfig} from '../../../util/dialog-options';
 
 @Component({
   selector: 'app-services',
@@ -51,7 +49,7 @@ export class ServicesComponent extends DefaultComponent<TreatmentCategory> imple
       ]
     };
 
-    DialogUtil.openDialog(FormBuilderComponent, DialogOptions.setDialogConfig(
+    DialogUtil.openDialog(FormBuilderComponent, setDialogConfig(
       {
         position: {top: '6%'},
         width: '30%',
