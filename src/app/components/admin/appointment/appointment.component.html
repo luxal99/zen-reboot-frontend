@@ -42,6 +42,8 @@
             </div>
             <div class="location-inactive" (click)="changeLocation($event,location)"
                  *ngFor="let location of listOfLocations|slice:1"><h3>{{location.name | capitalize}}</h3></div>
+            <div class="location-inactive" (click)="getAllRoomsAppointments($event)"><h3>Sve sobe</h3>
+            </div>
           </div>
         </div>
       </div>

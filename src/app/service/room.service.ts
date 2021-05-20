@@ -3,6 +3,7 @@ import {GenericService} from './generic.service';
 import {Room} from '../models/room';
 import {RestRoutesConst} from '../const/const';
 import {Observable} from 'rxjs';
+import {RoomDto} from '../models/room-dto';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ import {Observable} from 'rxjs';
 export class RoomService extends GenericService<Room> {
   route = RestRoutesConst.ROOM;
 
-  getAppointmentsForAllRooms(): Observable<any[]> {
-    return this.http.get<any[]>(RestRoutesConst.API + this.route + '/rooms/appointments', {responseType: 'json'});
+  getAppointmentsForAllRooms(q?: string): Observable<RoomDto[]> {
+    return this.http.get<RoomDto[]>(RestRoutesConst.API + this.route + '/appointments' + (q ? `?q=${q}` : ''), {responseType: 'json'});
   }
 }

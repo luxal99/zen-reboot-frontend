@@ -15,6 +15,7 @@ import {Location} from '../../../models/location';
 import {RoomDto} from '../../../models/room-dto';
 import set = Reflect.set;
 import {DialogOptions} from '../../../util/dialog-options';
+import {RoomService} from '../../../service/room.service';
 
 @Component({
   selector: 'app-appointment',
@@ -33,8 +34,11 @@ export class AppointmentComponent extends DefaultComponent<Appointment> implemen
 
   searchText = '';
   defaultLocation: Location = {};
+
+  allRooms = false;
   initGap = 0;
   gap = 7;
+
 
   isDisabledNext10 = false;
   isDisabledPrev10 = true;
@@ -43,7 +47,8 @@ export class AppointmentComponent extends DefaultComponent<Appointment> implemen
 
   listOfLocations: Location[] = [];
 
-  constructor(private dialog: MatDialog, protected snackBar: MatSnackBar, public locationService: LocationService) {
+  constructor(private dialog: MatDialog, protected snackBar: MatSnackBar, public locationService: LocationService,
+              private roomService: RoomService) {
     super(locationService, snackBar);
   }
 
@@ -78,14 +83,14 @@ export class AppointmentComponent extends DefaultComponent<Appointment> implemen
   nextStaffs(): void {
     this.initGap += 7;
     this.gap += 7;
-    this.getAppointments();
+    this.allRooms ? this.getAppointments() : this.getAllRoomsAppointments();
   }
 
   previousStaffs(): void {
     if (this.initGap - 7 >= 0) {
       this.initGap -= 7;
       this.gap -= 7;
-      this.getAppointments();
+      this.allRooms ? this.getAppointments() : this.getAllRoomsAppointments();
     } else {
       this.isDisabledPrev10 = true;
     }
@@ -120,7 +125,7 @@ export class AppointmentComponent extends DefaultComponent<Appointment> implemen
         maxWidth: '70%',
         data
       }), this.dialog).afterClosed().subscribe(async () => {
-      this.getAppointments();
+      this.allRooms ? this.getAppointments() : this.getAllRoomsAppointments();
     });
   }
 
@@ -133,18 +138,18 @@ export class AppointmentComponent extends DefaultComponent<Appointment> implemen
         width: '100%',
         data: appointment
       }), this.dialog).afterClosed().subscribe(async () => {
-      this.getAppointments();
+      this.allRooms ? this.getAppointments() : this.getAllRoomsAppointments();
     });
   }
 
   nextDay(): void {
     this.currentDate = this.currentDate.add(1, 'd');
-    this.getAppointments();
+    this.allRooms ? this.getAppointments() : this.getAllRoomsAppointments();
   }
 
   previousDay(): void {
     this.currentDate = this.currentDate.subtract(1, 'd');
-    this.getAppointments();
+    this.allRooms ? this.getAppointments() : this.getAllRoomsAppointments();
   }
 
   setResponsive(): void {
@@ -159,6 +164,26 @@ export class AppointmentComponent extends DefaultComponent<Appointment> implemen
       }
 
     }
+  }
+
+  getAllRoomsAppointments(forwardedElement?: any): void {
+    this.spinnerService.show(this.spinner);
+    const element = document.querySelectorAll('.location-active');
+    [].forEach.call(element, (el: any) => {
+      el.classList.remove('location-active');
+      el.classList.add('location-inactive');
+    });
+    if (forwardedElement) {
+      forwardedElement.target.className = 'location-active';
+    }
+    const queryBuilder = new CriteriaBuilder();
+    queryBuilder.eq('date', new Date(this.currentDate.format('YYYY-MM-DD')).valueOf());
+    this.roomService.getAppointmentsForAllRooms(queryBuilder.buildUrlEncoded())
+      .pipe(map(value => value.slice(this.initGap, this.gap)))
+      .subscribe((resp) => {
+        this.filteredScheduleList = resp;
+        this.spinnerService.hide(this.spinner);
+      });
   }
 
   search(): void {
