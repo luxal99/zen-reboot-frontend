@@ -13,7 +13,6 @@ import {map} from 'rxjs/operators';
 import {LocationService} from '../../../service/location.service';
 import {Location} from '../../../models/location';
 import {RoomDto} from '../../../models/room-dto';
-import set = Reflect.set;
 import {DialogOptions} from '../../../util/dialog-options';
 import {RoomService} from '../../../service/room.service';
 

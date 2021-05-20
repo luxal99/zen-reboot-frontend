@@ -52,6 +52,7 @@ import {FindClientPhoneNumberPipe} from './pipes/find-client-phone-number.pipe';
 import {InvoiceTableBindingComponent} from './components/table-binding/invoice-table-binding.component';
 import {SumGrossPipe} from './pipes/sum-gross.pipe';
 import { InvoicesDialogOverviewComponent } from './components/table-binding/invoices-dialog-overview/invoices-dialog-overview.component';
+import { VouchersComponent } from './vouchers/vouchers.component';
 
 @NgModule({
   declarations: [
@@ -96,7 +97,8 @@ import { InvoicesDialogOverviewComponent } from './components/table-binding/invo
     FindClientPhoneNumberPipe,
     InvoiceTableBindingComponent,
     SumGrossPipe,
-    InvoicesDialogOverviewComponent
+    InvoicesDialogOverviewComponent,
+    VouchersComponent
   ],
   imports: [
     BrowserModule,
