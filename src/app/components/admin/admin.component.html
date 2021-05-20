@@ -1,7 +1,7 @@
 <mat-drawer-container hasBackdrop="true" fullscreen>
-  <mat-drawer  #drawer mode="over">
+  <mat-drawer #drawer mode="over">
     <div>
-      <a  (click)="changeColor($event)" class="inactive overview-a">
+      <a (click)="changeColor($event)" class="inactive overview-a">
         <a class="a-h2 text-center overview-a" (click)="loadOverviewComponent()" id="overview-side-btn">
               <span class="icon-span"><i disabled
                                          class="fa fa-home"></i> </span>
@@ -20,11 +20,11 @@
                                (load)="loadStaffComponent()"></app-component-activator>
       <app-component-activator icon="fa fa-cc-visa" title="Fakture"
                                (load)="loadInvoiceComponent()"></app-component-activator>
-      <app-component-activator icon="fa fa-cc-visa" title="Vaučeri"
-                               (load)="loadInvoiceComponent()"></app-component-activator>
+      <app-component-activator icon="fa fa-archive" title="Vaučeri"
+                               (load)="loadVouchersComponent()"></app-component-activator>
     </div>
   </mat-drawer>
-  <mat-drawer-content >
+  <mat-drawer-content>
     <div class="row">
       <div class="col side-nav-col" #sideNav>
         <div class="side-nav-col-content ">

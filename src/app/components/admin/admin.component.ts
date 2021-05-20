@@ -85,7 +85,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
   }
 
   loadOverviewComponent(): void {
-    this.genericLoadComponent('Pregled', OverviewComponent);
+    this.genericLoadComponent(this.header, OverviewComponent);
   }
 
   loadCodeBookComponent(): void {
