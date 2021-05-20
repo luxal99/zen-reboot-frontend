@@ -16,6 +16,8 @@ import {StaffComponent} from './staff/staff.component';
 import {AppointmentComponent} from './appointment/appointment.component';
 import {InvoiceOverviewComponent} from './invoice-overview/invoice-overview.component';
 import {MatDrawer} from '@angular/material/sidenav';
+import {ComponentType} from '@angular/cdk/portal';
+import {VouchersComponent} from '../../vouchers/vouchers.component';
 
 @Component({
   selector: 'app-admin',
@@ -83,46 +85,27 @@ export class AdminComponent implements OnInit, AfterViewInit {
   }
 
   loadOverviewComponent(): void {
-    this.closeDrawer().then(() => {
-      this.setHeader('Pregled');
-      LazyLoadComponentsUtil.loadComponent(OverviewComponent, this.entry, this.resolver);
-    });
+    this.genericLoadComponent('Pregled', OverviewComponent);
   }
 
   loadCodeBookComponent(): void {
-    this.closeDrawer().then(() => {
-      this.setHeader('Šifarnik');
-      LazyLoadComponentsUtil.loadComponent(CodeBookComponent, this.entry, this.resolver);
-    });
+    this.genericLoadComponent('Šifarnik', CodeBookComponent);
   }
 
   loadClientComponent(): void {
-    this.closeDrawer().then(() => {
-      this.setHeader('Klijenti');
-      LazyLoadComponentsUtil.loadComponent(ClientComponent, this.entry, this.resolver);
-    });
+    this.genericLoadComponent('Klijenti', ClientComponent);
   }
 
   loadStaffComponent(): void {
-    this.closeDrawer().then(() => {
-      this.header = 'Zaposleni';
-      LazyLoadComponentsUtil.loadComponent(StaffComponent, this.entry, this.resolver);
-
-    });
+    this.genericLoadComponent('Zaposleni', StaffComponent);
   }
 
   loadServiceComponent(): void {
-    this.closeDrawer().then(() => {
-      this.setHeader('Tretmani');
-      LazyLoadComponentsUtil.loadComponent(ServicesComponent, this.entry, this.resolver);
-    });
+    this.genericLoadComponent('Tretmani', ServicesComponent);
   }
 
   loadInvoiceComponent(): void {
-    this.closeDrawer().then(() => {
-      this.setHeader('Fakture');
-      LazyLoadComponentsUtil.loadComponent(InvoiceOverviewComponent, this.entry, this.resolver);
-    });
+    this.genericLoadComponent('Fakture', InvoiceOverviewComponent);
   }
 
   loadAppointmentComponent(): void {
@@ -132,6 +115,19 @@ export class AdminComponent implements OnInit, AfterViewInit {
         LazyLoadComponentsUtil.loadComponent(AppointmentComponent, this.entry, this.resolver);
       });
     }, 200);
+  }
+
+
+  loadVouchersComponent(): void {
+    this.genericLoadComponent('Vaučeri', VouchersComponent);
+  }
+
+
+  genericLoadComponent(header: string, component: ComponentType<any>): void {
+    this.closeDrawer().then(() => {
+      this.setHeader(header);
+      LazyLoadComponentsUtil.loadComponent(component, this.entry, this.resolver);
+    });
   }
 
   async closeDrawer(): Promise<void> {
