@@ -1,7 +1,23 @@
 <div class="dialog">
-  <h1>Kreiranje vaučera</h1>
+  <div class="text-right">
+    <button mat-icon-button mat-dialog-close>
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  <h1><b>Kreiranje vaučera</b></h1>
+  <form [formGroup]="voucherForm">
+    <mat-form-field appearance="outline">
+      <mat-label>Choose a date</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="startDate">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+  </form>
+
   <app-form-input [group]="voucherForm" label="Količina" [config]="countInputConfig"></app-form-input>
+  <app-form-input [group]="voucherForm" label="Popust" [config]="discountInputConfig"></app-form-input>
   <app-form-select label="Način plaćanja" [group]="voucherForm" [config]="paymentMethodSelectConfig"></app-form-select>
+  <app-form-select label="Tip vaučera" [group]="voucherForm" [config]="typeSelectConfig"></app-form-select>
   <mat-accordion>
     <mat-expansion-panel>
       <mat-expansion-panel-header>Klijenti</mat-expansion-panel-header>
@@ -43,4 +59,6 @@
     </mat-expansion-panel>
   </mat-accordion>
   <mat-spinner #spinner diameter="25"></mat-spinner>
+
+  <button class="default-btn" (click)="save()" mat-button>Sačuvaj</button>
 </div>

@@ -13,6 +13,7 @@ import {PaymentMethodService} from '../../../../service/payment-method.service';
 import {ClientService} from '../../../../service/client.service';
 import {Client} from '../../../../models/client';
 import {CriteriaBuilder} from '../../../../util/criteria-builder';
+import {VoucherEnum} from '../../../../enums/VoucherEnum';
 
 @Component({
   selector: 'app-add-voucher-dialog',
@@ -39,7 +40,10 @@ export class AddVoucherDialogComponent extends DefaultComponent<VoucherDto> impl
 
   countInputConfig: FieldConfig = {name: FormControlNames.COUNT_FORM_CONTROL, type: InputTypes.INPUT_TYPE_NAME};
   discountInputConfig: FieldConfig = {name: FormControlNames.DISCOUNT_FORM_CONTROL, type: InputTypes.INPUT_TYPE_NAME};
-  paymentMethodSelectConfig: FieldConfig = {name: FormControlNames.PAYMENT_METHOD_FORM_CONTROL, type: InputTypes.INPUT_TYPE_NAME};
+  paymentMethodSelectConfig: FieldConfig = {name: FormControlNames.PAYMENT_METHOD_FORM_CONTROL, type: InputTypes.SELECT_TYPE_NAME};
+  typeSelectConfig: FieldConfig = {
+    name: FormControlNames.TYPE_FORM_CONTROL, type: InputTypes.SELECT_TYPE_NAME, options: [VoucherEnum.BLANCO, VoucherEnum.PRODUCT]
+  };
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: Voucher, private voucherService: VoucherService,
               protected snackBar: MatSnackBar, private paymentService: PaymentMethodService, private clientService: ClientService) {

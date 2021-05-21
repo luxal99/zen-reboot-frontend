@@ -47,6 +47,7 @@ export class FormControlNames {
   static COUNT_FORM_CONTROL = 'count';
   static DISCOUNT_FORM_CONTROL = 'discount';
   static PAYMENT_METHOD_FORM_CONTROL = 'paymentMethod';
+  static TYPE_FORM_CONTROL = 'type';
 }
 
 export class InputTypes {
