@@ -120,9 +120,9 @@ export abstract class DefaultComponent<T> implements OnInit {
     this.getItems();
   }
 
-  initSelectConfig(service: GenericService<any>, locationSelectConfig: FieldConfig): void {
+  initSelectConfig(service: GenericService<any>, selectConfig: FieldConfig): void {
     service.getAll().subscribe((resp) => {
-      locationSelectConfig.options = resp;
+      selectConfig.options = resp;
     });
   }
 

@@ -19,7 +19,12 @@ export class VouchersComponent implements OnInit {
   }
 
   openAddVoucherDialog(): void {
-    DialogUtil.openDialog(AddVoucherDialogComponent, setDialogConfig({}), this.dialog);
+    DialogUtil.openDialog(AddVoucherDialogComponent, setDialogConfig({
+      position: {right: '0'},
+      height: '100vh',
+      width: '40%',
+      maxWidth: '40%',
+    }), this.dialog);
   }
 
 }

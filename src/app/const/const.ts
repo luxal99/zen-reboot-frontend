@@ -44,6 +44,9 @@ export class FormControlNames {
   static INVOICE_STATUS_FORM_CONTROL = 'invoiceStatus';
   static START_DATE_FORM_CONTROL = 'startDate';
   static END_DATE_FORM_CONTROL = 'endDate';
+  static COUNT_FORM_CONTROL = 'count';
+  static DISCOUNT_FORM_CONTROL = 'discount';
+  static PAYMENT_METHOD_FORM_CONTROL = 'paymentMethod';
 }
 
 export class InputTypes {
@@ -90,6 +93,7 @@ export class RestRoutesConst {
   static INVOICE = 'invoices';
   static INVOICE_STATUS = 'invoice-statuses';
   static VOUCHER = 'voucher';
+  static PAYMENT_METHOD = 'payment-methods';
 }
 
 export class TokenConst {
