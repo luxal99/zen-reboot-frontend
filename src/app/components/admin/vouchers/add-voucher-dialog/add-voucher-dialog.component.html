@@ -13,11 +13,23 @@
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
   </form>
-
-  <app-form-input [group]="voucherForm" label="Količina" [config]="countInputConfig"></app-form-input>
-  <app-form-input [group]="voucherForm" label="Popust" [config]="discountInputConfig"></app-form-input>
+  <app-form-select label="Tip vaučera" (onChange)="disableByVoucherType()" [group]="voucherForm"
+                   [config]="typeSelectConfig"></app-form-select>
+  <app-form-input [group]="voucherForm"  label="Količina" [isDisabled]="isCountDisabled"
+                  [config]="countInputConfig"></app-form-input>
+  <app-form-input [group]="voucherForm" label="Popust" [isDisabled]="isDiscountDisabled"
+                  [config]="discountInputConfig"></app-form-input>
   <app-form-select label="Način plaćanja" [group]="voucherForm" [config]="paymentMethodSelectConfig"></app-form-select>
-  <app-form-select label="Tip vaučera" [group]="voucherForm" [config]="typeSelectConfig"></app-form-select>
+  <app-form-select bindValue="name"
+                   [config]="treatmentSelectConfig"
+                   (onChange)="onTreatmentSelect()"
+                   label="Izaberi tretman"
+                   [group]="voucherForm"></app-form-select>
+  <app-form-select bindValue="duration"
+                   [isDisabled]="data ? isDurationFCDisabled:false"
+                   label="Izaberi trajanje"
+                   [config]="durationSelectConfig"
+                   [group]="voucherForm"></app-form-select>
   <mat-accordion>
     <mat-expansion-panel>
       <mat-expansion-panel-header>Klijenti</mat-expansion-panel-header>
@@ -38,7 +50,8 @@
             <app-paginator (next)="getNext()" (prev)="getPrevious()"></app-paginator>
           </div>
         </div>
-        <div class="row client-row" style="padding-top: 1em" *ngFor="let client of listOfClients">
+        <div class="row client-row" style="padding-top: 1em" *ngFor="let client of listOfClients"
+             (click)="selectClient(client,$event)">
           <div class="col-sm">
             <div class="inline">
               <h1 class="first-letter-h1">{{client.person.firstName.substr(0, 1)}}</h1>

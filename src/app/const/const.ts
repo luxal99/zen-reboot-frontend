@@ -2,6 +2,8 @@ export class RestServices {
   static AUTH = 'http://api.reboot.zen.7aske.xyz/login';
 }
 
+export const SELECTED_CLASS_NAME = 'selected';
+
 export class FormControlNames {
   static USERNAME_NAME_FORM_CONTROL = 'username';
   static PASSWORD_NAME_FORM_CONTROL = 'password';
@@ -55,6 +57,7 @@ export class InputTypes {
   static SELECT_TYPE_NAME = 'select';
   static PASSWORD_TYPE_NAME = 'password';
   static TIME = 'time';
+  static NUMBER = 'number';
 }
 
 export class Token {
@@ -93,7 +96,7 @@ export class RestRoutesConst {
   static APPOINTMENT_STATUS = 'appointment-statuses';
   static INVOICE = 'invoices';
   static INVOICE_STATUS = 'invoice-statuses';
-  static VOUCHER = 'voucher';
+  static VOUCHER = 'vouchers';
   static PAYMENT_METHOD = 'payment-methods';
 }
 

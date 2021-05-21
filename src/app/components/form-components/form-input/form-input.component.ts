@@ -23,6 +23,7 @@ export class FormInputComponent implements OnInit, Field {
   @Input() model!: any;
   // tslint:disable-next-line:no-output-native
   @Output() change = new EventEmitter();
+  @Input() isDisabled = false;
 
   constructor() {
   }
