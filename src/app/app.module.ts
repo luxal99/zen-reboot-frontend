@@ -58,6 +58,7 @@ import { DatePipe } from './pipes/date.pipe';
 import { VoucherPipe } from './pipes/voucher.pipe';
 import { StaffEmailPipe } from './pipes/staff-email.pipe';
 import { VoucherOverviewDialogComponent } from './components/admin/vouchers/voucher-overview-dialog/voucher-overview-dialog.component';
+import { ExpensesComponent } from './components/admin/expenses/expenses.component';
 
 @NgModule({
   declarations: [
@@ -108,7 +109,8 @@ import { VoucherOverviewDialogComponent } from './components/admin/vouchers/vouc
     DatePipe,
     VoucherPipe,
     StaffEmailPipe,
-    VoucherOverviewDialogComponent
+    VoucherOverviewDialogComponent,
+    ExpensesComponent
   ],
   imports: [
     BrowserModule,
