@@ -37,7 +37,7 @@ export class AppointmentOverviewDialogComponent extends DefaultComponent<Appoint
 
   getClientContactNumber(): void {
     // @ts-ignore
-    this.clientContactNumber = this.data.client?.person?.contacts?.find((contact) => contact.type === ContactTypeEnum.PHONE.toString());
+    this.clientContactNumber = this.data.clients[0].person?.contacts?.find((contact) => contact.type === ContactTypeEnum.PHONE.toString());
   }
 
   getLocation(): void {

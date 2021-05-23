@@ -8,7 +8,7 @@ import {Room} from './room';
 // tslint:disable-next-line:no-empty-interface
 export interface AppointmentDTO {
   appointmentStatus?: AppointmentStatus;
-  client?: Client;
+  clients?: Client[];
   createdDate?: any;
   date?: any;
   endTime?: string;

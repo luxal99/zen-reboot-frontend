@@ -10,7 +10,7 @@ export interface Appointment {
   endTime?: string;
   startTime?: string;
   appointmentStatus?: AppointmentStatus;
-  client?: Client;
+  clients?: Client[];
   createdDate?: string;
   date?: any;
   id?: number;

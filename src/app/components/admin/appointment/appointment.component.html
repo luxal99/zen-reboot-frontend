@@ -78,7 +78,7 @@
                 </div>
                 <h4> {{appointment.startTime.slice(0, 5) + '-' + appointment.endTime.slice(0, 5) }}
                 </h4>
-                <h4><b>{{ appointment.client?.person?.firstName + ' ' + appointment.client?.person?.lastName}}</b></h4>
+                <h4><b>{{ appointment.clients[0].person?.firstName + ' ' + appointment.clients[0].person?.lastName}}</b></h4>
                 <h4 class="treatment-name">{{ appointment.treatment?.name}}</h4>
                 <h4><b>{{ appointment.staff?.person?.firstName + ' ' + appointment.staff?.person?.lastName}}</b></h4>
               </div>

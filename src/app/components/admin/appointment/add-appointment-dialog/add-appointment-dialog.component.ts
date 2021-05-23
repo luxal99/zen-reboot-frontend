@@ -48,7 +48,7 @@ export class AddAppointmentDialogComponent extends DefaultComponent<Appointment>
 
   clientPage = 0;
 
-  selectedClient: Client = this.data.client ? this.data.client : {};
+  selectedClient: Client = this.data.clients ? this.data.clients[0] : {};
   listOfClients: Client[] = [];
 
 
@@ -173,7 +173,7 @@ export class AddAppointmentDialogComponent extends DefaultComponent<Appointment>
   async save(): Promise<void> {
     this.spinnerService.show(this.spinner);
     const appointment: Appointment = this.appointmentForm.getRawValue();
-    appointment.client = {id: this.selectedClient.id};
+    appointment.clients = [{id: this.selectedClient.id}];
     appointment.staff = {id: appointment.staff?.id};
     appointment.date = moment(appointment.date).format('YYYY-MM-DD');
     appointment.notes = this.editorComponent.editorInstance?.getData();
