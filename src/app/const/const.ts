@@ -98,6 +98,8 @@ export class RestRoutesConst {
   static INVOICE_STATUS = 'invoice-statuses';
   static VOUCHER = 'vouchers';
   static PAYMENT_METHOD = 'payment-methods';
+  static EXPENSE = 'expenses';
+  static EXPENSE_TYPE = 'expense-types';
 }
 
 export class TokenConst {
