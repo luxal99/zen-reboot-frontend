@@ -30,7 +30,8 @@
               <div class="inline">
                 <mat-form-field appearance="outline" style="width: 25%;margin-left: 1em">
                   <mat-label>Pozivni broj</mat-label>
-                  <mat-select [ngModel]="telephoneValue ? telephoneValue.prefix : ''" formControlName="mobilePhonePrefix">
+                  <mat-select [ngModel]="telephoneValue ? telephoneValue.prefix : ''"
+                              formControlName="mobilePhonePrefix">
                     <mat-option [value]="country.dialCode" *ngFor="let country of listOfCountries">
                       {{country.dialCode + ' ' + country.name }}
                     </mat-option>
@@ -46,7 +47,8 @@
             </div>
             <div class="right column">
               <div class="" style="margin-right: 1em">
-                <app-form-input [config]="emailInputConfig" [group]="staffForm" [model]="data ? emailValue.value : ''"
+                <app-form-input [config]="emailInputConfig" [group]="staffForm"
+                                [model]="emailValue ? emailValue.value : ''"
                                 label="Email"></app-form-input>
               </div>
             </div>

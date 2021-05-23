@@ -60,7 +60,7 @@ export class AddStaffDialogComponent extends DefaultComponent<Staff> implements 
   setValuesToForm(): void {
     if (this.data) {
       // @ts-ignore
-      this.emailValue = this.data.person?.contacts.find((contact) => contact.type === ContactTypeEnum.EMAIL.toString());
+      this.emailValue = this.data.person?.contacts.find((contact) => contact.type === ContactTypeEnum.EMAIL.toString()) || null;
       // @ts-ignore
       this.telephoneValue = this.data.person?.contacts.find((contact) => contact.type === ContactTypeEnum.PHONE.toString());
     } else {

@@ -24,7 +24,7 @@
           <h2>{{staff.person.firstName + ' ' + staff.person.lastName}}</h2>
         </div>
         <div class="col">
-          <h2>{{getEmailForStaff(staff).value}}</h2>
+          <h2>{{staff.person | staffEmail}}</h2>
         </div>
         <div class="col-2">
           <button style="margin-top: 1em" mat-icon-button [matMenuTriggerFor]="menu">
