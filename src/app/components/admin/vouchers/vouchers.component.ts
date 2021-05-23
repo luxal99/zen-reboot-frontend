@@ -9,6 +9,7 @@ import {Voucher} from '../../../models/voucher';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import * as moment from 'moment';
 import {FormControl, FormGroup} from '@angular/forms';
+import {VoucherOverviewDialogComponent} from './voucher-overview-dialog/voucher-overview-dialog.component';
 
 @Component({
   selector: 'app-vouchers',
@@ -31,13 +32,24 @@ export class VouchersComponent extends DefaultComponent<Voucher> implements OnIn
     super.ngOnInit();
   }
 
-  openAddVoucherDialog(): void {
+  openAddVoucherDialog(data?: any): void {
     DialogUtil.openDialog(AddVoucherDialogComponent, setDialogConfig({
       position: {right: '0'},
       height: '100vh',
       width: '40%',
       maxWidth: '40%',
-    }), this.dialog);
+      data
+    }), this.dialog).afterClosed().subscribe(() => {
+      super.getItems();
+    });
   }
 
+  openVoucherOverviewDialog(element: any): void {
+    DialogUtil.openDialog(VoucherOverviewDialogComponent, setDialogConfig({
+      height: 'auto',
+      width: '40%',
+      data: element
+    }), this.dialog);
+
+  }
 }

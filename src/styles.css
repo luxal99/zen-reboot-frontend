@@ -42,7 +42,7 @@ button {
 }
 
 .default-btn {
-  width: 30%;
+  width: 200px;
   background-color: #212121;
   padding: 0.3em 0 !important;
   font-weight: bold;

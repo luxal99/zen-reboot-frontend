@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
+import {MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {Voucher} from '../../../../models/voucher';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-voucher-overview-dialog',
@@ -7,7 +10,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class VoucherOverviewDialogComponent implements OnInit {
 
-  constructor() { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: Voucher) {
+  }
 
   ngOnInit(): void {
   }

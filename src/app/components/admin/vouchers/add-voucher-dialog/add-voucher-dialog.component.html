@@ -13,13 +13,17 @@
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
   </form>
-  <app-form-select label="Tip vaučera" (onChange)="disableByVoucherType()" [group]="voucherForm"
+  <app-form-select label="Tip vaučera" [model]="data ? data.type:null" (onChange)="disableByVoucherType()"
+                   [group]="voucherForm"
                    [config]="typeSelectConfig"></app-form-select>
-  <app-form-input [group]="voucherForm"  label="Količina" [isDisabled]="isCountDisabled"
+  <app-form-input [group]="voucherForm" [model]="data?data.count:null" label="Količina"
+                  [isDisabled]="isCountDisabled"
                   [config]="countInputConfig"></app-form-input>
-  <app-form-input [group]="voucherForm" label="Popust" [isDisabled]="isDiscountDisabled"
+  <app-form-input [group]="voucherForm" [model]="data?data.discount:null" label="Popust"
+                  [isDisabled]="isDiscountDisabled"
                   [config]="discountInputConfig"></app-form-input>
-  <app-form-select label="Način plaćanja" [group]="voucherForm" [config]="paymentMethodSelectConfig"></app-form-select>
+  <app-form-select label="Način plaćanja" [model]="data ? data.paymentMethod :null" [group]="voucherForm"
+                   [config]="paymentMethodSelectConfig"></app-form-select>
   <app-form-select bindValue="name"
                    [config]="treatmentSelectConfig"
                    (onChange)="onTreatmentSelect()"

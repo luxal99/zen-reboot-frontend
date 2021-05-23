@@ -1,1 +1,31 @@
-<p>voucher-overview-dialog works!</p>
+<div class="dialog">
+  <div class="row">
+    <div class="col-6">
+      <h1>{{data.code}}</h1>
+    </div>
+    <div class="col-6 text-right">
+      <h2 class="colored"><b>{{data.startDate | date}}- {{data.endDate|date}}</b></h2>
+    </div>
+  </div>
+  <mat-divider></mat-divider>
+  <div class="voucher-dialog-content">
+    <div class="client-row row">
+      <div class="col-2">
+        <h1 class="first-letter-h1">{{data.client?.person?.firstName.substr(0, 1)}}</h1>
+      </div>
+      <div class="col-4">
+        <h2>{{data.client?.person?.firstName + ' ' + data.client?.person?.lastName }}</h2>
+      </div>
+      <div class="col text-right" style="padding-top: .5em">
+        <button class="default-btn" mat-button>
+          Pregledaj
+        </button>
+      </div>
+    </div>
+    <div class="other-info">
+      <h2>Tip: <b>{{data.type | capitalize}}</b></h2>
+      <h2 *ngIf="data.count">Količina: <b>{{data.count}}</b></h2>
+      <h2>Cena : <b>{{data.price + ' RSD'}}</b></h2>
+    </div>
+  </div>
+</div>
