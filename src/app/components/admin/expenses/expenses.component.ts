@@ -16,6 +16,11 @@ export class ExpensesComponent extends DefaultComponent<Expense> implements OnIn
   }
 
   ngOnInit(): void {
+    super.ngOnInit();
+  }
+
+  openAddExpenseDialog(): void {
+
   }
 
 }
