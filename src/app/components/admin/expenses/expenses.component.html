@@ -2,7 +2,8 @@
   <div class="row">
     <div class="col"></div>
     <div class="col text-right">
-      <button class="default-btn" mat-button>Dodaj</button>
+      <button class="default-btn" mat-button (click)="openAddExpenseDialog()">Dodaj</button>
     </div>
   </div>
+  <mat-spinner #spinner diameter="25"></mat-spinner>
 </div>

@@ -14,7 +14,7 @@ export class FormInputComponent implements OnInit, Field {
 
   @Input() config!: FieldConfig;
   @Input() group!: FormGroup;
-  @Input() label = 'Title';
+  @Input() label!: string;
   @Input() icon = 'format_align_right';
   @Input() isRequired!: boolean;
   @Input() appearance = 'fill';
