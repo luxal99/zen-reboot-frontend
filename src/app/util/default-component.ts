@@ -126,4 +126,10 @@ export abstract class DefaultComponent<T> implements OnInit {
     });
   }
 
+  initSelectConfigWithObservable(observable: Observable<any>, selectConfig: FieldConfig): void {
+    observable.subscribe((resp) => {
+      selectConfig.options = resp;
+    });
+  }
+
 }

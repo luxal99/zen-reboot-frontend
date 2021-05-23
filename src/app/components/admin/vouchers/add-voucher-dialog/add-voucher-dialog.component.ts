@@ -58,7 +58,7 @@ export class AddVoucherDialogComponent extends DefaultComponent<VoucherDto> impl
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: Voucher, private voucherService: VoucherService,
               private treatmentService: TreatmentService,
-              protected snackBar: MatSnackBar, private paymentService: PaymentMethodService, private clientService: ClientService) {
+              protected snackBar: MatSnackBar, private clientService: ClientService) {
     super(voucherService, snackBar);
   }
 
@@ -83,7 +83,7 @@ export class AddVoucherDialogComponent extends DefaultComponent<VoucherDto> impl
   }
 
   initSelect(): void {
-    super.initSelectConfig(this.paymentService, this.paymentMethodSelectConfig);
+    super.initSelectConfigWithObservable(this.voucherService.getVoucherPaymentMethod(), this.paymentMethodSelectConfig);
     super.initSelectConfig(this.treatmentService, this.treatmentSelectConfig);
   }
 
