@@ -5,7 +5,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import {ExpenseService} from '../../../service/expense.service';
 import {FormBuilderConfig} from '../../../models/FormBuilderConfig';
 import {FormControlNames, InputTypes} from '../../../const/const';
-import {Validators} from '@angular/forms';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {DialogUtil} from '../../../util/dialog-util';
 import {FormBuilderComponent} from '../../form-components/form-builder/form-builder.component';
 import {setDialogConfig} from '../../../util/dialog-options';
@@ -18,6 +18,13 @@ import {MatDialog} from '@angular/material/dialog';
   styleUrls: ['./expenses.component.sass']
 })
 export class ExpensesComponent extends DefaultComponent<Expense> implements OnInit {
+
+  displayedColumns: string[] = ['name', 'date', 'type', 'value', 'option'];
+
+  expenseFilterForm = new FormGroup({
+    startDate: new FormControl(),
+    endDate: new FormControl()
+  });
 
   constructor(private expenseService: ExpenseService, protected snackBar: MatSnackBar,
               private expenseTypeService: ExpenseTypeService, private dialog: MatDialog) {
@@ -65,4 +72,7 @@ export class ExpensesComponent extends DefaultComponent<Expense> implements OnIn
     });
   }
 
+  getExpensesFromRange(): void {
+
+  }
 }
