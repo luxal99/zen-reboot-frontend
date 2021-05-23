@@ -20,8 +20,8 @@ export abstract class DefaultComponent<T> implements OnInit {
     this.spinnerService = new SpinnerService();
   }
 
-  getItems(): void {
-    this.genericService.getAll().subscribe((resp) => {
+  getItems(q?: string): void {
+    this.genericService.getAll(q).subscribe((resp) => {
       this.listOfItems = resp;
       this.listOfItems.filter((x) => {
         // @ts-ignore

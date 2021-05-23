@@ -11,6 +11,8 @@ import {FormBuilderComponent} from '../../form-components/form-builder/form-buil
 import {setDialogConfig} from '../../../util/dialog-options';
 import {ExpenseTypeService} from '../../../service/expense-type.service';
 import {MatDialog} from '@angular/material/dialog';
+import * as moment from 'moment';
+import {CriteriaBuilder} from '../../../util/criteria-builder';
 
 @Component({
   selector: 'app-expenses',
@@ -19,6 +21,8 @@ import {MatDialog} from '@angular/material/dialog';
 })
 export class ExpensesComponent extends DefaultComponent<Expense> implements OnInit {
 
+  startOfMonth = moment().clone().startOf('month').format('YYYY-MM-DD');
+  endOfMonth = moment().clone().endOf('month').format('YYYY-MM-DD');
   displayedColumns: string[] = ['name', 'date', 'type', 'value', 'option'];
 
   expenseFilterForm = new FormGroup({
@@ -32,10 +36,11 @@ export class ExpensesComponent extends DefaultComponent<Expense> implements OnIn
   }
 
   ngOnInit(): void {
-    super.ngOnInit();
+    super.getItems(new CriteriaBuilder().gt('createdDate', this.startOfMonth).and().lt('createdDate', this.endOfMonth).buildUrlEncoded());
   }
 
   async openAddExpenseDialog(data?: Expense): Promise<void> {
+    console.log(data);
     const configData: FormBuilderConfig = {
       formFields: [
         {
@@ -73,6 +78,12 @@ export class ExpensesComponent extends DefaultComponent<Expense> implements OnIn
   }
 
   getExpensesFromRange(): void {
-
+    this.spinnerService.show(this.spinner);
+    const queryBuilder = new CriteriaBuilder();
+    queryBuilder.gt('createdDate',
+      moment(this.expenseFilterForm.get(FormControlNames.START_DATE_FORM_CONTROL)?.value).format('YYYY-MM-DD')).and()
+      .lt('createdDate', moment(this.expenseFilterForm.get(FormControlNames.END_DATE_FORM_CONTROL)?.value).format('YYYY-MM-DD'));
+    console.log(queryBuilder.build());
+    super.getItems(queryBuilder.buildUrlEncoded());
   }
 }
