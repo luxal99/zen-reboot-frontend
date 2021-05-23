@@ -51,14 +51,14 @@ import {EditInvoiceDialogComponent} from './components/admin/appointment/appoint
 import {FindClientPhoneNumberPipe} from './pipes/find-client-phone-number.pipe';
 import {InvoiceTableBindingComponent} from './components/table-binding/invoice-table-binding.component';
 import {SumGrossPipe} from './pipes/sum-gross.pipe';
-import { InvoicesDialogOverviewComponent } from './components/table-binding/invoices-dialog-overview/invoices-dialog-overview.component';
-import { VouchersComponent } from './components/admin/vouchers/vouchers.component';
-import { AddVoucherDialogComponent } from './components/admin/vouchers/add-voucher-dialog/add-voucher-dialog.component';
-import { DatePipe } from './pipes/date.pipe';
-import { VoucherPipe } from './pipes/voucher.pipe';
-import { StaffEmailPipe } from './pipes/staff-email.pipe';
-import { VoucherOverviewDialogComponent } from './components/admin/vouchers/voucher-overview-dialog/voucher-overview-dialog.component';
-import { ExpensesComponent } from './components/admin/expenses/expenses.component';
+import {InvoicesDialogOverviewComponent} from './components/table-binding/invoices-dialog-overview/invoices-dialog-overview.component';
+import {VouchersComponent} from './components/admin/vouchers/vouchers.component';
+import {AddVoucherDialogComponent} from './components/admin/vouchers/add-voucher-dialog/add-voucher-dialog.component';
+import {DatePipe} from './pipes/date.pipe';
+import {VoucherPipe} from './pipes/voucher.pipe';
+import {StaffEmailPipe} from './pipes/staff-email.pipe';
+import {VoucherOverviewDialogComponent} from './components/admin/vouchers/voucher-overview-dialog/voucher-overview-dialog.component';
+import {ExpensesComponent} from './components/admin/expenses/expenses.component';
 
 @NgModule({
   declarations: [
@@ -126,15 +126,7 @@ import { ExpensesComponent } from './components/admin/expenses/expenses.componen
   ],
   providers: [{provide: LocationStrategy, useClass: HashLocationStrategy},
     {provide: MAT_COLOR_FORMATS, useValue: NGX_MAT_COLOR_FORMATS}
-
   ],
-  entryComponents:
-    [
-      AddAppointmentDialogComponent, AddServiceDialogComponent,
-      AddClientDialogComponent, AppointmentOverviewDialogComponent, ClientOverviewDialogComponent,
-      FormBuilderComponent, OverviewComponent, StaffComponent,
-      InvoiceOverviewComponent, EditInvoiceDialogComponent,
-      ServicesComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {

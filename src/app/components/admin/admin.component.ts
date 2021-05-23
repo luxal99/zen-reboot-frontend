@@ -18,6 +18,7 @@ import {InvoiceOverviewComponent} from './invoice-overview/invoice-overview.comp
 import {MatDrawer} from '@angular/material/sidenav';
 import {ComponentType} from '@angular/cdk/portal';
 import {VouchersComponent} from './vouchers/vouchers.component';
+import {ExpensesComponent} from './expenses/expenses.component';
 
 @Component({
   selector: 'app-admin',
@@ -120,6 +121,10 @@ export class AdminComponent implements OnInit, AfterViewInit {
 
   loadVouchersComponent(): void {
     this.genericLoadComponent('Vaučeri', VouchersComponent);
+  }
+
+  loadExpensesComponent(): void {
+    this.genericLoadComponent('Troškovi', ExpensesComponent);
   }
 
 
