@@ -46,7 +46,7 @@ export class AddClientDialogComponent extends DefaultComponent<Client> implement
   personForm = new FormGroup({
     firstName: new FormControl('', Validators.required),
     lastName: new FormControl('', Validators.required),
-    mobilePhone: new FormControl('', Validators.required),
+    mobilePhone: new FormControl(''),
     otherPhone: new FormControl(''),
     otherPhonePrefix: new FormControl(),
     mobilePhonePrefix: new FormControl(),
@@ -54,17 +54,17 @@ export class AddClientDialogComponent extends DefaultComponent<Client> implement
   });
   clientForm = new FormGroup({
     notes: new FormControl(''),
-    birthday: new FormControl('', Validators.required),
+    birthday: new FormControl(''),
     notificationMethod: new FormControl(''),
     referralSource: new FormControl('', Validators.required),
-    gender: new FormControl('', Validators.required),
+    gender: new FormControl(''),
     language: new FormControl(),
   });
 
   addressForm = new FormGroup({
-    street: new FormControl('', Validators.required),
+    street: new FormControl(''),
     number: new FormControl(''),
-    city: new FormControl('', Validators.required),
+    city: new FormControl(''),
   });
 
   streetInputConfig: FieldConfig = {type: InputTypes.INPUT_TYPE_NAME, name: FormControlNames.STREET_FORM_CONTROL};
@@ -139,6 +139,10 @@ export class AddClientDialogComponent extends DefaultComponent<Client> implement
       contacts: []
     };
     client.address = this.addressForm.getRawValue();
+
+    if (client.address?.city === null && client.address.street === null && client.address.number === null) {
+      delete client.address;
+    }
     if (this.clientForm.get(FormControlNames.LANGUAGE_FORM_CONTROL)?.value) {
       client.language = this.clientForm.get(FormControlNames.LANGUAGE_FORM_CONTROL)?.value.name;
     }
@@ -168,7 +172,9 @@ export class AddClientDialogComponent extends DefaultComponent<Client> implement
       },
     ];
 
-    client.birthday = moment(client.birthday).format('YYYY-MM-DD');
+    if (client.birthday) {
+      client.birthday = moment(client.birthday).format('YYYY-MM-DD');
+    }
     client.notes = this.editorComponent.editorInstance?.getData();
     if (this.data.id) {
       client.id = this.data.id;
