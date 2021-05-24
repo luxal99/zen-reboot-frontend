@@ -1,0 +1,26 @@
+<div class="component-content">
+  <div class="row">
+    <div class="col-6">
+      <h1><b>{{header}}</b></h1>
+    </div>
+    <div class="col-6 text-right">
+      <button mat-button class="default-btn" (click)="openDialog()">Dodaj</button>
+    </div>
+  </div>
+
+  <mat-spinner #spinner diameter="25"></mat-spinner>
+  <div class="row header-row text-center">
+    <div class="col" *ngFor="let displayName of displayNameValues">
+      <h3>{{displayName}}</h3>
+    </div>
+    <div class="col"></div>
+  </div>
+  <div class="row item-row text-center" *ngFor="let item of listOfItems">
+    <div class="col" (click)="openDialog(item)" *ngFor="let attr of attrNameValues">
+      <h3 [innerText]="attr=== 'createdDate' ?( item[attr] | date):item[attr]"></h3>
+    </div>
+    <div class="col">
+      <button mat-button color="warn" (click)="subscribeDelete(item.id)"><i class="fa fa-trash"></i></button>
+    </div>
+  </div>
+</div>

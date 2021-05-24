@@ -61,6 +61,7 @@ import {VoucherOverviewDialogComponent} from './components/admin/vouchers/vouche
 import {ExpensesComponent} from './components/admin/expenses/expenses.component';
 import { AppointmentStatusOverviewComponent } from './components/admin/code-book/appointment-status-overview/appointment-status-overview.component';
 import { ExpenseTypeOverviewComponent } from './components/admin/code-book/expense-type-overview/expense-type-overview.component';
+import { CodeBookOverviewComponent } from './components/admin/code-book/code-book-overview/code-book-overview.component';
 
 @NgModule({
   declarations: [
@@ -114,7 +115,8 @@ import { ExpenseTypeOverviewComponent } from './components/admin/code-book/expen
     VoucherOverviewDialogComponent,
     ExpensesComponent,
     AppointmentStatusOverviewComponent,
-    ExpenseTypeOverviewComponent
+    ExpenseTypeOverviewComponent,
+    CodeBookOverviewComponent
   ],
   imports: [
     BrowserModule,

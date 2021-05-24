@@ -8,7 +8,7 @@ import {RestRoutesConst} from '../const/const';
 })
 export class GenericService<T> {
 
-  protected route = '';
+  route = '';
 
   constructor(protected http: HttpClient) {
   }

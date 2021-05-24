@@ -2,7 +2,9 @@
                dynamicHeight>
   <mat-tab label="Razlozi otkazivanja">
     <div class="wrapper">
-      <app-referral-source-overview></app-referral-source-overview>
+      <app-code-book-overview [configData]="referralSourceConfig" [inputService]="referralSourceService"
+                              header="Načini dolaska" [displayNameValues]="['Naziv','Datum kreiranja']"
+                              [attrNameValues]="['value','createdDate']"></app-code-book-overview>
     </div>
   </mat-tab>
   <mat-tab label="Gradovi i države" #countriesTab>
@@ -10,5 +12,11 @@
   </mat-tab>
   <mat-tab label="Lokacija" #locationTab>
     <div class="wrapper" #locationOverview></div>
+  </mat-tab>
+  <mat-tab label="Statusi tretmane" #appointmentStatusTab>
+    <div class="wrapper" #appointmentStatusOverview></div>
+  </mat-tab>
+  <mat-tab label="Tipovi troškova" #expenseTypeTab>
+    <div class="wrapper" #expenseTypeOverview></div>
   </mat-tab>
 </mat-tab-group>
