@@ -31,7 +31,6 @@ import {ColorPickerModule} from 'ngx-color-picker';
 import {StaffPipe} from './pipes/staff.pipe';
 import {StaffShiftsOverviewComponent} from './components/admin/staff/staff-shifts-overview/staff-shifts-overview.component';
 import {StaffOverviewComponent} from './components/admin/staff/staff-overview/staff-overview.component';
-import {ReferralSourceOverviewComponent} from './components/admin/code-book/referral-source-overview/referral-source-overview.component';
 import {CountriesOverviewComponent} from './components/admin/code-book/countries-overview/countries-overview.component';
 import {LocationOverviewComponent} from './components/admin/code-book/location-overview/location-overview.component';
 import {AddLocationDialogComponent} from './components/admin/code-book/location-overview/add-location-dialog/add-location-dialog.component';
@@ -59,9 +58,7 @@ import {VoucherPipe} from './pipes/voucher.pipe';
 import {StaffEmailPipe} from './pipes/staff-email.pipe';
 import {VoucherOverviewDialogComponent} from './components/admin/vouchers/voucher-overview-dialog/voucher-overview-dialog.component';
 import {ExpensesComponent} from './components/admin/expenses/expenses.component';
-import { AppointmentStatusOverviewComponent } from './components/admin/code-book/appointment-status-overview/appointment-status-overview.component';
-import { ExpenseTypeOverviewComponent } from './components/admin/code-book/expense-type-overview/expense-type-overview.component';
-import { CodeBookOverviewComponent } from './components/admin/code-book/code-book-overview/code-book-overview.component';
+import {CodeBookOverviewComponent} from './components/admin/code-book/code-book-overview/code-book-overview.component';
 
 @NgModule({
   declarations: [
@@ -87,7 +84,6 @@ import { CodeBookOverviewComponent } from './components/admin/code-book/code-boo
     StaffPipe,
     StaffShiftsOverviewComponent,
     StaffOverviewComponent,
-    ReferralSourceOverviewComponent,
     CountriesOverviewComponent,
     LocationOverviewComponent,
     AddLocationDialogComponent,
@@ -114,8 +110,6 @@ import { CodeBookOverviewComponent } from './components/admin/code-book/code-boo
     StaffEmailPipe,
     VoucherOverviewDialogComponent,
     ExpensesComponent,
-    AppointmentStatusOverviewComponent,
-    ExpenseTypeOverviewComponent,
     CodeBookOverviewComponent
   ],
   imports: [

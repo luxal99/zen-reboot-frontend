@@ -17,7 +17,7 @@
   </div>
   <div class="row item-row text-center" *ngFor="let item of listOfItems">
     <div class="col" (click)="openDialog(item)" *ngFor="let attr of attrNameValues">
-      <h3 [innerText]="attr=== 'createdDate' ?( item[attr] | date):item[attr]"></h3>
+      <h3 [innerText]="attr=== 'createdDate' ?( item[attr] | date):item[attr]|capitalize"></h3>
     </div>
     <div class="col">
       <button mat-button color="warn" (click)="subscribeDelete(item.id)"><i class="fa fa-trash"></i></button>

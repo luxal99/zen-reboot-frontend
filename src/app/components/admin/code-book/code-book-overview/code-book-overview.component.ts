@@ -19,7 +19,6 @@ export class CodeBookOverviewComponent extends DefaultComponent<any> implements 
   @Input() displayNameValues: string[] = [];
   @Input() attrNameValues: string[] = [];
   @Input() configData!: FormBuilderConfig;
-  @Input() inputService!: GenericService<any>;
 
   constructor(protected genericService: GenericService<any>, private dialog: MatDialog, protected snackBar: MatSnackBar) {
     super(genericService, snackBar);
@@ -31,7 +30,7 @@ export class CodeBookOverviewComponent extends DefaultComponent<any> implements 
   }
 
   initService(): void {
-    this.genericService = this.inputService;
+    this.genericService = this.configData.service;
   }
 
   openDialog(formData?: any): void {

@@ -10,6 +10,8 @@ export class FormControlNames {
   static COUNTRY_FORM_CONTROL = 'country';
   static VALUE_FORM_CONTROL = 'value';
   static NAME_FORM_CONTROL = 'name';
+  static DIAL_CODE_FORM_CONTROL = 'dialCode';
+  static ZIP_CODE_FORM_CONTROL = 'zipcode';
   static FIRST_NAME_FORM_CONTROL = 'firstName';
   static LAST_NAME_FORM_CONTROL = 'lastName';
   static CATEGORY_FORM_CONTROL = 'category';
