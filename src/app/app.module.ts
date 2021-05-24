@@ -59,6 +59,8 @@ import {VoucherPipe} from './pipes/voucher.pipe';
 import {StaffEmailPipe} from './pipes/staff-email.pipe';
 import {VoucherOverviewDialogComponent} from './components/admin/vouchers/voucher-overview-dialog/voucher-overview-dialog.component';
 import {ExpensesComponent} from './components/admin/expenses/expenses.component';
+import { AppointmentStatusOverviewComponent } from './components/admin/code-book/appointment-status-overview/appointment-status-overview.component';
+import { ExpenseTypeOverviewComponent } from './components/admin/code-book/expense-type-overview/expense-type-overview.component';
 
 @NgModule({
   declarations: [
@@ -110,7 +112,9 @@ import {ExpensesComponent} from './components/admin/expenses/expenses.component'
     VoucherPipe,
     StaffEmailPipe,
     VoucherOverviewDialogComponent,
-    ExpensesComponent
+    ExpensesComponent,
+    AppointmentStatusOverviewComponent,
+    ExpenseTypeOverviewComponent
   ],
   imports: [
     BrowserModule,
