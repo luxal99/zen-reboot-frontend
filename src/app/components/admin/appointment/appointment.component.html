@@ -70,17 +70,27 @@
         </div>
         <ng-container *ngFor="let roomDto of filteredScheduleList ">
           <ng-container *ngIf="(roomDto|checkIsAppointmentBetween:time)  as appointmentInInterval; else emptyCol">
-            <div class="col-sm  appointment-col" (click)="openAppointmentOverviewDialog(appointmentInInterval)"
-                 [style.background-color]="appointmentInInterval.staff.color">
-              <div class="appointment-card" (click)="openAppointmentOverviewDialog(appointment)"
+            <div class="col-sm  appointment-col" [style.background-color]="appointmentInInterval.staff.color">
+              <div class="appointment-card"
                    *ngIf="roomDto.appointments.length >0 && (roomDto | checkIsAppointmentStart:time);let appointment;">
-                <div class="text-right">
+                <div class="row">
+                  <div (click)="openAppointmentOverviewDialog(appointment)" class="col-6" style="padding-left: 0">
+                    <h3> {{appointment.startTime.slice(0, 5) + '-' + appointment.endTime.slice(0, 5) }}
+                    </h3>
+                  </div>
+                  <div class="col-6 text-right">
+                    <button mat-icon-button (click)="checkAppointment(appointment)">
+                      <mat-icon>task_alt</mat-icon>
+                    </button>
+                  </div>
                 </div>
-                <h4> {{appointment.startTime.slice(0, 5) + '-' + appointment.endTime.slice(0, 5) }}
-                </h4>
-                <h4><b>{{ appointment.clients[0].person?.firstName + ' ' + appointment.clients[0].person?.lastName}}</b></h4>
-                <h4 class="treatment-name">{{ appointment.treatment?.name}}</h4>
-                <h4><b>{{ appointment.staff?.person?.firstName + ' ' + appointment.staff?.person?.lastName}}</b></h4>
+                <div (click)="openAppointmentOverviewDialog(appointmentInInterval)">
+                  <h4>
+                    <b>{{ appointment.clients[0].person?.firstName + ' ' + appointment.clients[0].person?.lastName}}</b>
+                  </h4>
+                  <h4 class="treatment-name">{{ appointment.treatment?.name}}</h4>
+                  <h4><b>{{ appointment.staff?.person?.firstName + ' ' + appointment.staff?.person?.lastName}}</b></h4>
+                </div>
               </div>
             </div>
           </ng-container>

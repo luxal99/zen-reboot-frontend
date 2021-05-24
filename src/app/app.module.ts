@@ -31,7 +31,6 @@ import {ColorPickerModule} from 'ngx-color-picker';
 import {StaffPipe} from './pipes/staff.pipe';
 import {StaffShiftsOverviewComponent} from './components/admin/staff/staff-shifts-overview/staff-shifts-overview.component';
 import {StaffOverviewComponent} from './components/admin/staff/staff-overview/staff-overview.component';
-import {CountriesOverviewComponent} from './components/admin/code-book/countries-overview/countries-overview.component';
 import {LocationOverviewComponent} from './components/admin/code-book/location-overview/location-overview.component';
 import {AddLocationDialogComponent} from './components/admin/code-book/location-overview/add-location-dialog/add-location-dialog.component';
 import {AddShiftDialogComponent} from './components/admin/staff/staff-shifts-overview/add-shift-dialog/add-shift-dialog.component';
@@ -84,7 +83,6 @@ import {CodeBookOverviewComponent} from './components/admin/code-book/code-book-
     StaffPipe,
     StaffShiftsOverviewComponent,
     StaffOverviewComponent,
-    CountriesOverviewComponent,
     LocationOverviewComponent,
     AddLocationDialogComponent,
     AddShiftDialogComponent,

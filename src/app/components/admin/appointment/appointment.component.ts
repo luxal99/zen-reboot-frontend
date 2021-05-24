@@ -15,6 +15,9 @@ import {Location} from '../../../models/location';
 import {RoomDto} from '../../../models/room-dto';
 import {setDialogConfig} from '../../../util/dialog-options';
 import {RoomService} from '../../../service/room.service';
+import {AppointmentService} from '../../../service/appointment.service';
+import {AppointmentStatusService} from '../../../service/appointment-status.service';
+import {AppointmentStatus} from '../../../models/appointment-status';
 
 @Component({
   selector: 'app-appointment',
@@ -47,8 +50,9 @@ export class AppointmentComponent extends DefaultComponent<Appointment> implemen
   listOfLocations: Location[] = [];
 
   constructor(private dialog: MatDialog, protected snackBar: MatSnackBar, public locationService: LocationService,
-              private roomService: RoomService) {
-    super(locationService, snackBar);
+              private roomService: RoomService, private appointmentService: AppointmentService,
+              private appointmentStatusService: AppointmentStatusService) {
+    super(appointmentService, snackBar);
   }
 
   ngOnInit(): void {
@@ -183,6 +187,13 @@ export class AppointmentComponent extends DefaultComponent<Appointment> implemen
         this.filteredScheduleList = resp;
         this.spinnerService.hide(this.spinner);
       });
+  }
+
+  async checkAppointment(appointment: Appointment): Promise<void> {
+    appointment.appointmentStatus = await this.appointmentStatusService.getAll()
+      .pipe(map(value => value.find((appStatus) => appStatus.value?.toUpperCase() === 'CHECKED'))).toPromise();
+
+    super.subscribeUpdate(appointment);
   }
 
   search(): void {
