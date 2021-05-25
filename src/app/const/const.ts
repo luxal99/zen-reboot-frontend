@@ -102,6 +102,7 @@ export class RestRoutesConst {
   static PAYMENT_METHOD = 'payment-methods';
   static EXPENSE = 'expenses';
   static EXPENSE_TYPE = 'expense-types';
+  static PACKAGE = 'packages';
 }
 
 export class TokenConst {

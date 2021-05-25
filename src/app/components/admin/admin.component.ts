@@ -19,6 +19,7 @@ import {MatDrawer} from '@angular/material/sidenav';
 import {ComponentType} from '@angular/cdk/portal';
 import {VouchersComponent} from './vouchers/vouchers.component';
 import {ExpensesComponent} from './expenses/expenses.component';
+import {PackageComponent} from './package/package.component';
 
 @Component({
   selector: 'app-admin',
@@ -107,6 +108,10 @@ export class AdminComponent implements OnInit, AfterViewInit {
 
   loadInvoiceComponent(): void {
     this.genericLoadComponent('Fakture', InvoiceOverviewComponent);
+  }
+
+  loadPackageComponent(): void {
+    this.genericLoadComponent('Paketi', PackageComponent);
   }
 
   loadAppointmentComponent(): void {
