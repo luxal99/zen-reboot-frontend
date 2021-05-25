@@ -142,18 +142,18 @@ export class AppointmentComponent extends DefaultComponent<Appointment> implemen
         width: '100%',
         data: appointment
       }), this.dialog).afterClosed().subscribe(async () => {
-      this.allRooms ? this.getAppointments() : this.getAllRoomsAppointments();
+      this.allRooms ? this.getAllRoomsAppointments() : this.getAppointments();
     });
   }
 
   nextDay(): void {
     this.currentDate = this.currentDate.add(1, 'd');
-    this.allRooms ? this.getAppointments() : this.getAllRoomsAppointments();
+    this.allRooms ? this.getAllRoomsAppointments() : this.getAppointments();
   }
 
   previousDay(): void {
     this.currentDate = this.currentDate.subtract(1, 'd');
-    this.allRooms ? this.getAppointments() : this.getAllRoomsAppointments();
+    this.allRooms ? this.getAllRoomsAppointments() : this.getAppointments();
   }
 
   setResponsive(): void {

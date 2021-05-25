@@ -69,7 +69,7 @@
           <h3 class="text-center"><b>{{time}}</b></h3>
         </div>
         <ng-container *ngFor="let roomDto of filteredScheduleList ">
-          <ng-container *ngIf="(roomDto|checkIsAppointmentBetween:time)  as appointmentInInterval; else emptyCol">
+          <ng-container *ngIf="(roomDto|checkIsAppointmentBetween:time)  as appointmentInInterval; else emptyCol" >
             <div class="col-sm  appointment-col" [style.background-color]="appointmentInInterval.staff.color">
               <div class="appointment-card"
                    *ngIf="roomDto.appointments.length >0 && (roomDto | checkIsAppointmentStart:time);let appointment;">

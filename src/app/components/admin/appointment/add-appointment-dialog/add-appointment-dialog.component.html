@@ -55,7 +55,7 @@
           <app-form-input [config]="endTimeInputConfig" [model]="data ? data.endTime:null"
                           [group]="appointmentForm"></app-form-input>
         </mat-step>
-        <mat-step label="Klijent i zaposleni">
+        <mat-step label="Zaposleni">
           <form [formGroup]="appointmentForm">
             <mat-form-field appearance="outline">
               <mat-label>Zaposleni</mat-label>
@@ -65,13 +65,15 @@
                      matInput [(ngModel)]="searchText"
                      formControlName="staff"
                      [matAutocomplete]="auto">
-              <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
-                <mat-option *ngFor="let staff of listOfStaffs | staff:searchText" [value]="staff">
+              <mat-autocomplete #auto="matAutocomplete"  [displayWith]="displayFn">
+                <mat-option *ngFor="let staff of listOfStaffs" [value]="staff">
                   {{staff.person?.firstName}} {{staff.person?.lastName}}
                 </mat-option>
               </mat-autocomplete>
             </mat-form-field>
           </form>
+          <app-form-select [config]="paymentMethodSelectConfig" [model]="data ? data.paymentMethod:null"
+                           [group]="appointmentForm"></app-form-select>
         </mat-step>
       </mat-horizontal-stepper>
     </div>
@@ -102,7 +104,8 @@
       </div>
     </div>
   </div>
-  <button mat-button class="default-btn" style="width: 20%;" (click)="save()" [disabled]="!appointmentForm.valid">
+  <button mat-button class="default-btn" style="width: 20%;" (click)="save()"
+          [disabled]="!appointmentForm.valid ||!selectedClient">
     Sačuvaj
   </button>
 </div>

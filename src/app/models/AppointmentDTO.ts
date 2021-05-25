@@ -4,6 +4,7 @@ import {Location} from './location';
 import {Staff} from './staff';
 import {TreatmentDto} from './TreatmentDto';
 import {Room} from './room';
+import {PaymentMethod} from './payment-method';
 
 // tslint:disable-next-line:no-empty-interface
 export interface AppointmentDTO {
@@ -19,5 +20,6 @@ export interface AppointmentDTO {
   startTime?: string;
   staff?: Staff;
   color?: string;
+  paymentMethod?: PaymentMethod;
   treatment?: TreatmentDto;
 }

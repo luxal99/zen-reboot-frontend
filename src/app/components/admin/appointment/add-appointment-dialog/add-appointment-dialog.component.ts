@@ -25,6 +25,8 @@ import {Client} from '../../../../models/client';
 import {CriteriaBuilder} from '../../../../util/criteria-builder';
 import {Location} from 'src/app/models/location';
 import {MatSpinner} from '@angular/material/progress-spinner';
+import {PaymentMethodService} from '../../../../service/payment-method.service';
+import {MatAutocomplete, MatAutocompleteTrigger} from '@angular/material/autocomplete';
 
 @Component({
   selector: 'app-add-appointment-dialog',
@@ -57,10 +59,11 @@ export class AddAppointmentDialogComponent extends DefaultComponent<Appointment>
     date: new FormControl(this.data ? new Date(this.data.date) : new Date(), Validators.required),
     startTime: new FormControl('', Validators.required),
     endTime: new FormControl('', Validators.required),
+    paymentMethod: new FormControl('', Validators.required),
 
     // @ts-ignore
     room: new FormControl(this.data.room ? this.data.room.id : '', Validators.required),
-    staff: new FormControl('', Validators.required),
+    staff: new FormControl(this.data.staff, Validators.required),
     treatment: new FormControl('', Validators.required),
     treatmentDuration: new FormControl('', Validators.required),
   });
@@ -77,6 +80,7 @@ export class AddAppointmentDialogComponent extends DefaultComponent<Appointment>
   treatmentSelectConfig: FieldConfig = {name: FormControlNames.TREATMENT_FORM_CONTROL, type: InputTypes.INPUT_TYPE_NAME};
   durationSelectConfig: FieldConfig = {name: FormControlNames.DURATION_FORM_CONTROL, type: InputTypes.SELECT_TYPE_NAME};
   appointmentStatusSelectConfig: FieldConfig = {name: FormControlNames.APPOINTMENT_STATUS_FORM_CONTROL, type: InputTypes.INPUT_TYPE_NAME};
+  paymentMethodSelectConfig: FieldConfig = {name: FormControlNames.PAYMENT_METHOD_FORM_CONTROL, type: InputTypes.SELECT_TYPE_NAME};
   startTimeInputConfig: FieldConfig = {name: FormControlNames.START_TIME_FORM_CONTROL, type: InputTypes.TIME};
   endTimeInputConfig: FieldConfig = {name: FormControlNames.END_TIME_FORM_CONTROL, type: InputTypes.TIME};
   searchInputConfig: FieldConfig = {name: FormControlNames.SEARCH_FORM_CONTROL, type: InputTypes.INPUT_TYPE_NAME};
@@ -86,8 +90,7 @@ export class AddAppointmentDialogComponent extends DefaultComponent<Appointment>
               protected snackBar: MatSnackBar, private readonly changeDetectorRef: ChangeDetectorRef,
               private clientService: ClientService, private locationService: LocationService,
               private staffService: StaffService, private treatmentService: TreatmentService,
-              private appointmentStatusService: AppointmentStatusService, private treatmentDurationService: TreatmentDurationService,
-              private dialogRef: MatDialogRef<AddAppointmentDialogComponent>) {
+              private appointmentStatusService: AppointmentStatusService, private paymentMethodService: PaymentMethodService) {
     super(appointmentService, snackBar);
   }
 
@@ -101,6 +104,8 @@ export class AddAppointmentDialogComponent extends DefaultComponent<Appointment>
       this.initSelects();
       if (this.data) {
         this.appointmentForm.controls.startTime.setValue(this.data.startTime);
+        this.appointmentForm.controls.staff.setValue(this.data.staff);
+        console.log(this.data);
       }
     }, 100);
   }
@@ -109,10 +114,8 @@ export class AddAppointmentDialogComponent extends DefaultComponent<Appointment>
     this.selectedClient = client;
   }
 
-  getAllStaffs(): void {
-    this.staffService.getAll().subscribe((resp) => {
-      this.listOfStaffs = resp;
-    });
+  async getAllStaffs(): Promise<void> {
+    this.listOfStaffs = await this.staffService.getAll().toPromise();
   }
 
 
@@ -145,11 +148,12 @@ export class AddAppointmentDialogComponent extends DefaultComponent<Appointment>
     this.isDurationFCDisabled = false;
   }
 
-  initSelects(): void {
+  async initSelects(): Promise<void> {
     super.initSelectConfig(this.treatmentService, this.treatmentSelectConfig);
     super.initSelectConfig(this.locationService, this.locationSelectConfig);
     super.initSelectConfig(this.appointmentStatusService, this.appointmentStatusSelectConfig);
-    this.getAllStaffs();
+    super.initSelectConfig(this.paymentMethodService, this.paymentMethodSelectConfig);
+    await this.getAllStaffs();
     this.getClient();
 
   }
@@ -174,7 +178,7 @@ export class AddAppointmentDialogComponent extends DefaultComponent<Appointment>
     this.spinnerService.show(this.spinner);
     const appointment: Appointment = this.appointmentForm.getRawValue();
     appointment.clients = [{id: this.selectedClient.id}];
-    appointment.staff = {id: appointment.staff?.id};
+    appointment.staff = {id: this.appointmentForm.get(FormControlNames.STAFF_FORM_CONTROL)?.value};
     appointment.date = moment(appointment.date).format('YYYY-MM-DD');
     appointment.notes = this.editorComponent.editorInstance?.getData();
     appointment.room = {id: this.appointmentForm.get(FormControlNames.ROOM_FORM_CONTROL)?.value};
@@ -187,18 +191,9 @@ export class AddAppointmentDialogComponent extends DefaultComponent<Appointment>
       appointment.id = this.data.id;
       super.subscribeUpdate(appointment);
       this.spinnerService.hide(this.spinner);
-
     } else {
       this.subscribeSave(appointment);
       this.spinnerService.hide(this.spinner);
-    }
-  }
-
-  compareObjects(o1: any, o2: any): boolean {
-    if (o2 !== null && o2 !== undefined) {
-      return o1.name === o2.name && o1.id === o2.id;
-    } else {
-      return false;
     }
   }
 
