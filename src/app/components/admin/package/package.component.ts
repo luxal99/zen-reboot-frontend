@@ -4,6 +4,9 @@ import {Package} from '../../../models/package';
 import {PackageService} from '../../../service/package.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
+import {DialogUtil} from '../../../util/dialog-util';
+import {AddPackageDialogComponent} from './add-package-dialog/add-package-dialog.component';
+import {setDialogConfig} from '../../../util/dialog-options';
 
 @Component({
   selector: 'app-package',
@@ -21,6 +24,10 @@ export class PackageComponent extends DefaultComponent<Package> implements OnIni
   }
 
   openAddPackageDialog(pcg?: Package): void {
-
+    DialogUtil.openDialog(AddPackageDialogComponent, setDialogConfig({
+      data: pcg
+    }), this.dialog).afterClosed().subscribe(() => {
+      super.getItems();
+    });
   }
 }
