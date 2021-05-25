@@ -58,6 +58,7 @@ import {StaffEmailPipe} from './pipes/staff-email.pipe';
 import {VoucherOverviewDialogComponent} from './components/admin/vouchers/voucher-overview-dialog/voucher-overview-dialog.component';
 import {ExpensesComponent} from './components/admin/expenses/expenses.component';
 import {CodeBookOverviewComponent} from './components/admin/code-book/code-book-overview/code-book-overview.component';
+import { PackageComponent } from './components/admin/package/package.component';
 
 @NgModule({
   declarations: [
@@ -108,7 +109,8 @@ import {CodeBookOverviewComponent} from './components/admin/code-book/code-book-
     StaffEmailPipe,
     VoucherOverviewDialogComponent,
     ExpensesComponent,
-    CodeBookOverviewComponent
+    CodeBookOverviewComponent,
+    PackageComponent
   ],
   imports: [
     BrowserModule,

@@ -178,7 +178,7 @@ export class AddAppointmentDialogComponent extends DefaultComponent<Appointment>
     this.spinnerService.show(this.spinner);
     const appointment: Appointment = this.appointmentForm.getRawValue();
     appointment.clients = [{id: this.selectedClient.id}];
-    appointment.staff = {id: this.appointmentForm.get(FormControlNames.STAFF_FORM_CONTROL)?.value};
+    appointment.staff = {id: this.appointmentForm.get(FormControlNames.STAFF_FORM_CONTROL)?.value.id};
     appointment.date = moment(appointment.date).format('YYYY-MM-DD');
     appointment.notes = this.editorComponent.editorInstance?.getData();
     appointment.room = {id: this.appointmentForm.get(FormControlNames.ROOM_FORM_CONTROL)?.value};
