@@ -11,6 +11,7 @@ export class CheckIsAppointmentStartPipe implements PipeTransform {
   transform(staffDtoList: StaffDto, time: string): AppointmentDTO {
     // @ts-ignore
     return staffDtoList.appointments?.find((appointment) => moment(time, 'HH:mm:ss').isSame(moment(appointment.startTime, 'HH:mm:ss'))
-      && appointment.appointmentStatus?.value === 'NEW');
+      // @ts-ignore
+      && (appointment.appointmentStatus.value.toUpperCase() === 'NEW' || appointment.appointmentStatus.value.toUpperCase() === 'CONFIRMED'));
   }
 }

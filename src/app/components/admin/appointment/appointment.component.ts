@@ -25,6 +25,7 @@ import {AppointmentStatus} from '../../../models/appointment-status';
   styleUrls: ['./appointment.component.sass']
 })
 export class AppointmentComponent extends DefaultComponent<Appointment> implements OnInit {
+
   filteredScheduleList: RoomDto[] = [];
   listOfTimes: string[] = [];
 
@@ -128,7 +129,7 @@ export class AppointmentComponent extends DefaultComponent<Appointment> implemen
         maxWidth: '70%',
         data
       }), this.dialog).afterClosed().subscribe(async () => {
-      this.allRooms ? this.getAppointments() : this.getAllRoomsAppointments();
+      this.allRooms ? this.getAllRoomsAppointments() : this.getAppointments();
     });
   }
 
@@ -190,10 +191,7 @@ export class AppointmentComponent extends DefaultComponent<Appointment> implemen
   }
 
   async checkAppointment(appointment: Appointment): Promise<void> {
-    appointment.appointmentStatus = await this.appointmentStatusService.getAll()
-      .pipe(map(value => value.find((appStatus) => appStatus.value?.toUpperCase() === 'CHECKED'))).toPromise();
-
-    super.subscribeUpdate(appointment);
+    super.otherSubscribe(this.appointmentService.setConfirmStatus(appointment.id));
   }
 
   search(): void {

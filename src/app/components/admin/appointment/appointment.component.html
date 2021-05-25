@@ -80,7 +80,8 @@
                   </div>
                   <div class="col-6 text-right">
                     <button mat-icon-button (click)="checkAppointment(appointment)">
-                      <mat-icon>task_alt</mat-icon>
+                      <mat-icon
+                        [style.color]="appointment.appointmentStatus.value.toUpperCase() ==='CONFIRMED'?'#fff':''">{{appointment.appointmentStatus.value.toUpperCase() === 'CONFIRMED' ? 'check_circle_outline' : 'done'}}</mat-icon>
                     </button>
                   </div>
                 </div>
