@@ -18,4 +18,8 @@ export class AppointmentService extends GenericService<Appointment> {
   setCompleteStatus(id: any): Observable<Appointment> {
     return this.http.put<Appointment>(RestRoutesConst.API + this.route + '/' + id + '/complete', {}, {responseType: 'json'});
   }
+
+  setConfirmStatus(id: any): Observable<Appointment> {
+    return this.http.put<Appointment>(RestRoutesConst.API + this.route + '/' + id + '/confirm', {}, {responseType: 'json'});
+  }
 }
