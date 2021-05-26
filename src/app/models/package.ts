@@ -1,18 +1,10 @@
-import {Client} from './client';
-import {PaymentMethod} from './payment-method';
+import {PackageBase} from './package-base';
 
-export interface Package {
-  id?: number;
+export interface Package extends PackageBase {
   availablePrice?: number;
   availableUsages?: number;
-  client?: Client;
   code?: string;
-  discount?: number;
-  discountType?: string;
-  startDate?: string;
   expired?: string;
-  location?: Location;
-  paymentMethod?: PaymentMethod;
   price?: string;
   treatmentPrice: number;
   treatmentName?: string;

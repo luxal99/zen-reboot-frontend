@@ -1,14 +1,6 @@
-import {Client} from './client';
 import {TreatmentDuration} from './treatment-duration';
-import {Location} from './location';
-import {PaymentMethod} from './payment-method';
+import {PackageBase} from './package-base';
 
-export interface PackageDto {
-  client?: Client;
-  count?: number;
-  discount?: number;
-  startDate: string;
+export interface PackageDto extends PackageBase {
   treatmentDuration: TreatmentDuration;
-  location: Location;
-  paymentMethod: PaymentMethod
 }

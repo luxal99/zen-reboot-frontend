@@ -9,7 +9,8 @@ import {Package} from '../../../../models/package';
 })
 export class PackageOverviewDialogComponent implements OnInit {
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: Package) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: Package) {
+  }
 
   ngOnInit(): void {
   }

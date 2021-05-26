@@ -1,6 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {DefaultComponent} from '../../../../util/default-component';
-import {Package} from '../../../../models/package';
 import {PackageService} from '../../../../service/package.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
@@ -17,13 +16,15 @@ import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {PackageDto} from '../../../../models/package-dto';
 import * as moment from 'moment';
 import {PaymentMethodService} from '../../../../service/payment-method.service';
+import {PackageBase} from '../../../../models/package-base';
+import {Package} from '../../../../models/package';
 
 @Component({
   selector: 'app-add-package-dialog',
   templateUrl: './add-package-dialog.component.html',
   styleUrls: ['./add-package-dialog.component.sass']
 })
-export class AddPackageDialogComponent extends DefaultComponent<Package> implements OnInit {
+export class AddPackageDialogComponent extends DefaultComponent<PackageBase> implements OnInit {
 
   selectedClient: Client = {};
 
@@ -164,6 +165,7 @@ export class AddPackageDialogComponent extends DefaultComponent<Package> impleme
     // @ts-ignore
     pcg.location ? pcg.location = {id: pcg.location.id} : delete pcg.location;
     pcg.treatmentDuration = {id: pcg.treatmentDuration.id};
+    // @ts-ignore
     pcg.paymentMethod = {id: pcg.paymentMethod.id};
     // @ts-ignore
     delete pcg.treatment;

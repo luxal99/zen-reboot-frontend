@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {DefaultComponent} from '../../../util/default-component';
-import {Package} from '../../../models/package';
 import {PackageService} from '../../../service/package.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
@@ -8,6 +7,7 @@ import {DialogUtil} from '../../../util/dialog-util';
 import {AddPackageDialogComponent} from './add-package-dialog/add-package-dialog.component';
 import {setDialogConfig} from '../../../util/dialog-options';
 import {FormControl, FormGroup} from '@angular/forms';
+import {Package} from '../../../models/package';
 
 @Component({
   selector: 'app-package',
