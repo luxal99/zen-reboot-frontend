@@ -60,6 +60,7 @@ import {ExpensesComponent} from './components/admin/expenses/expenses.component'
 import {CodeBookOverviewComponent} from './components/admin/code-book/code-book-overview/code-book-overview.component';
 import { PackageComponent } from './components/admin/package/package.component';
 import { AddPackageDialogComponent } from './components/admin/package/add-package-dialog/add-package-dialog.component';
+import { PackageOverviewDialogComponent } from './components/admin/package/package-overview-dialog/package-overview-dialog.component';
 
 @NgModule({
   declarations: [
@@ -112,7 +113,8 @@ import { AddPackageDialogComponent } from './components/admin/package/add-packag
     ExpensesComponent,
     CodeBookOverviewComponent,
     PackageComponent,
-    AddPackageDialogComponent
+    AddPackageDialogComponent,
+    PackageOverviewDialogComponent
   ],
   imports: [
     BrowserModule,
