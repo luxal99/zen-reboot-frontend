@@ -8,5 +8,42 @@
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
   </form>
+  <app-form-input [group]="packageForm" [config]="countInputConfig"></app-form-input>
   <app-form-select [group]="packageForm" [config]="discountTypeSelectConfig"></app-form-select>
+  <app-form-select [group]="packageForm" [config]="locationSelectConfig"></app-form-select>
+  <mat-accordion>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>Klijenti</mat-expansion-panel-header>
+      <div class="client">
+        <div class="row">
+          <div class="col-6">
+            <form [formGroup]="searchForm">
+              <mat-form-field appearance="outline">
+                <mat-label>Pretraži</mat-label>
+                <input (input)="search()" matInput formControlName="search" [(ngModel)]="searchText">
+                <mat-icon matSuffix>
+                  search
+                </mat-icon>
+              </mat-form-field>
+            </form>
+          </div>
+          <div class="col-6">
+            <app-paginator (next)="getNext()" (prev)="getPrevious()"></app-paginator>
+          </div>
+        </div>
+        <div class="row client-row" style="padding-top: 1em" *ngFor="let client of listOfClients"
+             (click)="selectClient(client,$event)">
+          <div class="col-sm">
+            <div class="inline">
+              <h1 class="first-letter-h1">{{client.person.firstName.substr(0, 1)}}</h1>
+              <h2>{{client.person?.firstName}}</h2>
+            </div>
+          </div>
+          <div class="col-sm">
+            <h2>{{client.person?.lastName}}</h2>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
 </div>

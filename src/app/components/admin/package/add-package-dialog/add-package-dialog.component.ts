@@ -42,7 +42,7 @@ export class AddPackageDialogComponent extends DefaultComponent<Package> impleme
     treatmentDuration: new FormControl('', Validators.required)
   });
 
-  countInputConfig: FieldConfig = {name: FormControlNames.COUNT_FORM_CONTROL, type: InputTypes.NUMBER};
+  countInputConfig: FieldConfig = {name: FormControlNames.COUNT_FORM_CONTROL, type: InputTypes.NUMBER, label: 'Količina'};
   discountInputConfig: FieldConfig = {name: FormControlNames.DISCOUNT_FORM_CONTROL, type: InputTypes.INPUT_TYPE_NAME};
   paymentMethodSelectConfig: FieldConfig = {name: FormControlNames.PAYMENT_METHOD_FORM_CONTROL, type: InputTypes.SELECT_TYPE_NAME};
   treatmentSelectConfig: FieldConfig = {name: FormControlNames.TREATMENT_FORM_CONTROL, type: InputTypes.INPUT_TYPE_NAME};
@@ -54,6 +54,7 @@ export class AddPackageDialogComponent extends DefaultComponent<Package> impleme
     name: FormControlNames.TYPE_FORM_CONTROL, type: InputTypes.SELECT_TYPE_NAME, options: [VoucherEnum.BLANCO, VoucherEnum.PRODUCT]
   };
   isDurationFCDisabled = true;
+  searchText = '';
 
   constructor(private packageService: PackageService, protected snackBar: MatSnackBar,
               private treatmentService: TreatmentService, private locationService: LocationService,
@@ -62,6 +63,7 @@ export class AddPackageDialogComponent extends DefaultComponent<Package> impleme
   }
 
   ngOnInit(): void {
+    this.getClients();
     this.initSelect();
   }
 
@@ -88,7 +90,7 @@ export class AddPackageDialogComponent extends DefaultComponent<Package> impleme
     }
   }
 
-  getClient(): void {
+  getClients(): void {
     this.clientService.getPaginationClients(++this.numberOfPage).subscribe((resp) => {
       this.listOfClients = resp;
     });
