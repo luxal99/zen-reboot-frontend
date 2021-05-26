@@ -17,14 +17,14 @@
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
   </form>
-  <app-form-select label="Tip vaučera" [model]="data ? data.type:null"
+  <app-form-select label="Tip vaučera"
                    [group]="voucherForm"
                    [config]="typeSelectConfig"></app-form-select>
-  <app-form-input [group]="voucherForm" [model]="data?data.discount:null" label="Popust"
+  <app-form-input [group]="voucherForm" label="Popust"
                   [config]="discountInputConfig"></app-form-input>
-  <app-form-select [config]="discountTypeSelectConfig" [model]="data ? data.discountType:null"
+  <app-form-select [config]="discountTypeSelectConfig"
                    [group]="voucherForm"></app-form-select>
-  <app-form-select label="Način plaćanja" [model]="data ? data.paymentMethod :null" [group]="voucherForm"
+  <app-form-select label="Način plaćanja" [group]="voucherForm"
                    [config]="paymentMethodSelectConfig"></app-form-select>
   <form [formGroup]="voucherForm">
     <mat-form-field appearance="outline">

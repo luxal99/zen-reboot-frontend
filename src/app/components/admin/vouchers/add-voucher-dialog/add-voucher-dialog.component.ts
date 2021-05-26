@@ -1,10 +1,8 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {DefaultComponent} from '../../../../util/default-component';
-import {Voucher} from '../../../../models/voucher';
 import {VoucherService} from '../../../../service/voucher.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {VoucherDto} from '../../../../models/voucher-dto';
 import {FieldConfig} from '../../../../models/FIeldConfig';
 import {FormControlNames, InputTypes, SELECTED_CLASS_NAME} from '../../../../const/const';
@@ -39,7 +37,7 @@ export class AddVoucherDialogComponent extends DefaultComponent<VoucherDto> impl
     treatmentDurations: new FormControl('', Validators.required),
     discountType: new FormControl('', Validators.required),
     paymentMethod: new FormControl('', Validators.required),
-    startDate: new FormControl(this.data ? this.data.startDate : moment(new Date()).format('YYYY-MM-DD'))
+    startDate: new FormControl(moment(new Date()).format('YYYY-MM-DD'))
   });
 
   discountInputConfig: FieldConfig = {name: FormControlNames.DISCOUNT_FORM_CONTROL, type: InputTypes.INPUT_TYPE_NAME};
@@ -52,7 +50,7 @@ export class AddVoucherDialogComponent extends DefaultComponent<VoucherDto> impl
     name: FormControlNames.TYPE_FORM_CONTROL, type: InputTypes.SELECT_TYPE_NAME, options: [VoucherEnum.BLANCO, VoucherEnum.PRODUCT]
   };
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: Voucher, private voucherService: VoucherService,
+  constructor(private voucherService: VoucherService,
               private treatmentService: TreatmentService, private discountTypeService: DiscountTypeService,
               protected snackBar: MatSnackBar, private clientService: ClientService) {
     super(voucherService, snackBar);
@@ -69,6 +67,7 @@ export class AddVoucherDialogComponent extends DefaultComponent<VoucherDto> impl
       this.listOfTreatments = resp;
     });
   }
+
   compareObjects(o1: any, o2: any): boolean {
     if (o2 !== null && o2 !== undefined) {
       return o1.name === o2.name && o1.id === o2.id;

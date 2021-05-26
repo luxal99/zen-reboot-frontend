@@ -67,7 +67,7 @@ export class AddPackageDialogComponent extends DefaultComponent<PackageBase> imp
   isDurationFCDisabled = true;
   searchText = '';
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: Package, private packageService: PackageService, protected snackBar: MatSnackBar,
+  constructor(private packageService: PackageService, protected snackBar: MatSnackBar,
               private treatmentService: TreatmentService, private locationService: LocationService,
               private paymentMethodService: PaymentMethodService,
               private clientService: ClientService, private discountTypeService: DiscountTypeService) {
