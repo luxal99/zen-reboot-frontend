@@ -53,15 +53,15 @@ import {InvoicesDialogOverviewComponent} from './components/table-binding/invoic
 import {VouchersComponent} from './components/admin/vouchers/vouchers.component';
 import {AddVoucherDialogComponent} from './components/admin/vouchers/add-voucher-dialog/add-voucher-dialog.component';
 import {DatePipe} from './pipes/date.pipe';
-import {VoucherPipe} from './pipes/voucher.pipe';
 import {StaffEmailPipe} from './pipes/staff-email.pipe';
 import {VoucherOverviewDialogComponent} from './components/admin/vouchers/voucher-overview-dialog/voucher-overview-dialog.component';
 import {ExpensesComponent} from './components/admin/expenses/expenses.component';
 import {CodeBookOverviewComponent} from './components/admin/code-book/code-book-overview/code-book-overview.component';
-import { PackageComponent } from './components/admin/package/package.component';
-import { AddPackageDialogComponent } from './components/admin/package/add-package-dialog/add-package-dialog.component';
-import { PackageOverviewDialogComponent } from './components/admin/package/package-overview-dialog/package-overview-dialog.component';
-import { PackagePipe } from './pipes/package.pipe';
+import {PackageComponent} from './components/admin/package/package.component';
+import {AddPackageDialogComponent} from './components/admin/package/add-package-dialog/add-package-dialog.component';
+import {PackageOverviewDialogComponent} from './components/admin/package/package-overview-dialog/package-overview-dialog.component';
+import { VoucherPackagePipe } from './pipes/voucher-package.pipe';
+
 
 @NgModule({
   declarations: [
@@ -108,7 +108,6 @@ import { PackagePipe } from './pipes/package.pipe';
     VouchersComponent,
     AddVoucherDialogComponent,
     DatePipe,
-    VoucherPipe,
     StaffEmailPipe,
     VoucherOverviewDialogComponent,
     ExpensesComponent,
@@ -116,7 +115,7 @@ import { PackagePipe } from './pipes/package.pipe';
     PackageComponent,
     AddPackageDialogComponent,
     PackageOverviewDialogComponent,
-    PackagePipe
+    VoucherPackagePipe,
   ],
   imports: [
     BrowserModule,

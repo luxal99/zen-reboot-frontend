@@ -14,7 +14,7 @@
     </div>
   </div>
   <mat-spinner #spinner diameter="25"></mat-spinner>
-  <table mat-table [dataSource]="listOfItems" class="mat-elevation-z8">
+  <table mat-table [dataSource]="listOfItems|voucherPackage:searchText" class="mat-elevation-z8">
     <ng-container matColumnDef="code">
       <th mat-header-cell *matHeaderCellDef> Kod</th>
       <td (click)="openVoucherOverviewDialog(element)" mat-cell *matCellDef="let element"> {{element.code}} </td>
