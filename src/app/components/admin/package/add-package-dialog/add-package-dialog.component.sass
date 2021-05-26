@@ -1,3 +1,48 @@
 @import "src/styles"
 mat-form-field
   width: 100%
+
+mat-spinner
+  margin-top: 5%
+  display: none
+
+button
+  margin-top: 2em
+
+.client-row
+  -webkit-transition: .3s linear
+  cursor: pointer
+
+  h2
+    padding-top: 1em
+
+.client-row:hover
+  background-color: $most-light-silver
+  transition: .3s ease-in-out
+  -webkit-transition: .3s ease-in-out
+
+.first-letter-h1
+  background-color: $most-light-silver
+  width: 70px
+  height: 70px
+  padding-top: .7em
+  margin-right: 1em
+  text-align: center
+  border-radius: 50%
+  -webkit-transition: .3s linear
+
+.client
+  max-height: 500px
+  overflow-y: scroll
+.selected
+  background-color: $default-gold
+
+  .first-letter-h1
+    background-color: #fff
+
+.col-sm
+  pointer-events: none
+
+.col, .col-6
+  h1, h2
+    pointer-events: none

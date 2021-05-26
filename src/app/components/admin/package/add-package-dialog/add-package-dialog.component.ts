@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {DefaultComponent} from '../../../../util/default-component';
 import {Package} from '../../../../models/package';
 import {PackageService} from '../../../../service/package.service';
@@ -13,6 +13,10 @@ import {ClientService} from '../../../../service/client.service';
 import {DiscountTypeService} from '../../../../service/discount-type.service';
 import {TreatmentService} from '../../../../service/treatment.service';
 import {LocationService} from '../../../../service/location.service';
+import {MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {PackageDto} from '../../../../models/package-dto';
+import * as moment from 'moment';
+import {PaymentMethodService} from '../../../../service/payment-method.service';
 
 @Component({
   selector: 'app-add-package-dialog',
@@ -37,8 +41,10 @@ export class AddPackageDialogComponent extends DefaultComponent<Package> impleme
     count: new FormControl('', Validators.required),
     discount: new FormControl(''),
     location: new FormControl(''),
+    treatment: new FormControl(''),
     discountType: new FormControl(''),
     startDate: new FormControl(new Date(), Validators.required),
+    paymentMethod: new FormControl('', Validators.required),
     treatmentDuration: new FormControl('', Validators.required)
   });
 
@@ -46,7 +52,11 @@ export class AddPackageDialogComponent extends DefaultComponent<Package> impleme
   discountInputConfig: FieldConfig = {name: FormControlNames.DISCOUNT_FORM_CONTROL, type: InputTypes.INPUT_TYPE_NAME};
   paymentMethodSelectConfig: FieldConfig = {name: FormControlNames.PAYMENT_METHOD_FORM_CONTROL, type: InputTypes.SELECT_TYPE_NAME};
   treatmentSelectConfig: FieldConfig = {name: FormControlNames.TREATMENT_FORM_CONTROL, type: InputTypes.INPUT_TYPE_NAME};
-  locationSelectConfig: FieldConfig = {name: FormControlNames.LOCATION_FORM_CONTROL, type: InputTypes.INPUT_TYPE_NAME};
+  locationSelectConfig: FieldConfig = {
+    name: FormControlNames.LOCATION_FORM_CONTROL,
+    type: InputTypes.INPUT_TYPE_NAME,
+    label: 'Izaberi lokaciju'
+  };
   durationSelectConfig: FieldConfig = {name: FormControlNames.DURATION_FORM_CONTROL, type: InputTypes.SELECT_TYPE_NAME};
   discountTypeSelectConfig: FieldConfig = {name: FormControlNames.DISCOUNT_TYPE_FORM_CONTROL, type: InputTypes.SELECT_TYPE_NAME};
 
@@ -56,8 +66,9 @@ export class AddPackageDialogComponent extends DefaultComponent<Package> impleme
   isDurationFCDisabled = true;
   searchText = '';
 
-  constructor(private packageService: PackageService, protected snackBar: MatSnackBar,
+  constructor(@Inject(MAT_DIALOG_DATA) public data: Package, private packageService: PackageService, protected snackBar: MatSnackBar,
               private treatmentService: TreatmentService, private locationService: LocationService,
+              private paymentMethodService: PaymentMethodService,
               private clientService: ClientService, private discountTypeService: DiscountTypeService) {
     super(packageService, snackBar);
   }
@@ -72,6 +83,7 @@ export class AddPackageDialogComponent extends DefaultComponent<Package> impleme
     super.initSelectConfig(this.treatmentService, this.treatmentSelectConfig);
     super.initSelectConfig(this.locationService, this.locationSelectConfig);
     super.initSelectConfig(this.discountTypeService, this.discountTypeSelectConfig);
+    super.initSelectConfig(this.paymentMethodService, this.paymentMethodSelectConfig);
   }
 
   selectClient(client: Client, $event: any): void {
@@ -146,7 +158,17 @@ export class AddPackageDialogComponent extends DefaultComponent<Package> impleme
   }
 
   save(): void {
+    const pcg: PackageDto = this.packageForm.getRawValue();
+    pcg.client = {id: this.selectedClient.id};
+    pcg.startDate = moment(pcg.startDate).format('YYYY-MM-DD');
+    // @ts-ignore
+    pcg.location ? pcg.location = {id: pcg.location.id} : delete pcg.location;
+    pcg.treatmentDuration = {id: pcg.treatmentDuration.id};
+    pcg.paymentMethod = {id: pcg.paymentMethod.id};
+    // @ts-ignore
+    delete pcg.treatment;
 
+    super.subscribeSave(pcg);
   }
 
 }

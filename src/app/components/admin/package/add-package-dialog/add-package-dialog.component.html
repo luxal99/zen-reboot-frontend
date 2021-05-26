@@ -9,8 +9,20 @@
     </mat-form-field>
   </form>
   <app-form-input [group]="packageForm" [config]="countInputConfig"></app-form-input>
+  <app-form-input [group]="packageForm" [config]="discountInputConfig" label="Popust"></app-form-input>
   <app-form-select [group]="packageForm" [config]="discountTypeSelectConfig"></app-form-select>
-  <app-form-select [group]="packageForm" [config]="locationSelectConfig"></app-form-select>
+  <app-form-select [group]="packageForm" [config]="paymentMethodSelectConfig" label="Tip plaćanja"></app-form-select>
+  <app-form-select [group]="packageForm" label="Izaberi lokaciju" [config]="locationSelectConfig"></app-form-select>
+  <app-form-select bindValue="name"
+                   [config]="treatmentSelectConfig"
+                   (onChange)="onTreatmentSelect()"
+                   label="Izaberi tretman"
+                   [group]="packageForm"></app-form-select>
+  <app-form-select bindValue="duration"
+                   label="Izaberi trajanje"
+                   [isDisabled]="data ? isDurationFCDisabled:false"
+                   [config]="durationSelectConfig"
+                   [group]="packageForm"></app-form-select>
   <mat-accordion>
     <mat-expansion-panel>
       <mat-expansion-panel-header>Klijenti</mat-expansion-panel-header>
@@ -46,4 +58,6 @@
       </div>
     </mat-expansion-panel>
   </mat-accordion>
+  <button mat-button class="default-btn" (click)="save()">Dodaj</button>
+  <mat-spinner diameter="25" #spinner></mat-spinner>
 </div>

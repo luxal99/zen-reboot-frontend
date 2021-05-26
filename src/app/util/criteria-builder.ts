@@ -1,5 +1,5 @@
 const enum CriteriaOperation {
-  EQ = ':',
+  EQ = '=',
   GT = '>',
   LT = '<',
   NE = '!',

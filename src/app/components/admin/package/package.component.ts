@@ -25,7 +25,8 @@ export class PackageComponent extends DefaultComponent<Package> implements OnIni
 
   openAddPackageDialog(pcg?: Package): void {
     DialogUtil.openDialog(AddPackageDialogComponent, setDialogConfig({
-      data: pcg
+      maxHeight: '80vh',
+      data: pcg ? pcg : null
     }), this.dialog).afterClosed().subscribe(() => {
       super.getItems();
     });
