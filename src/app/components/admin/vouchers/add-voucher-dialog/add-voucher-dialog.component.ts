@@ -15,6 +15,9 @@ import {CriteriaBuilder} from '../../../../util/criteria-builder';
 import {VoucherEnum} from '../../../../enums/VoucherEnum';
 import {TreatmentService} from '../../../../service/treatment.service';
 import * as moment from 'moment';
+import {Treatment} from '../../../../models/treatment';
+import {DiscountTypeService} from '../../../../service/discount-type.service';
+import {SnackBarUtil} from '../../../../util/snack-bar-uitl';
 
 @Component({
   selector: 'app-add-voucher-dialog',
@@ -25,6 +28,7 @@ export class AddVoucherDialogComponent extends DefaultComponent<VoucherDto> impl
 
   selectedClient!: Client;
   searchText = '';
+  listOfTreatments: Treatment[] = [];
   searchForm = new FormGroup({
     search: new FormControl('')
   });
@@ -35,29 +39,26 @@ export class AddVoucherDialogComponent extends DefaultComponent<VoucherDto> impl
 
   listOfClients: Client[] = [];
   voucherForm = new FormGroup({
-    client: new FormControl('', Validators.required),
     type: new FormControl('', Validators.required),
-    count: new FormControl(''),
-    discount: new FormControl(''),
-    treatment: new FormControl(''),
-    treatmentDuration: new FormControl(''),
+    discount: new FormControl('', Validators.required),
+    treatmentDurations: new FormControl('', Validators.required),
+    discountType: new FormControl('', Validators.required),
     paymentMethod: new FormControl('', Validators.required),
     startDate: new FormControl(this.data ? this.data.startDate : moment(new Date()).format('YYYY-MM-DD'))
   });
 
-  countInputConfig: FieldConfig = {name: FormControlNames.COUNT_FORM_CONTROL, type: InputTypes.NUMBER};
   discountInputConfig: FieldConfig = {name: FormControlNames.DISCOUNT_FORM_CONTROL, type: InputTypes.INPUT_TYPE_NAME};
   paymentMethodSelectConfig: FieldConfig = {name: FormControlNames.PAYMENT_METHOD_FORM_CONTROL, type: InputTypes.SELECT_TYPE_NAME};
   treatmentSelectConfig: FieldConfig = {name: FormControlNames.TREATMENT_FORM_CONTROL, type: InputTypes.INPUT_TYPE_NAME};
   durationSelectConfig: FieldConfig = {name: FormControlNames.DURATION_FORM_CONTROL, type: InputTypes.SELECT_TYPE_NAME};
+  discountTypeSelectConfig: FieldConfig = {name: FormControlNames.DISCOUNT_TYPE_FORM_CONTROL, type: InputTypes.SELECT_TYPE_NAME};
 
   typeSelectConfig: FieldConfig = {
     name: FormControlNames.TYPE_FORM_CONTROL, type: InputTypes.SELECT_TYPE_NAME, options: [VoucherEnum.BLANCO, VoucherEnum.PRODUCT]
   };
-  isDurationFCDisabled = true;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: Voucher, private voucherService: VoucherService,
-              private treatmentService: TreatmentService,
+              private treatmentService: TreatmentService, private discountTypeService: DiscountTypeService,
               protected snackBar: MatSnackBar, private clientService: ClientService) {
     super(voucherService, snackBar);
   }
@@ -65,26 +66,19 @@ export class AddVoucherDialogComponent extends DefaultComponent<VoucherDto> impl
   ngOnInit(): void {
     this.initSelect();
     this.getClient();
+    this.getTreatments();
   }
 
-  disableByVoucherType(): void {
-    const voucherType = this.voucherForm.get(FormControlNames.TYPE_FORM_CONTROL)?.value;
-
-    if (voucherType === VoucherEnum.PRODUCT.toString()) {
-      this.isDiscountDisabled = true;
-      this.isCountDisabled = false;
-    } else if (voucherType === VoucherEnum.BLANCO.toString()) {
-      this.isDiscountDisabled = false;
-      this.isCountDisabled = true;
-    } else {
-      this.isDiscountDisabled = false;
-      this.isCountDisabled = false;
-    }
+  getTreatments(): void {
+    this.treatmentService.getAll().subscribe((resp) => {
+      this.listOfTreatments = resp;
+    });
   }
 
   initSelect(): void {
     super.initSelectConfigWithObservable(this.voucherService.getVoucherPaymentMethod(), this.paymentMethodSelectConfig);
     super.initSelectConfig(this.treatmentService, this.treatmentSelectConfig);
+    super.initSelectConfig(this.discountTypeService, this.discountTypeSelectConfig);
   }
 
 
@@ -121,12 +115,6 @@ export class AddVoucherDialogComponent extends DefaultComponent<VoucherDto> impl
     });
   }
 
-  onTreatmentSelect(): void {
-    this.durationSelectConfig.options = [];
-    this.durationSelectConfig.options = this.voucherForm.get(FormControlNames.TREATMENT_FORM_CONTROL)?.value.durations;
-    this.isDurationFCDisabled = false;
-  }
-
   search(): void {
     const queryBuilder = new CriteriaBuilder();
     const search: string = this.searchForm.get(FormControlNames.SEARCH_FORM_CONTROL)?.value;
@@ -147,10 +135,13 @@ export class AddVoucherDialogComponent extends DefaultComponent<VoucherDto> impl
     const voucher: VoucherDto = this.voucherForm.getRawValue();
     voucher.client = {id: this.selectedClient.id};
     voucher.paymentMethod = {id: voucher.paymentMethod?.id};
-    voucher.treatmentDuration = {id: voucher.treatmentDuration?.id};
-    // @ts-ignore
-    delete voucher.treatment;
-    super.subscribeSave(voucher);
+    voucher.treatmentDurations = voucher.treatmentDurations?.map((item) => ({id: item.id}));
+
+    if (!this.selectedClient) {
+      SnackBarUtil.openSnackBar(this.snackBar, 'Izaberite klijenta');
+    } else {
+      super.subscribeSave(voucher);
+    }
   }
 
   selectClient(client: Client, $event: any): void {

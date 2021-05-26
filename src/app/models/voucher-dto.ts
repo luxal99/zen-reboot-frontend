@@ -8,7 +8,7 @@ export interface VoucherDto {
   discount?: number;
   paymentMethod?: PaymentMethod;
   startDate?: string;
-  treatmentDuration?: TreatmentDuration;
+  treatmentDurations?: TreatmentDuration[];
   type?: string;
 
 }
