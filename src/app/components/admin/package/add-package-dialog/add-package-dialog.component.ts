@@ -22,6 +22,8 @@ export class AddPackageDialogComponent extends DefaultComponent<Package> impleme
     treatmentDuration: new FormControl('', Validators.required)
   });
 
+
+
   constructor(private packageService: PackageService, protected snackBar: MatSnackBar) {
     super(packageService, snackBar);
   }
