@@ -61,6 +61,7 @@ import {CodeBookOverviewComponent} from './components/admin/code-book/code-book-
 import { PackageComponent } from './components/admin/package/package.component';
 import { AddPackageDialogComponent } from './components/admin/package/add-package-dialog/add-package-dialog.component';
 import { PackageOverviewDialogComponent } from './components/admin/package/package-overview-dialog/package-overview-dialog.component';
+import { PackagePipe } from './pipes/package.pipe';
 
 @NgModule({
   declarations: [
@@ -114,7 +115,8 @@ import { PackageOverviewDialogComponent } from './components/admin/package/packa
     CodeBookOverviewComponent,
     PackageComponent,
     AddPackageDialogComponent,
-    PackageOverviewDialogComponent
+    PackageOverviewDialogComponent,
+    PackagePipe
   ],
   imports: [
     BrowserModule,
