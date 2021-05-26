@@ -1,7 +1,7 @@
 <div class="dialog">
   <div class="row">
     <div class="col-6">
-      <h1><b>Kreiranje vaučera</b></h1>
+      <h1 style="padding-top: 2em"><b>Kreiranje vaučera</b></h1>
     </div>
     <div class="col-6 text-right">
       <button mat-icon-button mat-dialog-close>
@@ -21,15 +21,15 @@
                    [group]="voucherForm"
                    [config]="typeSelectConfig"></app-form-select>
   <app-form-input [group]="voucherForm" [model]="data?data.discount:null" label="Popust"
-                  [isDisabled]="isDiscountDisabled"
                   [config]="discountInputConfig"></app-form-input>
-  <app-form-select [config]="discountTypeSelectConfig" [group]="voucherForm"></app-form-select>
+  <app-form-select [config]="discountTypeSelectConfig" [model]="data ? data.discountType:null"
+                   [group]="voucherForm"></app-form-select>
   <app-form-select label="Način plaćanja" [model]="data ? data.paymentMethod :null" [group]="voucherForm"
                    [config]="paymentMethodSelectConfig"></app-form-select>
   <form [formGroup]="voucherForm">
     <mat-form-field appearance="outline">
       <mat-label>Tretman</mat-label>
-      <mat-select formControlName="treatmentDurations" multiple>
+      <mat-select [compareWith]="compareObjects" formControlName="treatmentDurations" multiple>
         <mat-optgroup *ngFor="let group of listOfTreatments" [label]="group.name" required="true">
           <mat-option *ngFor="let treatmentDuration of group.durations" [value]="treatmentDuration">
             {{treatmentDuration.duration}}

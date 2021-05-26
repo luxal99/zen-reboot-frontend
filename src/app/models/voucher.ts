@@ -5,6 +5,7 @@ export interface Voucher {
   id?: number;
   code?: string;
   discount?: number;
+  discountType?: string;
   count?: number;
   endDate?: string;
   client?: Client;

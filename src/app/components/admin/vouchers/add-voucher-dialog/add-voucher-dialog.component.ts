@@ -8,7 +8,6 @@ import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {VoucherDto} from '../../../../models/voucher-dto';
 import {FieldConfig} from '../../../../models/FIeldConfig';
 import {FormControlNames, InputTypes, SELECTED_CLASS_NAME} from '../../../../const/const';
-import {PaymentMethodService} from '../../../../service/payment-method.service';
 import {ClientService} from '../../../../service/client.service';
 import {Client} from '../../../../models/client';
 import {CriteriaBuilder} from '../../../../util/criteria-builder';
@@ -33,10 +32,6 @@ export class AddVoucherDialogComponent extends DefaultComponent<VoucherDto> impl
     search: new FormControl('')
   });
   numberOfPage = 0;
-
-  isCountDisabled = false;
-  isDiscountDisabled = false;
-
   listOfClients: Client[] = [];
   voucherForm = new FormGroup({
     type: new FormControl('', Validators.required),
@@ -73,6 +68,13 @@ export class AddVoucherDialogComponent extends DefaultComponent<VoucherDto> impl
     this.treatmentService.getAll().subscribe((resp) => {
       this.listOfTreatments = resp;
     });
+  }
+  compareObjects(o1: any, o2: any): boolean {
+    if (o2 !== null && o2 !== undefined) {
+      return o1.name === o2.name && o1.id === o2.id;
+    } else {
+      return false;
+    }
   }
 
   initSelect(): void {
