@@ -34,15 +34,15 @@ export class InvoiceOverviewComponent extends DefaultComponent<Invoice> implemen
 
   ngOnInit(): void {
     this.getCurrentWeekOverview();
-    this.getCurrentDayOverview();
+    // this.getCurrentDayOverview();
   }
 
   getCurrentWeekOverview(): void {
     const queryBuilder = new CriteriaBuilder();
     // @ts-ignore
-    queryBuilder.gt('checkoutDate', new Date(this.startDate).valueOf()).and()
+    queryBuilder.gt('createdDate', new Date(this.startDate).valueOf()).and()
       // @ts-ignore
-      .lt('checkoutDate', new Date(this.endDate).valueOf());
+      .lt('createdDate', new Date(this.endDate).valueOf());
     this.invoiceService.getInvoicesDtos(queryBuilder.buildUrlEncoded()).subscribe((resp) => {
       this.listOfCurrentWeekInvoices = resp;
       this.spinnerService.hide(this.spinner);
@@ -50,7 +50,7 @@ export class InvoiceOverviewComponent extends DefaultComponent<Invoice> implemen
   }
 
   getCurrentDayOverview(): void {
-    this.invoiceService.getInvoicesDtos(new CriteriaBuilder().eq('checkoutDate',
+    this.invoiceService.getInvoicesDtos(new CriteriaBuilder().eq('createdDate',
       new Date(this.currentDate.format('YYYY-MM-DD')).valueOf()).buildUrlEncoded()).subscribe((resp) => {
       this.listOfCurrentDayInvoices = resp;
     });
@@ -62,11 +62,11 @@ export class InvoiceOverviewComponent extends DefaultComponent<Invoice> implemen
     dateFilter.endDate = new Date(dateFilter.endDate).valueOf();
     const queryBuilder = new CriteriaBuilder();
 
-    queryBuilder.gt('checkoutDate', new Date(dateFilter.startDate).valueOf())
-      .or().eq('checkoutDate', dateFilter.startDate)
+    queryBuilder.gt('createdDate', new Date(dateFilter.startDate).valueOf())
+      .or().eq('createdDate', dateFilter.startDate)
       .and()
-      .lt('checkoutDate', dateFilter.endDate).or()
-      .eq('checkoutDate', dateFilter.endDate);
+      .lt('createdDate', dateFilter.endDate).or()
+      .eq('createdDate', dateFilter.endDate);
     this.invoiceService.getInvoicesDtos(queryBuilder.buildUrlEncoded()).subscribe((resp) => {
       this.listOfFilteredInvoices = resp;
     });

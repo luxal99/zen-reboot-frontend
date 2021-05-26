@@ -15,7 +15,9 @@ export class CheckIsAppointmentBetweenPipe implements PipeTransform {
       (currentTime.isBetween(moment(appointment.startTime, 'HH:mm:ss'), moment(appointment.endTime, 'HH:mm:ss')) ||
         currentTime.isSame(moment(appointment.startTime, 'HH:mm:ss')) ||
         // @ts-ignore
-        currentTime.isSame(moment(appointment.endTime, 'HH:mm:ss'))) && (appointment.appointmentStatus.value.toUpperCase() === 'NEW' || appointment.appointmentStatus.value.toUpperCase() === 'CONFIRMED'));
+        currentTime.isSame(moment(appointment.endTime, 'HH:mm:ss'))) && (appointment.appointmentStatus.value.toUpperCase() === 'NEW'
+      // @ts-ignore
+      || appointment.appointmentStatus.value.toUpperCase() === 'CONFIRMED'));
 
   }
 }

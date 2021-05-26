@@ -12,7 +12,7 @@ import {setDialogConfig} from '../../util/dialog-options';
 })
 export class InvoiceTableBindingComponent implements OnInit {
 
-  displayedColumns: string[] = ['client', 'billedClient', 'location', 'gross', 'option'];
+  displayedColumns: string[] = ['client', 'billedClient', 'gross', 'option'];
   @Input() dataSource: any[] = [];
 
   constructor(private dialog: MatDialog) {
