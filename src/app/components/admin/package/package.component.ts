@@ -7,6 +7,7 @@ import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {DialogUtil} from '../../../util/dialog-util';
 import {AddPackageDialogComponent} from './add-package-dialog/add-package-dialog.component';
 import {setDialogConfig} from '../../../util/dialog-options';
+import {FormControl, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-package',
@@ -14,6 +15,11 @@ import {setDialogConfig} from '../../../util/dialog-options';
   styleUrls: ['./package.component.sass']
 })
 export class PackageComponent extends DefaultComponent<Package> implements OnInit {
+  searchText = '';
+  searchForm = new FormGroup({
+    search: new FormControl('')
+  });
+  displayedColumns: string[] = ['code', 'client', 'price', 'option'];
 
   constructor(private packageService: PackageService, protected snackBar: MatSnackBar, private dialog: MatDialog) {
     super(packageService, snackBar);
