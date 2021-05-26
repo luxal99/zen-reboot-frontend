@@ -34,10 +34,8 @@ export class VouchersComponent extends DefaultComponent<Voucher> implements OnIn
 
   openAddVoucherDialog(data?: any): void {
     DialogUtil.openDialog(AddVoucherDialogComponent, setDialogConfig({
-      position: {right: '0'},
-      height: '100vh',
-      width: '40%',
-      maxWidth: '40%',
+      height: 'auto',
+      maxHeight: '80vh',
       data
     }), this.dialog).afterClosed().subscribe(() => {
       super.getItems();

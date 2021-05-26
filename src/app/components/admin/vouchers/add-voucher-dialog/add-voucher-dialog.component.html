@@ -1,10 +1,14 @@
 <div class="dialog">
-  <div class="text-right">
-    <button mat-icon-button mat-dialog-close>
-      <mat-icon>close</mat-icon>
-    </button>
+  <div class="row">
+    <div class="col-6">
+      <h1><b>Kreiranje vaučera</b></h1>
+    </div>
+    <div class="col-6 text-right">
+      <button mat-icon-button mat-dialog-close>
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
   </div>
-  <h1><b>Kreiranje vaučera</b></h1>
   <form [formGroup]="voucherForm">
     <mat-form-field appearance="outline">
       <mat-label>Choose a date</mat-label>

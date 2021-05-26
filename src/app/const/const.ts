@@ -52,6 +52,7 @@ export class FormControlNames {
   static DISCOUNT_FORM_CONTROL = 'discount';
   static PAYMENT_METHOD_FORM_CONTROL = 'paymentMethod';
   static TYPE_FORM_CONTROL = 'type';
+  static DISCOUNT_TYPE_FORM_CONTROL = 'discountType';
 }
 
 export class InputTypes {
@@ -103,6 +104,7 @@ export class RestRoutesConst {
   static EXPENSE = 'expenses';
   static EXPENSE_TYPE = 'expense-types';
   static PACKAGE = 'packages';
+  static DISCOUNT_TYPE = 'discount-types';
 }
 
 export class TokenConst {
