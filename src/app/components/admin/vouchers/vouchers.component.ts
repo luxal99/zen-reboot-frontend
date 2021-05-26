@@ -48,6 +48,5 @@ export class VouchersComponent extends DefaultComponent<Voucher> implements OnIn
       width: '40%',
       data: element
     }), this.dialog);
-
   }
 }

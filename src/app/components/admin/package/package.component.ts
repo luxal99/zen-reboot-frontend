@@ -8,6 +8,8 @@ import {AddPackageDialogComponent} from './add-package-dialog/add-package-dialog
 import {setDialogConfig} from '../../../util/dialog-options';
 import {FormControl, FormGroup} from '@angular/forms';
 import {Package} from '../../../models/package';
+import {VoucherOverviewDialogComponent} from '../vouchers/voucher-overview-dialog/voucher-overview-dialog.component';
+import {PackageOverviewDialogComponent} from './package-overview-dialog/package-overview-dialog.component';
 
 @Component({
   selector: 'app-package',
@@ -36,5 +38,13 @@ export class PackageComponent extends DefaultComponent<Package> implements OnIni
     }), this.dialog).afterClosed().subscribe(() => {
       super.getItems();
     });
+  }
+
+  openVoucherOverviewDialog(element: any): void {
+    DialogUtil.openDialog(PackageOverviewDialogComponent, setDialogConfig({
+      height: 'auto',
+      width: '40%',
+      data: element
+    }), this.dialog);
   }
 }

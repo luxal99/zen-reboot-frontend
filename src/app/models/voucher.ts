@@ -4,6 +4,7 @@ import {Client} from './client';
 export interface Voucher {
   id?: number;
   code?: string;
+  availablePrice?: number;
   discount?: number;
   discountType?: string;
   count?: number;
