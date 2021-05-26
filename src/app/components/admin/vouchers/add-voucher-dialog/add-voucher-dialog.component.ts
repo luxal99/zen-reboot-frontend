@@ -88,7 +88,6 @@ export class AddVoucherDialogComponent extends DefaultComponent<VoucherDto> impl
   }
 
 
-
   getClient(): void {
     this.clientService.getPaginationClients(++this.numberOfPage).subscribe((resp) => {
       this.listOfClients = resp;
@@ -153,4 +152,21 @@ export class AddVoucherDialogComponent extends DefaultComponent<VoucherDto> impl
     delete voucher.treatment;
     super.subscribeSave(voucher);
   }
+
+  selectClient(client: Client, $event: any): void {
+    const element: HTMLElement = $event.target;
+    const otherSelectedElements = document.querySelectorAll('.selected');
+    [].forEach.call(otherSelectedElements, (el: any) => {
+      el.classList.remove('selected');
+    });
+    if (element.classList.contains(SELECTED_CLASS_NAME)) {
+      // @ts-ignore
+      this.selectedClient = null;
+      element.classList.remove(SELECTED_CLASS_NAME);
+    } else {
+      element.classList.add(SELECTED_CLASS_NAME);
+      this.selectedClient = client;
+    }
+  }
+
 }
