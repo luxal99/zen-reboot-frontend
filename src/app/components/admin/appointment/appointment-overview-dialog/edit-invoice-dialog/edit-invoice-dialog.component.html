@@ -10,10 +10,10 @@
   <mat-divider></mat-divider>
   <mat-horizontal-stepper>
     <mat-step label="Izbor platioca">
+      <h1 class="light-h1" *ngIf="listOfClients.length===0">Započni kucanje...</h1>
       <app-form-input (change)="searchBilledClient()" icon="search" label="Pretraži" [group]="searchForm"
                       [config]="searchBilledInputConfig"></app-form-input>
       <div class="client-binding">
-        <h1 class="light-h1" *ngIf="listOfClients.length===0">Započni kucanje...</h1>
         <div class="client-div" (click)="selectBilledClient(client)" *ngFor="let client of listOfClients">
           <div class="inline">
             <div class="big-circle text-center"
@@ -26,7 +26,7 @@
         </div>
       </div>
 
-      <div class="inline client-div" *ngIf="selectedBilledClient.id"
+      <div class="inline client-div" *ngIf="selectedBilledClient"
            (click)="openClientOverviewDialog(selectedBilledClient)">
         <div class="black-circle text-center"
              style=background-color:#c2c2c2>{{selectedBilledClient.person?.firstName.slice(0, 1)}}</div>
@@ -36,16 +36,16 @@
         </div>
       </div>
 
-      <div *ngIf="this.selectedBilledClient.id">
+      <div *ngIf="this.selectedBilledClient">
         <button class="default-btn" mat-button matStepperNext>Napred</button>
       </div>
 
     </mat-step>
     <mat-step label="Izbor klijenta">
+      <h1 class="light-h1" *ngIf="listOfClients.length===0">Započni kucanje...</h1>
       <app-form-input (change)="searchClient()" icon="search" label="Pretraži" [group]="searchForm"
                       [config]="searchClientInputConfig"></app-form-input>
       <div class="client-binding">
-        <h1 class="light-h1" *ngIf="listOfClients.length===0">Započni kucanje...</h1>
         <div class="client-div" (click)="selectClient(client)" *ngFor="let client of listOfClients">
           <div class="inline">
             <div class="big-circle text-center"
@@ -58,7 +58,7 @@
         </div>
       </div>
 
-      <div class="inline client-div" *ngIf="selectedClient.id"
+      <div class="inline client-div" *ngIf="selectedClient"
            (click)="openClientOverviewDialog(selectedClient)">
         <div class="gold-circle text-center"
              style=background-color:#c2c2c2>{{selectedClient.person?.firstName.slice(0, 1)}}</div>
@@ -68,7 +68,7 @@
         </div>
       </div>
 
-      <div *ngIf="this.selectedClient.id">
+      <div *ngIf="this.selectedClient">
         <button class="white-btn" mat-button matStepperPrevious>Nazad</button>
         <button class="default-btn" mat-button matStepperNext>Napred</button>
       </div>
@@ -91,8 +91,8 @@
           </div>
         </div>
         <h2 style="margin-top: 1em">{{appointment.treatment.name}}</h2>
-        <h3><b>{{appointment.client.person?.firstName + ' ' + appointment.client.person?.lastName}}</b></h3>
-        <h4>{{appointment.client.person.contacts|findClientPhoneNumber}}</h4>
+        <h3><b>{{appointment.clients[0].person?.firstName + ' ' + appointment.clients[0].person?.lastName}}</b></h3>
+        <h4>{{appointment.clients[0].person.contacts|findClientPhoneNumber}}</h4>
         <div class="text-right">
           <button class="white-btn" (click)="selectAppointment(appointment)" mat-button>
             +
@@ -107,11 +107,15 @@
                        label="Status fakture"></app-form-select>
       <app-form-select bindValue="name" [group]="invoiceForm" [model]="{id:1}" [config]="locationSelectConfig"
                        label="Lokacija"></app-form-select>
+      <app-form-select [group]="invoiceForm" [config]="paymentMethodSelectConfig"
+                       (onChange)="checkIsPaymentTypeVoucher()"></app-form-select>
+      <app-form-input [group]="voucherPackageForm" label="Kod" [config]="codeInputConfig"
+                      *ngIf="isPaymentMethodVoucher"></app-form-input>
       <button class="white-btn" mat-button matStepperPrevious>Nazad</button>
       <button class="default-btn" mat-button matStepperNext>Napred</button>
     </mat-step>
     <mat-step label="Pregled">
-      <div class="inline client-div" *ngIf="selectedBilledClient.id"
+      <div class="inline client-div" *ngIf="selectedBilledClient"
            (click)="openClientOverviewDialog(selectedBilledClient)">
         <div class="black-circle text-center"
              style=background-color:#c2c2c2>{{selectedBilledClient.person?.firstName.slice(0, 1)}}</div>
@@ -120,7 +124,7 @@
           <h4>{{selectedBilledClient.person?.contacts|findClientPhoneNumber}}</h4>
         </div>
       </div>
-      <div class="inline client-div" *ngIf="selectedClient.id"
+      <div class="inline client-div" *ngIf="selectedClient"
            (click)="openClientOverviewDialog(selectedClient)">
         <div class="gold-circle text-center"
              style=background-color:#c2c2c2>{{selectedClient.person?.firstName.slice(0, 1)}}</div>
@@ -143,8 +147,8 @@
             </div>
           </div>
           <h2 style="margin-top: 1em">{{appointment.treatment.name}}</h2>
-          <h3><b>{{appointment.client.person?.firstName + ' ' + appointment.client.person?.lastName}}</b></h3>
-          <h4>{{appointment.client.person.contacts|findClientPhoneNumber}}</h4>
+          <h3><b>{{appointment.clients[0].person?.firstName + ' ' + appointment.clients[0].person?.lastName}}</b></h3>
+          <h4>{{appointment.clients[0].person.contacts|findClientPhoneNumber}}</h4>
           <div class="text-right" (click)="removeAppointment(appointment)">
             <button class="white-btn" mat-button><i class="fa fa-minus"></i></button>
           </div>

@@ -58,10 +58,14 @@ export abstract class DefaultComponent<T> implements OnInit {
   }
 
 
-  otherSubscribe(subscriber: Observable<any>, service?: GenericService<any>): void {
+  // tslint:disable-next-line:ban-types
+  otherSubscribe(subscriber: Observable<any>, chain?: Function[]): void {
     this.spinnerService.show(this.spinner);
     subscriber.subscribe(() => {
       SnackBarUtil.openSnackBar(this.snackBar, Message.SUCCESS);
+      chain?.forEach((func) => {
+        func();
+      });
       this.spinnerService.hide(this.spinner);
     }, () => {
       SnackBarUtil.openSnackBar(this.snackBar, Message.ERR);

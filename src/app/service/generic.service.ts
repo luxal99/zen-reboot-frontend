@@ -40,9 +40,9 @@ export class GenericService<T> {
     }
   }
 
-  update(entity: T, token?: string): Observable<any> {
-    return this.http.put(`${RestRoutesConst.API}${this.route}`, entity, {
-      responseType: 'text',
+  update(entity: T): Observable<T> {
+    return this.http.put<T>(`${RestRoutesConst.API}${this.route}`, entity, {
+      responseType: 'json',
       headers: {Authorization: ''}
     });
   }

@@ -16,6 +16,11 @@ export class InvoiceService extends GenericService<Invoice> {
       RestRoutesConst.APPOINTMENT, appointment, {responseType: 'json'});
   }
 
+  update(invoice: Invoice, code?: string, paymentMethodName?: string): Observable<Invoice> {
+    return this.http.put<Invoice>(RestRoutesConst.API + this.route + (code ? `?${paymentMethodName?.toLowerCase()}=${code}` : ''), invoice,
+      {responseType: 'json'});
+  }
+
   getInvoicesDtos(q?: string): Observable<Invoice[]> {
     return this.http.get<Invoice[]>(RestRoutesConst.API + this.route + '/dtos' + (q ? '?q=' + q : ''), {responseType: 'json'});
   }

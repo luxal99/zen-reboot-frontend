@@ -53,6 +53,8 @@ export class FormControlNames {
   static PAYMENT_METHOD_FORM_CONTROL = 'paymentMethod';
   static TYPE_FORM_CONTROL = 'type';
   static DISCOUNT_TYPE_FORM_CONTROL = 'discountType';
+  static VOUCHER_CODE_FORM_CONTROL = 'voucherCode';
+  static CODE_FORM_CONTROL = 'code';
 }
 
 export class InputTypes {

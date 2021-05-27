@@ -1,15 +1,17 @@
 import {Appointment} from './appointment';
 import {Client} from './client';
 import {InvoiceStatus} from './invoice-status';
+import {PaymentMethod} from './payment-method';
 
 export interface Invoice {
   appointments?: Appointment[];
   billedClient?: Client;
-  client?: Client;
+  clients?: Client[];
   date?: any;
   id?: number
   gross?: number;
   invoiceStatus?: InvoiceStatus;
+  paymentMethod?: PaymentMethod;
   tips?: number;
   location?: Location
 }
