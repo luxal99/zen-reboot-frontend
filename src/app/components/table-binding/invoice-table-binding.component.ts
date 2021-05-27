@@ -4,6 +4,7 @@ import {DialogUtil} from '../../util/dialog-util';
 import {InvoicesDialogOverviewComponent} from './invoices-dialog-overview/invoices-dialog-overview.component';
 import {Invoice} from '../../models/invoice';
 import {setDialogConfig} from '../../util/dialog-options';
+import {AuthGuard} from '../../guards/auth.guard';
 
 @Component({
   selector: 'app-table-binding',

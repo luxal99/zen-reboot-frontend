@@ -17,7 +17,6 @@ import {setDialogConfig} from '../../../util/dialog-options';
 import {RoomService} from '../../../service/room.service';
 import {AppointmentService} from '../../../service/appointment.service';
 import {AppointmentStatusService} from '../../../service/appointment-status.service';
-import {AppointmentStatus} from '../../../models/appointment-status';
 
 @Component({
   selector: 'app-appointment',
