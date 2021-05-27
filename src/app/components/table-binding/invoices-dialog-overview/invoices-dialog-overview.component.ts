@@ -21,6 +21,6 @@ export class InvoicesDialogOverviewComponent implements OnInit {
   }
 
   formatAppointmentDate(): void {
-    this.data.appointments?.forEach((appointment) => appointment.date = moment(appointment.date).format('DD MMMM YYYY'));
+    this.data.items?.forEach((item) => item.date = moment(item.date).format('DD MMMM YYYY'));
   }
 }

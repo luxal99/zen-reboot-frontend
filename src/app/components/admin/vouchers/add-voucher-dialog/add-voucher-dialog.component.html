@@ -18,8 +18,9 @@
     </mat-form-field>
   </form>
   <app-form-select label="Tip vaučera"
-                   [group]="voucherForm"
+                   [group]="voucherForm" (onChange)="onVoucherTypeSelect()"
                    [config]="typeSelectConfig"></app-form-select>
+  <app-form-input [config]="priceInputConfig" *ngIf="isDisplayTypeBlanco" [group]="voucherForm"></app-form-input>
   <app-form-input [group]="voucherForm" label="Popust"
                   [config]="discountInputConfig"></app-form-input>
   <app-form-select [config]="discountTypeSelectConfig"

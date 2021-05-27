@@ -33,10 +33,11 @@ export class AddVoucherDialogComponent extends DefaultComponent<VoucherDto> impl
   listOfClients: Client[] = [];
   voucherForm = new FormGroup({
     type: new FormControl('', Validators.required),
-    discount: new FormControl('', Validators.required),
+    discount: new FormControl(''),
     treatmentDurations: new FormControl('', Validators.required),
     discountType: new FormControl('', Validators.required),
     paymentMethod: new FormControl('', Validators.required),
+    price: new FormControl(''),
     startDate: new FormControl(moment(new Date()).format('YYYY-MM-DD'))
   });
 
@@ -49,6 +50,8 @@ export class AddVoucherDialogComponent extends DefaultComponent<VoucherDto> impl
   typeSelectConfig: FieldConfig = {
     name: FormControlNames.TYPE_FORM_CONTROL, type: InputTypes.SELECT_TYPE_NAME, options: [VoucherEnum.BLANCO, VoucherEnum.PRODUCT]
   };
+  priceInputConfig: FieldConfig = {name: FormControlNames.PRICE_FORM_CONTROL, type: InputTypes.NUMBER};
+  isDisplayTypeBlanco = false;
 
   constructor(private voucherService: VoucherService,
               private treatmentService: TreatmentService, private discountTypeService: DiscountTypeService,
@@ -114,6 +117,13 @@ export class AddVoucherDialogComponent extends DefaultComponent<VoucherDto> impl
       this.listOfClients = clients;
       this.spinnerService.hide(this.spinner);
     });
+  }
+
+  onVoucherTypeSelect(): void {
+    if (this.voucherForm.get(FormControlNames.TYPE_FORM_CONTROL)?.value.toUpperCase() === 'BLANCO') {
+      this.isDisplayTypeBlanco = true;
+    }
+
   }
 
   search(): void {

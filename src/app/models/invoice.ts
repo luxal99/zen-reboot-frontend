@@ -4,7 +4,8 @@ import {InvoiceStatus} from './invoice-status';
 import {PaymentMethod} from './payment-method';
 
 export interface Invoice {
-  appointments?: Appointment[];
+  items?: any[];
+  appointments?: Appointment[]
   billedClient?: Client;
   clients?: Client[];
   checkoutDate?: string

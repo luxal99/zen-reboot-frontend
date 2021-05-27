@@ -27,6 +27,11 @@ export class InvoiceOverviewComponent extends DefaultComponent<Invoice> implemen
     startDate: new FormControl(),
     endDate: new FormControl(),
   });
+  searchForm = new FormGroup({
+    search: new FormControl('')
+  });
+
+  searchText = '';
 
   constructor(private invoiceService: InvoiceService, protected snackBar: MatSnackBar) {
     super(invoiceService, snackBar);

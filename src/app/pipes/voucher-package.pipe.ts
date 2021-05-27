@@ -1,6 +1,7 @@
 import {Pipe, PipeTransform} from '@angular/core';
 import {Voucher} from '../models/voucher';
 import {Package} from '../models/package';
+import {Invoice} from '../models/invoice';
 
 @Pipe({
   name: 'voucherPackage'
