@@ -34,7 +34,7 @@ export class InvoiceOverviewComponent extends DefaultComponent<Invoice> implemen
 
   ngOnInit(): void {
     this.getCurrentWeekOverview();
-    // this.getCurrentDayOverview();
+    this.getCurrentDayOverview();
   }
 
   getCurrentWeekOverview(): void {

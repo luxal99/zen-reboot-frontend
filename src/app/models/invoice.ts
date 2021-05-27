@@ -7,6 +7,7 @@ export interface Invoice {
   appointments?: Appointment[];
   billedClient?: Client;
   clients?: Client[];
+  checkoutDate?: string
   date?: any;
   id?: number
   gross?: number;
