@@ -69,7 +69,7 @@
           <h3 class="text-center"><b>{{time}}</b></h3>
         </div>
         <ng-container *ngFor="let roomDto of filteredScheduleList ">
-          <ng-container *ngIf="(roomDto|checkIsAppointmentBetween:time)  as appointmentInInterval; else emptyCol" >
+          <ng-container *ngIf="(roomDto|checkIsAppointmentBetween:time)  as appointmentInInterval; else emptyCol">
             <div class="col-sm  appointment-col" [style.background-color]="appointmentInInterval.staff.color">
               <div class="appointment-card"
                    *ngIf="roomDto.appointments.length >0 && (roomDto | checkIsAppointmentStart:time);let appointment;">
@@ -79,9 +79,11 @@
                     </h3>
                   </div>
                   <div class="col-6 text-right">
-                    <button mat-icon-button (click)="checkAppointment(appointment)">
+                    <button mat-icon-button
+                            [disabled]="appointment.appointmentStatus.value.toUpperCase() ==='CONFIRMED'"
+                            (click)="checkAppointment(appointment)">
                       <mat-icon
-                        [style.color]="appointment.appointmentStatus.value.toUpperCase() ==='CONFIRMED'?'#fff':''">{{appointment.appointmentStatus.value.toUpperCase() === 'CONFIRMED' ? 'check_circle_outline' : 'done'}}</mat-icon>
+                        [style.color]="appointment.appointmentStatus.value.toUpperCase() ==='CONFIRMED'?'#fff':''">{{appointment.appointmentStatus.value.toUpperCase() === 'CONFIRMED' ? 'event_available' : 'done'}}</mat-icon>
                     </button>
                   </div>
                 </div>
