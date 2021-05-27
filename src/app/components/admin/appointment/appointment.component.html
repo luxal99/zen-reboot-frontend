@@ -83,7 +83,7 @@
                             [disabled]="appointment.appointmentStatus.value.toUpperCase() ==='CONFIRMED'"
                             (click)="checkAppointment(appointment)">
                       <mat-icon
-                        [style.color]="appointment.appointmentStatus.value.toUpperCase() ==='CONFIRMED'?'#fff':''">{{appointment.appointmentStatus.value.toUpperCase() === 'CONFIRMED' ? 'event_available' : 'done'}}</mat-icon>
+                        style="color: #fff">{{appointment.appointmentStatus.value.toUpperCase() === 'CONFIRMED' ? 'event_available' : 'done'}}</mat-icon>
                     </button>
                   </div>
                 </div>

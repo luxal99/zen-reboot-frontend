@@ -191,7 +191,7 @@ export class AppointmentComponent extends DefaultComponent<Appointment> implemen
   }
 
   async checkAppointment(appointment: Appointment): Promise<void> {
-    super.otherSubscribe(this.appointmentService.setConfirmStatus(appointment.id));
+    super.otherSubscribe(this.appointmentService.setConfirmStatus(appointment.id), [() => this.getAppointments()]);
   }
 
   search(): void {
