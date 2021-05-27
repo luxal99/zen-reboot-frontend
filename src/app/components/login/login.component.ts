@@ -3,7 +3,7 @@ import {AuthService} from '../../service/auth.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {FieldConfig} from '../../models/FIeldConfig';
 import {MatSpinner} from '@angular/material/progress-spinner';
-import {FormControlNames, InputTypes, Token} from '../../const/const';
+import {FormControlNames, InputTypes, Token, TokenConst} from '../../const/const';
 import {SpinnerService} from '../../service/spinner.service';
 
 @Component({
@@ -24,7 +24,8 @@ export class LoginComponent implements OnInit {
   passwordInputConfig: FieldConfig = {type: InputTypes.PASSWORD_TYPE_NAME, name: FormControlNames.PASSWORD_NAME_FORM_CONTROL};
 
 
-  constructor(private authService: AuthService, private spinnerService: SpinnerService) {
+  constructor(private authService: AuthService,
+              private spinnerService: SpinnerService) {
   }
 
   ngOnInit(): void {
@@ -32,7 +33,9 @@ export class LoginComponent implements OnInit {
 
   auth(): void {
     this.spinnerService.show(this.spinner);
-    this.authService.auth(this.loginForm.getRawValue()).subscribe((resp) => {;
+    this.authService.auth(this.loginForm.getRawValue()).subscribe((resp) => {
+      console.log(resp.headers.get('Authorization'));
+      sessionStorage.setItem(TokenConst.NAME, resp.headers.get(TokenConst.NAME) as string);
       this.spinnerService.hide(this.spinner);
     });
   }

@@ -8,7 +8,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MaterialModule} from './material.module';
 import {LoginComponent} from './components/login/login.component';
 import {FormInputComponent} from './components/form-components/form-input/form-input.component';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {ReactiveFormsModule} from '@angular/forms';
 import {AdminComponent} from './components/admin/admin.component';
 import {OverviewComponent} from './components/admin/overview/overview.component';
@@ -60,9 +60,10 @@ import {CodeBookOverviewComponent} from './components/admin/code-book/code-book-
 import {PackageComponent} from './components/admin/package/package.component';
 import {AddPackageDialogComponent} from './components/admin/package/add-package-dialog/add-package-dialog.component';
 import {PackageOverviewDialogComponent} from './components/admin/package/package-overview-dialog/package-overview-dialog.component';
-import { VoucherPackagePipe } from './pipes/voucher-package.pipe';
-import { AnalyticsComponent } from './components/admin/analytics/analytics.component';
-import { InvoicePipe } from './pipes/invoice.pipe';
+import {VoucherPackagePipe} from './pipes/voucher-package.pipe';
+import {AnalyticsComponent} from './components/admin/analytics/analytics.component';
+import {InvoicePipe} from './pipes/invoice.pipe';
+import {TokenInterceptor} from './interceptor/token.interceptor';
 
 
 @NgModule({
@@ -134,7 +135,8 @@ import { InvoicePipe } from './pipes/invoice.pipe';
 
   ],
   providers: [{provide: LocationStrategy, useClass: HashLocationStrategy},
-    {provide: MAT_COLOR_FORMATS, useValue: NGX_MAT_COLOR_FORMATS}
+    {provide: MAT_COLOR_FORMATS, useValue: NGX_MAT_COLOR_FORMATS},
+    {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true}
   ],
   bootstrap: [AppComponent]
 })

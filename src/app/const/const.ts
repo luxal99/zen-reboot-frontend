@@ -110,6 +110,8 @@ export class RestRoutesConst {
 }
 
 export class TokenConst {
+  static NAME = 'Authorization';
+  static PREFIX = 'Bearer';
 }
 
 export const EMAIL_REGEX = '^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$';
