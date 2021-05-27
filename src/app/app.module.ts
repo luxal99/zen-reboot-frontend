@@ -61,6 +61,7 @@ import {PackageComponent} from './components/admin/package/package.component';
 import {AddPackageDialogComponent} from './components/admin/package/add-package-dialog/add-package-dialog.component';
 import {PackageOverviewDialogComponent} from './components/admin/package/package-overview-dialog/package-overview-dialog.component';
 import { VoucherPackagePipe } from './pipes/voucher-package.pipe';
+import { AnalyticsComponent } from './components/admin/analytics/analytics.component';
 
 
 @NgModule({
@@ -116,6 +117,7 @@ import { VoucherPackagePipe } from './pipes/voucher-package.pipe';
     AddPackageDialogComponent,
     PackageOverviewDialogComponent,
     VoucherPackagePipe,
+    AnalyticsComponent,
   ],
   imports: [
     BrowserModule,

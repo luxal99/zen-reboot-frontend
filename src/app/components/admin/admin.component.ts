@@ -20,6 +20,7 @@ import {ComponentType} from '@angular/cdk/portal';
 import {VouchersComponent} from './vouchers/vouchers.component';
 import {ExpensesComponent} from './expenses/expenses.component';
 import {PackageComponent} from './package/package.component';
+import {AnalyticsComponent} from './analytics/analytics.component';
 
 @Component({
   selector: 'app-admin',
@@ -87,7 +88,11 @@ export class AdminComponent implements OnInit, AfterViewInit {
   }
 
   loadOverviewComponent(): void {
-    this.genericLoadComponent(this.header, OverviewComponent);
+    this.genericLoadComponent('Pregled', OverviewComponent);
+  }
+
+  loadAnalyticsComponent(): void {
+    this.genericLoadComponent('Analitika', AnalyticsComponent);
   }
 
   loadCodeBookComponent(): void {

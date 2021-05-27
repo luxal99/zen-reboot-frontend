@@ -24,6 +24,8 @@
                                (load)="loadVouchersComponent()"></app-component-activator>
       <app-component-activator icon="fa fa-dropbox" title="Paketi"
                                (load)="loadPackageComponent()"></app-component-activator>
+      <app-component-activator icon="fa fa-area-chart" title="Analitika"
+                               (load)="loadAnalyticsComponent()"></app-component-activator>
     </div>
   </mat-drawer>
   <mat-drawer-content>
@@ -55,11 +57,12 @@
                                    (load)="loadInvoiceComponent()"></app-component-activator>
           <app-component-activator icon="fa fa-archive" title="Vaučeri"
                                    (load)="loadVouchersComponent()"></app-component-activator>
+          <app-component-activator icon="fa fa-dropbox" title="Paketi"
+                                   (load)="loadPackageComponent()"></app-component-activator>
           <app-component-activator icon="fa fa-eur" title="Troškovi"
                                    (load)="loadExpensesComponent()"></app-component-activator>
-          <app-component-activator icon="fa fa-dropbox" title="Troškovi"
-                                   (load)="loadPackageComponent()"></app-component-activator>
-
+          <app-component-activator icon="fa fa-area-chart" title="Analitika"
+                                   (load)="loadAnalyticsComponent()"></app-component-activator>
         </div>
       </div>
       <div class="col">
