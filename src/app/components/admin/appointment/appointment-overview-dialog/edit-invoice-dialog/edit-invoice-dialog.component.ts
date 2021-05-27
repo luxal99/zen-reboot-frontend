@@ -41,7 +41,7 @@ export class EditInvoiceDialogComponent extends DefaultComponent<Invoice> implem
   listOfInvoiceStatuses: InvoiceStatus[] = [];
 
   // @ts-ignore
-  selectedClient: Client = this.data.client;
+  selectedClients: Client[] = this.data.clients;
 
   // @ts-ignore
   selectedBilledClient: Client = this.data.clients[0];
@@ -142,7 +142,8 @@ export class EditInvoiceDialogComponent extends DefaultComponent<Invoice> implem
   }
 
   selectClient(client: Client): void {
-    this.selectedClient = client;
+    const index = this.selectedClients.indexOf(client);
+    index === -1 ? this.selectedClients.push(client) : this.selectedClients.splice(index, 1);
   }
 
   selectBilledClient(client: Client): void {

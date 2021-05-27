@@ -99,6 +99,7 @@ export class AddAppointmentDialogComponent extends DefaultComponent<Appointment>
   }
 
   ngOnInit(): void {
+    console.log(this.data);
     this.findTreatmentDuration();
     setTimeout(() => {
       this.initSelects();

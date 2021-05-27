@@ -58,17 +58,16 @@
         </div>
       </div>
 
-      <div class="inline client-div" *ngIf="selectedClient"
-           (click)="openClientOverviewDialog(selectedClient)">
+      <div class="inline client-div" *ngFor="let client of selectedClients" (click)="openClientOverviewDialog(client)">
         <div class="gold-circle text-center"
-             style=background-color:#c2c2c2>{{selectedClient.person?.firstName.slice(0, 1)}}</div>
+             style=background-color:#c2c2c2>{{client.person?.firstName.slice(0, 1)}}</div>
         <div class="right-col">
-          <h3><b>{{selectedClient.person?.firstName + ' ' + selectedClient.person?.lastName}}</b></h3>
-          <h4>{{selectedClient.person?.contacts|findClientPhoneNumber}}</h4>
+          <h3><b>{{client.person?.firstName + ' ' + client.person?.lastName}}</b></h3>
+          <h4>{{client.person?.contacts|findClientPhoneNumber}}</h4>
         </div>
       </div>
 
-      <div *ngIf="this.selectedClient">
+      <div>
         <button class="white-btn" mat-button matStepperPrevious>Nazad</button>
         <button class="default-btn" mat-button matStepperNext>Napred</button>
       </div>
@@ -124,13 +123,13 @@
           <h4>{{selectedBilledClient.person?.contacts|findClientPhoneNumber}}</h4>
         </div>
       </div>
-      <div class="inline client-div" *ngIf="selectedClient"
-           (click)="openClientOverviewDialog(selectedClient)">
+      <div class="inline client-div" *ngFor="let client of selectedClients"
+           (click)="openClientOverviewDialog(client)">
         <div class="gold-circle text-center"
-             style=background-color:#c2c2c2>{{selectedClient.person?.firstName.slice(0, 1)}}</div>
+             style=background-color:#c2c2c2>{{client.person?.firstName.slice(0, 1)}}</div>
         <div class="right-col">
-          <h3><b>{{selectedClient.person?.firstName + ' ' + selectedClient.person?.lastName}}</b></h3>
-          <h4>{{selectedClient.person?.contacts|findClientPhoneNumber}}</h4>
+          <h3><b>{{client.person?.firstName + ' ' + client.person?.lastName}}</b></h3>
+          <h4>{{client.person?.contacts|findClientPhoneNumber}}</h4>
         </div>
       </div>
       <div class="row">
