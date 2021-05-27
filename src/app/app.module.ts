@@ -62,6 +62,7 @@ import {AddPackageDialogComponent} from './components/admin/package/add-package-
 import {PackageOverviewDialogComponent} from './components/admin/package/package-overview-dialog/package-overview-dialog.component';
 import { VoucherPackagePipe } from './pipes/voucher-package.pipe';
 import { AnalyticsComponent } from './components/admin/analytics/analytics.component';
+import { InvoicePipe } from './pipes/invoice.pipe';
 
 
 @NgModule({
@@ -118,6 +119,7 @@ import { AnalyticsComponent } from './components/admin/analytics/analytics.compo
     PackageOverviewDialogComponent,
     VoucherPackagePipe,
     AnalyticsComponent,
+    InvoicePipe,
   ],
   imports: [
     BrowserModule,
