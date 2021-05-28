@@ -22,6 +22,7 @@ import {ExpensesComponent} from './expenses/expenses.component';
 import {PackageComponent} from './package/package.component';
 import {AnalyticsComponent} from './analytics/analytics.component';
 import {UserService} from '../../service/user.service';
+import {AuthGuard} from '../../guards/auth.guard';
 
 @Component({
   selector: 'app-admin',
@@ -39,9 +40,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.userService.getAuthUser().subscribe((resp) => {
-      console.log(resp);
-    });
+    console.log(AuthGuard.getAuthUser().roles);
   }
 
   ngAfterViewInit(): void {

@@ -1,10 +1,11 @@
 import {Component, Input, OnInit, Output} from '@angular/core';
 import {EventEmitter} from '@angular/core';
+import {AuthGuard} from '../../../guards/auth.guard';
 
 @Component({
   selector: 'app-component-activator',
   templateUrl: './component-activator.component.html',
-  styleUrls: ['./component-activator.component.sass']
+  styleUrls: ['./component-activator.component.sass'],
 })
 export class ComponentActivatorComponent implements OnInit {
 
@@ -19,6 +20,7 @@ export class ComponentActivatorComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
 
   changeColor(forwardedElement: any): void {
     const element = document.querySelectorAll('.active');

@@ -122,3 +122,10 @@ export class AppointmentStatuses {
   static CANCELED = 'CANCELED';
   static COMPLETED = 'COMPLETED';
 }
+
+export const LOGGED_USER = 'loggedUser';
+
+export class Roles {
+  static ADMIN = 'ROLE_ADMIN';
+  static USER = 'ROLE_USER';
+}
