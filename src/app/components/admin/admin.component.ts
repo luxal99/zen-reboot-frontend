@@ -21,6 +21,7 @@ import {VouchersComponent} from './vouchers/vouchers.component';
 import {ExpensesComponent} from './expenses/expenses.component';
 import {PackageComponent} from './package/package.component';
 import {AnalyticsComponent} from './analytics/analytics.component';
+import {UserService} from '../../service/user.service';
 
 @Component({
   selector: 'app-admin',
@@ -34,10 +35,13 @@ export class AdminComponent implements OnInit, AfterViewInit {
   @ViewChild('target', {read: ViewContainerRef, static: false}) entry!: ViewContainerRef;
   header = 'Pregled';
 
-  constructor(private resolver: ComponentFactoryResolver) {
+  constructor(private resolver: ComponentFactoryResolver, private userService: UserService) {
   }
 
   ngOnInit(): void {
+    this.userService.getAuthUser().subscribe((resp) => {
+      console.log(resp);
+    });
   }
 
   ngAfterViewInit(): void {

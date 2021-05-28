@@ -12,12 +12,17 @@ export class AuthGuard implements CanActivate {
   constructor(private router: Router) {
   }
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    const token = sessionStorage.getItem(TokenConst.NAME);
-    if (token && JwtUtil.decode(token)) {
+  protected setAuthUser(user: any): void {
+    sessionStorage.setItem('loggedUser', user as string);
+  }
+
+  async canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> {
+    const user = await JwtUtil.decode(sessionStorage.getItem(TokenConst.NAME) as string);
+    if (user) {
+      this.setAuthUser(user);
       return true;
     } else {
-      this.router.navigate([Pages.LOGIN_PAGE_ROUTE], {queryParams: {returnUrl: state.url}});
+      await this.router.navigate([Pages.LOGIN_PAGE_ROUTE], {queryParams: {returnUrl: state.url}});
       return false;
     }
   }

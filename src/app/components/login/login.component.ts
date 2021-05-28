@@ -3,7 +3,7 @@ import {AuthService} from '../../service/auth.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {FieldConfig} from '../../models/FIeldConfig';
 import {MatSpinner} from '@angular/material/progress-spinner';
-import {FormControlNames, InputTypes, Token, TokenConst} from '../../const/const';
+import {FormControlNames, InputTypes, TokenConst} from '../../const/const';
 import {SpinnerService} from '../../service/spinner.service';
 import {Router} from '@angular/router';
 
