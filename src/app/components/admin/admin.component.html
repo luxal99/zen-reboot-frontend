@@ -44,24 +44,34 @@
             </a>
           </a>
           <app-component-activator icon="fa-calendar-o" title="Kalendar"
+                                   [roleActivator]="[ROLE_ADMIN,ROLE_RECEPTIONIST,ROLE_THERAPIST]"
                                    (load)="loadAppointmentComponent()"></app-component-activator>
-          <app-component-activator icon="fa-id-card-o" title="Šifarnik"
+
+          <app-component-activator icon="fa-id-card-o" title="Šifarnik" [roleActivator]="[ROLE_ADMIN]"
                                    (load)="loadCodeBookComponent()"></app-component-activator>
-          <app-component-activator icon="fa-user" title="Klijenti"
+
+          <app-component-activator icon="fa-user" title="Klijenti" [roleActivator]="[ROLE_ADMIN,ROLE_RECEPTIONIST]"
                                    (load)="loadClientComponent()"></app-component-activator>
-          <app-component-activator icon="fa-bookmark" title="Tretmani"
+
+          <app-component-activator icon="fa-bookmark" title="Tretmani" [roleActivator]="[ROLE_ADMIN]"
                                    (load)="loadServiceComponent()"></app-component-activator>
-          <app-component-activator icon="fa fa-building" title="Zaposleni"
+
+          <app-component-activator icon="fa fa-building" title="Zaposleni" [roleActivator]="[ROLE_ADMIN]"
                                    (load)="loadStaffComponent()"></app-component-activator>
-          <app-component-activator icon="fa fa-cc-visa" title="Fakture"
+
+          <app-component-activator icon="fa fa-cc-visa" title="Fakture" [roleActivator]="[ROLE_ADMIN]"
                                    (load)="loadInvoiceComponent()"></app-component-activator>
-          <app-component-activator icon="fa fa-archive" title="Vaučeri"
+
+          <app-component-activator icon="fa fa-archive" title="Vaučeri" [roleActivator]="[ROLE_ADMIN]"
                                    (load)="loadVouchersComponent()"></app-component-activator>
-          <app-component-activator icon="fa fa-dropbox" title="Paketi"
+
+          <app-component-activator icon="fa fa-dropbox" title="Paketi" [roleActivator]="[ROLE_ADMIN]"
                                    (load)="loadPackageComponent()"></app-component-activator>
-          <app-component-activator icon="fa fa-eur" title="Troškovi"
+
+          <app-component-activator icon="fa fa-eur" title="Troškovi" [roleActivator]="[ROLE_ADMIN]"
                                    (load)="loadExpensesComponent()"></app-component-activator>
-          <app-component-activator icon="fa fa-area-chart" title="Analitika"
+
+          <app-component-activator icon="fa fa-area-chart" title="Analitika" [roleActivator]="[ROLE_ADMIN]"
                                    (load)="loadAnalyticsComponent()"></app-component-activator>
         </div>
       </div>

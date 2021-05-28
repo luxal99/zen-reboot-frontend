@@ -23,6 +23,7 @@ import {PackageComponent} from './package/package.component';
 import {AnalyticsComponent} from './analytics/analytics.component';
 import {UserService} from '../../service/user.service';
 import {AuthGuard} from '../../guards/auth.guard';
+import {RoleEnum} from '../../enums/RoleEnum';
 
 @Component({
   selector: 'app-admin',
@@ -30,6 +31,10 @@ import {AuthGuard} from '../../guards/auth.guard';
   styleUrls: ['./admin.component.sass']
 })
 export class AdminComponent implements OnInit, AfterViewInit {
+
+  ROLE_ADMIN = RoleEnum.ADMIN;
+  ROLE_RECEPTIONIST = RoleEnum.RECEPTIONIST;
+  ROLE_THERAPIST = RoleEnum.THERAPIST;
 
   @ViewChild('sideNav', {static: false}) sideNav!: ElementRef;
   @ViewChild('drawer', {static: false}) drawer!: MatDrawer;
@@ -40,7 +45,6 @@ export class AdminComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    console.log(AuthGuard.getAuthUser().roles);
   }
 
   ngAfterViewInit(): void {

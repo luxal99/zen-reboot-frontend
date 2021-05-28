@@ -1,11 +1,11 @@
-import {Component, Input, OnInit, Output} from '@angular/core';
-import {EventEmitter} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {AuthGuard} from '../../../guards/auth.guard';
+import {RoleEnum} from '../../../enums/RoleEnum';
 
 @Component({
   selector: 'app-component-activator',
   templateUrl: './component-activator.component.html',
-  styleUrls: ['./component-activator.component.sass'],
+  styleUrls: ['./component-activator.component.sass']
 })
 export class ComponentActivatorComponent implements OnInit {
 
@@ -14,11 +14,28 @@ export class ComponentActivatorComponent implements OnInit {
 
   @Input() icon = '';
   @Input() title = '';
+  @Input() roleActivator: RoleEnum[] = [];
 
-  constructor() {
+  constructor(private host: ElementRef<HTMLElement>) {
   }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+    await this.protectComponent();
+  }
+
+  async protectComponent(): Promise<void> {
+    // @ts-ignore
+    AuthGuard.getAuthUser().then((resp) => {
+      const roleActivatorAsString = this.roleActivator.map((item) => (item.toString()));
+      if (this.roleActivator.length > 0) {
+        // @ts-ignore
+        const found: boolean = resp.roles.some((item) => roleActivatorAsString.indexOf(item) >= 0);
+        if (!found) {
+          this.host.nativeElement.remove();
+        }
+      }
+    });
+
   }
 
 

@@ -4,7 +4,7 @@ import {TokenBody} from '../models/token-body';
 
 export class JwtUtil {
 
-  static async decode(token: string): Promise<User | null> {
+  static async decode(token: string): Promise<TokenBody | null> {
     try {
       const decoded: TokenBody = await jwt(token);
       return {
