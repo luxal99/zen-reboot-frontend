@@ -5,6 +5,7 @@ import {FieldConfig} from '../../models/FIeldConfig';
 import {MatSpinner} from '@angular/material/progress-spinner';
 import {FormControlNames, InputTypes, Token, TokenConst} from '../../const/const';
 import {SpinnerService} from '../../service/spinner.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -24,7 +25,7 @@ export class LoginComponent implements OnInit {
   passwordInputConfig: FieldConfig = {type: InputTypes.PASSWORD_TYPE_NAME, name: FormControlNames.PASSWORD_NAME_FORM_CONTROL};
 
 
-  constructor(private authService: AuthService,
+  constructor(private authService: AuthService, private router: Router,
               private spinnerService: SpinnerService) {
   }
 
@@ -33,10 +34,10 @@ export class LoginComponent implements OnInit {
 
   auth(): void {
     this.spinnerService.show(this.spinner);
-    this.authService.auth(this.loginForm.getRawValue()).subscribe((resp) => {
-      console.log(resp.headers.get('Authorization'));
+    this.authService.auth(this.loginForm.getRawValue()).subscribe(async (resp) => {
       sessionStorage.setItem(TokenConst.NAME, resp.headers.get(TokenConst.NAME) as string);
       this.spinnerService.hide(this.spinner);
+      await this.router.navigate(['/']);
     });
   }
 }
