@@ -4,8 +4,24 @@
       <h1>{{header}}</h1>
     </div>
     <div class="col-6 text-right">
-      <button mat-icon-button class="sidenav-btn" (click)="openSideNav.emit(true)"><mat-icon>drag_handle</mat-icon></button>
-      <button mat-icon-button><mat-icon>search</mat-icon></button>
+      <div class="inline">
+        <button mat-button (menuOpened)="rotateOnOpen()" (menuClosed)="rotateOnClose()"
+                [matMenuTriggerFor]="menu">{{username}} <i class="fa fa-angle-left"
+                                                           id="button-icon"
+                                                           aria-hidden="true"></i>
+
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="logout()">Logout</button>
+        </mat-menu>
+
+        <button mat-icon-button class="sidenav-btn" (click)="openSideNav.emit(true)">
+          <mat-icon>drag_handle</mat-icon>
+        </button>
+        <button mat-icon-button>
+          <mat-icon>search</mat-icon>
+        </button>
+      </div>
     </div>
   </div>
 </header>

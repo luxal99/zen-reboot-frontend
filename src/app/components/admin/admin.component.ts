@@ -41,6 +41,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
   @ViewChild('target', {read: ViewContainerRef, static: false}) entry!: ViewContainerRef;
   header = 'Pregled';
 
+
   constructor(private resolver: ComponentFactoryResolver, private userService: UserService) {
   }
 

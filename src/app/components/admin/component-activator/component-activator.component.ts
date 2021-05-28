@@ -24,7 +24,6 @@ export class ComponentActivatorComponent implements OnInit {
   }
 
   async protectComponent(): Promise<void> {
-    // @ts-ignore
     AuthGuard.getAuthUser().then((resp) => {
       const roleActivatorAsString = this.roleActivator.map((item) => (item.toString()));
       if (this.roleActivator.length > 0) {
