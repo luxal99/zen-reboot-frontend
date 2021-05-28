@@ -13,7 +13,7 @@ import {AuthGuard} from '../../guards/auth.guard';
 })
 export class InvoiceTableBindingComponent implements OnInit {
 
-  displayedColumns: string[] = ['billedClient', 'gross', 'type', 'option'];
+  displayedColumns: string[] = ['billedClient', 'gross', 'type', 'createdDate', 'checkoutDate', 'option'];
   @Input() dataSource: any[] = [];
 
   constructor(private dialog: MatDialog) {
