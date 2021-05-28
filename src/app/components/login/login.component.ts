@@ -6,6 +6,9 @@ import {MatSpinner} from '@angular/material/progress-spinner';
 import {FormControlNames, InputTypes, TokenConst} from '../../const/const';
 import {SpinnerService} from '../../service/spinner.service';
 import {Router} from '@angular/router';
+import {HttpErrorResponse} from '@angular/common/http';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {SnackBarUtil} from '../../util/snack-bar-uitl';
 
 @Component({
   selector: 'app-login',
@@ -26,7 +29,7 @@ export class LoginComponent implements OnInit {
 
 
   constructor(private authService: AuthService, private router: Router,
-              private spinnerService: SpinnerService) {
+              private spinnerService: SpinnerService, private snackBar: MatSnackBar) {
   }
 
   ngOnInit(): void {
@@ -38,6 +41,9 @@ export class LoginComponent implements OnInit {
       sessionStorage.setItem(TokenConst.NAME, resp.headers.get(TokenConst.NAME) as string);
       this.spinnerService.hide(this.spinner);
       await this.router.navigate(['/']);
+    }, (err: HttpErrorResponse) => {
+      SnackBarUtil.openSnackBar(this.snackBar, err.error);
+      this.spinnerService.hide(this.spinner);
     });
   }
 }
