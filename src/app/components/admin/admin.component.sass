@@ -6,6 +6,7 @@
   -webkit-transition: .3s linear
   background-color: $less-black
 
+
 a
   display: flex
   overflow: hidden
@@ -37,6 +38,11 @@ i
   width: inherit
   flex-direction: column
   position: fixed
+  overflow-y: auto
+  max-height: 100vh
+
+.side-nav-col-content::-webkit-scrollbar-thumb
+  background: $light-silver
 
 #menu-icon
   -webkit-transition: .3s linear

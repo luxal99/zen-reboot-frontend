@@ -62,7 +62,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
     } else {
 
       // @ts-ignore
-      document.getElementById('menu-icon').style.transform = 'rotate(-90deg)';
+      document.getElementById('menu-icon').style.transform = 'rotate(0deg)';
       this.sideNav.nativeElement.style.maxWidth = '300px';
       this.sideNav.nativeElement.style.width = '300px';
     }

@@ -67,9 +67,9 @@ button {
 }
 
 ::-webkit-scrollbar {
-  height: 1em;
-  width: 10px;
-  background-color: #121212;
+  height: 10px;
+  width: 5px;
+  background-color: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
