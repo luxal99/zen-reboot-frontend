@@ -66,6 +66,7 @@ import {TokenInterceptor} from './interceptor/token.interceptor';
 import {FormDateComponent} from './components/form-components/form-date/form-date.component';
 import { UserComponent } from './components/admin/user/user.component';
 import { UserPipe } from './pipes/user.pipe';
+import { AddUserDialogComponent } from './components/admin/user/add-user-dialog/add-user-dialog.component';
 
 
 @NgModule({
@@ -125,6 +126,7 @@ import { UserPipe } from './pipes/user.pipe';
     FormDateComponent,
     UserComponent,
     UserPipe,
+    AddUserDialogComponent,
   ],
   imports: [
     BrowserModule,
