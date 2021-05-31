@@ -28,4 +28,8 @@ export class UserService extends GenericService<User> {
   changePassword(passwordDto: ChangePasswordDto): Observable<any> {
     return this.http.put(RestRoutesConst.API + this.route + '/password', passwordDto, {responseType: 'text'});
   }
+
+  resetPassword(userID: any): Observable<any> {
+    return this.http.delete(RestRoutesConst.API + this.route + '/' + userID + '/password');
+  }
 }

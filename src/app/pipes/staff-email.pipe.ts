@@ -8,7 +8,7 @@ import {Person} from '../models/person';
 })
 export class StaffEmailPipe implements PipeTransform {
 
-  transform(person: Person): string {
+  transform(person: Person | undefined): string {
     // @ts-ignore
     if (person.contacts.length > 0) {
       // @ts-ignore

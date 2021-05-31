@@ -31,10 +31,13 @@
             <mat-icon>expand_more</mat-icon>
           </button>
           <mat-menu #menu="matMenu">
-            <button mat-menu-item><i class="fa fa-pencil"></i> Izmeni</button>
-            <button (click)="subscribeDelete(user.id)" mat-menu-item style="color: red"><i
-              class="fa fa-trash"></i>
+            <button style="font-weight: normal" mat-menu-item (click)="openAddUserDialog(user)"><i class="fa fa-pencil"></i> Izmeni</button>
+            <button style="font-weight: normal" (click)="subscribeDelete(user.id)" mat-menu-item><i class="fa fa-trash"></i>
               Obriši
+            </button>
+            <button style="font-weight: normal" (click)="resetPassword(user.id)" mat-menu-item><i
+              class="fa fa-lock" aria-hidden="true"></i>
+              Resetuj lozinku
             </button>
           </mat-menu>
         </div>

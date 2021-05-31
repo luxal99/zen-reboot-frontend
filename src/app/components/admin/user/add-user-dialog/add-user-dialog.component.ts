@@ -32,12 +32,12 @@ export class AddUserDialogComponent extends DefaultComponent<User> implements On
   lastNameInputConfig: FieldConfig = {name: FormControlNames.LAST_NAME_FORM_CONTROL, type: InputTypes.INPUT_TYPE_NAME};
   rolesSelectConfig: FieldConfig = {name: FormControlNames.ROLES_FORM_CONTROL, type: InputTypes.INPUT_TYPE_NAME};
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: User, private userService: UserService, protected snackBar: MatSnackBar,
-              private roleService: RoleService) {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: User, private userService: UserService, protected snackBar: MatSnackBar) {
     super(userService, snackBar);
   }
 
   ngOnInit(): void {
+    console.log(this.data);
     this.initSelect();
   }
 
