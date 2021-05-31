@@ -64,6 +64,7 @@ import {AnalyticsComponent} from './components/admin/analytics/analytics.compone
 import {InvoicePipe} from './pipes/invoice.pipe';
 import {TokenInterceptor} from './interceptor/token.interceptor';
 import {FormDateComponent} from './components/form-components/form-date/form-date.component';
+import { UserComponent } from './components/admin/user/user.component';
 
 
 @NgModule({
@@ -121,6 +122,7 @@ import {FormDateComponent} from './components/form-components/form-date/form-dat
     AnalyticsComponent,
     InvoicePipe,
     FormDateComponent,
+    UserComponent,
   ],
   imports: [
     BrowserModule,
