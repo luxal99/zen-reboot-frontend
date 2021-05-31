@@ -24,6 +24,7 @@ import {UserService} from '../../service/user.service';
 import {RoleEnum} from '../../enums/RoleEnum';
 import {StaffShiftsOverviewComponent} from './staff-shifts-overview/staff-shifts-overview.component';
 import {StaffOverviewComponent} from './staff-overview/staff-overview.component';
+import {UserComponent} from './user/user.component';
 
 @Component({
   selector: 'app-admin',
@@ -149,6 +150,9 @@ export class AdminComponent implements OnInit, AfterViewInit {
     this.genericLoadComponent('Troškovi', ExpensesComponent);
   }
 
+  loadUserComponent(): void {
+    this.genericLoadComponent('Korisnici', UserComponent);
+  }
 
   genericLoadComponent(header: string, component: ComponentType<any>): void {
     this.closeDrawer().then(() => {
