@@ -67,6 +67,7 @@ import {FormDateComponent} from './components/form-components/form-date/form-dat
 import { UserComponent } from './components/admin/user/user.component';
 import { UserPipe } from './pipes/user.pipe';
 import { AddUserDialogComponent } from './components/admin/user/add-user-dialog/add-user-dialog.component';
+import { ChangePasswordDialogComponent } from './components/admin/change-password-dialog/change-password-dialog.component';
 
 
 @NgModule({
@@ -127,6 +128,7 @@ import { AddUserDialogComponent } from './components/admin/user/add-user-dialog/
     UserComponent,
     UserPipe,
     AddUserDialogComponent,
+    ChangePasswordDialogComponent,
   ],
   imports: [
     BrowserModule,
