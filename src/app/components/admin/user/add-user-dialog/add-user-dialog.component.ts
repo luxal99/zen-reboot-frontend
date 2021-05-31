@@ -45,12 +45,15 @@ export class AddUserDialogComponent extends DefaultComponent<User> implements On
   }
 
   save(): void {
-    const user = this.userForm.getRawValue();
-    user.color = user.color.hex;
     if (!this.data) {
+      const user = this.userForm.getRawValue();
+      user.color = user.color.hex;
       this.subscribeSave(user);
     } else {
-      this.subscribeUpdate(user);
+      this.subscribeUpdate({
+        id: this.data.id,
+        username: this.userForm.get(FormControlNames.USERNAME_NAME_FORM_CONTROL)?.value
+      });
 
     }
   }
