@@ -64,6 +64,7 @@ import {VoucherPackagePipe} from './pipes/voucher-package.pipe';
 import {AnalyticsComponent} from './components/admin/analytics/analytics.component';
 import {InvoicePipe} from './pipes/invoice.pipe';
 import {TokenInterceptor} from './interceptor/token.interceptor';
+import { FormDateComponent } from './components/form-components/form-date/form-date.component';
 
 
 @NgModule({
@@ -121,6 +122,7 @@ import {TokenInterceptor} from './interceptor/token.interceptor';
     VoucherPackagePipe,
     AnalyticsComponent,
     InvoicePipe,
+    FormDateComponent,
   ],
   imports: [
     BrowserModule,

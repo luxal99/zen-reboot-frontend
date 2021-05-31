@@ -13,6 +13,7 @@ import {ContactTypeEnum} from '../../../../enums/ContactTypeEnum';
 import {SnackBarUtil} from '../../../../util/snack-bar-uitl';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {Contact} from '../../../../models/contact';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-add-staff-dialog',
@@ -32,12 +33,24 @@ export class AddStaffDialogComponent extends DefaultComponent<Staff> implements 
     mobilePhone: new FormControl(),
     mobilePhonePrefix: new FormControl(),
     email: new FormControl('', Validators.pattern(EMAIL_REGEX)),
-    color: new FormControl('', Validators.required)
+    color: new FormControl('', Validators.required),
+    startDate: new FormControl(''),
+    endDate: new FormControl(''),
   });
 
   firstNameInputConfig: FieldConfig = {type: InputTypes.INPUT_TYPE_NAME, name: FormControlNames.FIRST_NAME_FORM_CONTROL};
   lastNameInputConfig: FieldConfig = {type: InputTypes.INPUT_TYPE_NAME, name: FormControlNames.LAST_NAME_FORM_CONTROL};
   emailInputConfig: FieldConfig = {type: InputTypes.INPUT_TYPE_NAME, name: FormControlNames.EMAIL_FORM_CONTROL};
+  startDateConfig: FieldConfig = {
+    type: InputTypes.INPUT_TYPE_NAME,
+    name: FormControlNames.START_DATE_FORM_CONTROL,
+    label: 'Početak radnog odnosa'
+  };
+  endDateConfig: FieldConfig = {
+    type: InputTypes.INPUT_TYPE_NAME,
+    name: FormControlNames.END_DATE_FORM_CONTROL,
+    label: 'Kraj radnog odnosa'
+  };
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: Staff, private staffService: StaffService,
               private countryService: CountryService, protected snackBar: MatSnackBar,
@@ -72,6 +85,10 @@ export class AddStaffDialogComponent extends DefaultComponent<Staff> implements 
     if (this.staffForm.valid) {
       const staff: Staff = {
         color: this.staffForm.get(FormControlNames.COLOR_FORM_CONTROL)?.value.hex,
+        startDate: this.staffForm.get(FormControlNames.START_DATE_FORM_CONTROL)?.value ?
+          moment(this.staffForm.get(FormControlNames.START_DATE_FORM_CONTROL)?.value).format('YYYY-MM-DD') : undefined,
+        endDate: this.staffForm.get(FormControlNames.END_DATE_FORM_CONTROL)?.value ?
+          moment(this.staffForm.get(FormControlNames.END_DATE_FORM_CONTROL)?.value).format('YYYY-MM-DD') : undefined,
         person: {
           firstName: this.staffForm.get(FormControlNames.FIRST_NAME_FORM_CONTROL)?.value,
           lastName: this.staffForm.get(FormControlNames.LAST_NAME_FORM_CONTROL)?.value,

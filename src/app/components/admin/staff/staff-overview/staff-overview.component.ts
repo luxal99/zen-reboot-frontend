@@ -44,9 +44,8 @@ export class StaffOverviewComponent extends DefaultComponent<Staff> implements O
 
   openAddStaffDialog(data?: Staff): void {
     DialogUtil.openDialog(AddStaffDialogComponent, {
-      height: '100%',
+      height: '80%',
       width: '40%',
-      position: {right: '0'},
       data
     }, this.dialog).afterClosed().subscribe(() => {
       this.getItems();

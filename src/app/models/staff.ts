@@ -7,5 +7,7 @@ export interface Staff {
   lastModifiedDate?: string;
   person?: Person;
   color?: string;
+  startDate?: string;
+  endDate?: string
 }
 

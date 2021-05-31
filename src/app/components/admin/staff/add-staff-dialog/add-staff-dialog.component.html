@@ -65,6 +65,19 @@
             <ngx-mat-color-picker #picker></ngx-mat-color-picker>
           </mat-form-field>
         </form>
+        <div class="header">
+          <h2>Informacije o radnom odnosu</h2>
+          <div class="inline">
+            <div class="column-5">
+              <app-form-date [config]="startDateConfig" [value]="data ? data.startDate:null"
+                             [group]="staffForm"></app-form-date>
+            </div>
+            <div class="column-5">
+              <app-form-date [config]="endDateConfig" [value]="data ? data.endDate:null"
+                             [group]="staffForm"></app-form-date>
+            </div>
+          </div>
+        </div>
       </div>
       <div>
         <button class="default-btn" mat-button (click)="save()">Sačuvaj</button>
