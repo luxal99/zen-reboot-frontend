@@ -22,6 +22,7 @@ export class FormSelectComponent implements Field, OnInit {
   // tslint:disable-next-line:no-output-on-prefix
   @Output() onChange = new EventEmitter();
   @Input() isDisabled = false;
+  @Input() isMultiple = false;
 
   compareObjects(o1: any, o2: any): boolean {
     if (o2 !== null && o2 !== undefined) {

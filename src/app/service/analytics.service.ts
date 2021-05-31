@@ -1,9 +1,21 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {RestRoutesConst} from '../const/const';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AnalyticsService {
 
-  constructor() { }
+  constructor(private http: HttpClient) {
+  }
+
+  getAnalyticPeriods(): Observable<string[]> {
+    return this.http.get<string[]>(RestRoutesConst.API + RestRoutesConst.ANALYTICS + '/periods', {responseType: 'json'});
+  }
+
+  // getExpiredPackages(): Observable<any> {
+  //
+  // }
 }

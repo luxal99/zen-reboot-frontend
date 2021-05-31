@@ -55,6 +55,7 @@ export class FormControlNames {
   static DISCOUNT_TYPE_FORM_CONTROL = 'discountType';
   static VOUCHER_CODE_FORM_CONTROL = 'voucherCode';
   static CODE_FORM_CONTROL = 'code';
+  static ROLES_FORM_CONTROL = 'roles';
 }
 
 export class InputTypes {
@@ -109,6 +110,7 @@ export class RestRoutesConst {
   static DISCOUNT_TYPE = 'discount-types';
   static USER = 'users';
   static ROLE = 'roles';
+  static ANALYTICS = 'analytics';
 }
 
 export class TokenConst {

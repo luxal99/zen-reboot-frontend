@@ -11,7 +11,8 @@
   </div>
 
   <app-form-input [config]="usernameInputConfig" [group]="userForm" label="Korisničko ime"></app-form-input>
-  <app-form-select [config]="rolesSelectConfig" [group]="userForm" label="Privilegije"></app-form-select>
+  <app-form-select [isMultiple]="true" [config]="rolesSelectConfig" [group]="userForm"
+                   label="Privilegije"></app-form-select>
   <div class="row">
     <div class="col-6" style="padding-left: 0">
       <app-form-input [config]="firstNameInputConfig" [group]="userForm" label="Ime"></app-form-input>
@@ -29,5 +30,6 @@
       <ngx-mat-color-picker #picker></ngx-mat-color-picker>
     </mat-form-field>
   </form>
-  <button mat-button class="default-btn">Sačuvaj</button>
+  <button mat-button class="default-btn" (click)="save()">Sačuvaj</button>
+  <mat-spinner #spinner diameter="25"></mat-spinner>
 </div>
