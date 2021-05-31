@@ -65,6 +65,7 @@ import {InvoicePipe} from './pipes/invoice.pipe';
 import {TokenInterceptor} from './interceptor/token.interceptor';
 import {FormDateComponent} from './components/form-components/form-date/form-date.component';
 import { UserComponent } from './components/admin/user/user.component';
+import { UserPipe } from './pipes/user.pipe';
 
 
 @NgModule({
@@ -123,6 +124,7 @@ import { UserComponent } from './components/admin/user/user.component';
     InvoicePipe,
     FormDateComponent,
     UserComponent,
+    UserPipe,
   ],
   imports: [
     BrowserModule,

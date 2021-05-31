@@ -1,1 +1,46 @@
-<p>user works!</p>
+<div class="container">
+  <div class="row">
+    <div class="col-6">
+      <form [formGroup]="searchForm">
+        <mat-form-field appearance="outline">
+          <mat-label>Pretraži</mat-label>
+          <input matInput formControlName="search" [(ngModel)]="searchText">
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+      </form>
+    </div>
+    <div class="col-6 text-right">
+      <button mat-button class="default-btn">Dodaj</button>
+    </div>
+  </div>
+  <div class="staff-binding">
+    <div class="staff-card text-left" *ngFor="let user of listOfItems|user:searchText">
+      <div class="row">
+        <div class="col-2 text-center">
+          <div *ngIf="user.staff" [ngStyle]="{'background-color':user.staff.color}" class="first-letter-circle">
+          </div>
+        </div>
+        <div class="col">
+          <h2>{{user.username}}</h2>
+        </div>
+        <div class="col">
+          <h2 *ngIf="user.staff">{{user.staff.person.firstName + ' ' + user.staff.person.lastName}}</h2>
+        </div>
+        <div class="col-2">
+          <button style="margin-top: 1em" mat-icon-button [matMenuTriggerFor]="menu">
+            <mat-icon>expand_more</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item><i class="fa fa-pencil"></i> Izmeni</button>
+            <button (click)="subscribeDelete(user.id)" mat-menu-item style="color: red"><i
+              class="fa fa-trash"></i>
+              Obriši
+            </button>
+          </mat-menu>
+        </div>
+      </div>
+    </div>
+  </div>
+  <mat-spinner #spinner diameter="50"></mat-spinner>
+
+</div>
