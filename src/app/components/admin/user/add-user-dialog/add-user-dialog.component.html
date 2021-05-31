@@ -24,7 +24,7 @@
                       [group]="userForm" label="Prezime"></app-form-input>
     </div>
   </div>
-  <app-form-input [config]="emailInputConfig" [model]="data ? (data.staff.person | staffEmail)  :null" [group]="userForm"
+  <app-form-input [config]="emailInputConfig" [model]="data ? (data.staff?.person | staffEmail)  :null" [group]="userForm"
                   label="Email"></app-form-input>
   <form [formGroup]="userForm">
     <mat-form-field appearance="outline">
