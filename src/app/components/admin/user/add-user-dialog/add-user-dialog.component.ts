@@ -37,7 +37,6 @@ export class AddUserDialogComponent extends DefaultComponent<User> implements On
   }
 
   ngOnInit(): void {
-    console.log(this.data);
     this.initSelect();
   }
 

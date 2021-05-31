@@ -100,7 +100,8 @@ export class AddStaffDialogComponent extends DefaultComponent<Staff> implements 
               prefix: this.staffForm.get(FormControlNames.MOBILE_PHONE_PREFIX_FORM_CONTROL)?.value
             },
             {
-              id: this.emailValue.id || undefined,
+              // @ts-ignore
+              id: this.emailValue ? this.emailValue.id : null,
               type: ContactTypeEnum.EMAIL,
               value: this.staffForm.get(FormControlNames.EMAIL_FORM_CONTROL)?.value,
             }
