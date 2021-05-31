@@ -2,6 +2,10 @@ import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angula
 import {AuthGuard} from '../../../guards/auth.guard';
 import {MatMenu, MatMenuTrigger} from '@angular/material/menu';
 import {TokenConst} from '../../../const/const';
+import {MatDialog} from '@angular/material/dialog';
+import {DialogUtil} from '../../../util/dialog-util';
+import {ChangePasswordDialogComponent} from '../change-password-dialog/change-password-dialog.component';
+import {setDialogConfig} from '../../../util/dialog-options';
 
 @Component({
   selector: 'app-header',
@@ -15,7 +19,7 @@ export class HeaderComponent implements OnInit {
   username = '';
   @Output() openSideNav = new EventEmitter();
 
-  constructor() {
+  constructor(private dialog: MatDialog) {
   }
 
   async ngOnInit(): Promise<void> {
@@ -44,5 +48,9 @@ export class HeaderComponent implements OnInit {
   logout(): void {
     sessionStorage.removeItem(TokenConst.NAME);
     location.reload();
+  }
+
+  openChangePasswordDialog(): void {
+    DialogUtil.openDialog(ChangePasswordDialogComponent, setDialogConfig({}), this.dialog);
   }
 }

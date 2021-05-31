@@ -56,6 +56,10 @@ export class FormControlNames {
   static VOUCHER_CODE_FORM_CONTROL = 'voucherCode';
   static CODE_FORM_CONTROL = 'code';
   static ROLES_FORM_CONTROL = 'roles';
+  static CONFIRM_FORM_CONTROL = 'confirm';
+  static CURRENT_PASSWORD_FORM_CONTROL = 'current';
+  static NEW_PASSWORD_FORM_CONTROL = 'newPassword';
+  static OLD_PASSWORD_FORM_CONTROL = 'oldPassword';
 }
 
 export class InputTypes {
@@ -132,3 +136,5 @@ export class Roles {
   static ADMIN = 'ROLE_ADMIN';
   static USER = 'ROLE_USER';
 }
+
+export const PASSWORD_REGEX = '^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$';

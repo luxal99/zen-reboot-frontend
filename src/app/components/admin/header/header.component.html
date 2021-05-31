@@ -12,7 +12,9 @@
 
         </button>
         <mat-menu #menu="matMenu">
-          <button mat-menu-item (click)="logout()">Logout</button>
+          <button style="font-weight: normal;" mat-menu-item (click)="logout()"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Logout</button>
+          <button style="font-weight: normal;" mat-menu-item (click)="openChangePasswordDialog()"><i class="fa fa-lock" aria-hidden="true"></i>
+            Izmena lozinke </button>
         </mat-menu>
 
         <button mat-icon-button class="sidenav-btn" (click)="openSideNav.emit(true)">

@@ -5,6 +5,7 @@ import {RestRoutesConst, Roles} from '../const/const';
 import {Observable} from 'rxjs';
 import {CreateUserDto} from '../models/create-user-dto';
 import {Role} from '../models/role';
+import {ChangePasswordDto} from '../models/change-password-dto';
 
 @Injectable({
   providedIn: 'root'
@@ -22,5 +23,9 @@ export class UserService extends GenericService<User> {
 
   getUserRoles(): Observable<Role[]> {
     return this.http.get<Role[]>(RestRoutesConst.API + this.route + '/' + RestRoutesConst.ROLE, {responseType: 'json'});
+  }
+
+  changePassword(passwordDto: ChangePasswordDto): Observable<any> {
+    return this.http.put(RestRoutesConst.API + this.route + '/password', passwordDto, {responseType: 'text'});
   }
 }
