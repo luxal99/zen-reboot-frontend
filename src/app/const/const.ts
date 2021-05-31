@@ -108,6 +108,7 @@ export class RestRoutesConst {
   static PACKAGE = 'packages';
   static DISCOUNT_TYPE = 'discount-types';
   static USER = 'users';
+  static ROLE = 'roles';
 }
 
 export class TokenConst {
