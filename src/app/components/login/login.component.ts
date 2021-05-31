@@ -20,8 +20,8 @@ export class LoginComponent implements OnInit {
   @ViewChild('spinner') spinner!: MatSpinner;
 
   loginForm = new FormGroup({
-    username: new FormControl('', Validators.required),
-    password: new FormControl('', Validators.required)
+    username: new FormControl('', [Validators.required, Validators.minLength(5)]),
+    password: new FormControl('', [Validators.required, Validators.minLength(5)])
   });
 
   usernameInputConfig: FieldConfig = {type: InputTypes.INPUT_TYPE_NAME, name: FormControlNames.USERNAME_NAME_FORM_CONTROL};
@@ -33,6 +33,21 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.addListener();
+  }
+
+  addListener(): void {
+    document.getElementById('username')?.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        this.auth();
+      }
+    });
+
+    document.getElementById('password')?.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        this.auth();
+      }
+    });
   }
 
   auth(): void {

@@ -7,13 +7,14 @@
       <div class="col-sm"></div>
       <div class="col-sm login-col">
         <img src="assets/img/zen-logo.9be72475.png" class="img-fluid">
-        <app-form-input color="#eee" [group]="loginForm" [config]="usernameInputConfig" type="text"
+        <app-form-input id="username" color="#eee" [group]="loginForm" [config]="usernameInputConfig" type="text"
                         icon="account_circle"
                         label="Korisničko ime"></app-form-input>
-        <app-form-input color="#eee" [group]="loginForm" [config]="passwordInputConfig" type="password" icon="lock"
+        <app-form-input id="password" color="#eee" [group]="loginForm" [config]="passwordInputConfig" type="password"
+                        icon="lock"
                         label="Lozinka"></app-form-input>
         <button mat-raised-button color="primary" (click)="auth()" [disabled]="!loginForm.valid">Login</button>
-          <mat-spinner #spinner diameter="50"></mat-spinner>
+        <mat-spinner #spinner diameter="50"></mat-spinner>
       </div>
       <div class="col-sm"></div>
     </div>
