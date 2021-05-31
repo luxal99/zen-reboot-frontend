@@ -1,19 +1,19 @@
 import {AfterViewChecked, ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import * as moment from 'moment';
-import {StaffService} from '../../../../service/staff.service';
-import {CriteriaBuilder} from '../../../../util/criteria-builder';
+import {StaffService} from '../../../service/staff.service';
+import {CriteriaBuilder} from '../../../util/criteria-builder';
 import {StaffDto} from 'src/app/models/staff-dto';
-import {DialogUtil} from '../../../../util/dialog-util';
+import {DialogUtil} from '../../../util/dialog-util';
 import {AddShiftDialogComponent} from './add-shift-dialog/add-shift-dialog.component';
 import {MatDialog} from '@angular/material/dialog';
-import {Shift} from '../../../../models/shift';
-import {SpinnerService} from '../../../../service/spinner.service';
+import {Shift} from '../../../models/shift';
+import {SpinnerService} from '../../../service/spinner.service';
 import {MatSpinner} from '@angular/material/progress-spinner';
-import {Person} from '../../../../models/person';
+import {Person} from '../../../models/person';
 import {FormControl, FormGroup} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
-import {setDialogConfig} from '../../../../util/dialog-options';
+import {setDialogConfig} from '../../../util/dialog-options';
 
 @Component({
   selector: 'app-staff-shifts-overview',

@@ -1,0 +1,180 @@
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+li {
+  list-style-type: none;
+}
+
+h1, h2, h3, h4, h5, a, li, mat-checkbox, p, th, tr, td, .mat-step-text-label {
+  font-family: "Work Sans", sans-serif !important;
+}
+
+.mat-step-text-label {
+  font-weight: bold !important;
+}
+
+.mat-typography h3 {
+  margin: 0 !important;
+}
+
+.mat-typography h4 {
+  margin: 0 !important;
+}
+
+mat-form-field {
+  font-family: "Work Sans", sans-serif !important;
+}
+
+button {
+  font-family: "Work Sans", sans-serif;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.row {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+
+.default-btn {
+  width: 200px;
+  background-color: #212121;
+  padding: 0.3em 0 !important;
+  font-weight: bold;
+  color: #ffffff;
+  font-size: 18px;
+}
+
+.white-btn {
+  box-shadow: 0 2px 5px 0 rgba(164, 173, 186, 0.25);
+  width: 20%;
+  background-color: #ffffff;
+  color: #212121;
+  padding: 0.3em 0 !important;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.component-content {
+  padding: 4em 2em;
+  background-color: #fff;
+  min-height: 90%;
+}
+
+::-webkit-scrollbar {
+  height: 10px;
+  width: 5px;
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #deb767;
+}
+
+.inline {
+  display: inline-flex;
+}
+
+.mobile {
+  display: none;
+}
+
+.border-btn, .black-border-btn {
+  padding: 0.4em 0;
+  width: 30%;
+  background-color: transparent;
+  border: 1px solid #deb767;
+  color: #deb767;
+  font-size: 18px;
+}
+
+.custom-snackbar {
+  font-family: "Work Sans", sans-serif !important;
+}
+.custom-snackbar button {
+  color: #deb767 !important;
+}
+
+.mat-button.mat-button-disabled.mat-button-disabled {
+  color: #666 !important;
+}
+
+.dialog {
+  padding: 24px;
+  height: 100%;
+}
+
+.mat-dialog-container {
+  padding: 0 !important;
+}
+
+.mat-header-row {
+  background-color: #deb767 !important;
+}
+
+.mat-elevation-z8 {
+  box-shadow: 0 2px 5px 0 rgba(164, 173, 186, 0.25) !important;
+}
+
+.black-border-btn {
+  border: 1px solid #121212;
+  color: #121212;
+}
+
+@media screen and (max-width: 570px) {
+  .desktop {
+    display: none;
+  }
+
+  .mobile {
+    display: block;
+  }
+
+  mat-tab-group {
+    display: inline-grid;
+  }
+}
+h1 {
+  padding-top: 1em;
+  line-height: 3px;
+}
+
+.left {
+  padding-left: 0;
+}
+
+.right {
+  padding-right: 0;
+}
+
+mat-spinner {
+  margin-left: 45%;
+  margin-top: 5%;
+  margin-bottom: 5%;
+  display: none;
+}
+
+.default-btn {
+  width: 15%;
+}
+
+@media screen and (max-width: 960px) {
+  .left {
+    padding-right: 0;
+  }
+
+  .right {
+    padding-left: 0 !important;
+  }
+
+  .default-btn {
+    width: 40% !important;
+  }
+}
+
+/*# sourceMappingURL=add-shift-dialog.component.css.map */

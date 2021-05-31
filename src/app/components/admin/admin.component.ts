@@ -12,7 +12,6 @@ import {OverviewComponent} from './overview/overview.component';
 import {ClientComponent} from './client/client.component';
 import {CodeBookComponent} from './code-book/code-book.component';
 import {ServicesComponent} from './services/services.component';
-import {StaffComponent} from './staff/staff.component';
 import {AppointmentComponent} from './appointment/appointment.component';
 import {InvoiceOverviewComponent} from './invoice-overview/invoice-overview.component';
 import {MatDrawer} from '@angular/material/sidenav';
@@ -22,8 +21,9 @@ import {ExpensesComponent} from './expenses/expenses.component';
 import {PackageComponent} from './package/package.component';
 import {AnalyticsComponent} from './analytics/analytics.component';
 import {UserService} from '../../service/user.service';
-import {AuthGuard} from '../../guards/auth.guard';
 import {RoleEnum} from '../../enums/RoleEnum';
+import {StaffShiftsOverviewComponent} from './staff-shifts-overview/staff-shifts-overview.component';
+import {StaffOverviewComponent} from './staff-overview/staff-overview.component';
 
 @Component({
   selector: 'app-admin',
@@ -111,8 +111,12 @@ export class AdminComponent implements OnInit, AfterViewInit {
     this.genericLoadComponent('Klijenti', ClientComponent);
   }
 
+  loadShiftOverview(): void {
+    this.genericLoadComponent('Raspored sati', StaffShiftsOverviewComponent);
+  }
+
   loadStaffComponent(): void {
-    this.genericLoadComponent('Zaposleni', StaffComponent);
+    this.genericLoadComponent('Zaposleni', StaffOverviewComponent);
   }
 
   loadServiceComponent(): void {
@@ -162,4 +166,5 @@ export class AdminComponent implements OnInit, AfterViewInit {
   private setHeader(text: string): void {
     this.header = text;
   }
+
 }

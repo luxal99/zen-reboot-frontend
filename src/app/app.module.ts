@@ -24,16 +24,15 @@ import {DynamicFieldDirective} from './directives/dynamic-field.directive';
 import {ClientPipe} from './pipes/client.pipe';
 import {ClientOverviewDialogComponent} from './components/admin/client/client-overview-dialog/client-overview-dialog.component';
 import {AddServiceDialogComponent} from './components/admin/services/add-service-dialog/add-service-dialog.component';
-import {StaffComponent} from './components/admin/staff/staff.component';
 import {HashLocationStrategy, LocationStrategy} from '@angular/common';
-import {AddStaffDialogComponent} from './components/admin/staff/add-staff-dialog/add-staff-dialog.component';
+import {AddStaffDialogComponent} from './components/admin/staff-overview/add-staff-dialog/add-staff-dialog.component';
 import {ColorPickerModule} from 'ngx-color-picker';
 import {StaffPipe} from './pipes/staff.pipe';
-import {StaffShiftsOverviewComponent} from './components/admin/staff/staff-shifts-overview/staff-shifts-overview.component';
-import {StaffOverviewComponent} from './components/admin/staff/staff-overview/staff-overview.component';
+import {StaffShiftsOverviewComponent} from './components/admin/staff-shifts-overview/staff-shifts-overview.component';
+import {StaffOverviewComponent} from './components/admin/staff-overview/staff-overview.component';
 import {LocationOverviewComponent} from './components/admin/code-book/location-overview/location-overview.component';
 import {AddLocationDialogComponent} from './components/admin/code-book/location-overview/add-location-dialog/add-location-dialog.component';
-import {AddShiftDialogComponent} from './components/admin/staff/staff-shifts-overview/add-shift-dialog/add-shift-dialog.component';
+import {AddShiftDialogComponent} from './components/admin/staff-shifts-overview/add-shift-dialog/add-shift-dialog.component';
 import {AppointmentComponent} from './components/admin/appointment/appointment.component';
 import {ComponentActivatorComponent} from './components/admin/component-activator/component-activator.component';
 import {AddAppointmentDialogComponent} from './components/admin/appointment/add-appointment-dialog/add-appointment-dialog.component';
@@ -64,7 +63,7 @@ import {VoucherPackagePipe} from './pipes/voucher-package.pipe';
 import {AnalyticsComponent} from './components/admin/analytics/analytics.component';
 import {InvoicePipe} from './pipes/invoice.pipe';
 import {TokenInterceptor} from './interceptor/token.interceptor';
-import { FormDateComponent } from './components/form-components/form-date/form-date.component';
+import {FormDateComponent} from './components/form-components/form-date/form-date.component';
 
 
 @NgModule({
@@ -86,7 +85,6 @@ import { FormDateComponent } from './components/form-components/form-date/form-d
     ClientPipe,
     ClientOverviewDialogComponent,
     AddServiceDialogComponent,
-    StaffComponent,
     AddStaffDialogComponent,
     StaffPipe,
     StaffShiftsOverviewComponent,

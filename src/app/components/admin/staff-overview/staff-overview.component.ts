@@ -2,14 +2,14 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatSpinner} from '@angular/material/progress-spinner';
 import {FormControl, FormGroup} from '@angular/forms';
 import {MatDialog} from '@angular/material/dialog';
-import {StaffService} from '../../../../service/staff.service';
+import {StaffService} from '../../../service/staff.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import {Staff} from '../../../../models/staff';
-import {Contact} from '../../../../models/contact';
-import {ContactTypeEnum} from '../../../../enums/ContactTypeEnum';
-import {DialogUtil} from '../../../../util/dialog-util';
-import {AddStaffDialogComponent} from '../add-staff-dialog/add-staff-dialog.component';
-import {DefaultComponent} from '../../../../util/default-component';
+import {Staff} from '../../../models/staff';
+import {Contact} from '../../../models/contact';
+import {ContactTypeEnum} from '../../../enums/ContactTypeEnum';
+import {DialogUtil} from '../../../util/dialog-util';
+import {AddStaffDialogComponent} from './add-staff-dialog/add-staff-dialog.component';
+import {DefaultComponent} from '../../../util/default-component';
 
 @Component({
   selector: 'app-staff-overview',
