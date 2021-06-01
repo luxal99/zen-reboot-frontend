@@ -18,4 +18,8 @@ export class StaffService extends GenericService<Staff> {
   getStaffsAppointments(urlEncoded: string): Observable<StaffDto[]> {
     return this.http.get<StaffDto[]>(RestRoutesConst.API + this.route + '/appointments' + '?q=' + urlEncoded, {responseType: 'json'});
   }
+
+  getStaffTherapist(): Observable<Staff[]> {
+    return this.http.get<Staff[]>(RestRoutesConst.API + this.route + '/therapists', {responseType: 'json'});
+  }
 }

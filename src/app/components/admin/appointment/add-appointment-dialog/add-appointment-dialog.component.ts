@@ -121,8 +121,6 @@ export class AddAppointmentDialogComponent extends DefaultComponent<Appointment>
   selectClient(client: Client): void {
     const index = this.selectedClients.indexOf(client);
     const room: Room = this.appointmentForm.get(FormControlNames.ROOM_FORM_CONTROL)?.value;
-
-    console.log(room);
     if (!room.id) {
       SnackBarUtil.openSnackBar(this.snackBar, 'Izaberi sobu');
     } else {
@@ -140,7 +138,7 @@ export class AddAppointmentDialogComponent extends DefaultComponent<Appointment>
   }
 
   async getAllStaffs(): Promise<void> {
-    this.listOfStaffs = await this.staffService.getAll().toPromise();
+    this.listOfStaffs = await this.staffService.getStaffTherapist().toPromise();
   }
 
   getNext(): void {
