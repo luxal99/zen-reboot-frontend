@@ -1,13 +1,14 @@
 <div class="dialog">
   <div class="row">
     <div class="col-6">
-      <h1>{{data.code}}</h1>
+      <h1 *ngIf="!voucher">{{data.code}}</h1>
+      <h2 *ngIf="voucher"><b>{{data.code}}</b></h2>
     </div>
-    <div class="col-6 text-right">
+    <div class="col-6 text-right" *ngIf="!voucher">
       <h2 class="colored"><b>{{data.startDate | date}}- {{data.endDate|date}}</b></h2>
     </div>
   </div>
-  <mat-divider></mat-divider>
+  <mat-divider *ngIf="!voucher"></mat-divider>
   <div class="voucher-dialog-content">
     <div class="client-row row">
       <div class="col-2">

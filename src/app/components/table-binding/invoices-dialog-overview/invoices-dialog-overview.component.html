@@ -1,6 +1,6 @@
 <div class="dialog">
   <div class="text-right">
-    <button mat-icon-button mat-dialog-close>
+    <button mat-fab mat-dialog-close style="margin-bottom: 1em">
       <mat-icon>close</mat-icon>
     </button>
   </div>
@@ -9,11 +9,12 @@
       <h1><b>Informacije o fakturi</b></h1>
     </div>
     <div class="col-6 text-right right">
-      <h2>{{date}}</h2>
+      <h2 class="colored">{{date}}</h2>
     </div>
   </div>
+  <h2 style="margin-bottom: 1em">Status fakture: {{data.invoiceStatus?.name | capitalize}}</h2>
   <mat-divider></mat-divider>
-  <div class="appointment-div">
+  <div *ngIf="data.type==='APPOINTMENT'" class="appointment-div">
     <div *ngFor="let item of data.items" class="appointment-card">
       <div class="row">
         <div class="col-sm left">
@@ -27,8 +28,10 @@
         </div>
       </div>
       <h2 class="appointment-name-h2">{{item.treatment.name}}</h2>
-      <h3><b>{{item.client.person?.firstName + ' ' + item.client.person?.lastName}}</b></h3>
-      <h4 class="phone-no">{{item.client.person.contacts|findClientPhoneNumber}}</h4>
+      <h3><b>{{item.clients[0].person?.firstName + ' ' + item.clients[0].person?.lastName}}</b></h3>
+      <h4 class="phone-no">{{item.clients[0].person.contacts|findClientPhoneNumber}}</h4>
     </div>
   </div>
+  <app-voucher-overview-dialog *ngIf="data.type==='VOUCHER'" [voucher]="data.items[0]"></app-voucher-overview-dialog>
+  <app-package-overview-dialog *ngIf="data.type==='PACKAGE'" [pcg]="data.items[0]"></app-package-overview-dialog>
 </div>
