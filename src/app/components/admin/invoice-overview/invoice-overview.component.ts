@@ -68,11 +68,11 @@ export class InvoiceOverviewComponent extends DefaultComponent<Invoice> implemen
     dateFilter.endDate = new Date(dateFilter.endDate).valueOf();
     const queryBuilder = new CriteriaBuilder();
 
-    queryBuilder.gt('createdDate', new Date(dateFilter.startDate).valueOf())
-      .or().eq('createdDate', dateFilter.startDate)
+    queryBuilder.gt('date', new Date(dateFilter.startDate).valueOf())
+      .or().eq('date', dateFilter.startDate)
       .and()
-      .lt('createdDate', dateFilter.endDate).or()
-      .eq('createdDate', dateFilter.endDate);
+      .lt('date', dateFilter.endDate).or()
+      .eq('date', dateFilter.endDate);
     this.invoiceService.getInvoicesDtos(queryBuilder.buildUrlEncoded()).subscribe((resp) => {
       this.listOfFilteredInvoices = resp;
     });
