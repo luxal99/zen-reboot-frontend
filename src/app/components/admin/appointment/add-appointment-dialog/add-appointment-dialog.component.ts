@@ -208,29 +208,6 @@ export class AddAppointmentDialogComponent extends DefaultComponent<Appointment>
     }
   }
 
-  async save(): Promise<void> {
-    this.spinnerService.show(this.spinner);
-    const appointment: Appointment = this.appointmentForm.getRawValue();
-    appointment.clients = this.selectedClients.map((client) => ({id: client.id}));
-    appointment.staff = {id: this.appointmentForm.get(FormControlNames.STAFF_FORM_CONTROL)?.value.id};
-    appointment.date = moment(appointment.date).format('YYYY-MM-DD');
-    appointment.notes = this.editorComponent.editorInstance?.getData();
-    appointment.room = {id: this.appointmentForm.get(FormControlNames.ROOM_FORM_CONTROL)?.value.id};
-    delete appointment.treatmentDuration?.treatment;
-    // @ts-ignore
-    delete appointment.treatment;
-    // @ts-ignore
-    appointment.treatmentDuration?.treatment = {id: this.appointmentForm.get(FormControlNames.TREATMENT_FORM_CONTROL)?.value.id};
-    if (this.data.id) {
-      appointment.id = this.data.id;
-      super.subscribeUpdate(appointment);
-      this.spinnerService.hide(this.spinner);
-    } else {
-      this.subscribeSave(appointment);
-      this.spinnerService.hide(this.spinner);
-    }
-  }
-
   compareRooms(o1: any, o2: any): boolean {
     if (o2 !== null && o2 !== undefined) {
       if (o1.id && o2.id) {
@@ -246,7 +223,7 @@ export class AddAppointmentDialogComponent extends DefaultComponent<Appointment>
   sumEndTime(): void {
     const endTime = moment(this.appointmentForm.get(FormControlNames.START_TIME_FORM_CONTROL)?.value, 'hh:mm')
       .add(this.appointmentForm.get(FormControlNames.DURATION_FORM_CONTROL)?.value.duration, 'minutes');
-    this.appointmentForm.controls.endTime.setValue(endTime.get('hours') + ':' + endTime.get('minutes'));
+    this.appointmentForm.controls.endTime.setValue(endTime.get('hours') + ':' + (endTime.get('minutes') === 0 ? endTime.get('minutes') + '0' : endTime.get('minutes') + ''));
   }
 
   search(): void {
@@ -268,5 +245,28 @@ export class AddAppointmentDialogComponent extends DefaultComponent<Appointment>
 
   displayFn(staff: Staff): Staff | string {
     return staff ? staff.person?.firstName + ' ' + staff.person?.lastName : '';
+  }
+
+  async save(): Promise<void> {
+    this.spinnerService.show(this.spinner);
+    const appointment: Appointment = this.appointmentForm.getRawValue();
+    appointment.clients = this.selectedClients.map((client) => ({id: client.id}));
+    appointment.staff = {id: this.appointmentForm.get(FormControlNames.STAFF_FORM_CONTROL)?.value.id};
+    appointment.date = moment(appointment.date).format('YYYY-MM-DD');
+    appointment.notes = this.editorComponent.editorInstance?.getData();
+    appointment.room = {id: this.appointmentForm.get(FormControlNames.ROOM_FORM_CONTROL)?.value.id};
+    delete appointment.treatmentDuration?.treatment;
+    // @ts-ignore
+    delete appointment.treatment;
+    // @ts-ignore
+    appointment.treatmentDuration?.treatment = {id: this.appointmentForm.get(FormControlNames.TREATMENT_FORM_CONTROL)?.value.id};
+    if (this.data.id) {
+      appointment.id = this.data.id;
+      super.subscribeUpdate(appointment);
+      this.spinnerService.hide(this.spinner);
+    } else {
+      this.subscribeSave(appointment);
+      this.spinnerService.hide(this.spinner);
+    }
   }
 }

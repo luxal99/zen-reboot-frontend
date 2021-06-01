@@ -19,8 +19,6 @@ import {EditInvoiceDialogComponent} from './edit-invoice-dialog/edit-invoice-dia
   styleUrls: ['./appointment-overview-dialog.component.sass']
 })
 export class AppointmentOverviewDialogComponent extends DefaultComponent<Appointment> implements OnInit {
-
-  clientContactNumber: Contact = {};
   day = moment(this.data.date).format('dddd');
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: AppointmentDTO, private dialog: MatDialog,
