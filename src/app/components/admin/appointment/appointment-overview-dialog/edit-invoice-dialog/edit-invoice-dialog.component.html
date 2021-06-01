@@ -74,9 +74,9 @@
 
     </mat-step>
     <mat-step label="Selekcija tretmana">
+      <h1 class="light-h1" *ngIf="listOfAppointments.length===0">Pronađi dodatni tretman...</h1>
       <app-form-input (change)="searchAppointment()" icon="search" label="Pretraži" [group]="searchForm"
                       [config]="searchClientInputConfig"></app-form-input>
-      <h1 class="light-h1" *ngIf="listOfAppointments.length===0">Pronađi dodatni tretman...</h1>
       <div *ngFor="let appointment of listOfAppointments">
         <div class="row">
           <div class="col-sm">

@@ -153,18 +153,22 @@ export class EditInvoiceDialogComponent extends DefaultComponent<Invoice> implem
   searchAppointment(): void {
     const search = this.searchForm.get(FormControlNames.SEARCH_CLIENT_FORM_CONTROL)?.value || '';
     const queryBuilder = new CriteriaBuilder();
-    queryBuilder.startsWith('client.person.firstName', search).or()
-      .startsWith('client.person.contacts.value', search);
+    queryBuilder.startsWith('clients.person.firstName', search)
+      .or()
+      .startsWith('clients.person.contacts.value', search);
     queryBuilder.criteriaList = queryBuilder.criteriaList.filter((searchCriteria) => searchCriteria.secondOperand !== '');
 
     if (search.length > 2) {
       this.appointmentService.getAll(queryBuilder.buildUrlEncoded())
         .pipe(map(value => {
-          return value.filter((appointment) => appointment.appointmentStatus?.value === 'NEW');
+          return value.filter((appointment) => appointment.appointmentStatus?.value === 'NEW'
+            || appointment.appointmentStatus?.value === 'CONFIRMED');
         }))
         .subscribe((resp) => {
           this.listOfAppointments = resp;
           this.listOfAppointments.filter((app) => app.date = moment(app.date).format('DD MMMM YYYY'));
+          this.listOfAppointments = this.listOfAppointments.filter((v, i, a) => a.findIndex(t => (t.id === v.id)) === i);
+
         });
     } else {
       this.listOfAppointments = [];
