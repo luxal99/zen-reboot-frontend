@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, Inject, Input, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {Voucher} from '../../../../models/voucher';
 import * as moment from 'moment';
@@ -10,10 +10,15 @@ import * as moment from 'moment';
 })
 export class VoucherOverviewDialogComponent implements OnInit {
 
+  @Input() voucher!: Voucher;
+
   constructor(@Inject(MAT_DIALOG_DATA) public data: Voucher) {
   }
 
   ngOnInit(): void {
+    if (this.voucher) {
+      this.data = this.voucher;
+    }
   }
 
 }

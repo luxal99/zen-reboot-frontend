@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, Inject, Input, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {Package} from '../../../../models/package';
 
@@ -9,10 +9,15 @@ import {Package} from '../../../../models/package';
 })
 export class PackageOverviewDialogComponent implements OnInit {
 
+  @Input() pcg!: Package;
+
   constructor(@Inject(MAT_DIALOG_DATA) public data: Package) {
   }
 
   ngOnInit(): void {
+    if (this.pcg) {
+      this.data = this.pcg;
+    }
   }
 
 }
