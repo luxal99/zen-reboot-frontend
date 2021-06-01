@@ -78,8 +78,19 @@ mat-drawer
   padding: 1em
   height: 100vh
 
+.default-btn
+  width: 20%
+  margin: 2em 0 0 2em
+
 @media screen and (max-width: 570px)
-  .default-btn
-    width: 80% !important
-    margin-top: 3em
-    margin-bottom: 3em
+  .default-btn, .border-dark-btn
+    width: 90%
+    margin: .5em 1em
+
+  mat-drawer
+    width: 80%
+
+  mat-drawer-container
+    overflow-x: hidden !important
+  ::ng-deep.mat-drawer-content
+    overflow-x: hidden !important

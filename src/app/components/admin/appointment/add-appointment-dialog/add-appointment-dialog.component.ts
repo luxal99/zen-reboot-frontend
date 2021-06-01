@@ -50,6 +50,7 @@ export class AddAppointmentDialogComponent extends DefaultComponent<Appointment>
   treatmentDuration: TreatmentDuration = {};
   isDurationFCDisabled = true;
 
+  isMobile = false;
   numberOfPage = 0;
 
   selectedClients: Client[] = this.data.clients ? this.data.clients : [];
@@ -102,6 +103,7 @@ export class AddAppointmentDialogComponent extends DefaultComponent<Appointment>
 
   ngOnInit(): void {
     this.findTreatmentDuration();
+    this.getResolution();
     setTimeout(() => {
       this.initSelects();
       if (this.data) {
@@ -160,6 +162,12 @@ export class AddAppointmentDialogComponent extends DefaultComponent<Appointment>
     }
   }
 
+
+  getResolution(): void {
+    if (window.screen.width <= 960) {
+      this.isMobile = true;
+    }
+  }
 
   getClient(): void {
     this.spinnerService.show(this.spinner);
