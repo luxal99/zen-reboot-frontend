@@ -158,7 +158,7 @@ export class AppointmentComponent extends DefaultComponent<Appointment> implemen
   setResponsive(): void {
     // @ts-ignore
     const div = document.querySelector('#calendarBinding');
-    if (window.screen.width <= 570) {
+    if (window.screen.width <= 960) {
       // @ts-ignore
       for (const child of div.children) {
         // @ts-ignore
