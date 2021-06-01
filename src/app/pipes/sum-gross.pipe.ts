@@ -9,7 +9,7 @@ export class SumGrossPipe implements PipeTransform {
   transform(listOfInvoice: Invoice[]): number {
     let sum = 0;
     // @ts-ignore
-    listOfInvoice.filter((inv) => inv.checkoutDate ? sum += inv.gross : sum += 0);
+    listOfInvoice.filter((inv) => inv.invoiceStatus?.name?.toUpperCase() === 'COMPLETED' ? sum += inv.gross : sum += 0);
     return sum;
   }
 

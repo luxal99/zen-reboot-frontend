@@ -1,4 +1,4 @@
 export interface InvoiceStatus {
   id?: number;
-  name?: number;
+  name?: string;
 }

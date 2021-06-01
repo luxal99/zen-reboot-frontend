@@ -55,8 +55,9 @@ export class InvoiceOverviewComponent extends DefaultComponent<Invoice> implemen
   }
 
   getCurrentDayOverview(): void {
-    this.invoiceService.getInvoicesDtos(new CriteriaBuilder().eq('createdDate',
-      new Date(this.currentDate.format('YYYY-MM-DD')).valueOf()).buildUrlEncoded()).subscribe((resp) => {
+    this.invoiceService.getInvoicesDtos(new CriteriaBuilder().eq('date',
+      new Date(this.currentDate.format('YYYY-MM-DD')).valueOf())
+      .buildUrlEncoded()).subscribe((resp) => {
       this.listOfCurrentDayInvoices = resp;
     });
   }
