@@ -57,18 +57,20 @@
       </div>
     </div>
     <div class="col-sm-3 text-left">
-      <div class="inline">
-        <div class="big-circle text-center" *ngIf="data.clients"
-             style=background-color:#c2c2c2>{{data.clients[0].person?.firstName?.slice(0, 1)}}</div>
-        <div class="right-col">
-          <h3 *ngIf="data.clients" class="client-name">
-            <b>{{data.clients[0].person?.firstName + ' ' + data.clients[0].person?.lastName}}</b>
-          </h3>
-          <div *ngIf="clientContactNumber"><h4
-            class="contact">{{clientContactNumber.prefix + ' ' + clientContactNumber.value}}</h4></div>
+      <ng-container *ngFor="let client of data.clients">
+        <div class="inline">
+          <div class="big-circle text-center" *ngIf="data.clients"
+               style=background-color:#c2c2c2>{{client.person?.firstName?.slice(0, 1)}}</div>
+          <div class="right-col">
+            <h3 *ngIf="data.clients" class="client-name">
+              <b>{{client.person?.firstName + ' ' + client.person?.lastName}}</b>
+            </h3>
+            <div *ngIf="client.person.contacts|findClientPhoneNumber"><h4
+              class="contact">{{client.person.contacts|findClientPhoneNumber}}</h4></div>
+          </div>
         </div>
-      </div>
-      <p style="margin-top: 1em" *ngIf="data.clients" [innerHTML]="data.clients[0].notes"></p>
+        <p style="margin-top: 1em" *ngIf="cli" [innerHTML]="client.notes"></p>
+      </ng-container>
     </div>
   </div>
   <div class="text-right">
