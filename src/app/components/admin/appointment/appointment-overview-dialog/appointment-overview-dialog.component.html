@@ -69,7 +69,7 @@
               class="contact">{{client.person.contacts|findClientPhoneNumber}}</h4></div>
           </div>
         </div>
-        <p style="margin-top: 1em" *ngIf="cli" [innerHTML]="client.notes"></p>
+        <p style="margin-top: 1em" *ngIf="client.notes" [innerHTML]="client.notes"></p>
       </ng-container>
     </div>
   </div>
