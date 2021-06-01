@@ -99,7 +99,7 @@
           </ng-container>
           <ng-template #emptyCol>
             <div class="col-sm empty-col"
-                 (click)="openAddAppointmentDialog({startTime:time,room:{id:roomDto.id},date:currentDate.format('YYYY-MM-DD'),client:{}})"></div>
+                 (click)="openAddAppointmentDialog({startTime:time,room:{id:roomDto.id,beds:roomDto.beds},date:currentDate.format('YYYY-MM-DD'),client:{}})"></div>
           </ng-template>
         </ng-container>
       </div>

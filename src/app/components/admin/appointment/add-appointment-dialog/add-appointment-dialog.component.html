@@ -65,7 +65,7 @@
                      matInput [(ngModel)]="searchText"
                      formControlName="staff"
                      [matAutocomplete]="auto">
-              <mat-autocomplete #auto="matAutocomplete"  [displayWith]="displayFn">
+              <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
                 <mat-option *ngFor="let staff of listOfStaffs" [value]="staff">
                   {{staff.person?.firstName}} {{staff.person?.lastName}}
                 </mat-option>
@@ -95,17 +95,20 @@
         <mat-spinner #clientSpinner id="client-spinner" diameter="50"></mat-spinner>
       </div>
 
-      <div class="inline" *ngIf="selectedClient.id">
-        <div class="black-circle text-center"
-             style=background-color:#c2c2c2>{{selectedClient.person?.firstName.slice(0, 1)}}</div>
-        <div class="right-col">
-          <h3><b>{{selectedClient.person?.firstName + ' ' + selectedClient.person?.lastName}}</b></h3>
-        </div>
+      <div class="inline" *ngIf="selectedClients">
+        <ng-container *ngFor="let client of selectedClients">
+          <div class="black-circle text-center"
+               style=background-color:#c2c2c2>{{client.person?.firstName.slice(0, 1)}}</div>
+          <div class="right-col">
+            <h3><b>{{client.person?.firstName + ' ' + client.person?.lastName}}</b></h3>
+            <button mat-button><i class="fa fa-trash"></i></button>
+          </div>
+        </ng-container>
       </div>
     </div>
   </div>
   <button mat-button class="default-btn" style="width: 20%;" (click)="save()"
-          [disabled]="!appointmentForm.valid ||!selectedClient">
+          [disabled]="!appointmentForm.valid ||!selectedClients">
     Sačuvaj
   </button>
 </div>

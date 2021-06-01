@@ -1,10 +1,9 @@
 import {Injectable} from '@angular/core';
-import {CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router} from '@angular/router';
-import {Observable} from 'rxjs';
-import {LOGGED_USER, Pages, TokenConst} from '../const/const';
+import {CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router} from '@angular/router';
+import {Pages, TokenConst} from '../const/const';
 import {JwtUtil} from '../util/jwt-util';
-import {User} from '../models/user';
 import {TokenBody} from '../models/token-body';
+import * as moment from 'moment';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +21,13 @@ export class AuthGuard implements CanActivate {
 
   async canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> {
     const user = await JwtUtil.decode(sessionStorage.getItem(TokenConst.NAME) as string);
-    if (user) {
+
+    if (!user) {
+      await this.router.navigate([Pages.LOGIN_PAGE_ROUTE], {queryParams: {returnUrl: state.url}});
+      return false;
+    }
+    // @ts-ignore
+    if (moment(user?.exp * 1000).format('YYYY-MM-DD HH:mm') > moment(new Date()).format('YYYY-MM-DD HH:mm')) {
       return true;
     } else {
       await this.router.navigate([Pages.LOGIN_PAGE_ROUTE], {queryParams: {returnUrl: state.url}});

@@ -50,7 +50,7 @@ export class AddAppointmentDialogComponent extends DefaultComponent<Appointment>
 
   clientPage = 0;
 
-  selectedClient: Client = this.data.clients ? this.data.clients[0] : {};
+  selectedClients: Client[] = this.data.clients ? this.data.clients : [];
   listOfClients: Client[] = [];
 
 
@@ -106,13 +106,18 @@ export class AddAppointmentDialogComponent extends DefaultComponent<Appointment>
       if (this.data) {
         this.appointmentForm.controls.startTime.setValue(this.data.startTime);
         this.appointmentForm.controls.staff.setValue(this.data.staff);
-        console.log(this.data);
       }
     }, 100);
   }
 
   selectClient(client: Client): void {
-    this.selectedClient = client;
+    const index = this.selectedClients.indexOf(client);
+
+    if (index === -1) {
+      this.selectedClients.push(client);
+    } else {
+
+    }
   }
 
   async getAllStaffs(): Promise<void> {
@@ -178,7 +183,7 @@ export class AddAppointmentDialogComponent extends DefaultComponent<Appointment>
   async save(): Promise<void> {
     this.spinnerService.show(this.spinner);
     const appointment: Appointment = this.appointmentForm.getRawValue();
-    appointment.clients = [{id: this.selectedClient.id}];
+    appointment.clients = this.selectedClients;
     appointment.staff = {id: this.appointmentForm.get(FormControlNames.STAFF_FORM_CONTROL)?.value.id};
     appointment.date = moment(appointment.date).format('YYYY-MM-DD');
     appointment.notes = this.editorComponent.editorInstance?.getData();

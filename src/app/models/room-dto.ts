@@ -6,4 +6,5 @@ export interface RoomDto {
   id?: number;
   location?: Location;
   name?: string;
+  beds?: number
 }

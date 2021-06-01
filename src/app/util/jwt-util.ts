@@ -6,11 +6,7 @@ export class JwtUtil {
 
   static async decode(token: string): Promise<TokenBody | null> {
     try {
-      const decoded: TokenBody = await jwt(token);
-      return {
-        roles: decoded.roles,
-        username: decoded.sub
-      };
+      return await jwt(token);
     } catch (e) {
       return null;
     }
