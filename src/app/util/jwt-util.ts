@@ -6,7 +6,13 @@ export class JwtUtil {
 
   static async decode(token: string): Promise<TokenBody | null> {
     try {
-      return await jwt(token);
+      const decoded: TokenBody = await jwt(token);
+      return {
+        exp: decoded.exp,
+        // @ts-ignore
+        roles: decoded.sub,
+        username: decoded.sub
+      };
     } catch (e) {
       return null;
     }
