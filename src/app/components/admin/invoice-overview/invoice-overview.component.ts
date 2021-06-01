@@ -45,9 +45,9 @@ export class InvoiceOverviewComponent extends DefaultComponent<Invoice> implemen
   getCurrentWeekOverview(): void {
     const queryBuilder = new CriteriaBuilder();
     // @ts-ignore
-    queryBuilder.gt('createdDate', new Date(this.startDate).valueOf()).and()
+    queryBuilder.gt('date', new Date(this.startDate).valueOf()).and()
       // @ts-ignore
-      .lt('createdDate', new Date(this.endDate).valueOf());
+      .lt('date', new Date(this.endDate).valueOf());
     this.invoiceService.getInvoicesDtos(queryBuilder.buildUrlEncoded()).subscribe((resp) => {
       this.listOfCurrentWeekInvoices = resp;
       this.spinnerService.hide(this.spinner);
