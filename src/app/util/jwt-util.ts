@@ -10,7 +10,7 @@ export class JwtUtil {
       return {
         exp: decoded.exp,
         // @ts-ignore
-        roles: decoded.sub,
+        roles: decoded.roles,
         username: decoded.sub
       };
     } catch (e) {

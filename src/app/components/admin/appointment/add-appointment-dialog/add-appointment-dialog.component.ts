@@ -27,6 +27,8 @@ import {Location} from 'src/app/models/location';
 import {MatSpinner} from '@angular/material/progress-spinner';
 import {PaymentMethodService} from '../../../../service/payment-method.service';
 import {MatAutocomplete, MatAutocompleteTrigger} from '@angular/material/autocomplete';
+import {SnackBarUtil} from '../../../../util/snack-bar-uitl';
+import {Room} from '../../../../models/room';
 
 @Component({
   selector: 'app-add-appointment-dialog',
@@ -48,7 +50,7 @@ export class AddAppointmentDialogComponent extends DefaultComponent<Appointment>
   treatmentDuration: TreatmentDuration = {};
   isDurationFCDisabled = true;
 
-  clientPage = 0;
+  numberOfPage = 0;
 
   selectedClients: Client[] = this.data.clients ? this.data.clients : [];
   listOfClients: Client[] = [];
@@ -62,7 +64,7 @@ export class AddAppointmentDialogComponent extends DefaultComponent<Appointment>
     paymentMethod: new FormControl('', Validators.required),
 
     // @ts-ignore
-    room: new FormControl(this.data.room ? this.data.room.id : '', Validators.required),
+    room: new FormControl(this.data.room ? this.data.room : '', Validators.required),
     staff: new FormControl(this.data.staff, Validators.required),
     treatment: new FormControl('', Validators.required),
     treatmentDuration: new FormControl('', Validators.required),
@@ -99,7 +101,6 @@ export class AddAppointmentDialogComponent extends DefaultComponent<Appointment>
   }
 
   ngOnInit(): void {
-    console.log(this.data);
     this.findTreatmentDuration();
     setTimeout(() => {
       this.initSelects();
@@ -110,13 +111,29 @@ export class AddAppointmentDialogComponent extends DefaultComponent<Appointment>
     }, 100);
   }
 
+  removeClient(client: Client): void {
+    const index = this.selectedClients.indexOf(client);
+    this.selectedClients.splice(index, 1);
+  }
+
   selectClient(client: Client): void {
     const index = this.selectedClients.indexOf(client);
+    const room: Room = this.appointmentForm.get(FormControlNames.ROOM_FORM_CONTROL)?.value;
 
-    if (index === -1) {
-      this.selectedClients.push(client);
+    console.log(room);
+    if (!room.id) {
+      SnackBarUtil.openSnackBar(this.snackBar, 'Izaberi sobu');
     } else {
-
+      // @ts-ignore
+      if (this.selectedClients.length < room.beds) {
+        if (index === -1) {
+          this.selectedClients.push(client);
+        } else {
+          SnackBarUtil.openSnackBar(this.snackBar, 'Klijent je već odabran');
+        }
+      } else {
+        SnackBarUtil.openSnackBar(this.snackBar, 'Maksimalni broj osoba');
+      }
     }
   }
 
@@ -124,24 +141,29 @@ export class AddAppointmentDialogComponent extends DefaultComponent<Appointment>
     this.listOfStaffs = await this.staffService.getAll().toPromise();
   }
 
+  getNext(): void {
 
-  @HostListener('scroll', ['$event'])
-  getAllClient(event: any): void {
-    if (event.target.offsetHeight + event.target.scrollTop >= event.target.scrollHeight) {
-      this.spinnerService.show(this.clientSpinner);
-      setTimeout(() => {
-        this.clientService.getPaginationClients(this.clientPage++)
-          .subscribe((resp) => {
-            this.listOfClients = this.listOfClients.concat(resp);
-            this.spinnerService.hide(this.clientSpinner);
-          });
-      }, 500);
+    this.spinnerService.show(this.spinner);
+    this.clientService.getPaginationClients(++this.numberOfPage).subscribe((clients) => {
+      this.listOfClients = clients;
+      this.spinnerService.hide(this.spinner);
+    });
+  }
+
+  getPrevious(): void {
+    if (this.numberOfPage !== 0) {
+      this.spinnerService.show(this.spinner);
+      this.clientService.getPaginationClients(--this.numberOfPage).subscribe((clients) => {
+        this.listOfClients = clients;
+        this.spinnerService.hide(this.spinner);
+      });
     }
   }
 
+
   getClient(): void {
     this.spinnerService.show(this.spinner);
-    this.clientService.getPaginationClients(this.clientPage)
+    this.clientService.getPaginationClients(this.numberOfPage)
       .subscribe((resp) => {
         this.listOfClients = this.listOfClients.concat(resp);
         this.spinnerService.hide(this.spinner);
@@ -183,11 +205,11 @@ export class AddAppointmentDialogComponent extends DefaultComponent<Appointment>
   async save(): Promise<void> {
     this.spinnerService.show(this.spinner);
     const appointment: Appointment = this.appointmentForm.getRawValue();
-    appointment.clients = this.selectedClients;
+    appointment.clients = this.selectedClients.map((client) => ({id: client.id}));
     appointment.staff = {id: this.appointmentForm.get(FormControlNames.STAFF_FORM_CONTROL)?.value.id};
     appointment.date = moment(appointment.date).format('YYYY-MM-DD');
     appointment.notes = this.editorComponent.editorInstance?.getData();
-    appointment.room = {id: this.appointmentForm.get(FormControlNames.ROOM_FORM_CONTROL)?.value};
+    appointment.room = {id: this.appointmentForm.get(FormControlNames.ROOM_FORM_CONTROL)?.value.id};
     delete appointment.treatmentDuration?.treatment;
     // @ts-ignore
     delete appointment.treatment;
@@ -200,6 +222,18 @@ export class AddAppointmentDialogComponent extends DefaultComponent<Appointment>
     } else {
       this.subscribeSave(appointment);
       this.spinnerService.hide(this.spinner);
+    }
+  }
+
+  compareRooms(o1: any, o2: any): boolean {
+    if (o2 !== null && o2 !== undefined) {
+      if (o1.id && o2.id) {
+        return o1.id === o2.id;
+      } else {
+        return o1 === o2;
+      }
+    } else {
+      return false;
     }
   }
 

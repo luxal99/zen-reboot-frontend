@@ -124,8 +124,8 @@ export class AppointmentComponent extends DefaultComponent<Appointment> implemen
       setDialogConfig({
         position: {right: '0'},
         height: '100vh',
-        width: '70%',
-        maxWidth: '70%',
+        width: '80%',
+        maxWidth: '80%',
         data
       }), this.dialog).afterClosed().subscribe(async () => {
       this.allRooms ? this.getAllRoomsAppointments() : this.getAppointments();
