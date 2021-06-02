@@ -68,6 +68,7 @@ import { UserComponent } from './components/admin/user/user.component';
 import { UserPipe } from './pipes/user.pipe';
 import { AddUserDialogComponent } from './components/admin/user/add-user-dialog/add-user-dialog.component';
 import { ChangePasswordDialogComponent } from './components/admin/change-password-dialog/change-password-dialog.component';
+import { GlobalSearchDialogComponent } from './components/admin/global-search-dialog/global-search-dialog.component';
 
 
 @NgModule({
@@ -129,6 +130,7 @@ import { ChangePasswordDialogComponent } from './components/admin/change-passwor
     UserPipe,
     AddUserDialogComponent,
     ChangePasswordDialogComponent,
+    GlobalSearchDialogComponent,
   ],
   imports: [
     BrowserModule,
