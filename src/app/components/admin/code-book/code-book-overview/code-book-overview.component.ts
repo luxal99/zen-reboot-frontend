@@ -7,11 +7,12 @@ import {FormBuilderConfig} from '../../../../models/FormBuilderConfig';
 import {DefaultComponent} from '../../../../util/default-component';
 import {GenericService} from '../../../../service/generic.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {RoleSettings} from '../../../../const/const';
 
 @Component({
   selector: 'app-code-book-overview',
   templateUrl: './code-book-overview.component.html',
-  styleUrls: ['./code-book-overview.component.sass']
+  styleUrls: ['./code-book-overview.component.sass'],
 })
 export class CodeBookOverviewComponent extends DefaultComponent<any> implements OnInit {
 
@@ -20,7 +21,8 @@ export class CodeBookOverviewComponent extends DefaultComponent<any> implements 
   @Input() attrNameValues: string[] = [];
   @Input() configData!: FormBuilderConfig;
 
-  constructor(protected genericService: GenericService<any>, private dialog: MatDialog, protected snackBar: MatSnackBar) {
+  constructor(protected genericService: GenericService<any>, private dialog: MatDialog,
+              protected snackBar: MatSnackBar, public roleSettings: RoleSettings) {
     super(genericService, snackBar);
   }
 

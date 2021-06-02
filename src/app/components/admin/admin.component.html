@@ -12,7 +12,8 @@
                                [roleActivator]="[roleSetting.ADMIN,roleSetting.RECEPTIONIST,roleSetting.THERAPIST]"
                                (load)="loadAppointmentComponent()"></app-component-activator>
 
-      <app-component-activator icon="fa-id-card-o" title="Šifarnik" [roleActivator]="[roleSetting.ADMIN]"
+      <app-component-activator icon="fa-id-card-o" title="Šifarnik"
+                               [roleActivator]="[roleSetting.ADMIN,roleSetting.RECEPTIONIST]"
                                (load)="loadCodeBookComponent()"></app-component-activator>
 
       <app-component-activator icon="fa-user" title="Klijenti" [roleActivator]="[roleSetting.ADMIN]"
@@ -68,7 +69,8 @@
                                      [roleActivator]="[roleSetting.ADMIN,roleSetting.RECEPTIONIST,roleSetting.THERAPIST]"
                                      (load)="loadAppointmentComponent()"></app-component-activator>
 
-            <app-component-activator icon="fa-id-card-o" title="Šifarnik" [roleActivator]="[roleSetting.ADMIN]"
+            <app-component-activator icon="fa-id-card-o" title="Šifarnik"
+                                     [roleActivator]="[roleSetting.ADMIN,roleSetting.RECEPTIONIST]"
                                      (load)="loadCodeBookComponent()"></app-component-activator>
 
             <app-component-activator icon="fa-user" title="Klijenti" [roleActivator]="[roleSetting.ADMIN]"

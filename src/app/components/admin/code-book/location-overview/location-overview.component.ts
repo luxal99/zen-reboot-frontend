@@ -8,6 +8,7 @@ import {Location} from 'src/app/models/location';
 
 import {AddLocationDialogComponent} from './add-location-dialog/add-location-dialog.component';
 import {setDialogConfig} from '../../../../util/dialog-options';
+import {RoleSettings} from '../../../../const/const';
 
 @Component({
   selector: 'app-location-overview',
@@ -16,7 +17,8 @@ import {setDialogConfig} from '../../../../util/dialog-options';
 })
 export class LocationOverviewComponent extends DefaultComponent<Location> implements OnInit {
 
-  constructor(private locationService: LocationService, protected snackBar: MatSnackBar, private dialog: MatDialog) {
+  constructor(private locationService: LocationService, protected snackBar: MatSnackBar,
+              private dialog: MatDialog, public roleSetting: RoleSettings) {
     super(locationService, snackBar);
   }
 

@@ -12,18 +12,21 @@ import {AddAppointmentDialogComponent} from '../add-appointment-dialog/add-appoi
 import {AppointmentDTO} from '../../../../models/AppointmentDTO';
 import {LocationService} from '../../../../service/location.service';
 import {EditInvoiceDialogComponent} from './edit-invoice-dialog/edit-invoice-dialog.component';
+import {RoleSettings} from '../../../../const/const';
 
 @Component({
   selector: 'app-appointment-overview-dialog',
   templateUrl: './appointment-overview-dialog.component.html',
-  styleUrls: ['./appointment-overview-dialog.component.sass']
+  styleUrls: ['./appointment-overview-dialog.component.sass'],
+  providers: [RoleSettings]
 })
 export class AppointmentOverviewDialogComponent extends DefaultComponent<Appointment> implements OnInit {
   day = moment(this.data.date).format('dddd');
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: AppointmentDTO, private dialog: MatDialog,
               protected snackBar: MatSnackBar, private dialogRef: MatDialogRef<AppointmentOverviewDialogComponent>,
-              private appointmentService: AppointmentService, private locationService: LocationService) {
+              private appointmentService: AppointmentService, private locationService: LocationService,
+              public roleSettings: RoleSettings) {
     super(appointmentService, snackBar);
   }
 

@@ -5,11 +5,12 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import {GenericService} from '../service/generic.service';
 import {Observable} from 'rxjs';
 import {SnackBarUtil} from './snack-bar-uitl';
-import {Message} from '../const/const';
+import {Message, RoleSettings} from '../const/const';
 import {FieldConfig} from '../models/FIeldConfig';
 
 @Component({
-  template: ''
+  template: '',
+  providers: [RoleSettings]
 })
 export abstract class DefaultComponent<T> implements OnInit {
   protected spinnerService!: SpinnerService;
