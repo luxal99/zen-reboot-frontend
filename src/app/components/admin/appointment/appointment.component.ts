@@ -135,11 +135,11 @@ export class AppointmentComponent extends DefaultComponent<Appointment> implemen
   openAppointmentOverviewDialog(appointment: Appointment): void {
     DialogUtil.openDialog(AppointmentOverviewDialogComponent,
       setDialogConfig({
-        maxWidth: '100vw',
-        maxHeight: '100vh',
-        height: '100%',
-        width: '100%',
-        data: appointment
+          maxWidth: '100vw',
+          maxHeight: '100vh',
+          height: '100%',
+          width: '100%',
+          data: appointment
       }), this.dialog).afterClosed().subscribe(async () => {
       this.allRooms ? this.getAllRoomsAppointments() : this.getAppointments();
     });
