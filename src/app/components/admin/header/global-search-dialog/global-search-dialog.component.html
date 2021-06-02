@@ -20,4 +20,19 @@
       </mat-form-field>
     </div>
   </div>
+
+  <div class="row search-row">
+    <div class="col-sm appointment-col"></div>
+    <div class="col-sm client-col">
+      <div class="client-div" *ngFor="let client of listOfClients">
+        <div class="inline ">
+          <div class="big-circle text-center"
+               style=background-color:#c2c2c2>{{client.person?.firstName.slice(0, 1)}}</div>
+          <div class="right-col">
+            <h3><b>{{client.person?.firstName + ' ' + client.person?.lastName}}</b></h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
