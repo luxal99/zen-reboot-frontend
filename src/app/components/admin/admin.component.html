@@ -24,19 +24,19 @@
       <app-component-activator icon="fa fa-building" title="Zaposleni" [roleActivator]="[ROLE_ADMIN]"
                                (load)="loadStaffComponent()"></app-component-activator>
       <app-component-activator icon="fa fa-calendar" title="Raspored radnih sati"
-                               [roleActivator]="[ROLE_ADMIN,ROLE_THERAPIST]"
+                               [roleActivator]="[ROLE_ADMIN,ROLE_THERAPIST,ROLE_RECEPTIONIST]"
                                (load)="loadShiftOverview()"></app-component-activator>
 
       <app-component-activator icon="fa fa-cc-visa" title="Fakture" [roleActivator]="[ROLE_ADMIN]"
                                (load)="loadInvoiceComponent()"></app-component-activator>
 
-      <app-component-activator icon="fa fa-archive" title="Vaučeri" [roleActivator]="[ROLE_ADMIN]"
+      <app-component-activator icon="fa fa-archive" title="Vaučeri" [roleActivator]="[ROLE_ADMIN,ROLE_RECEPTIONIST]"
                                (load)="loadVouchersComponent()"></app-component-activator>
 
-      <app-component-activator icon="fa fa-dropbox" title="Paketi" [roleActivator]="[ROLE_ADMIN]"
+      <app-component-activator icon="fa fa-dropbox" title="Paketi" [roleActivator]="[ROLE_ADMIN,ROLE_RECEPTIONIST]"
                                (load)="loadPackageComponent()"></app-component-activator>
 
-      <app-component-activator icon="fa fa-eur" title="Troškovi" [roleActivator]="[ROLE_ADMIN]"
+      <app-component-activator icon="fa fa-eur" title="Troškovi" [roleActivator]="[ROLE_ADMIN,ROLE_RECEPTIONIST]"
                                (load)="loadExpensesComponent()"></app-component-activator>
 
       <app-component-activator icon="fa fa-area-chart" title="Analitika" [roleActivator]="[ROLE_ADMIN]"
@@ -49,54 +49,57 @@
     <div class="row">
       <div class="col side-nav-col" #sideNav>
         <div class="side-nav-col-content ">
-         <div class="wrapper">
-           <button (click)="openSideNav()" mat-icon-button>
-             <mat-icon id="menu-icon">arrow_forward_ios
-             </mat-icon>
-           </button>
-           <a (click)="changeColor($event)" class="inactive">
-             <a class="a-h2 text-center" (click)="loadOverviewComponent()" id="overview-btn">
+          <div class="wrapper">
+            <button (click)="openSideNav()" mat-icon-button>
+              <mat-icon id="menu-icon">arrow_forward_ios
+              </mat-icon>
+            </button>
+            <a (click)="changeColor($event)" class="inactive">
+              <a class="a-h2 text-center" (click)="loadOverviewComponent()" id="overview-btn">
               <span class="icon-span"><i disabled
                                          class="fa fa-home"></i> </span>
-               <span class="txt-span">Početna</span>
-             </a>
-           </a>
-           <app-component-activator icon="fa-calendar-o" title="Kalendar"
-                                    [roleActivator]="[ROLE_ADMIN,ROLE_RECEPTIONIST,ROLE_THERAPIST]"
-                                    (load)="loadAppointmentComponent()"></app-component-activator>
+                <span class="txt-span">Početna</span>
+              </a>
+            </a>
+            <app-component-activator icon="fa-calendar-o" title="Kalendar"
+                                     [roleActivator]="[ROLE_ADMIN,ROLE_RECEPTIONIST,ROLE_THERAPIST]"
+                                     (load)="loadAppointmentComponent()"></app-component-activator>
 
-           <app-component-activator icon="fa-id-card-o" title="Šifarnik" [roleActivator]="[ROLE_ADMIN]"
-                                    (load)="loadCodeBookComponent()"></app-component-activator>
+            <app-component-activator icon="fa-id-card-o" title="Šifarnik" [roleActivator]="[ROLE_ADMIN]"
+                                     (load)="loadCodeBookComponent()"></app-component-activator>
 
-           <app-component-activator icon="fa-user" title="Klijenti" [roleActivator]="[ROLE_ADMIN]"
-                                    (load)="loadClientComponent()"></app-component-activator>
+            <app-component-activator icon="fa-user" title="Klijenti" [roleActivator]="[ROLE_ADMIN]"
+                                     (load)="loadClientComponent()"></app-component-activator>
 
-           <app-component-activator icon="fa-bookmark" title="Tretmani" [roleActivator]="[ROLE_ADMIN]"
-                                    (load)="loadServiceComponent()"></app-component-activator>
+            <app-component-activator icon="fa-bookmark" title="Tretmani" [roleActivator]="[ROLE_ADMIN]"
+                                     (load)="loadServiceComponent()"></app-component-activator>
 
-           <app-component-activator icon="fa fa-building" title="Zaposleni" [roleActivator]="[ROLE_ADMIN]"
-                                    (load)="loadStaffComponent()"></app-component-activator>
-           <app-component-activator icon="fa fa-calendar" title="Raspored radnih sati"
-                                    [roleActivator]="[ROLE_ADMIN,ROLE_THERAPIST]"
-                                    (load)="loadShiftOverview()"></app-component-activator>
+            <app-component-activator icon="fa fa-building" title="Zaposleni"
+                                     [roleActivator]="[ROLE_ADMIN,ROLE_RECEPTIONIST]"
+                                     (load)="loadStaffComponent()"></app-component-activator>
+            <app-component-activator icon="fa fa-calendar" title="Raspored radnih sati"
+                                     [roleActivator]="[ROLE_ADMIN,ROLE_THERAPIST,ROLE_RECEPTIONIST]"
+                                     (load)="loadShiftOverview()"></app-component-activator>
 
-           <app-component-activator icon="fa fa-cc-visa" title="Fakture" [roleActivator]="[ROLE_ADMIN]"
-                                    (load)="loadInvoiceComponent()"></app-component-activator>
+            <app-component-activator icon="fa fa-cc-visa" title="Fakture" [roleActivator]="[ROLE_ADMIN]"
+                                     (load)="loadInvoiceComponent()"></app-component-activator>
 
-           <app-component-activator icon="fa fa-archive" title="Vaučeri" [roleActivator]="[ROLE_ADMIN]"
-                                    (load)="loadVouchersComponent()"></app-component-activator>
+            <app-component-activator icon="fa fa-archive" title="Vaučeri"
+                                     [roleActivator]="[ROLE_ADMIN,ROLE_RECEPTIONIST]"
+                                     (load)="loadVouchersComponent()"></app-component-activator>
 
-           <app-component-activator icon="fa fa-dropbox" title="Paketi" [roleActivator]="[ROLE_ADMIN]"
-                                    (load)="loadPackageComponent()"></app-component-activator>
+            <app-component-activator icon="fa fa-dropbox" title="Paketi"
+                                     [roleActivator]="[ROLE_ADMIN,ROLE_RECEPTIONIST]"
+                                     (load)="loadPackageComponent()"></app-component-activator>
 
-           <app-component-activator icon="fa fa-eur" title="Troškovi" [roleActivator]="[ROLE_ADMIN]"
-                                    (load)="loadExpensesComponent()"></app-component-activator>
+            <app-component-activator icon="fa fa-eur" title="Troškovi" [roleActivator]="[ROLE_ADMIN]"
+                                     (load)="loadExpensesComponent()"></app-component-activator>
 
-           <app-component-activator icon="fa fa-area-chart" title="Analitika" [roleActivator]="[ROLE_ADMIN]"
-                                    (load)="loadAnalyticsComponent()"></app-component-activator>
-           <app-component-activator icon="fa fa-users" title="Korisnici" [roleActivator]="[ROLE_ADMIN]"
-                                    (load)="loadUserComponent()"></app-component-activator>
-         </div>
+            <app-component-activator icon="fa fa-area-chart" title="Analitika" [roleActivator]="[ROLE_ADMIN]"
+                                     (load)="loadAnalyticsComponent()"></app-component-activator>
+            <app-component-activator icon="fa fa-users" title="Korisnici" [roleActivator]="[ROLE_ADMIN]"
+                                     (load)="loadUserComponent()"></app-component-activator>
+          </div>
         </div>
       </div>
       <div class="col">
