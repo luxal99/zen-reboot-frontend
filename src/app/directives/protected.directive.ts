@@ -22,7 +22,6 @@ export class ProtectedDirective implements OnInit {
       if (this.roleActivator.length > 0) {
         // @ts-ignore
         const found: boolean = resp.roles.some((item) => roleActivatorAsString.indexOf(item) >= 0);
-        console.log(found);
         if (!found) {
           this.host.nativeElement.remove();
         }
