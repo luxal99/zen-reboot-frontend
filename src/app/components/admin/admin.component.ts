@@ -25,17 +25,16 @@ import {RoleEnum} from '../../enums/RoleEnum';
 import {StaffShiftsOverviewComponent} from './staff-shifts-overview/staff-shifts-overview.component';
 import {StaffOverviewComponent} from './staff-overview/staff-overview.component';
 import {UserComponent} from './user/user.component';
+import {RoleSettings} from '../../const/const';
 
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
-  styleUrls: ['./admin.component.sass']
+  styleUrls: ['./admin.component.sass'],
+  providers: [RoleSettings]
 })
 export class AdminComponent implements OnInit, AfterViewInit {
 
-  ROLE_ADMIN = RoleEnum.ADMIN;
-  ROLE_RECEPTIONIST = RoleEnum.RECEPTIONIST;
-  ROLE_THERAPIST = RoleEnum.THERAPIST;
 
   @ViewChild('sideNav', {static: false}) sideNav!: ElementRef;
   @ViewChild('drawer', {static: false}) drawer!: MatDrawer;
@@ -43,7 +42,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
   header = 'Pregled';
 
 
-  constructor(private resolver: ComponentFactoryResolver, private userService: UserService) {
+  constructor(private resolver: ComponentFactoryResolver, private userService: UserService, public roleSetting: RoleSettings) {
   }
 
   ngOnInit(): void {

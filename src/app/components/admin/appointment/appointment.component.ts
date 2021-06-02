@@ -17,11 +17,13 @@ import {setDialogConfig} from '../../../util/dialog-options';
 import {RoomService} from '../../../service/room.service';
 import {AppointmentService} from '../../../service/appointment.service';
 import {AppointmentStatusService} from '../../../service/appointment-status.service';
+import {RoleSettings} from '../../../const/const';
 
 @Component({
   selector: 'app-appointment',
   templateUrl: './appointment.component.html',
-  styleUrls: ['./appointment.component.sass']
+  styleUrls: ['./appointment.component.sass'],
+  providers: [RoleSettings]
 })
 export class AppointmentComponent extends DefaultComponent<Appointment> implements OnInit {
 
@@ -52,7 +54,7 @@ export class AppointmentComponent extends DefaultComponent<Appointment> implemen
 
   constructor(private dialog: MatDialog, protected snackBar: MatSnackBar, public locationService: LocationService,
               private roomService: RoomService, private appointmentService: AppointmentService,
-              private appointmentStatusService: AppointmentStatusService) {
+              private appointmentStatusService: AppointmentStatusService, public roleSetting: RoleSettings) {
     super(appointmentService, snackBar);
   }
 

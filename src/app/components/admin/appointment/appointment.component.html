@@ -17,7 +17,8 @@
     </div>
     <div class="col-2">
       <div class="text-right">
-        <button class="add-btn" (click)="openAddAppointmentDialog({room:{}})" mat-fab>
+        <button class="add-btn" appProtected [roleActivator]="[roleSetting.ADMIN,roleSetting.RECEPTIONIST]"
+                (click)="openAddAppointmentDialog({room:{}})" mat-fab>
           <mat-icon>add</mat-icon>
         </button>
       </div>
@@ -25,7 +26,7 @@
   </div>
 
   <mat-spinner diameter="50" #spinner></mat-spinner>
-  <div class="row">
+  <div class="row" style="margin-top: 1em;">
     <div class="col-sm">
       <div class="inline location-inline">
         <div [formGroup]="searchForm">
@@ -104,8 +105,10 @@
             </div>
           </ng-container>
           <ng-template #emptyCol>
-            <div class="col-sm empty-col"
+            <div class="col-sm empty-col" appProtected [roleActivator]="[roleSetting.ADMIN,roleSetting.RECEPTIONIST]"
                  (click)="openAddAppointmentDialog({startTime:time,room:{id:roomDto.id,beds:roomDto.beds},date:currentDate.format('YYYY-MM-DD'),client:{}})"></div>
+            <div class="col-sm empty-col" appProtected [roleActivator]="[roleSetting.THERAPIST]"
+            ></div>
           </ng-template>
         </ng-container>
       </div>

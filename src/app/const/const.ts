@@ -1,3 +1,6 @@
+import {RoleEnum} from '../enums/RoleEnum';
+import {Injectable} from '@angular/core';
+
 export class RestServices {
   static AUTH = 'http://api.reboot.zen.7aske.xyz/login';
 }
@@ -138,3 +141,10 @@ export class Roles {
 }
 
 export const PASSWORD_REGEX = '^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$';
+
+@Injectable()
+export class RoleSettings {
+  ADMIN = RoleEnum.ADMIN;
+  THERAPIST = RoleEnum.THERAPIST;
+  RECEPTIONIST = RoleEnum.RECEPTIONIST;
+}

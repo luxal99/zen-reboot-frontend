@@ -9,39 +9,42 @@
         </a>
       </a>
       <app-component-activator icon="fa-calendar-o" title="Kalendar"
-                               [roleActivator]="[ROLE_ADMIN,ROLE_RECEPTIONIST,ROLE_THERAPIST]"
+                               [roleActivator]="[roleSetting.ADMIN,roleSetting.RECEPTIONIST,roleSetting.THERAPIST]"
                                (load)="loadAppointmentComponent()"></app-component-activator>
 
-      <app-component-activator icon="fa-id-card-o" title="Šifarnik" [roleActivator]="[ROLE_ADMIN]"
+      <app-component-activator icon="fa-id-card-o" title="Šifarnik" [roleActivator]="[roleSetting.ADMIN]"
                                (load)="loadCodeBookComponent()"></app-component-activator>
 
-      <app-component-activator icon="fa-user" title="Klijenti" [roleActivator]="[ROLE_ADMIN]"
+      <app-component-activator icon="fa-user" title="Klijenti" [roleActivator]="[roleSetting.ADMIN]"
                                (load)="loadClientComponent()"></app-component-activator>
 
-      <app-component-activator icon="fa-bookmark" title="Tretmani" [roleActivator]="[ROLE_ADMIN]"
+      <app-component-activator icon="fa-bookmark" title="Tretmani" [roleActivator]="[roleSetting.ADMIN]"
                                (load)="loadServiceComponent()"></app-component-activator>
 
-      <app-component-activator icon="fa fa-building" title="Zaposleni" [roleActivator]="[ROLE_ADMIN]"
+      <app-component-activator icon="fa fa-building" title="Zaposleni" [roleActivator]="[roleSetting.ADMIN]"
                                (load)="loadStaffComponent()"></app-component-activator>
       <app-component-activator icon="fa fa-calendar" title="Raspored radnih sati"
-                               [roleActivator]="[ROLE_ADMIN,ROLE_THERAPIST,ROLE_RECEPTIONIST]"
+                               [roleActivator]="[roleSetting.ADMIN,roleSetting.RECEPTIONIST,roleSetting.THERAPIST]"
                                (load)="loadShiftOverview()"></app-component-activator>
 
-      <app-component-activator icon="fa fa-cc-visa" title="Fakture" [roleActivator]="[ROLE_ADMIN]"
+      <app-component-activator icon="fa fa-cc-visa" title="Fakture" [roleActivator]="[roleSetting.ADMIN]"
                                (load)="loadInvoiceComponent()"></app-component-activator>
 
-      <app-component-activator icon="fa fa-archive" title="Vaučeri" [roleActivator]="[ROLE_ADMIN,ROLE_RECEPTIONIST]"
+      <app-component-activator icon="fa fa-archive" title="Vaučeri"
+                               [roleActivator]="[roleSetting.ADMIN,roleSetting.RECEPTIONIST]"
                                (load)="loadVouchersComponent()"></app-component-activator>
 
-      <app-component-activator icon="fa fa-dropbox" title="Paketi" [roleActivator]="[ROLE_ADMIN,ROLE_RECEPTIONIST]"
+      <app-component-activator icon="fa fa-dropbox" title="Paketi"
+                               [roleActivator]="[roleSetting.ADMIN,roleSetting.RECEPTIONIST]"
                                (load)="loadPackageComponent()"></app-component-activator>
 
-      <app-component-activator icon="fa fa-eur" title="Troškovi" [roleActivator]="[ROLE_ADMIN,ROLE_RECEPTIONIST]"
+      <app-component-activator icon="fa fa-eur" title="Troškovi"
+                               [roleActivator]="[roleSetting.ADMIN,roleSetting.RECEPTIONIST]"
                                (load)="loadExpensesComponent()"></app-component-activator>
 
-      <app-component-activator icon="fa fa-area-chart" title="Analitika" [roleActivator]="[ROLE_ADMIN]"
+      <app-component-activator icon="fa fa-area-chart" title="Analitika" [roleActivator]="[roleSetting.ADMIN]"
                                (load)="loadAnalyticsComponent()"></app-component-activator>
-      <app-component-activator icon="fa fa-users" title="Korisnici" [roleActivator]="[ROLE_ADMIN]"
+      <app-component-activator icon="fa fa-users" title="Korisnici" [roleActivator]="[roleSetting.ADMIN]"
                                (load)="loadUserComponent()"></app-component-activator>
     </div>
   </mat-drawer>
@@ -62,42 +65,42 @@
               </a>
             </a>
             <app-component-activator icon="fa-calendar-o" title="Kalendar"
-                                     [roleActivator]="[ROLE_ADMIN,ROLE_RECEPTIONIST,ROLE_THERAPIST]"
+                                     [roleActivator]="[roleSetting.ADMIN,roleSetting.RECEPTIONIST,roleSetting.THERAPIST]"
                                      (load)="loadAppointmentComponent()"></app-component-activator>
 
-            <app-component-activator icon="fa-id-card-o" title="Šifarnik" [roleActivator]="[ROLE_ADMIN]"
+            <app-component-activator icon="fa-id-card-o" title="Šifarnik" [roleActivator]="[roleSetting.ADMIN]"
                                      (load)="loadCodeBookComponent()"></app-component-activator>
 
-            <app-component-activator icon="fa-user" title="Klijenti" [roleActivator]="[ROLE_ADMIN]"
+            <app-component-activator icon="fa-user" title="Klijenti" [roleActivator]="[roleSetting.ADMIN]"
                                      (load)="loadClientComponent()"></app-component-activator>
 
-            <app-component-activator icon="fa-bookmark" title="Tretmani" [roleActivator]="[ROLE_ADMIN]"
+            <app-component-activator icon="fa-bookmark" title="Tretmani" [roleActivator]="[roleSetting.ADMIN]"
                                      (load)="loadServiceComponent()"></app-component-activator>
 
-            <app-component-activator icon="fa fa-building" title="Zaposleni"
-                                     [roleActivator]="[ROLE_ADMIN,ROLE_RECEPTIONIST]"
+            <app-component-activator icon="fa fa-building" title="Zaposleni" [roleActivator]="[roleSetting.ADMIN]"
                                      (load)="loadStaffComponent()"></app-component-activator>
             <app-component-activator icon="fa fa-calendar" title="Raspored radnih sati"
-                                     [roleActivator]="[ROLE_ADMIN,ROLE_THERAPIST,ROLE_RECEPTIONIST]"
+                                     [roleActivator]="[roleSetting.ADMIN,roleSetting.RECEPTIONIST,roleSetting.THERAPIST]"
                                      (load)="loadShiftOverview()"></app-component-activator>
 
-            <app-component-activator icon="fa fa-cc-visa" title="Fakture" [roleActivator]="[ROLE_ADMIN]"
+            <app-component-activator icon="fa fa-cc-visa" title="Fakture" [roleActivator]="[roleSetting.ADMIN]"
                                      (load)="loadInvoiceComponent()"></app-component-activator>
 
             <app-component-activator icon="fa fa-archive" title="Vaučeri"
-                                     [roleActivator]="[ROLE_ADMIN,ROLE_RECEPTIONIST]"
+                                     [roleActivator]="[roleSetting.ADMIN,roleSetting.RECEPTIONIST]"
                                      (load)="loadVouchersComponent()"></app-component-activator>
 
             <app-component-activator icon="fa fa-dropbox" title="Paketi"
-                                     [roleActivator]="[ROLE_ADMIN,ROLE_RECEPTIONIST]"
+                                     [roleActivator]="[roleSetting.ADMIN,roleSetting.RECEPTIONIST]"
                                      (load)="loadPackageComponent()"></app-component-activator>
 
-            <app-component-activator icon="fa fa-eur" title="Troškovi" [roleActivator]="[ROLE_ADMIN]"
+            <app-component-activator icon="fa fa-eur" title="Troškovi"
+                                     [roleActivator]="[roleSetting.ADMIN,roleSetting.RECEPTIONIST]"
                                      (load)="loadExpensesComponent()"></app-component-activator>
 
-            <app-component-activator icon="fa fa-area-chart" title="Analitika" [roleActivator]="[ROLE_ADMIN]"
+            <app-component-activator icon="fa fa-area-chart" title="Analitika" [roleActivator]="[roleSetting.ADMIN]"
                                      (load)="loadAnalyticsComponent()"></app-component-activator>
-            <app-component-activator icon="fa fa-users" title="Korisnici" [roleActivator]="[ROLE_ADMIN]"
+            <app-component-activator icon="fa fa-users" title="Korisnici" [roleActivator]="[roleSetting.ADMIN]"
                                      (load)="loadUserComponent()"></app-component-activator>
           </div>
         </div>
