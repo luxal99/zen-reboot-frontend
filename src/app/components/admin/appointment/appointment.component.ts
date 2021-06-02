@@ -41,6 +41,7 @@ export class AppointmentComponent extends DefaultComponent<Appointment> implemen
   initGap = 0;
   gap = 7;
 
+  zoom = 1;
 
   isDisabledNext10 = false;
   isDisabledPrev10 = true;
@@ -99,6 +100,16 @@ export class AppointmentComponent extends DefaultComponent<Appointment> implemen
     }
   }
 
+  zoomIn(): void {
+    // tslint:disable-next-line:no-unused-expression
+    (this.zoom < 1 ? this.zoom += .1 : this.zoom);
+  }
+
+  zoomOut(): void {
+    // tslint:disable-next-line:no-unused-expression
+    (this.zoom > .7 ? this.zoom -= .1 : this.zoom);
+  }
+
   getTimes(): void {
     const start = moment('09:00:00', 'HH:mm:ss');
     const end = moment('21:59:59', 'HH:mm:ss');
@@ -135,11 +146,11 @@ export class AppointmentComponent extends DefaultComponent<Appointment> implemen
   openAppointmentOverviewDialog(appointment: Appointment): void {
     DialogUtil.openDialog(AppointmentOverviewDialogComponent,
       setDialogConfig({
-          maxWidth: '100vw',
-          maxHeight: '100vh',
-          height: '100%',
-          width: '100%',
-          data: appointment
+        maxWidth: '100vw',
+        maxHeight: '100vh',
+        height: '100%',
+        width: '100%',
+        data: appointment
       }), this.dialog).afterClosed().subscribe(async () => {
       this.allRooms ? this.getAllRoomsAppointments() : this.getAppointments();
     });
@@ -195,4 +206,6 @@ export class AppointmentComponent extends DefaultComponent<Appointment> implemen
 
   search(): void {
   }
+
+
 }

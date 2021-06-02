@@ -49,13 +49,19 @@
       </div>
 
     </div>
-    <div class="col-sm">
+    <div class="col-sm text-right">
       <app-paginator (prev)="previousStaffs()" (next)="nextStaffs()"
                      [showNext]="filteredScheduleList.length >0"></app-paginator>
+      <button (click)="zoomIn()" mat-mini-fab style="margin: .5em">
+        <mat-icon>zoom_in</mat-icon>
+      </button>
+      <button (click)="zoomOut()" mat-mini-fab style="margin: .5em">
+        <mat-icon>zoom_out</mat-icon>
+      </button>
     </div>
 
   </div>
-  <div class="calendar">
+  <div class="calendar" [style.zoom]="zoom">
     <div class="calendar-wrapper" id="calendarBinding">
       <div class="row header-row">
         <div class="col-sm-1 time-col"></div>
