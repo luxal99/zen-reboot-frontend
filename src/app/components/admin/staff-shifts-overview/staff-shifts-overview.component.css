@@ -282,5 +282,45 @@ mat-form-field {
     text-align: center;
   }
 }
+@media screen and (min-width: 570px) and (max-width: 1440px) {
+  .component-content {
+    margin-left: 5em;
+  }
+
+  .week-filter-div {
+    width: 100%;
+  }
+  .week-filter-div .column {
+    padding: 1em;
+  }
+  .week-filter-div .mid-column {
+    padding: 1em 0.25em;
+  }
+
+  .white-col {
+    width: 200px;
+  }
+
+  .full-name-col {
+    width: 200px;
+  }
+
+  mat-form-field {
+    width: 100%;
+  }
+
+  .scheduled-div {
+    overflow-x: scroll;
+  }
+
+  .header-row {
+    width: auto;
+  }
+  .header-row .header-col {
+    width: 200px;
+    padding: 0.5em;
+    text-align: center;
+  }
+}
 
 /*# sourceMappingURL=staff-shifts-overview.component.css.map */

@@ -74,7 +74,7 @@ export class StaffShiftsOverviewComponent implements OnInit, AfterViewChecked {
   setResponsive(): void {
     // @ts-ignore
     const div = document.querySelector('#scheduledBinding');
-    if (window.screen.width <= 570) {
+    if (window.screen.width <= 1440) {
       // @ts-ignore
       for (const child of div.children) {
         // @ts-ignore
