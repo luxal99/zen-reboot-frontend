@@ -69,6 +69,7 @@ import {UserPipe} from './pipes/user.pipe';
 import {AddUserDialogComponent} from './components/admin/user/add-user-dialog/add-user-dialog.component';
 import {ChangePasswordDialogComponent} from './components/admin/change-password-dialog/change-password-dialog.component';
 import {GlobalSearchDialogComponent} from './components/admin/header/global-search-dialog/global-search-dialog.component';
+import { ProtectedDirective } from './directives/protected.directive';
 
 
 @NgModule({
@@ -131,6 +132,7 @@ import {GlobalSearchDialogComponent} from './components/admin/header/global-sear
     AddUserDialogComponent,
     ChangePasswordDialogComponent,
     GlobalSearchDialogComponent,
+    ProtectedDirective,
   ],
   imports: [
     BrowserModule,
