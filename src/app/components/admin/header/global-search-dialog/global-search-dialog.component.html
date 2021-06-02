@@ -1,0 +1,23 @@
+<div class="dialog">
+  <div class="row">
+    <div class="col-6">
+      <h1><b>Globalna pretraga</b></h1>
+      <p><span class="colored-span">Klijent:</span> ime,prezime,mejl,kontakt telefon</p>
+      <p><span class="colored-span">Tretman:</span> naziv tretmana,naziv masažera,pretraga klijenta koji se masira</p>
+    </div>
+    <div class="col-6 text-right">
+      <button mat-fab matDialogClose>
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  </div>
+  <div class="centered">
+    <h1 class="huge-h1" (click)="showSearch()" id="huge-label">Započni pretragu...</h1>
+    <div [formGroup]="searchForm" style="width: 70%">
+      <mat-form-field id="search">
+        <input matInput (input)="inputChange()" formControlName="search" [(ngModel)]="searchText">
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+    </div>
+  </div>
+</div>

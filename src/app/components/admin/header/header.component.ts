@@ -6,6 +6,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {DialogUtil} from '../../../util/dialog-util';
 import {ChangePasswordDialogComponent} from '../change-password-dialog/change-password-dialog.component';
 import {setDialogConfig} from '../../../util/dialog-options';
+import {GlobalSearchDialogComponent} from './global-search-dialog/global-search-dialog.component';
 
 @Component({
   selector: 'app-header',
@@ -52,5 +53,14 @@ export class HeaderComponent implements OnInit {
 
   openChangePasswordDialog(): void {
     DialogUtil.openDialog(ChangePasswordDialogComponent, setDialogConfig({}), this.dialog);
+  }
+
+  openGlobalSearchDialog(): void {
+    DialogUtil.openDialog(GlobalSearchDialogComponent, {
+      maxWidth: '100vw',
+      maxHeight: '100vh',
+      height: '100%',
+      width: '100%'
+    }, this.dialog);
   }
 }

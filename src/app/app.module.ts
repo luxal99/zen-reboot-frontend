@@ -64,11 +64,11 @@ import {AnalyticsComponent} from './components/admin/analytics/analytics.compone
 import {InvoicePipe} from './pipes/invoice.pipe';
 import {TokenInterceptor} from './interceptor/token.interceptor';
 import {FormDateComponent} from './components/form-components/form-date/form-date.component';
-import { UserComponent } from './components/admin/user/user.component';
-import { UserPipe } from './pipes/user.pipe';
-import { AddUserDialogComponent } from './components/admin/user/add-user-dialog/add-user-dialog.component';
-import { ChangePasswordDialogComponent } from './components/admin/change-password-dialog/change-password-dialog.component';
-import { GlobalSearchDialogComponent } from './components/admin/global-search-dialog/global-search-dialog.component';
+import {UserComponent} from './components/admin/user/user.component';
+import {UserPipe} from './pipes/user.pipe';
+import {AddUserDialogComponent} from './components/admin/user/add-user-dialog/add-user-dialog.component';
+import {ChangePasswordDialogComponent} from './components/admin/change-password-dialog/change-password-dialog.component';
+import {GlobalSearchDialogComponent} from './components/admin/header/global-search-dialog/global-search-dialog.component';
 
 
 @NgModule({
