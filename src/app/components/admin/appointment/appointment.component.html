@@ -89,7 +89,7 @@
                   <div class="col-6 text-right">
                     <button mat-icon-button
                             [disabled]="appointment.appointmentStatus.value.toUpperCase() ==='CONFIRMED'"
-                            (click)="checkAppointment(appointment)">
+                            (click)="checkAppointment(appointment,$event)">
                       <mat-icon
                         style="color: #fff">{{appointment.appointmentStatus.value.toUpperCase() === 'CONFIRMED' ? 'event_available' : 'done'}}</mat-icon>
                     </button>
