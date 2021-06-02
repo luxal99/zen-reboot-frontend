@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
+import {ClientService} from '../../../../service/client.service';
+import {AppointmentService} from '../../../../service/appointment.service';
 
 @Component({
   selector: 'app-global-search-dialog',
@@ -14,7 +16,7 @@ export class GlobalSearchDialogComponent implements OnInit {
     search: new FormControl('')
   });
 
-  constructor() {
+  constructor(private clientService: ClientService, private appointmentService: AppointmentService) {
   }
 
   ngOnInit(): void {
@@ -26,12 +28,16 @@ export class GlobalSearchDialogComponent implements OnInit {
       document.getElementById('search').style.display = 'none';
       // @ts-ignore
       document.getElementById('huge-label').style.display = 'block';
+
+      // @ts-ignore
+      document.getElementById('centered').style.minHeight = '70vh';
     } else {
       // @ts-ignore
       document.getElementById('search').style.display = 'block';
       // @ts-ignore
       document.getElementById('huge-label').style.display = 'none';
-
+      // @ts-ignore
+      document.getElementById('centered').style.minHeight = '30vh';
     }
   }
 
