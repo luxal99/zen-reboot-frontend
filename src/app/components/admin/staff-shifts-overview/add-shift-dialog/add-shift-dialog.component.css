@@ -135,6 +135,10 @@ button {
   color: #121212;
 }
 
+mat-menu button {
+  font-weight: normal !important;
+}
+
 @media screen and (max-width: 570px) {
   .desktop {
     display: none;

@@ -14,11 +14,13 @@ import {FormControl, FormGroup} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {setDialogConfig} from '../../../util/dialog-options';
+import {RoleSettings} from '../../../const/const';
 
 @Component({
   selector: 'app-staff-shifts-overview',
   templateUrl: './staff-shifts-overview.component.html',
-  styleUrls: ['./staff-shifts-overview.component.sass']
+  styleUrls: ['./staff-shifts-overview.component.sass'],
+  providers: [RoleSettings]
 })
 export class StaffShiftsOverviewComponent implements OnInit, AfterViewChecked {
 
@@ -43,7 +45,7 @@ export class StaffShiftsOverviewComponent implements OnInit, AfterViewChecked {
   responseSize = 0;
   urlEncoded = '';
 
-  constructor(public staffService: StaffService, private dialog: MatDialog,
+  constructor(public staffService: StaffService, private dialog: MatDialog, public roleSetting: RoleSettings,
               private spinnerService: SpinnerService, private readonly changeDetectorRef: ChangeDetectorRef) {
   }
 

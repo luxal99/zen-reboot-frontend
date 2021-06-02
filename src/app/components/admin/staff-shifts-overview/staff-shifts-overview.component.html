@@ -48,8 +48,20 @@
             <h3 style="color: #121212">{{scheduled.person?.firstName + ' ' + scheduled.person?.lastName}}</h3>
           </div>
         </div>
-        <div class="col-sm white-col"
+        <div appProtected [roleActivator]="[roleSetting.ADMIN,roleSetting.RECEPTIONIST]" class="col-sm white-col"
              (click)="openAddShiftDialog(scheduled,date.format('DD MMMM YYYY'),getShiftByDate(date, scheduled.person))"
+             *ngFor="let date of daysInWeek">
+          <ng-container *ngIf="scheduled|checkShift:date.format('YYYY-MM-DD') as shift">
+            <h3 class="shift-time-h3 text-center"
+                [ngStyle]="shift ?
+              {'background-color':scheduled.color,'padding':'.25em','border-radius':'5px','color':'#fff'}
+              :{'background-color':'#fff'}">
+              {{ shift ? shift.startTime.slice(0, shift.startTime.length - 3) + '-' +
+              shift.endTime.slice(0, shift.endTime.length - 3) : '' }}
+            </h3>
+          </ng-container>
+        </div>
+        <div class="col-sm white-col" appProtected [roleActivator]="[roleSetting.THERAPIST]"
              *ngFor="let date of daysInWeek">
           <ng-container *ngIf="scheduled|checkShift:date.format('YYYY-MM-DD') as shift">
             <h3 class="shift-time-h3 text-center"
