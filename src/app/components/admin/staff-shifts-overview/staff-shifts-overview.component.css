@@ -283,6 +283,10 @@ mat-form-field {
   }
 }
 @media screen and (min-width: 570px) and (max-width: 1440px) {
+  ::ng-deep header {
+    margin-left: 5em;
+  }
+
   .component-content {
     margin-left: 5em;
   }
