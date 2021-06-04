@@ -18,10 +18,12 @@ export class AnalyticsService {
   }
 
   getExpiredPackages(period: string): Observable<Package[]> {
-    return this.http.get<Package[]>(RestRoutesConst.API + RestRoutesConst.ANALYTICS + '/expired?=' + period, {responseType: 'json'});
+    return this.http.get<Package[]>(RestRoutesConst.API + RestRoutesConst.ANALYTICS + '/packages' + '/expired?period=' + period,
+      {responseType: 'json'});
   }
 
   getCanceledAppointments(period: string): Observable<Appointment[]> {
-    return this.http.get<Appointment[]>(RestRoutesConst.API + RestRoutesConst.ANALYTICS + '/canceled?=' + period, {responseType: 'json'});
+    return this.http.get<Appointment[]>(RestRoutesConst.API + RestRoutesConst.ANALYTICS + '/appointments' + '/canceled?period=' + period,
+      {responseType: 'json'});
   }
 }
