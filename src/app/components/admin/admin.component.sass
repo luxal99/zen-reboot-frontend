@@ -40,6 +40,8 @@ i
   position: fixed
   overflow-y: auto
   max-height: 100vh
+  -webkit-overflow-scrolling: touch
+
 
 .side-nav-col-content::-webkit-scrollbar-thumb
   background: $light-silver
@@ -90,11 +92,10 @@ mat-drawer
 @media screen and (max-width: 960px)
   .side-nav-col
     display: none
-  mat-drawer
-    max-height: 100vh
-    overflow-y: scroll
+
 
   .drawer-wrapper
+
     padding: 0 1em
 
 @media screen and (min-width: 960px) and (max-width: 1440px)

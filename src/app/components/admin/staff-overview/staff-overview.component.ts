@@ -10,6 +10,7 @@ import {ContactTypeEnum} from '../../../enums/ContactTypeEnum';
 import {DialogUtil} from '../../../util/dialog-util';
 import {AddStaffDialogComponent} from './add-staff-dialog/add-staff-dialog.component';
 import {DefaultComponent} from '../../../util/default-component';
+import {setDialogConfig} from '../../../util/dialog-options';
 
 @Component({
   selector: 'app-staff-overview',
@@ -43,11 +44,11 @@ export class StaffOverviewComponent extends DefaultComponent<Staff> implements O
   }
 
   openAddStaffDialog(data?: Staff): void {
-    DialogUtil.openDialog(AddStaffDialogComponent, {
+    DialogUtil.openDialog(AddStaffDialogComponent, setDialogConfig({
       height: '80%',
       width: '40%',
       data
-    }, this.dialog).afterClosed().subscribe(() => {
+    }), this.dialog).afterClosed().subscribe(() => {
       this.getItems();
     });
   }
