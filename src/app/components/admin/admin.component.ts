@@ -112,7 +112,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
   }
 
   loadShiftOverview(): void {
-    this.genericLoadComponent('Raspored sati', StaffShiftsOverviewComponent);
+    this.genericLoadComponent('', StaffShiftsOverviewComponent);
   }
 
   loadStaffComponent(): void {
