@@ -8,10 +8,19 @@ import {AnalyticsService} from 'src/app/service/analytics.service';
 })
 export class AnalyticsComponent implements OnInit {
 
+  listOfPeriods: string[] = [];
+
   constructor(private analyticsService: AnalyticsService) {
   }
 
   ngOnInit(): void {
+    this.getPeriods();
   }
 
+  getPeriods(): void {
+    this.analyticsService.getAnalyticPeriods().subscribe((resp) => {
+      this.listOfPeriods = resp;
+
+    });
+  }
 }

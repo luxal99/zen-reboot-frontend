@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {RestRoutesConst} from '../const/const';
 import {Package} from '../models/package';
+import {Appointment} from '../models/appointment';
 
 @Injectable({
   providedIn: 'root'
@@ -18,5 +19,9 @@ export class AnalyticsService {
 
   getExpiredPackages(period: string): Observable<Package[]> {
     return this.http.get<Package[]>(RestRoutesConst.API + RestRoutesConst.ANALYTICS + '/expired?=' + period, {responseType: 'json'});
+  }
+
+  getCanceledAppointments(period: string): Observable<Appointment[]> {
+    return this.http.get<Appointment[]>(RestRoutesConst.API + RestRoutesConst.ANALYTICS + '/canceled?=' + period, {responseType: 'json'});
   }
 }
