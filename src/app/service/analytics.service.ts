@@ -5,7 +5,7 @@ import {RestRoutesConst} from '../const/const';
 import {Package} from '../models/package';
 import {Appointment} from '../models/appointment';
 import {EarnedDto} from '../models/earned-dto';
-import {VoucherPackageAnalyticsDto} from '../models/voucher-package-analytics-dto';
+import {InvoiceItemAnalyticsDto} from '../models/voucher-package-analytics-dto';
 
 @Injectable({
   providedIn: 'root'
@@ -39,13 +39,14 @@ export class AnalyticsService {
       + RestRoutesConst.STAFF + '/earned?period=' + period, {responseType: 'json'});
   }
 
-  getVouchersAnalytics(period: string): Observable<VoucherPackageAnalyticsDto> {
-    return this.http.get<VoucherPackageAnalyticsDto>(RestRoutesConst.API + RestRoutesConst.ANALYTICS + '/'
+  getVouchersAnalytics(period: string): Observable<InvoiceItemAnalyticsDto> {
+    return this.http.get<InvoiceItemAnalyticsDto>(RestRoutesConst.API + RestRoutesConst.ANALYTICS + '/'
       + RestRoutesConst.VOUCHER + `?period=${period}`, {responseType: 'json'});
   }
 
-  getPackagesAnalytics(): Observable<any[]> {
-    return this.http.get<any[]>(RestRoutesConst.API + RestRoutesConst.ANALYTICS + '/' + RestRoutesConst.PACKAGE, {responseType: 'json'});
+  getPackagesAnalytics(period: string): Observable<InvoiceItemAnalyticsDto> {
+    return this.http.get<InvoiceItemAnalyticsDto>(RestRoutesConst.API + RestRoutesConst.ANALYTICS +
+      '/' + RestRoutesConst.PACKAGE + `?period=${period}`, {responseType: 'json'});
   }
 
   getTopClients(): Observable<any[]> {

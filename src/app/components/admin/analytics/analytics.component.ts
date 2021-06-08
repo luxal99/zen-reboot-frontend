@@ -11,7 +11,7 @@ import {AppointmentOverviewDialogComponent} from '../appointment/appointment-ove
 import {MatDatepicker} from '@angular/material/datepicker';
 import {MatDialog} from '@angular/material/dialog';
 import {setDialogConfig} from '../../../util/dialog-options';
-import {VoucherPackageAnalyticsDto} from '../../../models/voucher-package-analytics-dto';
+import {InvoiceItemAnalyticsDto} from '../../../models/voucher-package-analytics-dto';
 
 @Component({
   selector: 'app-analytics',
@@ -40,13 +40,15 @@ export class AnalyticsComponent implements OnInit {
     ];
   listOfPeriods: string[] = [];
   listOfExpiredPackages: Package[] = [];
-  voucherAnalyticsDto!: VoucherPackageAnalyticsDto;
+  voucherAnalyticsDto!: InvoiceItemAnalyticsDto;
+  packageAnalyticsDto!: InvoiceItemAnalyticsDto;
 
   listOfCanceledAppointments: Appointment[] = [];
+  listOfCompletedAppointments: Appointment[] = [];
+
   filterExpiredPackagesForm = new FormGroup({
     search: new FormControl('TODAY')
   });
-
   filterCanceledAppointmentsForm = new FormGroup({
     search: new FormControl('TODAY')
   });
@@ -61,6 +63,8 @@ export class AnalyticsComponent implements OnInit {
     this.filterExpiredPackages();
     this.filterCanceledAppointments();
     this.getVoucherAnalytics();
+    this.getPackageAnalytics();
+    this.getCompletedAppointments();
   }
 
   filterExpiredPackages(): void {
@@ -81,6 +85,20 @@ export class AnalyticsComponent implements OnInit {
     this.analyticsService.getVouchersAnalytics(this.filterCanceledAppointmentsForm.get(FormControlNames.SEARCH_FORM_CONTROL)?.value)
       .subscribe((resp) => {
         this.voucherAnalyticsDto = resp;
+      });
+  }
+
+  getCompletedAppointments(): void {
+    this.analyticsService.getCompletedAppointments(this.filterCanceledAppointmentsForm.get(FormControlNames.SEARCH_FORM_CONTROL)?.value)
+      .subscribe((resp) => {
+        this.listOfCompletedAppointments = resp;
+      });
+  }
+
+  getPackageAnalytics(): void {
+    this.analyticsService.getPackagesAnalytics(this.filterCanceledAppointmentsForm.get(FormControlNames.SEARCH_FORM_CONTROL)?.value)
+      .subscribe((resp) => {
+        this.packageAnalyticsDto = resp;
       });
   }
 

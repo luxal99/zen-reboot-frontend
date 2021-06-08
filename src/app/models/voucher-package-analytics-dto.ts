@@ -1,4 +1,4 @@
-export interface VoucherPackageAnalyticsDto {
+export interface InvoiceItemAnalyticsDto {
   count: number;
   start: string;
   end: string;
