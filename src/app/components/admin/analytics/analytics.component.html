@@ -1,5 +1,5 @@
 <div class="component-content">
-  <mat-tab-group>
+  <mat-tab-group (selectedTabChange)="onTabChange()">
     <mat-tab label="Analitika tretmana">
       <div class="tab-content">
 
@@ -19,8 +19,8 @@
         </div>
       </div>
     </mat-tab>
-    <mat-tab label="Analitika klijenta i zaposlenih"></mat-tab>
-    <mat-tab label="Analitika vaučera i paketa">
+    <mat-tab label="Analitika klijenta i zaposlenih" #staffAndClientsAnalyticsTab></mat-tab>
+    <mat-tab label="Analitika vaučera i paketa" #voucherAndPackageAnalyticsTab>
       <div class="tab-content">
         <div class="row">
           <div class="col-sm" style="padding-left: 0">

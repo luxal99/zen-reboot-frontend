@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {Appointment} from 'src/app/models/appointment';
 import {Package} from 'src/app/models/package';
 import {AnalyticsService} from 'src/app/service/analytics.service';
@@ -12,6 +12,7 @@ import {MatDatepicker} from '@angular/material/datepicker';
 import {MatDialog} from '@angular/material/dialog';
 import {setDialogConfig} from '../../../util/dialog-options';
 import {InvoiceItemAnalyticsDto} from '../../../models/voucher-package-analytics-dto';
+import {MatTab} from '@angular/material/tabs';
 
 @Component({
   selector: 'app-analytics',
@@ -20,6 +21,9 @@ import {InvoiceItemAnalyticsDto} from '../../../models/voucher-package-analytics
 })
 export class AnalyticsComponent implements OnInit {
 
+  @ViewChild('appointmentsAnalyticsTab') appointmentsAnalyticsTab!: MatTab;
+  @ViewChild('voucherAndPackageAnalyticsTab') voucherAndPackageAnalyticsTab!: MatTab;
+  @ViewChild('staffAndClientsAnalyticsTab') staffAndClientsAnalyticsTab!: MatTab;
   expiredPackagesColumns = [];
   voucherColumns: Column[] =
     [
@@ -60,21 +64,28 @@ export class AnalyticsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getPeriods();
-    this.filterExpiredPackages();
-    this.filterCanceledAppointments();
-    this.getVoucherAnalytics();
-    this.getPackageAnalytics();
+    this.getCanceledAppointments();
     this.getCompletedAppointments();
   }
 
-  filterExpiredPackages(): void {
+  onTabChange(): void {
+    if (this.voucherAndPackageAnalyticsTab.isActive) {
+      this.getVoucherAnalytics();
+      this.getPackageAnalytics();
+      this.getExpiredPackages();
+    } else if (this.staffAndClientsAnalyticsTab.isActive) {
+
+    }
+  }
+
+  getExpiredPackages(): void {
     this.analyticsService.getExpiredPackages(this.filterExpiredPackagesForm.get(FormControlNames.SEARCH_FORM_CONTROL)?.value)
       .subscribe((resp) => {
         this.listOfExpiredPackages = resp;
       });
   }
 
-  filterCanceledAppointments(): void {
+  getCanceledAppointments(): void {
     this.analyticsService.getCanceledAppointments(this.filterCanceledAppointmentsForm.get(FormControlNames.SEARCH_FORM_CONTROL)?.value)
       .subscribe((resp) => {
         this.listOfCanceledAppointments = resp;
