@@ -5,6 +5,7 @@ import {RestRoutesConst} from '../const/const';
 import {Package} from '../models/package';
 import {Appointment} from '../models/appointment';
 import {EarnedDto} from '../models/earned-dto';
+import {VoucherPackageAnalyticsDto} from '../models/voucher-package-analytics-dto';
 
 @Injectable({
   providedIn: 'root'
@@ -38,8 +39,9 @@ export class AnalyticsService {
       + RestRoutesConst.STAFF + '/earned?period=' + period, {responseType: 'json'});
   }
 
-  getVouchersAnalytics(): Observable<any[]> {
-    return this.http.get<any[]>(RestRoutesConst.API + RestRoutesConst.ANALYTICS + '/' + RestRoutesConst.VOUCHER, {responseType: 'json'});
+  getVouchersAnalytics(period: string): Observable<VoucherPackageAnalyticsDto> {
+    return this.http.get<VoucherPackageAnalyticsDto>(RestRoutesConst.API + RestRoutesConst.ANALYTICS + '/'
+      + RestRoutesConst.VOUCHER + `?period=${period}`, {responseType: 'json'});
   }
 
   getPackagesAnalytics(): Observable<any[]> {

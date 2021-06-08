@@ -11,6 +11,7 @@ import {AppointmentOverviewDialogComponent} from '../appointment/appointment-ove
 import {MatDatepicker} from '@angular/material/datepicker';
 import {MatDialog} from '@angular/material/dialog';
 import {setDialogConfig} from '../../../util/dialog-options';
+import {VoucherPackageAnalyticsDto} from '../../../models/voucher-package-analytics-dto';
 
 @Component({
   selector: 'app-analytics',
@@ -20,6 +21,15 @@ import {setDialogConfig} from '../../../util/dialog-options';
 export class AnalyticsComponent implements OnInit {
 
   expiredPackagesColumns = [];
+  voucherColumns: Column[] =
+    [
+      {name: 'count', displayedName: 'Broj', value: 'count'},
+      {name: 'start', displayedName: 'Početak', value: 'start'},
+      {name: 'end', displayedName: 'Kraj', value: 'end'},
+      {name: 'type', displayedName: 'Tip', value: 'type'},
+      {name: 'value', displayedName: 'Vrednost', value: 'value'},
+
+    ];
   canceledAppointmentsColumns: Column[] =
     [
       {name: 'date', displayedName: 'Datum', value: 'date'},
@@ -30,6 +40,7 @@ export class AnalyticsComponent implements OnInit {
     ];
   listOfPeriods: string[] = [];
   listOfExpiredPackages: Package[] = [];
+  voucherAnalyticsDto!: VoucherPackageAnalyticsDto;
 
   listOfCanceledAppointments: Appointment[] = [];
   filterExpiredPackagesForm = new FormGroup({
@@ -49,6 +60,7 @@ export class AnalyticsComponent implements OnInit {
     this.getPeriods();
     this.filterExpiredPackages();
     this.filterCanceledAppointments();
+    this.getVoucherAnalytics();
   }
 
   filterExpiredPackages(): void {
@@ -62,15 +74,14 @@ export class AnalyticsComponent implements OnInit {
     this.analyticsService.getCanceledAppointments(this.filterCanceledAppointmentsForm.get(FormControlNames.SEARCH_FORM_CONTROL)?.value)
       .subscribe((resp) => {
         this.listOfCanceledAppointments = resp;
-        const x = resp[0];
-        console.log(this.test('date', x));
       });
   }
 
-  test(path: string, obj: any): any {
-    return path.split('.').reduce((prev, curr) => {
-      return prev ? prev[curr] : null;
-    }, obj || self);
+  getVoucherAnalytics(): void {
+    this.analyticsService.getVouchersAnalytics(this.filterCanceledAppointmentsForm.get(FormControlNames.SEARCH_FORM_CONTROL)?.value)
+      .subscribe((resp) => {
+        this.voucherAnalyticsDto = resp;
+      });
   }
 
   getPeriods(): void {

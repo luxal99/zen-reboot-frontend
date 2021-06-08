@@ -21,7 +21,6 @@ export class AuthGuard implements CanActivate {
 
   async canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> {
     const user = await JwtUtil.decode(sessionStorage.getItem(TokenConst.NAME) as string);
-    console.log(user);
     if (!user) {
       await this.router.navigate([Pages.LOGIN_PAGE_ROUTE], {queryParams: {returnUrl: state.url}});
       return false;

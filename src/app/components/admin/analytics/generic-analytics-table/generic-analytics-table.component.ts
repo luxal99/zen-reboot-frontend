@@ -25,7 +25,7 @@ export class GenericAnalyticsTableComponent implements OnInit {
     this.openOverview.emit();
   }
 
-  openDialog(el: any) {
+  openDialog(el: any): void {
     this.openOverview.emit(el);
   }
 }

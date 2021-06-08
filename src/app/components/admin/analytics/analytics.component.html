@@ -1,13 +1,15 @@
 <div class="component-content">
   <div class="row">
     <div class="col-sm">
-      <app-generic-analytics-table [displayedColumns]="canceledAppointmentsColumns"
-                                   [dataSource]="listOfCanceledAppointments"></app-generic-analytics-table>
+      <h1>Analitika vaučera</h1>
+      <app-generic-analytics-table [displayedColumns]="voucherColumns"
+                                   [dataSource]="[voucherAnalyticsDto]"></app-generic-analytics-table>
     </div>
     <div class="col-sm">
-      <app-generic-analytics-table [displayedColumns]="canceledAppointmentsColumns" (openOverview)="openAppointmentOverviewDialog($event)"
+      <h1>Otkazani tretmani</h1>
+      <app-generic-analytics-table [displayedColumns]="canceledAppointmentsColumns"
+                                   (openOverview)="openAppointmentOverviewDialog($event)"
                                    [dataSource]="listOfCanceledAppointments"></app-generic-analytics-table>
-
     </div>
   </div>
 </div>
