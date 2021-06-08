@@ -57,4 +57,9 @@ export class AnalyticsService {
     return this.http.get<any[]>(RestRoutesConst.API + RestRoutesConst.ANALYTICS + '/' +
       RestRoutesConst.CLIENT + '/returning', {responseType: 'json'});
   }
+
+  getAppointmentsAnalytics(period: string): Observable<InvoiceItemAnalyticsDto> {
+    return this.http.get<InvoiceItemAnalyticsDto>(RestRoutesConst.API + RestRoutesConst.ANALYTICS
+      + '/' + RestRoutesConst.APPOINTMENT + `?period=${period}`, {responseType: 'json'});
+  }
 }

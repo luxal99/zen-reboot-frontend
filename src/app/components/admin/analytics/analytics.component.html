@@ -2,20 +2,32 @@
   <mat-tab-group (selectedTabChange)="onTabChange()">
     <mat-tab label="Analitika tretmana">
       <div class="tab-content">
-
         <div class="row">
-          <div class="col-sm" style="padding-left: 0">
-            <h1>Otkazani tretmani</h1>
+          <div class="col-sm-5" style="padding-left: 0;">
+            <h1><b>Statistika tretmana na osnovu faktura</b></h1>
+            <div class="inline">
+              <div class="big-circle">
+                <h1>{{appointmentsAnalyticsDto.value + ' RSD'}}</h1>
+              </div>
+              <div style="display: block;margin-left: 1em">
+                <h3>Količina: {{appointmentsAnalyticsDto.count}}</h3>
+                <h3>{{appointmentsAnalyticsDto.start|date}} - {{appointmentsAnalyticsDto.end|date}}</h3>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm" style="padding-right: 0">
+            <h1><b>Otkazani tretmani</b></h1>
             <app-generic-analytics-table [displayedColumns]="canceledAppointmentsColumns"
                                          (openOverview)="openAppointmentOverviewDialog($event)"
                                          [dataSource]="listOfCanceledAppointments"></app-generic-analytics-table>
           </div>
-          <div class="col-sm" style="padding-right: 0">
-            <h1>Kompletirani tretmani</h1>
-            <app-generic-analytics-table [displayedColumns]="canceledAppointmentsColumns"
-                                         (openOverview)="openAppointmentOverviewDialog($event)"
-                                         [dataSource]="listOfCompletedAppointments"></app-generic-analytics-table>
-          </div>
+        </div>
+        <div style="padding-top: 3em">
+          <h1><b>Kompletirani tretmani</b></h1>
+          <app-generic-analytics-table [displayedColumns]="canceledAppointmentsColumns"
+                                       (openOverview)="openAppointmentOverviewDialog($event)"
+                                       [dataSource]="listOfCompletedAppointments"></app-generic-analytics-table>
+
         </div>
       </div>
     </mat-tab>

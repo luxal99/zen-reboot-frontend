@@ -46,6 +46,7 @@ export class AnalyticsComponent implements OnInit {
   listOfExpiredPackages: Package[] = [];
   voucherAnalyticsDto!: InvoiceItemAnalyticsDto;
   packageAnalyticsDto!: InvoiceItemAnalyticsDto;
+  appointmentsAnalyticsDto!: InvoiceItemAnalyticsDto;
 
   listOfCanceledAppointments: Appointment[] = [];
   listOfCompletedAppointments: Appointment[] = [];
@@ -66,6 +67,7 @@ export class AnalyticsComponent implements OnInit {
     this.getPeriods();
     this.getCanceledAppointments();
     this.getCompletedAppointments();
+    this.getAppointmentsAnalytics();
   }
 
   onTabChange(): void {
@@ -96,6 +98,13 @@ export class AnalyticsComponent implements OnInit {
     this.analyticsService.getVouchersAnalytics(this.filterCanceledAppointmentsForm.get(FormControlNames.SEARCH_FORM_CONTROL)?.value)
       .subscribe((resp) => {
         this.voucherAnalyticsDto = resp;
+      });
+  }
+
+  getAppointmentsAnalytics(): void {
+    this.analyticsService.getAppointmentsAnalytics(this.filterCanceledAppointmentsForm.get(FormControlNames.SEARCH_FORM_CONTROL)?.value)
+      .subscribe((resp) => {
+        this.appointmentsAnalyticsDto = resp;
       });
   }
 
