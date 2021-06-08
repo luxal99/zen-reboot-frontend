@@ -5,6 +5,12 @@ import {AnalyticsService} from 'src/app/service/analytics.service';
 import {FormControl, FormControlName, FormGroup} from '@angular/forms';
 import {FormControlNames, InputTypes} from '../../../const/const';
 import {FieldConfig} from '../../../models/FIeldConfig';
+import {Column} from '../../../models/column';
+import {DialogUtil} from '../../../util/dialog-util';
+import {AppointmentOverviewDialogComponent} from '../appointment/appointment-overview-dialog/appointment-overview-dialog.component';
+import {MatDatepicker} from '@angular/material/datepicker';
+import {MatDialog} from '@angular/material/dialog';
+import {setDialogConfig} from '../../../util/dialog-options';
 
 @Component({
   selector: 'app-analytics',
@@ -14,7 +20,14 @@ import {FieldConfig} from '../../../models/FIeldConfig';
 export class AnalyticsComponent implements OnInit {
 
   expiredPackagesColumns = [];
-  canceledAppointmentsColumns = ['date', 'treatment', 'client', 'total'];
+  canceledAppointmentsColumns: Column[] =
+    [
+      {name: 'date', displayedName: 'Datum', value: 'date'},
+      {name: 'firstName', displayedName: 'Ime', value: 'staff.person.firstName'},
+      {name: 'lastName', displayedName: 'Prezime', value: 'staff.person.lastName'},
+      {name: 'treatment', displayedName: 'Tretman', value: 'treatment.name'},
+      {name: 'total', displayedName: 'Total', value: 'treatment.price'},
+    ];
   listOfPeriods: string[] = [];
   listOfExpiredPackages: Package[] = [];
 
@@ -29,7 +42,7 @@ export class AnalyticsComponent implements OnInit {
   appointmentFilterPeriodSelectConfig: FieldConfig = {type: InputTypes.SELECT_TYPE_NAME, name: FormControlNames.SEARCH_FORM_CONTROL};
   packageFilterPeriodSelectConfig: FieldConfig = {type: InputTypes.SELECT_TYPE_NAME, name: FormControlNames.SEARCH_FORM_CONTROL};
 
-  constructor(private analyticsService: AnalyticsService) {
+  constructor(private analyticsService: AnalyticsService, private dialog: MatDialog) {
   }
 
   ngOnInit(): void {
@@ -49,12 +62,30 @@ export class AnalyticsComponent implements OnInit {
     this.analyticsService.getCanceledAppointments(this.filterCanceledAppointmentsForm.get(FormControlNames.SEARCH_FORM_CONTROL)?.value)
       .subscribe((resp) => {
         this.listOfCanceledAppointments = resp;
+        const x = resp[0];
+        console.log(this.test('date', x));
       });
+  }
+
+  test(path: string, obj: any): any {
+    return path.split('.').reduce((prev, curr) => {
+      return prev ? prev[curr] : null;
+    }, obj || self);
   }
 
   getPeriods(): void {
     this.analyticsService.getAnalyticPeriods().subscribe((resp) => {
       this.listOfPeriods = resp;
     });
+  }
+
+  openAppointmentOverviewDialog(data: any): void {
+    DialogUtil.openDialog(AppointmentOverviewDialogComponent, setDialogConfig({
+      maxWidth: '100vw',
+      maxHeight: '100vh',
+      height: '100%',
+      width: '100%',
+      data
+    }), this.dialog);
   }
 }

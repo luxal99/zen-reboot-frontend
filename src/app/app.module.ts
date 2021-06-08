@@ -70,6 +70,9 @@ import {AddUserDialogComponent} from './components/admin/user/add-user-dialog/ad
 import {ChangePasswordDialogComponent} from './components/admin/change-password-dialog/change-password-dialog.component';
 import {GlobalSearchDialogComponent} from './components/admin/header/global-search-dialog/global-search-dialog.component';
 import {ProtectedDirective} from './directives/protected.directive';
+import { GenericAnalyticsTableComponent } from './components/admin/analytics/generic-analytics-table/generic-analytics-table.component';
+import { MapColumnArrPipe } from './pipes/map-column-arr.pipe';
+import { DynamicPropertyPipe } from './pipes/dynamic-property.pipe';
 
 @NgModule({
   declarations: [
@@ -131,7 +134,10 @@ import {ProtectedDirective} from './directives/protected.directive';
     AddUserDialogComponent,
     ChangePasswordDialogComponent,
     GlobalSearchDialogComponent,
-    ProtectedDirective
+    ProtectedDirective,
+    GenericAnalyticsTableComponent,
+    MapColumnArrPipe,
+    DynamicPropertyPipe
   ],
   imports: [
     BrowserModule,

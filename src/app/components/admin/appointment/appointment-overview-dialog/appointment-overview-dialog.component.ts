@@ -33,6 +33,7 @@ export class AppointmentOverviewDialogComponent extends DefaultComponent<Appoint
   ngOnInit(): void {
     this.formatAppointment();
     this.getLocation();
+    console.log(this.data);
   }
 
   getLocation(): void {

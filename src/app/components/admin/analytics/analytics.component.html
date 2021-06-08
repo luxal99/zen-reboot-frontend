@@ -1,42 +1,13 @@
 <div class="component-content">
   <div class="row">
     <div class="col-sm">
+      <app-generic-analytics-table [displayedColumns]="canceledAppointmentsColumns"
+                                   [dataSource]="listOfCanceledAppointments"></app-generic-analytics-table>
     </div>
     <div class="col-sm">
-      <table mat-table [dataSource]="listOfCanceledAppointments" class="mat-elevation-z8">
+      <app-generic-analytics-table [displayedColumns]="canceledAppointmentsColumns" (openOverview)="openAppointmentOverviewDialog($event)"
+                                   [dataSource]="listOfCanceledAppointments"></app-generic-analytics-table>
 
-        <!--- Note that these columns can be defined in any order.
-              The actual rendered columns are set as a property on the row definition" -->
-
-        <!-- Position Column -->
-        <ng-container matColumnDef="date">
-          <th mat-header-cell *matHeaderCellDef> Datum tretmana</th>
-          <td mat-cell *matCellDef="let element"> {{element.createdDate | date}} </td>
-        </ng-container>
-
-        <!-- Name Column -->
-        <ng-container matColumnDef="treatment">
-          <th mat-header-cell *matHeaderCellDef> Tretman</th>
-          <td mat-cell
-              *matCellDef="let element"> {{element.treatment.name + ' ' + element.treatment.duration + 'min'}} </td>
-        </ng-container>
-
-        <!-- Weight Column -->
-        <ng-container matColumnDef="client">
-          <th mat-header-cell *matHeaderCellDef> Klijent</th>
-          <td mat-cell
-              *matCellDef="let element"> {{element.clients[0].person.firstName + ' ' + element.clients[0].person.lastName}} </td>
-        </ng-container>
-
-        <!-- Symbol Column -->
-        <ng-container matColumnDef="total">
-          <th mat-header-cell *matHeaderCellDef> Symbol</th>
-          <td mat-cell *matCellDef="let element"> {{element.treatment.price}} </td>
-        </ng-container>
-
-        <tr mat-header-row *matHeaderRowDef="canceledAppointmentsColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: canceledAppointmentsColumns;"></tr>
-      </table>
     </div>
   </div>
 </div>
