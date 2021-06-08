@@ -37,4 +37,21 @@ export class AnalyticsService {
     return this.http.get<EarnedDto[]>(RestRoutesConst.API + RestRoutesConst.ANALYTICS + '/'
       + RestRoutesConst.STAFF + '/earned?period=' + period, {responseType: 'json'});
   }
+
+  getVouchersAnalytics(): Observable<any[]> {
+    return this.http.get<any[]>(RestRoutesConst.API + RestRoutesConst.ANALYTICS + '/' + RestRoutesConst.VOUCHER, {responseType: 'json'});
+  }
+
+  getPackagesAnalytics(): Observable<any[]> {
+    return this.http.get<any[]>(RestRoutesConst.API + RestRoutesConst.ANALYTICS + '/' + RestRoutesConst.PACKAGE, {responseType: 'json'});
+  }
+
+  getTopClients(): Observable<any[]> {
+    return this.http.get<any[]>(RestRoutesConst.API + RestRoutesConst.ANALYTICS + '/' + RestRoutesConst.CLIENT + '/top', {responseType: 'json'});
+  }
+
+  getReturningClients(): Observable<any[]> {
+    return this.http.get<any[]>(RestRoutesConst.API + RestRoutesConst.ANALYTICS + '/' +
+      RestRoutesConst.CLIENT + '/returning', {responseType: 'json'});
+  }
 }
