@@ -63,6 +63,7 @@ export class FormControlNames {
   static CURRENT_PASSWORD_FORM_CONTROL = 'current';
   static NEW_PASSWORD_FORM_CONTROL = 'newPassword';
   static OLD_PASSWORD_FORM_CONTROL = 'oldPassword';
+  static PERIOD_FORM_CONTROL = 'period';
 }
 
 export class InputTypes {

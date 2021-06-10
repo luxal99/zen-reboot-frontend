@@ -42,7 +42,6 @@ export class AnalyticsComponent implements OnInit {
       {name: 'treatment', displayedName: 'Tretman', value: 'treatment.name'},
       {name: 'total', displayedName: 'Total', value: 'treatment.price'},
     ];
-  listOfPeriods: string[] = [];
   listOfExpiredPackages: Package[] = [];
   voucherAnalyticsDto!: InvoiceItemAnalyticsDto;
   packageAnalyticsDto!: InvoiceItemAnalyticsDto;
@@ -51,20 +50,10 @@ export class AnalyticsComponent implements OnInit {
   listOfCanceledAppointments: Appointment[] = [];
   listOfCompletedAppointments: Appointment[] = [];
 
-  filterExpiredPackagesForm = new FormGroup({
-    search: new FormControl('TODAY')
-  });
-  filterCanceledAppointmentsForm = new FormGroup({
-    search: new FormControl('TODAY')
-  });
-  appointmentFilterPeriodSelectConfig: FieldConfig = {type: InputTypes.SELECT_TYPE_NAME, name: FormControlNames.SEARCH_FORM_CONTROL};
-  packageFilterPeriodSelectConfig: FieldConfig = {type: InputTypes.SELECT_TYPE_NAME, name: FormControlNames.SEARCH_FORM_CONTROL};
-
   constructor(private analyticsService: AnalyticsService, private dialog: MatDialog) {
   }
 
   ngOnInit(): void {
-    this.getPeriods();
     this.getCanceledAppointments();
     this.getCompletedAppointments();
     this.getAppointmentsAnalytics();
@@ -80,52 +69,46 @@ export class AnalyticsComponent implements OnInit {
     }
   }
 
-  getExpiredPackages(): void {
-    this.analyticsService.getExpiredPackages(this.filterExpiredPackagesForm.get(FormControlNames.SEARCH_FORM_CONTROL)?.value)
+  getExpiredPackages(event?: string): void {
+    this.analyticsService.getExpiredPackages(!event ? 'TODAY' : event)
       .subscribe((resp) => {
         this.listOfExpiredPackages = resp;
       });
   }
 
-  getCanceledAppointments(): void {
-    this.analyticsService.getCanceledAppointments(this.filterCanceledAppointmentsForm.get(FormControlNames.SEARCH_FORM_CONTROL)?.value)
+  getCanceledAppointments(event?: string): void {
+    this.analyticsService.getCanceledAppointments(!event ? 'TODAY' : event)
       .subscribe((resp) => {
         this.listOfCanceledAppointments = resp;
       });
   }
 
-  getVoucherAnalytics(): void {
-    this.analyticsService.getVouchersAnalytics(this.filterCanceledAppointmentsForm.get(FormControlNames.SEARCH_FORM_CONTROL)?.value)
+  getVoucherAnalytics(event?: string): void {
+    this.analyticsService.getVouchersAnalytics(!event ? 'TODAY' : event)
       .subscribe((resp) => {
         this.voucherAnalyticsDto = resp;
       });
   }
 
-  getAppointmentsAnalytics(): void {
-    this.analyticsService.getAppointmentsAnalytics(this.filterCanceledAppointmentsForm.get(FormControlNames.SEARCH_FORM_CONTROL)?.value)
+  getAppointmentsAnalytics(event?: string): void {
+    this.analyticsService.getAppointmentsAnalytics(!event ? 'TODAY' : event)
       .subscribe((resp) => {
         this.appointmentsAnalyticsDto = resp;
       });
   }
 
-  getCompletedAppointments(): void {
-    this.analyticsService.getCompletedAppointments(this.filterCanceledAppointmentsForm.get(FormControlNames.SEARCH_FORM_CONTROL)?.value)
+  getCompletedAppointments(event?: string): void {
+    this.analyticsService.getCompletedAppointments(!event ? 'TODAY' : event)
       .subscribe((resp) => {
         this.listOfCompletedAppointments = resp;
       });
   }
 
-  getPackageAnalytics(): void {
-    this.analyticsService.getPackagesAnalytics(this.filterCanceledAppointmentsForm.get(FormControlNames.SEARCH_FORM_CONTROL)?.value)
+  getPackageAnalytics(event?: string): void {
+    this.analyticsService.getPackagesAnalytics(!event ? 'TODAY' : event)
       .subscribe((resp) => {
         this.packageAnalyticsDto = resp;
       });
-  }
-
-  getPeriods(): void {
-    this.analyticsService.getAnalyticPeriods().subscribe((resp) => {
-      this.listOfPeriods = resp;
-    });
   }
 
   openAppointmentOverviewDialog(data: any): void {

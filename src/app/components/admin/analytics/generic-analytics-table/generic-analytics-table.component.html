@@ -1,6 +1,8 @@
+<div class="text-right">
+  <app-form-select (onChange)="filterOnChange()" style="width: 25%" [group]="filterForm"
+                   [config]="periodSelectConfig"></app-form-select>
+</div>
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-
-
   <ng-container *ngFor="let column of displayedColumns">
     <ng-container [matColumnDef]="column.name">
       <th mat-header-cell *matHeaderCellDef> {{column.displayedName}} </th>
@@ -9,7 +11,6 @@
       </td>
     </ng-container>
   </ng-container>
-
   <tr mat-header-row *matHeaderRowDef="displayedColumns|mapColumnArr"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns|mapColumnArr;"></tr>
 </table>
