@@ -1,4 +1,4 @@
-import {Component, ComponentFactoryResolver, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {Appointment} from 'src/app/models/appointment';
 import {Package} from 'src/app/models/package';
 import {AnalyticsService} from 'src/app/service/analytics.service';
@@ -12,6 +12,7 @@ import {InvoiceItemAnalyticsDto} from '../../../models/voucher-package-analytics
 import {MatTab} from '@angular/material/tabs';
 import {FieldConfig} from '../../../models/FIeldConfig';
 import {FormControlNames, InputTypes} from '../../../const/const';
+import {PeriodsService} from '../../../service/periods.service';
 
 @Component({
   selector: 'app-analytics',
@@ -20,8 +21,6 @@ import {FormControlNames, InputTypes} from '../../../const/const';
 })
 export class AnalyticsComponent implements OnInit {
 
-
-  listOfPeriods: string[] = [];
   filterForm = new FormGroup({
     period: new FormControl('')
   });
@@ -54,9 +53,12 @@ export class AnalyticsComponent implements OnInit {
 
   listOfCanceledAppointments: Appointment[] = [];
   listOfCompletedAppointments: Appointment[] = [];
-  periodSelectConfig: FieldConfig = {name: FormControlNames.PERIOD_FORM_CONTROL, type: InputTypes.SELECT_TYPE_NAME, label: 'Izbor perioda'};
+  periodSelectConfig: FieldConfig = {
+    name: FormControlNames.PERIOD_FORM_CONTROL,
+    type: InputTypes.SELECT_TYPE_NAME, label: 'Izbor perioda', options: this.periodService.listOfPeriods
+  };
 
-  constructor(private analyticsService: AnalyticsService, private dialog: MatDialog, private resolver: ComponentFactoryResolver) {
+  constructor(private analyticsService: AnalyticsService, private dialog: MatDialog, private periodService: PeriodsService) {
   }
 
   ngOnInit(): void {

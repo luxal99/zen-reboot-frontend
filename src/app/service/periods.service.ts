@@ -10,6 +10,8 @@ export class PeriodsService {
   listOfPeriods: any;
 
   constructor(private http: HttpClient) {
+    this.getPeriods().then(() => {
+    });
   }
 
   async getPeriods(): Promise<void> {
