@@ -3,7 +3,7 @@
     <mat-tab label="Analitika tretmana">
       <div class="tab-content">
         <div class="row">
-          <div class="col-sm-5" style="padding-left: 0;">
+          <div class="col-sm-5" *ngIf="appointmentsAnalyticsDto" style="padding-left: 0;">
             <h1><b>Statistika tretmana na osnovu faktura</b></h1>
             <div class="inline">
               <div class="big-circle">
@@ -27,6 +27,7 @@
           <h1><b>Kompletirani tretmani</b></h1>
           <app-generic-analytics-table [displayedColumns]="canceledAppointmentsColumns"
                                        (openOverview)="openAppointmentOverviewDialog($event)"
+                                       (filterFunction)="getCompletedAppointments($event)"
                                        [dataSource]="listOfCompletedAppointments"></app-generic-analytics-table>
 
         </div>

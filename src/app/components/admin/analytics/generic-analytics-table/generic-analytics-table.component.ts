@@ -1,10 +1,11 @@
-import {Component, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {Column} from '../../../../models/column';
-import {EventEmitter} from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
 import {AnalyticsService} from '../../../../service/analytics.service';
 import {FieldConfig} from '../../../../models/FIeldConfig';
 import {FormControlNames, InputTypes} from '../../../../const/const';
+import {SpinnerService} from '../../../../service/spinner.service';
+import {MatSpinner} from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-generic-analytics-table',
@@ -19,6 +20,7 @@ export class GenericAnalyticsTableComponent implements OnInit {
 
   @Output() filterFunction = new EventEmitter();
   @Output() openOverview = new EventEmitter();
+  @ViewChild('spinner') spinner!: MatSpinner;
 
   filterForm = new FormGroup({
     period: new FormControl('')
@@ -26,7 +28,7 @@ export class GenericAnalyticsTableComponent implements OnInit {
 
   periodSelectConfig: FieldConfig = {name: FormControlNames.PERIOD_FORM_CONTROL, type: InputTypes.SELECT_TYPE_NAME, label: 'Izbor perioda'};
 
-  constructor(private analyticsService: AnalyticsService) {
+  constructor(private analyticsService: AnalyticsService, private spinnerService: SpinnerService) {
   }
 
   ngOnInit(): void {
@@ -40,7 +42,9 @@ export class GenericAnalyticsTableComponent implements OnInit {
   }
 
   filterOnChange(): void {
+    this.spinnerService.show(this.spinner);
     this.filterFunction.emit(this.filterForm.get(FormControlNames.PERIOD_FORM_CONTROL)?.value);
+    this.spinnerService.hide(this.spinner);
   }
 
   openDialog(el: any): void {
