@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-// @ts-ignore
-import * as AOS from 'aos';
+import {PeriodsService} from './service/periods.service';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +9,10 @@ import * as AOS from 'aos';
 export class AppComponent implements OnInit {
   title = 'zen-frontend';
 
-  ngOnInit(): void {
-    AOS.init();
+  constructor(private periodService: PeriodsService) {
+  }
+
+  async ngOnInit(): Promise<void> {
+    await this.periodService.getPeriods();
   }
 }

@@ -1,18 +1,17 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, ComponentFactoryResolver, OnInit, ViewChild} from '@angular/core';
 import {Appointment} from 'src/app/models/appointment';
 import {Package} from 'src/app/models/package';
 import {AnalyticsService} from 'src/app/service/analytics.service';
-import {FormControl, FormControlName, FormGroup} from '@angular/forms';
-import {FormControlNames, InputTypes} from '../../../const/const';
-import {FieldConfig} from '../../../models/FIeldConfig';
+import {FormControl, FormGroup} from '@angular/forms';
 import {Column} from '../../../models/column';
 import {DialogUtil} from '../../../util/dialog-util';
 import {AppointmentOverviewDialogComponent} from '../appointment/appointment-overview-dialog/appointment-overview-dialog.component';
-import {MatDatepicker} from '@angular/material/datepicker';
 import {MatDialog} from '@angular/material/dialog';
 import {setDialogConfig} from '../../../util/dialog-options';
 import {InvoiceItemAnalyticsDto} from '../../../models/voucher-package-analytics-dto';
 import {MatTab} from '@angular/material/tabs';
+import {FieldConfig} from '../../../models/FIeldConfig';
+import {FormControlNames, InputTypes} from '../../../const/const';
 
 @Component({
   selector: 'app-analytics',
@@ -20,6 +19,12 @@ import {MatTab} from '@angular/material/tabs';
   styleUrls: ['./analytics.component.sass']
 })
 export class AnalyticsComponent implements OnInit {
+
+
+  listOfPeriods: string[] = [];
+  filterForm = new FormGroup({
+    period: new FormControl('')
+  });
 
   @ViewChild('appointmentsAnalyticsTab') appointmentsAnalyticsTab!: MatTab;
   @ViewChild('voucherAndPackageAnalyticsTab') voucherAndPackageAnalyticsTab!: MatTab;
@@ -49,8 +54,9 @@ export class AnalyticsComponent implements OnInit {
 
   listOfCanceledAppointments: Appointment[] = [];
   listOfCompletedAppointments: Appointment[] = [];
+  periodSelectConfig: FieldConfig = {name: FormControlNames.PERIOD_FORM_CONTROL, type: InputTypes.SELECT_TYPE_NAME, label: 'Izbor perioda'};
 
-  constructor(private analyticsService: AnalyticsService, private dialog: MatDialog) {
+  constructor(private analyticsService: AnalyticsService, private dialog: MatDialog, private resolver: ComponentFactoryResolver) {
   }
 
   ngOnInit(): void {
@@ -58,6 +64,7 @@ export class AnalyticsComponent implements OnInit {
     this.getCompletedAppointments();
     this.getAppointmentsAnalytics();
   }
+
 
   onTabChange(): void {
     if (this.voucherAndPackageAnalyticsTab.isActive) {

@@ -5,6 +5,8 @@
         <div class="row">
           <div class="col-sm-5" *ngIf="appointmentsAnalyticsDto" style="padding-left: 0;">
             <h1><b>Statistika tretmana na osnovu faktura</b></h1>
+            <app-form-select (onChange)="getAppointmentsAnalytics()"  [group]="filterForm"
+                             [config]="periodSelectConfig"></app-form-select>
             <div class="inline">
               <div class="big-circle">
                 <h1 *ngIf="appointmentsAnalyticsDto">{{appointmentsAnalyticsDto.value + ' RSD'}}</h1>

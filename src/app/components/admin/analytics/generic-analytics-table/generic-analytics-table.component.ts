@@ -6,6 +6,7 @@ import {FieldConfig} from '../../../../models/FIeldConfig';
 import {FormControlNames, InputTypes} from '../../../../const/const';
 import {SpinnerService} from '../../../../service/spinner.service';
 import {MatSpinner} from '@angular/material/progress-spinner';
+import {PeriodsService} from '../../../../service/periods.service';
 
 @Component({
   selector: 'app-generic-analytics-table',
@@ -26,19 +27,19 @@ export class GenericAnalyticsTableComponent implements OnInit {
     period: new FormControl('')
   });
 
-  periodSelectConfig: FieldConfig = {name: FormControlNames.PERIOD_FORM_CONTROL, type: InputTypes.SELECT_TYPE_NAME, label: 'Izbor perioda'};
+  periodSelectConfig: FieldConfig = {
+    name: FormControlNames.PERIOD_FORM_CONTROL,
+    type: InputTypes.SELECT_TYPE_NAME, label: 'Izbor perioda', options: this.periodService.listOfPeriods
+  };
 
-  constructor(private analyticsService: AnalyticsService, private spinnerService: SpinnerService) {
+  constructor(private analyticsService: AnalyticsService, private spinnerService: SpinnerService, private periodService: PeriodsService) {
   }
 
   ngOnInit(): void {
-    this.getPeriods();
   }
 
   getPeriods(): void {
-    this.analyticsService.getAnalyticPeriods().subscribe((resp) => {
-      this.periodSelectConfig.options = resp;
-    });
+
   }
 
   filterOnChange(): void {

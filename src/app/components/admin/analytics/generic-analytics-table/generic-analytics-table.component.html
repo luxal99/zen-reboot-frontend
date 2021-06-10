@@ -1,5 +1,5 @@
 <div class="text-right">
-  <app-form-select (onChange)="filterOnChange()" style="width: 25%" [group]="filterForm"
+  <app-form-select (onChange)="filterOnChange()" model="TODAY" [group]="filterForm"
                    [config]="periodSelectConfig"></app-form-select>
 </div>
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
