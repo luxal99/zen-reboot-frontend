@@ -22,13 +22,18 @@ import {PeriodsService} from '../../../service/periods.service';
 export class AnalyticsComponent implements OnInit {
 
   filterForm = new FormGroup({
-    period: new FormControl('')
+    period: new FormControl('TODAY')
   });
 
   @ViewChild('appointmentsAnalyticsTab') appointmentsAnalyticsTab!: MatTab;
   @ViewChild('voucherAndPackageAnalyticsTab') voucherAndPackageAnalyticsTab!: MatTab;
   @ViewChild('staffAndClientsAnalyticsTab') staffAndClientsAnalyticsTab!: MatTab;
-  expiredPackagesColumns = [];
+  expiredPackagesColumns: Column[] = [
+    {name: 'firstName', displayedName: 'Ime', value: 'client.person.firstName'},
+    {name: 'lastName', displayedName: 'Prezime', value: 'client.person.lastname'},
+    {name: 'price', displayedName: 'Vrednost', value: 'price'},
+    {name: 'treatment', displayedName: 'Tretman', value: 'treatmentDuration.treatment.name'},
+  ];
   voucherColumns: Column[] =
     [
       {name: 'count', displayedName: 'Broj', value: 'count'},
@@ -99,8 +104,8 @@ export class AnalyticsComponent implements OnInit {
       });
   }
 
-  getAppointmentsAnalytics(event?: string): void {
-    this.analyticsService.getAppointmentsAnalytics(!event ? 'TODAY' : event)
+  getAppointmentsAnalytics(): void {
+    this.analyticsService.getAppointmentsAnalytics(this.filterForm.get(FormControlNames.PERIOD_FORM_CONTROL)?.value)
       .subscribe((resp) => {
         this.appointmentsAnalyticsDto = resp;
       });

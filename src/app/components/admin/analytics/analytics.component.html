@@ -5,7 +5,7 @@
         <div class="row">
           <div class="col-sm-5" *ngIf="appointmentsAnalyticsDto" style="padding-left: 0;">
             <h1><b>Statistika tretmana na osnovu faktura</b></h1>
-            <app-form-select (onChange)="getAppointmentsAnalytics()"  [group]="filterForm"
+            <app-form-select model="TODAY" (onChange)="getAppointmentsAnalytics()" [group]="filterForm"
                              [config]="periodSelectConfig"></app-form-select>
             <div class="inline">
               <div class="big-circle">
@@ -49,6 +49,10 @@
             <app-generic-analytics-table [displayedColumns]="voucherColumns"
                                          [dataSource]="[packageAnalyticsDto]"></app-generic-analytics-table>
           </div>
+        </div>
+        <div style="margin-top: 2em">
+          <app-generic-analytics-table [displayedColumns]="expiredPackagesColumns"
+                                       [dataSource]="[listOfExpiredPackages]"></app-generic-analytics-table>
         </div>
       </div>
     </mat-tab>
