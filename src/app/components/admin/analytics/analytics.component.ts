@@ -58,6 +58,7 @@ export class AnalyticsComponent implements OnInit {
 
   listOfCanceledAppointments: Appointment[] = [];
   listOfCompletedAppointments: Appointment[] = [];
+  listOfTopClients: any[] = [];
   periodSelectConfig: FieldConfig = {
     name: FormControlNames.PERIOD_FORM_CONTROL,
     type: InputTypes.SELECT_TYPE_NAME, label: 'Izbor perioda', options: this.periodService.listOfPeriods
@@ -79,8 +80,14 @@ export class AnalyticsComponent implements OnInit {
       this.getPackageAnalytics();
       this.getExpiredPackages();
     } else if (this.staffAndClientsAnalyticsTab.isActive) {
-
+      this.getTopClients();
     }
+  }
+
+  getTopClients(event?: string): void {
+    this.analyticsService.getTopClients(!event ? 'TODAY' : event).subscribe((resp) => {
+      this.listOfTopClients = resp;
+    });
   }
 
   getExpiredPackages(event?: string): void {

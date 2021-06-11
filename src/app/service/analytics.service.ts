@@ -49,8 +49,9 @@ export class AnalyticsService {
       '/' + RestRoutesConst.PACKAGE + `?period=${period}`, {responseType: 'json'});
   }
 
-  getTopClients(): Observable<any[]> {
-    return this.http.get<any[]>(RestRoutesConst.API + RestRoutesConst.ANALYTICS + '/' + RestRoutesConst.CLIENT + '/top', {responseType: 'json'});
+  getTopClients(period?: string): Observable<any[]> {
+    return this.http.get<any[]>(RestRoutesConst.API + RestRoutesConst.ANALYTICS + '/'
+      + RestRoutesConst.CLIENT + `/top?period=${period}`, {responseType: 'json'});
   }
 
   getReturningClients(): Observable<any[]> {
