@@ -1,2 +1,17 @@
-<app-generic-analytics-table [dataSource]="listOfTopClients.clients" [displayedColumns]="topClientsColumns"
-                             (filterFunction)="getTopClients($event)"></app-generic-analytics-table>
+<div class="tab-content">
+  <div class="row">
+    <div class="col-sm">
+      <h1><b>Najčešći klijenti</b></h1>
+      <app-generic-analytics-table [dataSource]="listOfTopClients.clients" [displayedColumns]="topClientsColumns"
+                                   (filterFunction)="getTopClients($event)"></app-generic-analytics-table>
+    </div>
+    <div class="col-sm">
+      <h1><b>Najčešći klijenti</b></h1>
+      <app-generic-analytics-table [dataSource]="listOfReturningClients" [displayedColumns]="returningClientsColumns"
+                                   (filterFunction)="getReturningClients($event)"></app-generic-analytics-table>
+    </div>
+  </div>
+  <app-generic-analytics-table [isStaffTable]="true" [dataSource]="listOfStaffEarned"
+                               (filterFunction)="getStaffEarnedAnalytics($event)"
+                               [displayedColumns]="staffEarnedClientsColumns"></app-generic-analytics-table>
+</div>

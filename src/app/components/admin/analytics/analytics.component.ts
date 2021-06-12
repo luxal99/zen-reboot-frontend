@@ -26,7 +26,10 @@ import {APPOINTMENT_ANALYTICS_COLUMNS} from '../../../const/table-column-values'
 export class AnalyticsComponent implements OnInit {
 
   @ViewChild('staffAndClientsAnalyticsTab') staffAndClientsAnalyticsTab!: MatTab;
-  @ViewChild('staffAndClientsAnalyticsContent') staffAndClientsAnalyticsContent!: ViewContainerRef;
+  @ViewChild('staffAndClientsAnalyticsContent', {
+    read: ViewContainerRef,
+    static: false
+  }) staffAndClientsAnalyticsContent!: ViewContainerRef;
 
   @ViewChild('voucherAndPackageAnalyticsTab') voucherAndPackageAnalyticsTab!: MatTab;
   @ViewChild('voucherAndPackageAnalyticsContent', {

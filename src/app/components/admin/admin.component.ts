@@ -1,12 +1,4 @@
-import {
-  AfterViewInit,
-  Component,
-  ComponentFactoryResolver,
-  ElementRef,
-  OnInit,
-  ViewChild,
-  ViewContainerRef
-} from '@angular/core';
+import {AfterViewInit, Component, ComponentFactoryResolver, ElementRef, OnInit, ViewChild, ViewContainerRef} from '@angular/core';
 import {LazyLoadComponentsUtil} from '../../util/lazy-loading-components';
 import {OverviewComponent} from './overview/overview.component';
 import {ClientComponent} from './client/client.component';
@@ -21,7 +13,6 @@ import {ExpensesComponent} from './expenses/expenses.component';
 import {PackageComponent} from './package/package.component';
 import {AnalyticsComponent} from './analytics/analytics.component';
 import {UserService} from '../../service/user.service';
-import {RoleEnum} from '../../enums/RoleEnum';
 import {StaffShiftsOverviewComponent} from './staff-shifts-overview/staff-shifts-overview.component';
 import {StaffOverviewComponent} from './staff-overview/staff-overview.component';
 import {UserComponent} from './user/user.component';

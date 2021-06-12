@@ -17,6 +17,7 @@ export class GenericAnalyticsTableComponent implements OnInit {
 
   @Input() dataSource: any[] = [];
   @Input() displayedColumns: Column[] = [];
+  @Input() isStaffTable = false;
 
   @Output() filterFunction = new EventEmitter();
   @Output() openOverview = new EventEmitter();

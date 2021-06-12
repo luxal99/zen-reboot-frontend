@@ -4,9 +4,10 @@ import {Observable} from 'rxjs';
 import {RestRoutesConst} from '../const/const';
 import {Package} from '../models/package';
 import {Appointment} from '../models/appointment';
-import {EarnedDto} from '../models/earned-dto';
+import {StaffEarnedDto} from '../models/staff-earned-dto';
 import {InvoiceItemAnalyticsDto} from '../models/voucher-package-analytics-dto';
 import {TopClientsDto} from '../models/top-clients-dto';
+import {Client} from '../models/client';
 
 @Injectable({
   providedIn: 'root'
@@ -35,9 +36,9 @@ export class AnalyticsService {
       RestRoutesConst.APPOINTMENT + '/completed?period=' + period, {responseType: 'json'});
   }
 
-  getAllStaffEarned(period: string): Observable<EarnedDto[]> {
-    return this.http.get<EarnedDto[]>(RestRoutesConst.API + RestRoutesConst.ANALYTICS + '/'
-      + RestRoutesConst.STAFF + '/earned?period=' + period, {responseType: 'json'});
+  getAllStaffEarned(period: string): Observable<StaffEarnedDto[]> {
+    return this.http.get<StaffEarnedDto[]>(RestRoutesConst.API + RestRoutesConst.ANALYTICS + '/'
+      + 'staff' + '/earned?period=' + period, {responseType: 'json'});
   }
 
   getVouchersAnalytics(period: string): Observable<InvoiceItemAnalyticsDto> {
@@ -55,9 +56,9 @@ export class AnalyticsService {
       + RestRoutesConst.CLIENT + `/top?period=${period}`, {responseType: 'json'});
   }
 
-  getReturningClients(): Observable<any[]> {
-    return this.http.get<any[]>(RestRoutesConst.API + RestRoutesConst.ANALYTICS + '/' +
-      RestRoutesConst.CLIENT + '/returning', {responseType: 'json'});
+  getReturningClients(period?: string): Observable<Client[]> {
+    return this.http.get<Client[]>(RestRoutesConst.API + RestRoutesConst.ANALYTICS + '/' +
+      RestRoutesConst.CLIENT + `/returning?period=${period}`, {responseType: 'json'});
   }
 
   getAppointmentsAnalytics(period: string): Observable<InvoiceItemAnalyticsDto> {
