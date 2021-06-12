@@ -2,15 +2,18 @@
   <div class="row">
     <div class="col-sm">
       <h1><b>Najčešći klijenti</b></h1>
-      <app-generic-analytics-table [dataSource]="listOfTopClients.clients" [displayedColumns]="topClientsColumns"
+      <app-generic-analytics-table (openOverview)="openClientOverviewDialog($event)"
+                                   [dataSource]="listOfTopClients.clients" [displayedColumns]="topClientsColumns"
                                    (filterFunction)="getTopClients($event)"></app-generic-analytics-table>
     </div>
     <div class="col-sm">
       <h1><b>Najčešći klijenti</b></h1>
-      <app-generic-analytics-table [dataSource]="listOfReturningClients" [displayedColumns]="returningClientsColumns"
+      <app-generic-analytics-table (openOverview)="openClientOverviewDialog($event)"
+                                   [dataSource]="listOfReturningClients" [displayedColumns]="returningClientsColumns"
                                    (filterFunction)="getReturningClients($event)"></app-generic-analytics-table>
     </div>
   </div>
+  <h1><b>Analitika zarade zapošljenih</b></h1>
   <app-generic-analytics-table [isStaffTable]="true" [dataSource]="listOfStaffEarned"
                                (filterFunction)="getStaffEarnedAnalytics($event)"
                                [displayedColumns]="staffEarnedClientsColumns"></app-generic-analytics-table>
