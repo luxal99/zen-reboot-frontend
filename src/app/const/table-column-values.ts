@@ -38,3 +38,12 @@ export const STAFF_EARNED_COLUMNS: Column[] = [
   {name: 'count', displayedName: 'Količina', value: 'count'},
   {name: 'earned', displayedName: 'Vrednost', value: 'earned'},
 ];
+
+export const PROFIT_COLUMNS: Column[] = [
+  {name: 'start', displayedName: 'Početak', value: 'start'},
+  {name: 'end', displayedName: 'Kraj', value: 'end'},
+  {name: 'expenseCount', displayedName: 'Broj troškova', value: 'expenseCount'},
+  {name: 'invoiceCount', displayedName: 'Broj faktura', value: 'invoiceCount'},
+  {name: 'profit', displayedName: 'Profit', value: 'profit'},
+  {name: 'spent', displayedName: 'Potrošeno', value: 'spent'},
+];

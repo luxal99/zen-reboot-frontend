@@ -1,1 +1,35 @@
-<p>profit-and-expenses-analytics-overview works!</p>
+<div class="tab-content">
+  <div class="row">
+    <div class="col-sm">
+      <h1><b>Profit</b></h1>
+      <app-form-select model="TODAY" (onChange)="getProfitAnalytics()" [group]="filterForm"
+                       [config]="periodSelectConfig"></app-form-select>
+      <div class="inline">
+        <div class="big-circle">
+          <h1 *ngIf="profitAnalytics">{{profitAnalytics.profit + ' RSD'}}</h1>
+        </div>
+        <div style="display: block;margin-left: 1em">
+          <h3>Broj troškova: <b>{{profitAnalytics.expenseCount}}</b></h3>
+          <h3>Broj faktura: <b>{{profitAnalytics.invoiceCount}}</b></h3>
+          <h3>Potrošeno: <b>{{profitAnalytics.spent}}</b></h3>
+          <h3>Bruto zarada: <b>{{profitAnalytics.earned}}</b></h3>
+          <h3>Početak-kraj: <b>{{profitAnalytics.start|date}} - {{profitAnalytics.end|date}}</b></h3>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm">
+      <h1><b>Troškovi</b></h1>
+      <app-form-select model="TODAY" (onChange)="getExpensesAnalytics()" [group]="filterForm"
+                       [config]="periodSelectConfig"></app-form-select>
+      <div class="inline">
+        <div class="big-circle">
+          <h1 *ngIf="expenseAnalytics">{{expenseAnalytics.value + ' RSD'}}</h1>
+        </div>
+        <div style="display: block;margin-left: 1em">
+          <h3>Broj troškova: <b>{{expenseAnalytics.count}}</b></h3>
+          <h3>Početak-kraj: <b>{{expenseAnalytics.start|date}} - {{expenseAnalytics.end|date}}</b></h3>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
