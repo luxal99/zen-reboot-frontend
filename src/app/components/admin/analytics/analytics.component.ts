@@ -18,6 +18,8 @@ import {VouchersAndPackagesAnalyticsOverviewComponent} from './vouchers-and-pack
 import {ClientsAndStaffsAnalyticsOverviewComponent} from './clients-and-staffs-analytics-overview/clients-and-staffs-analytics-overview.component';
 import {APPOINTMENT_ANALYTICS_COLUMNS} from '../../../const/table-column-values';
 import {ProfitAndExpensesAnalyticsOverviewComponent} from './profit-and-expenses-analytics-overview/profit-and-expenses-analytics-overview.component';
+import {MatSpinner} from '@angular/material/progress-spinner';
+import {SpinnerService} from '../../../service/spinner.service';
 
 @Component({
   selector: 'app-analytics',
@@ -26,6 +28,7 @@ import {ProfitAndExpensesAnalyticsOverviewComponent} from './profit-and-expenses
 })
 export class AnalyticsComponent implements OnInit {
 
+  @ViewChild('spinner') spinner!: MatSpinner;
   @ViewChild('staffAndClientsAnalyticsTab') staffAndClientsAnalyticsTab!: MatTab;
   @ViewChild('staffAndClientsAnalyticsContent', {
     read: ViewContainerRef,
@@ -59,6 +62,7 @@ export class AnalyticsComponent implements OnInit {
   };
 
   constructor(private analyticsService: AnalyticsService, private dialog: MatDialog,
+              private spinnerService: SpinnerService,
               private periodService: PeriodsService, private resolver: ComponentFactoryResolver) {
   }
 
@@ -90,6 +94,9 @@ export class AnalyticsComponent implements OnInit {
     this.analyticsService.getAppointmentsAnalytics(this.filterForm.get(FormControlNames.PERIOD_FORM_CONTROL)?.value)
       .subscribe((resp) => {
         this.appointmentsAnalyticsDto = resp;
+        setTimeout(() => {
+          this.spinnerService.hide(this.spinner);
+        });
       });
   }
 

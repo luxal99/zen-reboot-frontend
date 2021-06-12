@@ -36,10 +36,14 @@ export class GenericAnalyticsTableComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if (this.dataSource) {
+      setTimeout(() => {
+        this.spinnerService.hide(this.spinner);
+      }, 100);
+    }
   }
 
   getPeriods(): void {
-
   }
 
   filterOnChange(): void {
