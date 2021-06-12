@@ -1,0 +1,19 @@
+<div class="tab-content">
+  <div class="row">
+    <div class="col-sm" style="padding-left: 0">
+      <h1><b>Analitika vaučera</b></h1>
+      <app-generic-analytics-table [displayedColumns]="invoiceItemsColumns"
+                                   [dataSource]="[voucherAnalyticsDto]"></app-generic-analytics-table>
+    </div>
+    <div class="col-sm" style="padding-right: 0">
+      <h1><b>Analitika paketa</b></h1>
+      <app-generic-analytics-table [displayedColumns]="invoiceItemsColumns"
+                                   [dataSource]="[packageAnalyticsDto]"></app-generic-analytics-table>
+    </div>
+  </div>
+  <div style="margin-top: 2em">
+    <h1><b>Analitika isteklih paketa</b></h1>
+    <app-generic-analytics-table [displayedColumns]="expiredPackagesColumns"
+                                 [dataSource]="[listOfExpiredPackages]"></app-generic-analytics-table>
+  </div>
+</div>

@@ -19,7 +19,7 @@
           </div>
           <div class="col-sm" style="padding-right: 0">
             <h1><b>Otkazani tretmani</b></h1>
-            <app-generic-analytics-table [displayedColumns]="canceledAppointmentsColumns"
+            <app-generic-analytics-table [displayedColumns]="appointmentAnalyticsColumns"
                                          (filterFunction)="getCanceledAppointments($event)"
                                          (openOverview)="openAppointmentOverviewDialog($event)"
                                          [dataSource]="listOfCanceledAppointments"></app-generic-analytics-table>
@@ -27,7 +27,7 @@
         </div>
         <div style="padding-top: 3em">
           <h1><b>Kompletirani tretmani</b></h1>
-          <app-generic-analytics-table [displayedColumns]="canceledAppointmentsColumns"
+          <app-generic-analytics-table [displayedColumns]="appointmentAnalyticsColumns"
                                        (openOverview)="openAppointmentOverviewDialog($event)"
                                        (filterFunction)="getCompletedAppointments($event)"
                                        [dataSource]="listOfCompletedAppointments"></app-generic-analytics-table>
@@ -35,26 +35,11 @@
         </div>
       </div>
     </mat-tab>
-    <mat-tab label="Analitika klijenta i zaposlenih" #staffAndClientsAnalyticsTab></mat-tab>
+    <mat-tab label="Analitika klijenta i zaposlenih" #staffAndClientsAnalyticsTab>
+      <div #staffAndClientsAnalyticsContent></div>
+    </mat-tab>
     <mat-tab label="Analitika vaučera i paketa" #voucherAndPackageAnalyticsTab>
-      <div class="tab-content">
-        <div class="row">
-          <div class="col-sm" style="padding-left: 0">
-            <h1>Analitika vaučera</h1>
-            <app-generic-analytics-table [displayedColumns]="voucherColumns"
-                                         [dataSource]="[voucherAnalyticsDto]"></app-generic-analytics-table>
-          </div>
-          <div class="col-sm" style="padding-right: 0">
-            <h1>Analitika paketa</h1>
-            <app-generic-analytics-table [displayedColumns]="voucherColumns"
-                                         [dataSource]="[packageAnalyticsDto]"></app-generic-analytics-table>
-          </div>
-        </div>
-        <div style="margin-top: 2em">
-          <app-generic-analytics-table [displayedColumns]="expiredPackagesColumns"
-                                       [dataSource]="[listOfExpiredPackages]"></app-generic-analytics-table>
-        </div>
-      </div>
+      <div #voucherAndPackageAnalyticsContent></div>
     </mat-tab>
   </mat-tab-group>
 </div>

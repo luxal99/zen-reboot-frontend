@@ -6,6 +6,7 @@ import {Package} from '../models/package';
 import {Appointment} from '../models/appointment';
 import {EarnedDto} from '../models/earned-dto';
 import {InvoiceItemAnalyticsDto} from '../models/voucher-package-analytics-dto';
+import {TopClientsDto} from '../models/top-clients-dto';
 
 @Injectable({
   providedIn: 'root'
@@ -49,8 +50,8 @@ export class AnalyticsService {
       '/' + RestRoutesConst.PACKAGE + `?period=${period}`, {responseType: 'json'});
   }
 
-  getTopClients(period?: string): Observable<any[]> {
-    return this.http.get<any[]>(RestRoutesConst.API + RestRoutesConst.ANALYTICS + '/'
+  getTopClients(period?: string): Observable<TopClientsDto> {
+    return this.http.get<TopClientsDto>(RestRoutesConst.API + RestRoutesConst.ANALYTICS + '/'
       + RestRoutesConst.CLIENT + `/top?period=${period}`, {responseType: 'json'});
   }
 

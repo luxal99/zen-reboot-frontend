@@ -73,6 +73,8 @@ import {ProtectedDirective} from './directives/protected.directive';
 import { GenericAnalyticsTableComponent } from './components/admin/analytics/generic-analytics-table/generic-analytics-table.component';
 import { MapColumnArrPipe } from './pipes/map-column-arr.pipe';
 import { DynamicPropertyPipe } from './pipes/dynamic-property.pipe';
+import { ClientsAndStaffsAnalyticsOverviewComponent } from './components/admin/analytics/clients-and-staffs-analytics-overview/clients-and-staffs-analytics-overview.component';
+import { VouchersAndPackagesAnalyticsOverviewComponent } from './components/admin/analytics/vouchers-and-packages-analytics-overview/vouchers-and-packages-analytics-overview.component';
 
 @NgModule({
   declarations: [
@@ -137,7 +139,9 @@ import { DynamicPropertyPipe } from './pipes/dynamic-property.pipe';
     ProtectedDirective,
     GenericAnalyticsTableComponent,
     MapColumnArrPipe,
-    DynamicPropertyPipe
+    DynamicPropertyPipe,
+    ClientsAndStaffsAnalyticsOverviewComponent,
+    VouchersAndPackagesAnalyticsOverviewComponent
   ],
   imports: [
     BrowserModule,
