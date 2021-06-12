@@ -45,33 +45,38 @@
         <div class="tab-div">
           <mat-tab-group mat-stretch-tabs animationDuration="300ms" dynamicHeight>
             <mat-tab label="Istorija tretmana">
-              <div class="row treatment-client-card" (click)="openAppointmentOverviewDialog(appointment)"
-                   *ngFor="let appointment of listOfAppointments">
-                <div class="col-sm-2">
-                  <h1>{{appointment.date.get('date')}}</h1>
-                  <h2 style="line-height: 5px">{{appointment.date.format('MMMM')}}</h2>
-                </div>
-                <div class="col-sm">
-                  <h4 class="silver">{{appointment.date.format('dddd')}} {{appointment.startTime}}</h4>
-                  <h3>{{appointment.treatment.name}}</h3>
-                </div>
-                <div class="col-sm-3">
-                  <h2><b>RSD {{appointment.price}}</b></h2>
+              <div class="tab-content">
+                <div class="row treatment-client-card" (click)="openAppointmentOverviewDialog(appointment)"
+                     *ngFor="let appointment of listOfAppointments">
+                  <div class="col-sm-2">
+                    <h1>{{appointment.date.get('date')}}</h1>
+                    <h2 style="line-height: 5px">{{appointment.date.format('MMMM')}}</h2>
+                  </div>
+                  <div class="col-sm">
+                    <h4 class="silver">{{appointment.date.format('dddd')}} {{appointment.startTime}}</h4>
+                    <h3>{{appointment.treatment.name}}</h3>
+                  </div>
+                  <div class="col-sm-3">
+                    <h2><b>RSD {{appointment.price}}</b></h2>
+                  </div>
                 </div>
               </div>
             </mat-tab>
             <mat-tab label="Fakture">
-              <div class="row invoice-row" (click)="openInvoiceOverviewDialog(invoice)" *ngFor="let invoice of listOfInvoices">
-                <div class="col-sm-2">
-                  <h1>{{invoice.date.get('date')}}</h1>
-                  <h2 style="line-height: 5px">{{invoice.date.format('MMMM')}}</h2>
-                </div>
-                <div class="col-sm">
-                  <h4 class="silver">Status</h4>
-                  <h3>{{invoice.invoiceStatus.name | capitalize}}</h3>
-                </div>
-                <div class="col-sm text-right">
-                  <h2><b>RSD {{invoice.gross}}</b></h2>
+              <div class="tab-content">
+                <div class="row invoice-row" (click)="openInvoiceOverviewDialog(invoice)"
+                     *ngFor="let invoice of listOfInvoices">
+                  <div class="col-sm-2">
+                    <h1>{{invoice.date.get('date')}}</h1>
+                    <h2 style="line-height: 5px">{{invoice.date.format('MMMM')}}</h2>
+                  </div>
+                  <div class="col-sm">
+                    <h4 class="silver">Status</h4>
+                    <h3>{{invoice.invoiceStatus.name | capitalize}}</h3>
+                  </div>
+                  <div class="col-sm text-right">
+                    <h2><b>RSD {{invoice.gross}}</b></h2>
+                  </div>
                 </div>
               </div>
             </mat-tab>
