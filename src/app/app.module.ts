@@ -75,6 +75,7 @@ import { MapColumnArrPipe } from './pipes/map-column-arr.pipe';
 import { DynamicPropertyPipe } from './pipes/dynamic-property.pipe';
 import { ClientsAndStaffsAnalyticsOverviewComponent } from './components/admin/analytics/clients-and-staffs-analytics-overview/clients-and-staffs-analytics-overview.component';
 import { VouchersAndPackagesAnalyticsOverviewComponent } from './components/admin/analytics/vouchers-and-packages-analytics-overview/vouchers-and-packages-analytics-overview.component';
+import { ProfitAndExpensesAnalyticsOverviewComponent } from './components/admin/analytics/profit-and-expenses-analytics-overview/profit-and-expenses-analytics-overview.component';
 
 @NgModule({
   declarations: [
@@ -141,7 +142,8 @@ import { VouchersAndPackagesAnalyticsOverviewComponent } from './components/admi
     MapColumnArrPipe,
     DynamicPropertyPipe,
     ClientsAndStaffsAnalyticsOverviewComponent,
-    VouchersAndPackagesAnalyticsOverviewComponent
+    VouchersAndPackagesAnalyticsOverviewComponent,
+    ProfitAndExpensesAnalyticsOverviewComponent
   ],
   imports: [
     BrowserModule,

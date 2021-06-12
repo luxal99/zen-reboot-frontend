@@ -17,6 +17,7 @@ import {LazyLoadComponentsUtil} from '../../../util/lazy-loading-components';
 import {VouchersAndPackagesAnalyticsOverviewComponent} from './vouchers-and-packages-analytics-overview/vouchers-and-packages-analytics-overview.component';
 import {ClientsAndStaffsAnalyticsOverviewComponent} from './clients-and-staffs-analytics-overview/clients-and-staffs-analytics-overview.component';
 import {APPOINTMENT_ANALYTICS_COLUMNS} from '../../../const/table-column-values';
+import {ProfitAndExpensesAnalyticsOverviewComponent} from './profit-and-expenses-analytics-overview/profit-and-expenses-analytics-overview.component';
 
 @Component({
   selector: 'app-analytics',
@@ -36,6 +37,12 @@ export class AnalyticsComponent implements OnInit {
     read: ViewContainerRef,
     static: false
   }) voucherAndPackageAnalyticsContent!: ViewContainerRef;
+
+  @ViewChild('profitAndExpensesTab') profitAndExpensesTab!: MatTab;
+  @ViewChild('profitAndExpensesContent', {
+    read: ViewContainerRef,
+    static: false
+  }) profitAndExpensesContent!: ViewContainerRef;
 
   filterForm = new FormGroup({
     period: new FormControl('TODAY')
@@ -66,6 +73,9 @@ export class AnalyticsComponent implements OnInit {
       this.loadComponent(VouchersAndPackagesAnalyticsOverviewComponent, this.voucherAndPackageAnalyticsContent);
     } else if (this.staffAndClientsAnalyticsTab.isActive) {
       this.loadComponent(ClientsAndStaffsAnalyticsOverviewComponent, this.staffAndClientsAnalyticsContent);
+    } else if (this.profitAndExpensesTab.isActive) {
+      this.loadComponent(ProfitAndExpensesAnalyticsOverviewComponent, this.profitAndExpensesContent);
+
     }
   }
 
@@ -101,6 +111,8 @@ export class AnalyticsComponent implements OnInit {
   }
 
   loadComponent(component: ComponentType<any>, entry: ViewContainerRef): void {
-    LazyLoadComponentsUtil.loadComponent(component, entry, this.resolver);
+    setTimeout(() => {
+      LazyLoadComponentsUtil.loadComponent(component, entry, this.resolver);
+    }, 200);
   }
 }
