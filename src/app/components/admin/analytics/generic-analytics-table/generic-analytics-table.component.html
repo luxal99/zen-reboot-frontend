@@ -12,7 +12,12 @@
             <div [style.background-color]="element.staff.color"
                  class="staff-badge"></div>
           </ng-container>
-          {{element|dynamicProperty:column.value}}
+          <ng-container *ngIf="column.name !=='start'&&column.name !=='end' && column.name !=='date'">
+            {{element|dynamicProperty:column.value}}
+          </ng-container>
+          <ng-container *ngIf="column.name ==='start'||column.name ==='end' || column.name ==='date'">
+            {{element|dynamicProperty:column.value|date}}
+          </ng-container>
         </div>
       </td>
     </ng-container>
