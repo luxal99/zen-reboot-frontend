@@ -23,7 +23,7 @@
   <app-form-input [config]="priceInputConfig" *ngIf="isDisplayTypeBlanco" [group]="voucherForm"></app-form-input>
   <app-form-input [group]="voucherForm" label="Popust"
                   [config]="discountInputConfig"></app-form-input>
-  <app-form-select [config]="discountTypeSelectConfig"
+  <app-form-select [config]="discountTypeSelectConfig" label="Tip popusta"
                    [group]="voucherForm"></app-form-select>
   <app-form-select label="Način plaćanja" [group]="voucherForm"
                    [config]="paymentMethodSelectConfig"></app-form-select>
