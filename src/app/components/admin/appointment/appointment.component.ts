@@ -204,7 +204,8 @@ export class AppointmentComponent extends DefaultComponent<Appointment> implemen
 
   async checkAppointment(appointment: Appointment, event: any): Promise<void> {
     event.stopPropagation();
-    super.otherSubscribe(this.appointmentService.setConfirmStatus(appointment.id), [() => this.getAppointments()]);
+    super.otherSubscribe(this.appointmentService.setConfirmStatus(appointment.id),
+      [() => this.getAppointments()]);
   }
 
   search(): void {

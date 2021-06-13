@@ -4,6 +4,7 @@ import {Client} from '../models/client';
 import {RestRoutesConst} from '../const/const';
 import {Observable} from 'rxjs';
 import {AppointmentDTO} from '../models/AppointmentDTO';
+import {Invoice} from '../models/invoice';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +20,12 @@ export class ClientService extends GenericService<Client> {
   }
 
   findAppointmentsForClient(idClient: number): Observable<AppointmentDTO[]> {
-    return this.http.get<AppointmentDTO[]>(RestRoutesConst.API + this.route + '/' + idClient + '/' + RestRoutesConst.APPOINTMENT, {responseType: 'json'});
+    return this.http.get<AppointmentDTO[]>(RestRoutesConst.API + this.route + '/'
+        + idClient + '/' + RestRoutesConst.APPOINTMENT, {responseType: 'json'});
+  }
+
+  findInvoicesForClient(idClient: any): Observable<Invoice[]> {
+    return this.http.get<Invoice[]>(RestRoutesConst.API + RestRoutesConst.CLIENT + '/'
+        + idClient + '/' + RestRoutesConst.INVOICE + '/billed', {responseType: 'json'});
   }
 }

@@ -17,7 +17,8 @@
     </div>
     <div class="col-2">
       <div class="text-right">
-        <button class="add-btn" appProtected [roleActivator]="[roleSetting.ADMIN,roleSetting.RECEPTIONIST]"
+        <button class="add-btn" appProtected
+                [roleActivator]="[roleSetting.ADMIN,roleSetting.RECEPTIONIST]"
                 (click)="openAddAppointmentDialog({room:{}})" mat-fab>
           <mat-icon>add</mat-icon>
         </button>

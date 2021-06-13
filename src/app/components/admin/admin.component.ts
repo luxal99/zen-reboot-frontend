@@ -17,6 +17,7 @@ import {StaffShiftsOverviewComponent} from './staff-shifts-overview/staff-shifts
 import {StaffOverviewComponent} from './staff-overview/staff-overview.component';
 import {UserComponent} from './user/user.component';
 import {RoleSettings} from '../../const/const';
+import {PeriodsService} from '../../service/periods.service';
 
 @Component({
   selector: 'app-admin',
@@ -33,7 +34,8 @@ export class AdminComponent implements OnInit, AfterViewInit {
   header = 'Pregled';
 
 
-  constructor(private resolver: ComponentFactoryResolver, private userService: UserService, public roleSetting: RoleSettings) {
+  constructor(private resolver: ComponentFactoryResolver, private userService: UserService,
+              public roleSetting: RoleSettings, private periodService: PeriodsService) {
   }
 
   ngOnInit(): void {

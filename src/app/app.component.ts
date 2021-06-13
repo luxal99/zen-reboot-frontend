@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {PeriodsService} from './service/periods.service';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +8,7 @@ import {PeriodsService} from './service/periods.service';
 export class AppComponent implements OnInit {
   title = 'zen-frontend';
 
-  constructor(private periodService: PeriodsService) {
+  constructor() {
   }
 
   async ngOnInit(): Promise<void> {

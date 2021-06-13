@@ -1,10 +1,6 @@
 import {RoleEnum} from '../enums/RoleEnum';
 import {Injectable} from '@angular/core';
 
-export class RestServices {
-  static AUTH = 'http://api.reboot.zen.7aske.xyz/login';
-}
-
 export const SELECTED_CLASS_NAME = 'selected';
 
 export class FormControlNames {
@@ -94,7 +90,7 @@ export class Message {
 
 export class RestRoutesConst {
   static API = 'http://api.reboot.zen.7aske.xyz/';
-  //  static API = 'http://localhost:8080/zen/';
+  static AUTH = 'login';
   static REFERRAL_SOURCES = 'referral-sources';
   static CLIENT = 'clients';
   static TREATMENT_CATEGORY = 'treatment-categories';

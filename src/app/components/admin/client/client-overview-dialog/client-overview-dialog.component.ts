@@ -10,9 +10,7 @@ import {AppointmentStatuses} from '../../../../const/const';
 import {DialogUtil} from '../../../../util/dialog-util';
 import {AddAppointmentDialogComponent} from '../../appointment/add-appointment-dialog/add-appointment-dialog.component';
 import {InvoiceService} from '../../../../service/invoice.service';
-import {CriteriaBuilder} from '../../../../util/criteria-builder';
 import {Invoice} from '../../../../models/invoice';
-import {map} from 'rxjs/operators';
 import {setDialogConfig} from '../../../../util/dialog-options';
 import {Appointment} from '../../../../models/appointment';
 import {InvoicesDialogOverviewComponent} from '../../../table-binding/invoices-dialog-overview/invoices-dialog-overview.component';
@@ -106,11 +104,15 @@ export class ClientOverviewDialogComponent implements OnInit {
     });
   }
 
+
   getInvoices(): void {
-    this.invoiceService.getInvoicesDtos(new CriteriaBuilder().eq('client.id', JSON.stringify(this.data.id)).buildUrlEncoded())
-      .pipe(map(value => value.filter((invoice) => invoice.date = moment(invoice.date))))
-      .subscribe((resp) => {
-        this.listOfInvoices = resp;
+      this.clientService.findInvoicesForClient(this.data.id).subscribe((resp) => {
+          console.log(resp);
+          this.listOfInvoices = resp;
+          this.listOfInvoices.filter((invoice) => {
+              invoice.date = moment(invoice.date);
+          });
       });
   }
+
 }
