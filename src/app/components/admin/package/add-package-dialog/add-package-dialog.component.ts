@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {DefaultComponent} from '../../../../util/default-component';
 import {PackageService} from '../../../../service/package.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
@@ -12,12 +12,10 @@ import {ClientService} from '../../../../service/client.service';
 import {DiscountTypeService} from '../../../../service/discount-type.service';
 import {TreatmentService} from '../../../../service/treatment.service';
 import {LocationService} from '../../../../service/location.service';
-import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {PackageDto} from '../../../../models/package-dto';
 import * as moment from 'moment';
 import {PaymentMethodService} from '../../../../service/payment-method.service';
 import {PackageBase} from '../../../../models/package-base';
-import {Package} from '../../../../models/package';
 
 @Component({
   selector: 'app-add-package-dialog',
@@ -84,7 +82,7 @@ export class AddPackageDialogComponent extends DefaultComponent<PackageBase> imp
     super.initSelectConfig(this.treatmentService, this.treatmentSelectConfig);
     super.initSelectConfig(this.locationService, this.locationSelectConfig);
     super.initSelectConfig(this.discountTypeService, this.discountTypeSelectConfig);
-    super.initSelectConfig(this.paymentMethodService, this.paymentMethodSelectConfig);
+    super.initSelectConfigWithObservable(this.packageService.getPaymentMethods(), this.paymentMethodSelectConfig);
   }
 
   selectClient(client: Client, $event: any): void {
