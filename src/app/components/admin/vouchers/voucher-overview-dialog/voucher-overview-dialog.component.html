@@ -18,7 +18,8 @@
         <h2>{{data.client?.person?.firstName + ' ' + data.client?.person?.lastName }}</h2>
       </div>
       <div class="col text-right" style="padding-top: .5em">
-        <button class="default-btn" mat-button>
+        <button class="default-btn" mat-button
+                (click)="openClientOverviewDialog()">
           Pregledaj
         </button>
       </div>
