@@ -1,15 +1,20 @@
 import {Pipe, PipeTransform} from '@angular/core';
+import {isNumeric} from 'rxjs/internal-compatibility';
 
 @Pipe({
   name: 'translate'
 })
 export class TranslatePipe implements PipeTransform {
 
-  transform(value: string): string {
-    const valueToUpperCase = value.toUpperCase();
+  transform(value: any): any {
+    let valueToUpperCase = ''
+    if (!isNumeric(value)) {
+      valueToUpperCase = value.toUpperCase();
+    }
     if (!value) {
       return '';
     }
+
 
     if (valueToUpperCase === 'PERCENT') {
       return 'Procenat';
