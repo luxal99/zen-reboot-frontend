@@ -18,6 +18,8 @@ import {RoomService} from '../../../service/room.service';
 import {AppointmentService} from '../../../service/appointment.service';
 import {AppointmentStatusService} from '../../../service/appointment-status.service';
 import {RoleSettings} from '../../../const/const';
+import {Staff} from "../../../models/staff";
+import {StaffService} from "../../../service/staff.service";
 
 @Component({
   selector: 'app-appointment',
@@ -29,7 +31,7 @@ export class AppointmentComponent extends DefaultComponent<Appointment> implemen
 
   filteredScheduleList: RoomDto[] = [];
   listOfTimes: string[] = [];
-
+  listOfStaffOnShift: Staff[] = []
   currentDate = moment();
 
   searchForm = new FormGroup({
@@ -54,6 +56,7 @@ export class AppointmentComponent extends DefaultComponent<Appointment> implemen
 
   constructor(private dialog: MatDialog, protected snackBar: MatSnackBar, public locationService: LocationService,
               private roomService: RoomService, private appointmentService: AppointmentService,
+              private staffService: StaffService,
               private appointmentStatusService: AppointmentStatusService, public roleSetting: RoleSettings) {
     super(appointmentService, snackBar);
   }
@@ -66,11 +69,18 @@ export class AppointmentComponent extends DefaultComponent<Appointment> implemen
     this.getLocations().then(() => {
       this.getAppointments();
     });
+    this.getStaffOnShift();
   }
 
   async getLocations(): Promise<void> {
     this.listOfLocations = await this.locationService.getAll().toPromise();
     this.defaultLocation = this.listOfLocations[0];
+  }
+
+  getStaffOnShift(): void {
+    this.staffService.getStaffOnShift(this.currentDate.format('DD-MM-YYYY')).subscribe((resp) => {
+      this.listOfStaffOnShift = resp;
+    });
   }
 
   changeLocation(forwardedElement: any, location: Location): void {

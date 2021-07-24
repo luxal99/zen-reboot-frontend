@@ -52,14 +52,26 @@
 
     </div>
     <div class="col-sm text-right">
-      <app-paginator (prev)="previousStaffs()" (next)="nextStaffs()"
-                     [showNext]="filteredScheduleList.length >0"></app-paginator>
-      <button (click)="zoomIn()" mat-mini-fab style="margin: .5em">
-        <mat-icon>zoom_in</mat-icon>
-      </button>
-      <button (click)="zoomOut()" mat-mini-fab style="margin: .5em">
-        <mat-icon>zoom_out</mat-icon>
-      </button>
+      <div class="row">
+        <div class="col-6">
+          <div class="inline w-100">
+            <div class="staff-circle" matTooltip="{{staffOnShift.person.firstName+' '+staffOnShift.person.lastName}}" matTooltipPosition="below" [style.background-color]="staffOnShift.color"
+                 *ngFor="let staffOnShift of listOfStaffOnShift">
+              <h2 class="text-center">{{staffOnShift.person.firstName.slice(0, 1) + '' + staffOnShift.person.lastName.slice(0, 1)}}</h2>
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <app-paginator (prev)="previousStaffs()" (next)="nextStaffs()"
+                         [showNext]="filteredScheduleList.length >0"></app-paginator>
+          <button (click)="zoomIn()" mat-mini-fab style="margin: .5em">
+            <mat-icon>zoom_in</mat-icon>
+          </button>
+          <button (click)="zoomOut()" mat-mini-fab style="margin: .5em">
+            <mat-icon>zoom_out</mat-icon>
+          </button>
+        </div>
+      </div>
     </div>
 
   </div>
