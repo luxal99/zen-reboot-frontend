@@ -1,4 +1,5 @@
-import {Person} from './person';
+import {Person} from "./person";
+import {SalaryCategory} from "./salary-category";
 
 export interface Staff {
   createdDate?: string;
@@ -8,6 +9,7 @@ export interface Staff {
   person?: Person;
   color?: string;
   startDate?: string;
-  endDate?: string
+  endDate?: string;
+  salaryCategory?: SalaryCategory
 }
 

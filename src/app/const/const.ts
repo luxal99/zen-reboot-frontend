@@ -61,6 +61,7 @@ export class FormControlNames {
   static OLD_PASSWORD_FORM_CONTROL = "oldPassword";
   static PERIOD_FORM_CONTROL = "period";
   static PERCENTAGE_FORM_CONTROL = "percentage";
+  static SALARY_CATEGORY_FORM_CONTROL = "salaryCategory";
 }
 
 export class InputTypes {

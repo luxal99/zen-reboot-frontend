@@ -1,20 +1,20 @@
-import {Component, ComponentRef, Inject, OnInit, ViewChild} from '@angular/core';
-import {MatSpinner} from '@angular/material/progress-spinner';
-import {SpinnerService} from '../service/spinner.service';
-import {MatSnackBar} from '@angular/material/snack-bar';
-import {GenericService} from '../service/generic.service';
-import {Observable} from 'rxjs';
-import {SnackBarUtil} from './snack-bar-uitl';
-import {Message, RoleSettings} from '../const/const';
-import {FieldConfig} from '../models/FIeldConfig';
+import {Component, ComponentRef, Inject, OnInit, ViewChild} from "@angular/core";
+import {MatSpinner} from "@angular/material/progress-spinner";
+import {SpinnerService} from "../service/spinner.service";
+import {MatSnackBar} from "@angular/material/snack-bar";
+import {GenericService} from "../service/generic.service";
+import {Observable} from "rxjs";
+import {SnackBarUtil} from "./snack-bar-uitl";
+import {Message, RoleSettings} from "../const/const";
+import {FieldConfig} from "../models/FIeldConfig";
 
 @Component({
-  template: '',
+  template: "",
   providers: [RoleSettings]
 })
 export abstract class DefaultComponent<T> implements OnInit {
   protected spinnerService!: SpinnerService;
-  @ViewChild('spinner') protected spinner!: MatSpinner;
+  @ViewChild("spinner") protected spinner!: MatSpinner;
   listOfItems: T[] = [];
 
   protected constructor(protected genericService: GenericService<T>, protected snackBar: MatSnackBar) {
@@ -129,6 +129,7 @@ export abstract class DefaultComponent<T> implements OnInit {
     service.getAll().subscribe((resp) => {
       selectConfig.options = resp;
     });
+
   }
 
   initSelectConfigWithObservable(observable: Observable<any>, selectConfig: FieldConfig): void {
