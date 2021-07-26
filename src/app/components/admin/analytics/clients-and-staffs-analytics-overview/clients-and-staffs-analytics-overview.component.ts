@@ -9,6 +9,11 @@ import {DialogUtil} from '../../../../util/dialog-util';
 import {ClientOverviewDialogComponent} from '../../client/client-overview-dialog/client-overview-dialog.component';
 import {setDialogConfig} from '../../../../util/dialog-options';
 import {MatDialog} from '@angular/material/dialog';
+import {
+  RETURNING_CLIENTS_COLUMNS,
+  STAFF_EARNED_COLUMNS,
+  TOP_CLIENTS_COLUMNS
+} from '../../../../const/table-column-values';
 
 @Component({
   selector: 'app-clients-and-staffs-analytics-overview',
@@ -17,9 +22,9 @@ import {MatDialog} from '@angular/material/dialog';
 })
 export class ClientsAndStaffsAnalyticsOverviewComponent implements OnInit {
 
-  topClientsColumns: Column[] = ColumnDef.TOP_CLIENTS_COLUMNS;
-  returningClientsColumns: Column[] = ColumnDef.RETURNING_CLIENTS_COLUMNS;
-  staffEarnedClientsColumns: Column[] = ColumnDef.STAFF_EARNED_COLUMNS;
+  topClientsColumns: Column[] = TOP_CLIENTS_COLUMNS;
+  returningClientsColumns: Column[] = RETURNING_CLIENTS_COLUMNS;
+  staffEarnedClientsColumns: Column[] = STAFF_EARNED_COLUMNS;
 
   listOfTopClients: TopClientsDto = {clients: []};
   listOfReturningClients: Client[] = [];

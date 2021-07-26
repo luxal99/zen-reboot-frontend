@@ -19,6 +19,16 @@ export const EXPIRED_PACKAGES_COLUMNS: Column[] = [
   {name: 'price', displayedName: 'Vrednost', value: 'price'},
   {name: 'treatment', displayedName: 'Tretman', value: 'treatmentDuration.treatment.name'},
 ];
+
+export const EXPIRED_VOUCHERS_COLUMNS: Column[] = [
+  {name: 'code', displayedName: 'Kod', value: 'code'},
+  {name: 'firstName', displayedName: 'Ime', value: 'client.person.firstName'},
+  {name: 'lastName', displayedName: 'Prezime', value: 'client.person.lastName'},
+  {name: 'price', displayedName: 'Vrednost', value: 'price'},
+  {name: 'type', displayedName: 'Tip', value: 'type'},
+  {name: 'start', displayedName: 'Početak', value: 'startDate'},
+  {name: 'end', displayedName: 'Kraj', value: 'endDate'},
+];
 export const INVOICE_ITEMS_COLUMNS: Column[] = [
   {name: 'count', displayedName: 'Broj', value: 'count'},
   {name: 'start', displayedName: 'Početak', value: 'start'},

@@ -46,6 +46,16 @@ export class TranslatePipe implements PipeTransform {
       return 'Kompletiran';
     } else if (valueToUpperCase === 'CONFIRMED') {
       return 'Potvrđen';
+    } else if (valueToUpperCase === 'TODAY') {
+      return 'Dnevni';
+    } else if (valueToUpperCase === 'Week') {
+      return 'Nedeljni';
+    } else if (valueToUpperCase === 'MONTH') {
+      return 'Mesečni';
+    } else if (valueToUpperCase === 'THREE_MONTHS') {
+      return 'Tromesečni';
+    } else if (valueToUpperCase === 'SIX_MONTHS') {
+      return 'Šestomesečni';
     } else {
       return value;
     }

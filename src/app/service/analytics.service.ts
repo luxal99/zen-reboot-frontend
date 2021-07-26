@@ -10,6 +10,7 @@ import {TopClientsDto} from '../models/top-clients-dto';
 import {Client} from '../models/client';
 import {ProfitDto} from '../models/profit-dto';
 import {ExpensesAnalyticsDto} from '../models/expenses-analytics-dto';
+import {Voucher} from "../models/voucher";
 
 @Injectable({
   providedIn: 'root'
@@ -75,5 +76,11 @@ export class AnalyticsService {
   getAnalyticsExpenses(period: string): Observable<ExpensesAnalyticsDto> {
     return this.http.get<ExpensesAnalyticsDto>(RestRoutesConst.API + '/' + RestRoutesConst.ANALYTICS + '/' +
       RestRoutesConst.EXPENSE + `?period=${period}`, {responseType: 'json'});
+  }
+
+  getExpiredVouchersAnalytics(period: string): Observable<Voucher[]> {
+    return this.http.get<Voucher[]>(RestRoutesConst.API +
+      RestRoutesConst.ANALYTICS + '/' + RestRoutesConst.VOUCHER + '/expired' +
+      `?period=${period}`, {responseType: 'json'});
   }
 }

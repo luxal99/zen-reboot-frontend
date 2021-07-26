@@ -3,7 +3,13 @@ import {Column} from '../../../../models/column';
 import {AnalyticsService} from '../../../../service/analytics.service';
 import {InvoiceItemAnalyticsDto} from '../../../../models/voucher-package-analytics-dto';
 import {Package} from '../../../../models/package';
-import {EXPIRED_PACKAGES_COLUMNS, INVOICE_ITEMS_COLUMNS} from '../../../../const/table-column-values';
+import {
+  EXPIRED_PACKAGES_COLUMNS,
+  EXPIRED_VOUCHERS_COLUMNS,
+  INVOICE_ITEMS_COLUMNS
+} from '../../../../const/table-column-values';
+import {Voucher} from '../../../../models/voucher';
+
 
 @Component({
   selector: 'app-vouchers-and-packages-analytics-overview',
@@ -15,8 +21,10 @@ export class VouchersAndPackagesAnalyticsOverviewComponent implements OnInit {
   voucherAnalyticsDto!: InvoiceItemAnalyticsDto;
   packageAnalyticsDto!: InvoiceItemAnalyticsDto;
   listOfExpiredPackages: Package[] = [];
+  listOfExpiredVouchers: Voucher[] = [];
 
   expiredPackagesColumns: Column[] = EXPIRED_PACKAGES_COLUMNS;
+  expiredVouchersColumns: Column[] = EXPIRED_VOUCHERS_COLUMNS;
 
   invoiceItemsColumns: Column[] = INVOICE_ITEMS_COLUMNS;
 
@@ -24,6 +32,7 @@ export class VouchersAndPackagesAnalyticsOverviewComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getExpiredVouchers();
     this.getVoucherAnalytics();
     this.getPackageAnalytics();
     this.getExpiredPackages();
@@ -40,6 +49,14 @@ export class VouchersAndPackagesAnalyticsOverviewComponent implements OnInit {
     this.analyticsService.getVouchersAnalytics(!event ? 'TODAY' : event)
       .subscribe((resp) => {
         this.voucherAnalyticsDto = resp;
+      });
+  }
+
+  getExpiredVouchers(event?: string): void {
+    this.analyticsService.getExpiredVouchersAnalytics(!event ? 'TODAY' : event)
+      .subscribe((resp) => {
+        // @ts-ignore
+        this.listOfExpiredVouchers = resp
       });
   }
 

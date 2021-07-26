@@ -77,6 +77,7 @@ import { ClientsAndStaffsAnalyticsOverviewComponent } from './components/admin/a
 import { VouchersAndPackagesAnalyticsOverviewComponent } from './components/admin/analytics/vouchers-and-packages-analytics-overview/vouchers-and-packages-analytics-overview.component';
 import { ProfitAndExpensesAnalyticsOverviewComponent } from './components/admin/analytics/profit-and-expenses-analytics-overview/profit-and-expenses-analytics-overview.component';
 import { TranslatePipe } from './pipes/translate.pipe';
+import { ConvertToArrayPipe } from './pipes/convert-to-array.pipe';
 
 @NgModule({
   declarations: [
@@ -145,7 +146,8 @@ import { TranslatePipe } from './pipes/translate.pipe';
     ClientsAndStaffsAnalyticsOverviewComponent,
     VouchersAndPackagesAnalyticsOverviewComponent,
     ProfitAndExpensesAnalyticsOverviewComponent,
-    TranslatePipe
+    TranslatePipe,
+    ConvertToArrayPipe
   ],
   imports: [
     BrowserModule,

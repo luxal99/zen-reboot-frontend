@@ -2,7 +2,7 @@
   <app-form-select (onChange)="filterOnChange()" model="TODAY" [group]="filterForm"
                    [config]="periodSelectConfig"></app-form-select>
 </div>
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+<table mat-table [dataSource]="dataSource|convertToArray" class="mat-elevation-z8">
   <ng-container *ngFor="let column of displayedColumns">
     <ng-container [matColumnDef]="column.name">
       <th mat-header-cell *matHeaderCellDef> {{column.displayedName}} </th>
