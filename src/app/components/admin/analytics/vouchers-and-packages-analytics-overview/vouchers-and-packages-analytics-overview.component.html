@@ -17,6 +17,7 @@
     <h1><b>Analitika isteklih paketa</b></h1>
     <app-generic-analytics-table (filterFunction)="getExpiredPackages($event)"
                                  [displayedColumns]="expiredPackagesColumns"
+                                 (openOverview)="openVoucherOverviewDialog($event)"
                                  [dataSource]="[listOfExpiredPackages]"></app-generic-analytics-table>
   </div>
   <div style="margin-top: 2em">
@@ -24,6 +25,7 @@
     <app-generic-analytics-table
       [displayedColumns]="expiredVouchersColumns"
       (filterFunction)="getExpiredVouchers($event)"
+      (openOverview)="openVoucherOverviewDialog($event)"
       [dataSource]="[listOfExpiredVouchers]"></app-generic-analytics-table>
   </div>
 </div>

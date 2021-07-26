@@ -1,5 +1,5 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import {isArray} from "rxjs/internal-compatibility";
+import {isArray} from 'rxjs/internal-compatibility';
 
 @Pipe({
   name: 'convertToArray'
@@ -7,7 +7,7 @@ import {isArray} from "rxjs/internal-compatibility";
 export class ConvertToArrayPipe implements PipeTransform {
 
   transform(arr: any[]): any[] {
-    return isArray(arr[0]) ? arr[0] : arr
+    return isArray(arr[0]) ? arr[0] : arr;
   }
 
 }

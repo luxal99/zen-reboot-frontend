@@ -17,16 +17,16 @@
   <table mat-table [dataSource]="listOfItems|voucherPackage:searchText" class="mat-elevation-z8">
     <ng-container matColumnDef="code">
       <th mat-header-cell *matHeaderCellDef> Kod</th>
-      <td (click)="openVoucherOverviewDialog(element)" mat-cell *matCellDef="let element"> {{element.code}} </td>
+      <td (click)="openPackageOverviewDialog(element)" mat-cell *matCellDef="let element"> {{element.code}} </td>
     </ng-container>
     <ng-container matColumnDef="client">
       <th mat-header-cell *matHeaderCellDef> Klijent</th>
-      <td mat-cell (click)="openVoucherOverviewDialog(element)"
+      <td mat-cell (click)="openPackageOverviewDialog(element)"
           *matCellDef="let element"> {{element.client.person.firstName + ' ' + element.client.person.lastName}} </td>
     </ng-container>
     <ng-container matColumnDef="price">
       <th mat-header-cell *matHeaderCellDef> Cena</th>
-      <td mat-cell (click)="openVoucherOverviewDialog(element)"
+      <td mat-cell (click)="openPackageOverviewDialog(element)"
           *matCellDef="let element"> {{element.price + ' RSD'}}</td>
     </ng-container>
     <ng-container matColumnDef="option">

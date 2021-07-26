@@ -10,11 +10,9 @@ export class DynamicPropertyPipe implements PipeTransform {
       return '';
     }
 
-    const value = path.split('.').reduce((prev, curr) => {
+    return path.split('.').reduce((prev, curr) => {
       return prev ? prev[curr] : null;
     }, object);
-    console.log(object)
-    return value
   }
 
 }

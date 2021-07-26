@@ -9,6 +9,11 @@ import {
   INVOICE_ITEMS_COLUMNS
 } from '../../../../const/table-column-values';
 import {Voucher} from '../../../../models/voucher';
+import {MatDialog} from '@angular/material/dialog';
+import {DialogUtil} from '../../../../util/dialog-util';
+import {ClientOverviewDialogComponent} from '../../client/client-overview-dialog/client-overview-dialog.component';
+import {setDialogConfig} from '../../../../util/dialog-options';
+import {VoucherOverviewDialogComponent} from '../../vouchers/voucher-overview-dialog/voucher-overview-dialog.component';
 
 
 @Component({
@@ -28,7 +33,7 @@ export class VouchersAndPackagesAnalyticsOverviewComponent implements OnInit {
 
   invoiceItemsColumns: Column[] = INVOICE_ITEMS_COLUMNS;
 
-  constructor(private analyticsService: AnalyticsService) {
+  constructor(private analyticsService: AnalyticsService, private dialog: MatDialog) {
   }
 
   ngOnInit(): void {
@@ -65,5 +70,13 @@ export class VouchersAndPackagesAnalyticsOverviewComponent implements OnInit {
       .subscribe((resp) => {
         this.packageAnalyticsDto = resp;
       });
+  }
+
+  openVoucherOverviewDialog(element: any): void {
+    DialogUtil.openDialog(VoucherOverviewDialogComponent, setDialogConfig({
+      height: 'auto',
+      width: '40%',
+      data: element
+    }), this.dialog);
   }
 }

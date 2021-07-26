@@ -40,7 +40,7 @@ export class PackageComponent extends DefaultComponent<Package> implements OnIni
     });
   }
 
-  openVoucherOverviewDialog(element: any): void {
+  openPackageOverviewDialog(element: any): void {
     DialogUtil.openDialog(PackageOverviewDialogComponent, setDialogConfig({
       height: 'auto',
       width: '40%',
