@@ -75,9 +75,14 @@ export class AnalyticsComponent implements OnInit {
   onTabChange(): void {
     if (this.voucherAndPackageAnalyticsTab.isActive) {
       this.loadComponent(VouchersAndPackagesAnalyticsOverviewComponent, this.voucherAndPackageAnalyticsContent);
+      this.staffAndClientsAnalyticsContent.clear();
+      this.profitAndExpensesContent.clear()
     } else if (this.staffAndClientsAnalyticsTab.isActive) {
       this.loadComponent(ClientsAndStaffsAnalyticsOverviewComponent, this.staffAndClientsAnalyticsContent);
+      this.voucherAndPackageAnalyticsContent.clear();
     } else if (this.profitAndExpensesTab.isActive) {
+      this.voucherAndPackageAnalyticsContent.clear();
+      this.staffAndClientsAnalyticsContent.clear();
       this.loadComponent(ProfitAndExpensesAnalyticsOverviewComponent, this.profitAndExpensesContent);
 
     }
