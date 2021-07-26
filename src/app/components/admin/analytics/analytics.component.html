@@ -4,18 +4,11 @@
       <div class="tab-content">
         <div class="row">
           <div class="col-sm-5" *ngIf="appointmentsAnalyticsDto" style="padding-left: 0;">
-            <h1><b>Statistika tretmana na osnovu faktura</b></h1>
-            <app-form-select model="TODAY" (onChange)="getAppointmentsAnalytics()" [group]="filterForm"
-                             [config]="periodSelectConfig"></app-form-select>
-            <div class="inline">
-              <div class="big-circle">
-                <h1 *ngIf="appointmentsAnalyticsDto">{{appointmentsAnalyticsDto.value + ' RSD'}}</h1>
-              </div>
-              <div style="display: block;margin-left: 1em">
-                <h3>Količina: {{appointmentsAnalyticsDto.count}}</h3>
-                <h3>{{appointmentsAnalyticsDto.start|date}} - {{appointmentsAnalyticsDto.end|date}}</h3>
-              </div>
-            </div>
+            <app-dto-generic-overview
+              title="Statistika tretmana na osnovu faktura"
+              [dto]="appointmentsAnalyticsDto"
+              (filter)="getAppointmentsAnalytics($event)"
+            ></app-dto-generic-overview>
             <mat-spinner #spinner diameter="25"></mat-spinner>
           </div>
           <div class="col-sm" style="padding-right: 0">

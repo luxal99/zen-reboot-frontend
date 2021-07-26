@@ -1,16 +1,18 @@
 <div class="tab-content">
   <div class="row">
     <div class="col-sm" style="padding-left: 0">
-      <h1><b>Analitika vaučera</b></h1>
-      <app-generic-analytics-table (filterFunction)="getVoucherAnalytics($event)"
-                                   [displayedColumns]="invoiceItemsColumns"
-                                   [dataSource]="[voucherAnalyticsDto]"></app-generic-analytics-table>
+      <app-dto-generic-overview
+        title="Analitika vaučera"
+        [dto]="voucherAnalyticsDto"
+        (filter)="getVoucherAnalytics($event)"
+      ></app-dto-generic-overview>
     </div>
     <div class="col-sm" style="padding-right: 0">
-      <h1><b>Analitika paketa</b></h1>
-      <app-generic-analytics-table [displayedColumns]="invoiceItemsColumns"
-                                   (filterFunction)="getPackageAnalytics($event)"
-                                   [dataSource]="[packageAnalyticsDto]"></app-generic-analytics-table>
+      <app-dto-generic-overview
+        title="Analitika paketa"
+        [dto]="packageAnalyticsDto"
+        (filter)="getPackageAnalytics($event)"
+      ></app-dto-generic-overview>
     </div>
   </div>
   <div style="margin-top: 2em">

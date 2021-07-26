@@ -40,7 +40,6 @@ export class ExpensesComponent extends DefaultComponent<Expense> implements OnIn
   }
 
   async openAddExpenseDialog(data?: Expense): Promise<void> {
-    console.log(data);
     const configData: FormBuilderConfig = {
       formFields: [
         {

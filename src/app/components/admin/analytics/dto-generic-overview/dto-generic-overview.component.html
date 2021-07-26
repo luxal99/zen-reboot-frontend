@@ -1,0 +1,14 @@
+<div>
+  <h1><b>{{title}}</b></h1>
+  <app-form-select model="TODAY" (onChange)="filterPeriod()" [group]="filterForm"
+                   [config]="periodSelectConfig"></app-form-select>
+  <div class="inline">
+    <div class="big-circle">
+      <h1 *ngIf="dto">{{dto.value + ' RSD'}}</h1>
+    </div>
+    <div style="display: block;margin-left: 1em">
+      <h3>Količina: {{dto.count}}</h3>
+      <h3>{{dto.start|date}} - {{dto.end|date}}</h3>
+    </div>
+  </div>
+</div>

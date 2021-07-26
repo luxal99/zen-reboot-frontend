@@ -78,6 +78,7 @@ import { VouchersAndPackagesAnalyticsOverviewComponent } from './components/admi
 import { ProfitAndExpensesAnalyticsOverviewComponent } from './components/admin/analytics/profit-and-expenses-analytics-overview/profit-and-expenses-analytics-overview.component';
 import { TranslatePipe } from './pipes/translate.pipe';
 import { ConvertToArrayPipe } from './pipes/convert-to-array.pipe';
+import { DtoGenericOverviewComponent } from './components/admin/analytics/dto-generic-overview/dto-generic-overview.component';
 
 @NgModule({
   declarations: [
@@ -147,7 +148,8 @@ import { ConvertToArrayPipe } from './pipes/convert-to-array.pipe';
     VouchersAndPackagesAnalyticsOverviewComponent,
     ProfitAndExpensesAnalyticsOverviewComponent,
     TranslatePipe,
-    ConvertToArrayPipe
+    ConvertToArrayPipe,
+    DtoGenericOverviewComponent
   ],
   imports: [
     BrowserModule,

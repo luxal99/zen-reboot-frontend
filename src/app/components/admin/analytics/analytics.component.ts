@@ -90,8 +90,8 @@ export class AnalyticsComponent implements OnInit {
       });
   }
 
-  getAppointmentsAnalytics(): void {
-    this.analyticsService.getAppointmentsAnalytics(this.filterForm.get(FormControlNames.PERIOD_FORM_CONTROL)?.value)
+  getAppointmentsAnalytics(event?: any): void {
+    this.analyticsService.getAppointmentsAnalytics(!event ? 'TODAY' : event)
       .subscribe((resp) => {
         this.appointmentsAnalyticsDto = resp;
         setTimeout(() => {

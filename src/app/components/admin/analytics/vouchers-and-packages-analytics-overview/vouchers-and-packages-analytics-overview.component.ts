@@ -14,6 +14,10 @@ import {DialogUtil} from '../../../../util/dialog-util';
 import {ClientOverviewDialogComponent} from '../../client/client-overview-dialog/client-overview-dialog.component';
 import {setDialogConfig} from '../../../../util/dialog-options';
 import {VoucherOverviewDialogComponent} from '../../vouchers/voucher-overview-dialog/voucher-overview-dialog.component';
+import {FieldConfig} from "../../../../models/FIeldConfig";
+import {FormControlNames, InputTypes} from "../../../../const/const";
+import {FormControl, FormGroup} from "@angular/forms";
+import {PeriodsService} from "../../../../service/periods.service";
 
 
 @Component({
@@ -22,6 +26,10 @@ import {VoucherOverviewDialogComponent} from '../../vouchers/voucher-overview-di
   styleUrls: ['./vouchers-and-packages-analytics-overview.component.sass']
 })
 export class VouchersAndPackagesAnalyticsOverviewComponent implements OnInit {
+
+  filterForm = new FormGroup({
+    period: new FormControl('TODAY')
+  });
 
   voucherAnalyticsDto!: InvoiceItemAnalyticsDto;
   packageAnalyticsDto!: InvoiceItemAnalyticsDto;
@@ -33,8 +41,15 @@ export class VouchersAndPackagesAnalyticsOverviewComponent implements OnInit {
 
   invoiceItemsColumns: Column[] = INVOICE_ITEMS_COLUMNS;
 
-  constructor(private analyticsService: AnalyticsService, private dialog: MatDialog) {
+  constructor(private analyticsService: AnalyticsService,
+              private dialog: MatDialog, private periodService: PeriodsService) {
   }
+
+
+  periodSelectConfig: FieldConfig = {
+    name: FormControlNames.PERIOD_FORM_CONTROL,
+    type: InputTypes.SELECT_TYPE_NAME, label: 'Izbor perioda', options: this.periodService.listOfPeriods
+  };
 
   ngOnInit(): void {
     this.getExpiredVouchers();
@@ -50,7 +65,7 @@ export class VouchersAndPackagesAnalyticsOverviewComponent implements OnInit {
       });
   }
 
-  getVoucherAnalytics(event?: string): void {
+  getVoucherAnalytics(event?: any): void {
     this.analyticsService.getVouchersAnalytics(!event ? 'TODAY' : event)
       .subscribe((resp) => {
         this.voucherAnalyticsDto = resp;
