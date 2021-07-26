@@ -59,7 +59,7 @@
                              label="Status tretmana" bindValue="value"></app-form-select>
             <ckeditor [editor]="Editor" #editor></ckeditor>
           </mat-step>
-          <app-form-input [config]="startTimeInputConfig" [group]="appointmentForm"></app-form-input>
+          <app-form-input appearance="fill" [config]="startTimeInputConfig" [group]="appointmentForm"></app-form-input>
           <mat-step label="Tretman">
             <form [formGroup]="appointmentForm">
               <mat-form-field appearance="outline">
