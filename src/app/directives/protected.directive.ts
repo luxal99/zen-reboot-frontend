@@ -1,9 +1,9 @@
-import {Directive, ElementRef, Input, OnInit} from '@angular/core';
-import {AuthGuard} from '../guards/auth.guard';
-import {RoleEnum} from '../enums/RoleEnum';
+import {Directive, ElementRef, Input, OnInit} from "@angular/core";
+import {AuthGuard} from "../guards/auth.guard";
+import {RoleEnum} from "../enums/RoleEnum";
 
 @Directive({
-  selector: '[appProtected]'
+  selector: "[appProtected]"
 })
 export class ProtectedDirective implements OnInit {
 
@@ -12,8 +12,8 @@ export class ProtectedDirective implements OnInit {
   constructor(private host: ElementRef<HTMLElement>) {
   }
 
-  ngOnInit(): void {
-    this.protectComponent();
+  async ngOnInit(): Promise<void> {
+    await this.protectComponent();
   }
 
   async protectComponent(): Promise<void> {

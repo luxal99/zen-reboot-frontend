@@ -79,6 +79,8 @@ import { ProfitAndExpensesAnalyticsOverviewComponent } from './components/admin/
 import { TranslatePipe } from './pipes/translate.pipe';
 import { ConvertToArrayPipe } from './pipes/convert-to-array.pipe';
 import { DtoGenericOverviewComponent } from './components/admin/analytics/dto-generic-overview/dto-generic-overview.component';
+import { StaffComponent } from './components/admin/staff-overview/staff/staff.component';
+import { SalaryComponent } from './components/admin/staff-overview/salary/salary.component';
 
 @NgModule({
   declarations: [
@@ -149,7 +151,9 @@ import { DtoGenericOverviewComponent } from './components/admin/analytics/dto-ge
     ProfitAndExpensesAnalyticsOverviewComponent,
     TranslatePipe,
     ConvertToArrayPipe,
-    DtoGenericOverviewComponent
+    DtoGenericOverviewComponent,
+    StaffComponent,
+    SalaryComponent
   ],
   imports: [
     BrowserModule,

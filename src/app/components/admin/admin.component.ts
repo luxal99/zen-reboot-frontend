@@ -1,41 +1,49 @@
-import {AfterViewInit, Component, ComponentFactoryResolver, ElementRef, OnInit, ViewChild, ViewContainerRef} from '@angular/core';
-import {LazyLoadComponentsUtil} from '../../util/lazy-loading-components';
-import {OverviewComponent} from './overview/overview.component';
-import {ClientComponent} from './client/client.component';
-import {CodeBookComponent} from './code-book/code-book.component';
-import {ServicesComponent} from './services/services.component';
-import {AppointmentComponent} from './appointment/appointment.component';
-import {InvoiceOverviewComponent} from './invoice-overview/invoice-overview.component';
-import {MatDrawer} from '@angular/material/sidenav';
-import {ComponentType} from '@angular/cdk/portal';
-import {VouchersComponent} from './vouchers/vouchers.component';
-import {ExpensesComponent} from './expenses/expenses.component';
-import {PackageComponent} from './package/package.component';
-import {AnalyticsComponent} from './analytics/analytics.component';
-import {UserService} from '../../service/user.service';
-import {StaffShiftsOverviewComponent} from './staff-shifts-overview/staff-shifts-overview.component';
-import {StaffOverviewComponent} from './staff-overview/staff-overview.component';
-import {UserComponent} from './user/user.component';
-import {RoleSettings} from '../../const/const';
-import {PeriodsService} from '../../service/periods.service';
+import {
+  AfterViewInit,
+  Component,
+  ComponentFactoryResolver,
+  ElementRef,
+  OnInit,
+  ViewChild,
+  ViewContainerRef
+} from "@angular/core";
+import {LazyLoadComponentsUtil} from "../../util/lazy-loading-components";
+import {OverviewComponent} from "./overview/overview.component";
+import {ClientComponent} from "./client/client.component";
+import {CodeBookComponent} from "./code-book/code-book.component";
+import {ServicesComponent} from "./services/services.component";
+import {AppointmentComponent} from "./appointment/appointment.component";
+import {InvoiceOverviewComponent} from "./invoice-overview/invoice-overview.component";
+import {MatDrawer} from "@angular/material/sidenav";
+import {ComponentType} from "@angular/cdk/portal";
+import {VouchersComponent} from "./vouchers/vouchers.component";
+import {ExpensesComponent} from "./expenses/expenses.component";
+import {PackageComponent} from "./package/package.component";
+import {AnalyticsComponent} from "./analytics/analytics.component";
+import {UserService} from "../../service/user.service";
+import {StaffShiftsOverviewComponent} from "./staff-shifts-overview/staff-shifts-overview.component";
+import {StaffOverviewComponent} from "./staff-overview/staff-overview.component";
+import {UserComponent} from "./user/user.component";
+import {RoleSettings} from "../../const/const";
+import {PeriodsService} from "../../service/periods.service";
 
 @Component({
-  selector: 'app-admin',
-  templateUrl: './admin.component.html',
-  styleUrls: ['./admin.component.sass'],
+  selector: "app-admin",
+  templateUrl: "./admin.component.html",
+  styleUrls: ["./admin.component.sass"],
   providers: [RoleSettings]
 })
 export class AdminComponent implements OnInit, AfterViewInit {
 
 
-  @ViewChild('sideNav', {static: false}) sideNav!: ElementRef;
-  @ViewChild('drawer', {static: false}) drawer!: MatDrawer;
-  @ViewChild('target', {read: ViewContainerRef, static: false}) entry!: ViewContainerRef;
-  header = 'Pregled';
+  @ViewChild("sideNav", {static: false}) sideNav!: ElementRef;
+  @ViewChild("drawer", {static: false}) drawer!: MatDrawer;
+  @ViewChild("target", {read: ViewContainerRef, static: false}) entry!: ViewContainerRef;
+  header = "Pregled";
 
 
-  constructor(private resolver: ComponentFactoryResolver, private userService: UserService,
-              public roleSetting: RoleSettings, private periodService: PeriodsService) {
+  constructor(private resolver: ComponentFactoryResolver,
+              public roleSetting: RoleSettings) {
   }
 
   ngOnInit(): void {
@@ -47,17 +55,17 @@ export class AdminComponent implements OnInit, AfterViewInit {
 
 
   openSideNav(): void {
-    if (this.sideNav.nativeElement.style.width === '300px') {
+    if (this.sideNav.nativeElement.style.width === "300px") {
       // @ts-ignore
-      document.getElementById('menu-icon').style.transform = 'rotate(90deg)';
-      this.sideNav.nativeElement.style.maxWidth = '80px';
-      this.sideNav.nativeElement.style.width = '80px';
+      document.getElementById("menu-icon").style.transform = "rotate(90deg)";
+      this.sideNav.nativeElement.style.maxWidth = "80px";
+      this.sideNav.nativeElement.style.width = "80px";
     } else {
 
       // @ts-ignore
-      document.getElementById('menu-icon').style.transform = 'rotate(0deg)';
-      this.sideNav.nativeElement.style.maxWidth = '300px';
-      this.sideNav.nativeElement.style.width = '300px';
+      document.getElementById("menu-icon").style.transform = "rotate(0deg)";
+      this.sideNav.nativeElement.style.maxWidth = "300px";
+      this.sideNav.nativeElement.style.width = "300px";
     }
   }
 
@@ -65,69 +73,69 @@ export class AdminComponent implements OnInit, AfterViewInit {
     setTimeout(() => {
       if (window.screen.width <= 700) {
         // @ts-ignore
-        document.getElementById('overview-side-btn').click();
+        document.getElementById("overview-side-btn").click();
       } else {
         // @ts-ignore
-        document.getElementById('overview-btn').click();
+        document.getElementById("overview-btn").click();
       }
     }, 10);
   }
 
   changeColor(forwardedElement: any): void {
-    const element = document.querySelectorAll('.active');
+    const element = document.querySelectorAll(".active");
     [].forEach.call(element, (el: any) => {
-      el.classList.remove('active');
+      el.classList.remove("active");
     });
     const elementWithClassList: HTMLElement[] = forwardedElement.path.filter((x: HTMLElement) => x.classList !== undefined);
     for (const mainElement of elementWithClassList) {
       mainElement.classList.forEach(className => {
-        if (className === 'a-h2') {
-          mainElement.classList.add('active');
+        if (className === "a-h2") {
+          mainElement.classList.add("active");
         }
       });
     }
   }
 
   loadOverviewComponent(): void {
-    this.genericLoadComponent('Pregled', OverviewComponent);
+    this.genericLoadComponent("Pregled", OverviewComponent);
   }
 
   loadAnalyticsComponent(): void {
-    this.genericLoadComponent('Analitika', AnalyticsComponent);
+    this.genericLoadComponent("Analitika", AnalyticsComponent);
   }
 
   loadCodeBookComponent(): void {
-    this.genericLoadComponent('Šifarnik', CodeBookComponent);
+    this.genericLoadComponent("Šifarnik", CodeBookComponent);
   }
 
   loadClientComponent(): void {
-    this.genericLoadComponent('Klijenti', ClientComponent);
+    this.genericLoadComponent("Klijenti", ClientComponent);
   }
 
   loadShiftOverview(): void {
-    this.genericLoadComponent('', StaffShiftsOverviewComponent);
+    this.genericLoadComponent("", StaffShiftsOverviewComponent);
   }
 
   loadStaffComponent(): void {
-    this.genericLoadComponent('Zaposleni', StaffOverviewComponent);
+    this.genericLoadComponent("Zaposleni", StaffOverviewComponent);
   }
 
   loadServiceComponent(): void {
-    this.genericLoadComponent('Tretmani', ServicesComponent);
+    this.genericLoadComponent("Tretmani", ServicesComponent);
   }
 
   loadInvoiceComponent(): void {
-    this.genericLoadComponent('Fakture', InvoiceOverviewComponent);
+    this.genericLoadComponent("Fakture", InvoiceOverviewComponent);
   }
 
   loadPackageComponent(): void {
-    this.genericLoadComponent('Paketi', PackageComponent);
+    this.genericLoadComponent("Paketi", PackageComponent);
   }
 
   loadAppointmentComponent(): void {
     setTimeout(() => {
       this.closeDrawer().then(() => {
-        this.setHeader('Kalendar');
+        this.setHeader("Kalendar");
         LazyLoadComponentsUtil.loadComponent(AppointmentComponent, this.entry, this.resolver);
       });
     }, 200);
@@ -135,15 +143,15 @@ export class AdminComponent implements OnInit, AfterViewInit {
 
 
   loadVouchersComponent(): void {
-    this.genericLoadComponent('Vaučeri', VouchersComponent);
+    this.genericLoadComponent("Vaučeri", VouchersComponent);
   }
 
   loadExpensesComponent(): void {
-    this.genericLoadComponent('Troškovi', ExpensesComponent);
+    this.genericLoadComponent("Troškovi", ExpensesComponent);
   }
 
   loadUserComponent(): void {
-    this.genericLoadComponent('Korisnici', UserComponent);
+    this.genericLoadComponent("Korisnici", UserComponent);
   }
 
   genericLoadComponent(header: string, component: ComponentType<any>): void {

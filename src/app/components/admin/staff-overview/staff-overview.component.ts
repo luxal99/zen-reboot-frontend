@@ -1,56 +1,60 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {MatSpinner} from '@angular/material/progress-spinner';
-import {FormControl, FormGroup} from '@angular/forms';
-import {MatDialog} from '@angular/material/dialog';
-import {StaffService} from '../../../service/staff.service';
-import {MatSnackBar} from '@angular/material/snack-bar';
-import {Staff} from '../../../models/staff';
-import {Contact} from '../../../models/contact';
-import {ContactTypeEnum} from '../../../enums/ContactTypeEnum';
-import {DialogUtil} from '../../../util/dialog-util';
-import {AddStaffDialogComponent} from './add-staff-dialog/add-staff-dialog.component';
-import {DefaultComponent} from '../../../util/default-component';
-import {setDialogConfig} from '../../../util/dialog-options';
+import {Component, ComponentFactoryResolver, OnInit, ViewChild, ViewContainerRef} from "@angular/core";
+import {MatSpinner} from "@angular/material/progress-spinner";
+import {FormControl, FormGroup} from "@angular/forms";
+import {MatDialog} from "@angular/material/dialog";
+import {StaffService} from "../../../service/staff.service";
+import {MatSnackBar} from "@angular/material/snack-bar";
+import {Staff} from "../../../models/staff";
+import {DialogUtil} from "../../../util/dialog-util";
+import {AddStaffDialogComponent} from "./add-staff-dialog/add-staff-dialog.component";
+import {DefaultComponent} from "../../../util/default-component";
+import {RoleSettings} from "../../../const/const";
+import {setDialogConfig} from "../../../util/dialog-options";
+import {LazyLoadComponentsUtil} from "../../../util/lazy-loading-components";
+import {StaffComponent} from "./staff/staff.component";
+import {SalaryComponent} from "./salary/salary.component";
 
 @Component({
-  selector: 'app-staff-overview',
-  templateUrl: './staff-overview.component.html',
-  styleUrls: ['./staff-overview.component.sass']
+  selector: "app-staff-overview",
+  templateUrl: "./staff-overview.component.html",
+  styleUrls: ["./staff-overview.component.sass"],
+  providers: [RoleSettings]
 })
 export class StaffOverviewComponent extends DefaultComponent<Staff> implements OnInit {
 
-  @ViewChild('spinner') spinner!: MatSpinner;
+  @ViewChild("target", {read: ViewContainerRef, static: false}) entry!: ViewContainerRef;
 
-  searchForm = new FormGroup({
-    search: new FormControl('')
-  });
-
-  searchText = '';
-
-  constructor(private dialog: MatDialog, private staffService: StaffService, protected snackBar: MatSnackBar) {
+  constructor(private dialog: MatDialog, private staffService: StaffService,
+              protected snackBar: MatSnackBar, public roleSetting: RoleSettings,
+              private resolver: ComponentFactoryResolver) {
     super(staffService, snackBar);
   }
 
   ngOnInit(): void {
     setTimeout(() => {
-      super.ngOnInit();
-    }, 500);
+      this.loadStaff();
+    }, 100);
   }
 
-  getEmailForStaff(staff: Staff): Contact {
-    const person = staff.person;
-    // @ts-ignore
-    return person?.contacts.find((contact) => contact.type === ContactTypeEnum.EMAIL.toString());
+  loadStaff(event?: any): void {
+    LazyLoadComponentsUtil.loadComponent(StaffComponent, this.entry, this.resolver);
+    if (event) {
+      this.changeTabColor(event);
+    }
   }
 
-  openAddStaffDialog(data?: Staff): void {
-    DialogUtil.openDialog(AddStaffDialogComponent, setDialogConfig({
-      height: '80%',
-      width: '40%',
-      data
-    }), this.dialog).afterClosed().subscribe(() => {
-      this.getItems();
+  loadSalary(event?: any): void {
+    LazyLoadComponentsUtil.loadComponent(SalaryComponent, this.entry, this.resolver);
+    this.changeTabColor(event);
+  }
+
+  changeTabColor(forwardedElement: any): void {
+    const element = document.querySelectorAll(".tab-active");
+    [].forEach.call(element, (el: any) => {
+      el.classList.remove("tab-active");
+      el.classList.add("tab-inactive");
     });
+    forwardedElement.target.className = "tab-active";
   }
 
 }

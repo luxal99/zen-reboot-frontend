@@ -1,19 +1,19 @@
-import {Component, ElementRef, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {AuthGuard} from '../../../guards/auth.guard';
-import {RoleEnum} from '../../../enums/RoleEnum';
+import {Component, ElementRef, EventEmitter, Input, OnInit, Output} from "@angular/core";
+import {AuthGuard} from "../../../guards/auth.guard";
+import {RoleEnum} from "../../../enums/RoleEnum";
 
 @Component({
-  selector: 'app-component-activator',
-  templateUrl: './component-activator.component.html',
-  styleUrls: ['./component-activator.component.sass']
+  selector: "app-component-activator",
+  templateUrl: "./component-activator.component.html",
+  styleUrls: ["./component-activator.component.sass"]
 })
 export class ComponentActivatorComponent implements OnInit {
 
   // tslint:disable-next-line:no-output-native
   @Output() load = new EventEmitter();
 
-  @Input() icon = '';
-  @Input() title = '';
+  @Input() icon = "";
+  @Input() title = "";
   @Input() roleActivator: RoleEnum[] = [];
 
   constructor(private host: ElementRef<HTMLElement>) {
@@ -39,15 +39,15 @@ export class ComponentActivatorComponent implements OnInit {
 
 
   changeColor(forwardedElement: any): void {
-    const element = document.querySelectorAll('.active');
+    const element = document.querySelectorAll(".active");
     [].forEach.call(element, (el: any) => {
-      el.classList.remove('active');
+      el.classList.remove("active");
     });
     const elementWithClassList: HTMLElement[] = forwardedElement.path.filter((x: HTMLElement) => x.classList !== undefined);
     for (const mainElement of elementWithClassList) {
       mainElement.classList.forEach(className => {
-        if (className === 'a-h2') {
-          mainElement.classList.add('active');
+        if (className === "a-h2") {
+          mainElement.classList.add("active");
         }
       });
     }
