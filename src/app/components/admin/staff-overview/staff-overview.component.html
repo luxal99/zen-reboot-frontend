@@ -3,7 +3,7 @@
     <div class="staff-tab tab-active" (click)="loadStaff($event)">
       <h3>Zaposleni</h3>
     </div>
-    <div class="staff-tab" appProtected [roleActivator]="[roleSetting.ADMIN]" (click)="loadSalary($event)">
+    <div class="staff-tab tab-inactive" appProtected [roleActivator]="[roleSetting.ADMIN]" (click)="loadSalary($event)">
       <h3>Plate</h3>
     </div>
   </div>
