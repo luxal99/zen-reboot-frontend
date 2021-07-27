@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row">
-    <div class="col-6">
+    <div class="col-12">
       <form [formGroup]="searchForm">
         <mat-form-field appearance="outline">
           <mat-label>Pretraži</mat-label>
@@ -8,9 +8,6 @@
           <mat-icon matSuffix>search</mat-icon>
         </mat-form-field>
       </form>
-    </div>
-    <div class="col-6 text-right">
-      <button mat-button class="default-btn" (click)="openAddStaffDialog()">Dodaj</button>
     </div>
   </div>
   <div class="staff-binding">

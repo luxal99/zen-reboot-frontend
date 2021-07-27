@@ -10,7 +10,6 @@ import {CountryService} from "../../../../service/country.service";
 import {Country} from "../../../../models/country";
 import {MatSpinner} from "@angular/material/progress-spinner";
 import {ContactTypeEnum} from "../../../../enums/ContactTypeEnum";
-import {SnackBarUtil} from "../../../../util/snack-bar-uitl";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {Contact} from "../../../../models/contact";
 import * as moment from "moment";
@@ -31,12 +30,12 @@ export class AddStaffDialogComponent extends DefaultComponent<Staff> implements 
   staffForm = new FormGroup({
     firstName: new FormControl("", Validators.required),
     lastName: new FormControl("", Validators.required),
-    mobilePhone: new FormControl(),
-    mobilePhonePrefix: new FormControl(),
+    mobilePhone: new FormControl(""),
+    mobilePhonePrefix: new FormControl(""),
     email: new FormControl("", Validators.pattern(EMAIL_REGEX)),
     color: new FormControl("", Validators.required),
-    startDate: new FormControl(this.data ? new Date(this.data.startDate ? this.data.startDate : "") : ""),
-    endDate: new FormControl(this.data ? new Date(this.data.endDate ? this.data.endDate : "") : ""),
+    startDate: new FormControl(),
+    endDate: new FormControl(""),
     salaryCategory: new FormControl("")
   });
 
@@ -92,48 +91,41 @@ export class AddStaffDialogComponent extends DefaultComponent<Staff> implements 
   }
 
   save(): void {
-    if (this.staffForm.valid) {
-      const staff: Staff = {
-        color: this.staffForm.get(FormControlNames.COLOR_FORM_CONTROL)?.value.hex,
-        startDate: this.staffForm.get(FormControlNames.START_DATE_FORM_CONTROL)?.value ?
-          moment(this.staffForm.get(FormControlNames.START_DATE_FORM_CONTROL)?.value).format("YYYY-MM-DD") : undefined,
-        endDate: this.staffForm.get(FormControlNames.END_DATE_FORM_CONTROL)?.value ?
-          moment(this.staffForm.get(FormControlNames.END_DATE_FORM_CONTROL)?.value).format("YYYY-MM-DD") : undefined,
-        person: {
-          firstName: this.staffForm.get(FormControlNames.FIRST_NAME_FORM_CONTROL)?.value,
-          lastName: this.staffForm.get(FormControlNames.LAST_NAME_FORM_CONTROL)?.value,
-          contacts: [
-            {
-              id: this.telephoneValue ? this.telephoneValue.id : undefined,
-              type: ContactTypeEnum.PHONE,
-              value: this.staffForm.get(FormControlNames.MOBILE_PHONE_FORM_CONTROL)?.value,
-              prefix: this.staffForm.get(FormControlNames.MOBILE_PHONE_PREFIX_FORM_CONTROL)?.value
-            },
-            {
-              // @ts-ignore
-              id: this.emailValue ? this.emailValue.id : null,
-              type: ContactTypeEnum.EMAIL,
-              value: this.staffForm.get(FormControlNames.EMAIL_FORM_CONTROL)?.value,
-            }
-          ],
-        },
-        salaryCategory: this.staffForm.get(FormControlNames.SALARY_CATEGORY_FORM_CONTROL)?.value
-      };
-
-      if (this.data.id) {
-        staff.id = this.data.id;
-        if (this.staffForm.get(FormControlNames.COLOR_FORM_CONTROL)?.value.hex) {
-          staff.color = "#" + this.staffForm.get(FormControlNames.COLOR_FORM_CONTROL)?.value.hex;
-        } else {
-          staff.color = this.staffForm.get(FormControlNames.COLOR_FORM_CONTROL)?.value;
-        }
-        super.subscribeUpdate(staff);
-      } else {
-        super.subscribeSave(staff);
-      }
+    const staff: Staff = {
+      color: this.staffForm.get(FormControlNames.COLOR_FORM_CONTROL)?.value.hex,
+      startDate: this.staffForm.get(FormControlNames.START_DATE_FORM_CONTROL)?.value ?
+        moment(this.staffForm.get(FormControlNames.START_DATE_FORM_CONTROL)?.value).format("YYYY-MM-DD") : undefined,
+      endDate: this.staffForm.get(FormControlNames.END_DATE_FORM_CONTROL)?.value ?
+        moment(this.staffForm.get(FormControlNames.END_DATE_FORM_CONTROL)?.value).format("YYYY-MM-DD") : undefined,
+      person: {
+        firstName: this.staffForm.get(FormControlNames.FIRST_NAME_FORM_CONTROL)?.value,
+        lastName: this.staffForm.get(FormControlNames.LAST_NAME_FORM_CONTROL)?.value,
+        contacts: [
+          {
+            id: this.telephoneValue ? this.telephoneValue.id : undefined,
+            type: ContactTypeEnum.PHONE,
+            value: this.staffForm.get(FormControlNames.MOBILE_PHONE_FORM_CONTROL)?.value,
+            prefix: this.staffForm.get(FormControlNames.MOBILE_PHONE_PREFIX_FORM_CONTROL)?.value
+          },
+          {
+            // @ts-ignore
+            id: this.emailValue ? this.emailValue.id : null,
+            type: ContactTypeEnum.EMAIL,
+            value: this.staffForm.get(FormControlNames.EMAIL_FORM_CONTROL)?.value,
+          }
+        ],
+      },
+      salaryCategory: this.staffForm.get(FormControlNames.SALARY_CATEGORY_FORM_CONTROL)?.value
+    };
+    staff.id = this.data.id;
+    staff.id = this.data.id;
+    if (this.staffForm.get(FormControlNames.COLOR_FORM_CONTROL)?.value.hex) {
+      staff.color = "#" + this.staffForm.get(FormControlNames.COLOR_FORM_CONTROL)?.value.hex;
     } else {
-      SnackBarUtil.openSnackBar(this.snackBar, "Popunite obavezna polja");
+      staff.color = this.staffForm.get(FormControlNames.COLOR_FORM_CONTROL)?.value;
     }
+    super.subscribeUpdate(staff);
+
   }
 
   getAllCountries(): void {
