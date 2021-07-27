@@ -1,6 +1,6 @@
 <div class="dialog">
   <div class="">
-    <div class="text-right">
+    <div class="text-right" style="height: 50px;">
       <button mat-dialog-close mat-icon-button>
         <mat-icon>close</mat-icon>
       </button>
@@ -65,14 +65,15 @@
             <ngx-mat-color-picker #picker></ngx-mat-color-picker>
           </mat-form-field>
         </form>
-        <div>
-          <app-form-select [group]="staffForm" [config]="salaryCategorySelectConfig"></app-form-select>
+        <div class="col-12">
+          <app-form-select [model]="data? data.salaryCategory:null" [group]="staffForm"
+                           [config]="salaryCategorySelectConfig"></app-form-select>
         </div>
         <div class="header">
           <h2>Informacije o radnom odnosu</h2>
-          <div class="inline">
+          <div class="inline inline-date">
             <div class="column-5">
-              <app-form-date [config]="startDateConfig" [value]="data ? data.startDate:null"
+              <app-form-date [config]="startDateConfig"
                              [group]="staffForm"></app-form-date>
             </div>
             <div class="column-5">

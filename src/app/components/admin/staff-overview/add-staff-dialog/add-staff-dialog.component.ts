@@ -35,8 +35,8 @@ export class AddStaffDialogComponent extends DefaultComponent<Staff> implements 
     mobilePhonePrefix: new FormControl(),
     email: new FormControl("", Validators.pattern(EMAIL_REGEX)),
     color: new FormControl("", Validators.required),
-    startDate: new FormControl(""),
-    endDate: new FormControl(""),
+    startDate: new FormControl(this.data ? new Date(this.data.startDate ? this.data.startDate : "") : ""),
+    endDate: new FormControl(this.data ? new Date(this.data.endDate ? this.data.endDate : "") : ""),
     salaryCategory: new FormControl("")
   });
 
