@@ -66,7 +66,9 @@ export class SalaryComponent implements OnInit {
   openPayoutsOverviewDialog(staffPayoutDto: StaffPayoutDto): void {
     DialogUtil.openDialog(PayoutsDialogOverviewComponent, setDialogConfig({
       position: {right: "0"},
-      height: "100vh"
+      height: "100vh",
+      width: "40%",
+      data: staffPayoutDto
     }), this.dialog);
   }
 
