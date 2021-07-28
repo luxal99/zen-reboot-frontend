@@ -7,6 +7,9 @@ import {StaffPayoutDto} from "../../../../models/staff-payout-dto";
 import {SpinnerService} from "../../../../service/spinner.service";
 import {FieldConfig} from "../../../../models/FIeldConfig";
 import {FormControlNames, InputTypes, MONTHS_OF_YEAR, YEARS} from "../../../../const/const";
+import {DialogUtil} from "../../../../util/dialog-util";
+import {PayoutsDialogOverviewComponent} from "./payouts-dialog-overview/payouts-dialog-overview.component";
+import {setDialogConfig} from "../../../../util/dialog-options";
 
 @Component({
   selector: "app-salary",
@@ -59,4 +62,12 @@ export class SalaryComponent implements OnInit {
     this.spinnerService.show(this.spinner);
     this.getStaffSalary();
   }
+
+  openPayoutsOverviewDialog(staffPayoutDto: StaffPayoutDto): void {
+    DialogUtil.openDialog(PayoutsDialogOverviewComponent, setDialogConfig({
+      position: {right: "0"},
+      height: "100vh"
+    }), this.dialog);
+  }
+
 }

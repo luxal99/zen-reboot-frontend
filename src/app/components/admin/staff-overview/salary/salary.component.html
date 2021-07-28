@@ -1,5 +1,5 @@
 <mat-accordion>
-  <mat-expansion-panel style="margin-top: 2em;" hideToggle>
+  <mat-expansion-panel style="margin-top: 2em;">
     <mat-expansion-panel-header>
       <mat-panel-title>
         <mat-icon color="primary">calendar_today</mat-icon>
@@ -40,6 +40,9 @@
     </form>
   </div>
 </div>
+
+<mat-spinner #spinner diameter="50"></mat-spinner>
+
 <div class="staff-binding">
   <div class="staff-card text-left" *ngFor="let staffPayoutDto of listOfStaffs|staffPayout:searchText">
     <div class="row">
@@ -57,9 +60,10 @@
         <h2>{{staffPayoutDto.total + ' RSD'}}</h2>
       </div>
       <div class="col-3 text-center">
-        <button class="default-btn" mat-button style="margin: 1em">Payouts</button>
+        <button class="default-btn" mat-button style="margin: 1em" (click)="openPayoutsOverviewDialog(staffPayoutDto)">
+          Isplate
+        </button>
       </div>
     </div>
   </div>
 </div>
-<mat-spinner #spinner diameter="50"></mat-spinner>
