@@ -1,6 +1,6 @@
 import {Component, ComponentFactoryResolver, ComponentRef, OnInit, ViewChild, ViewContainerRef} from "@angular/core";
 import {MatTab} from "@angular/material/tabs";
-import {FormBuilderConfig} from "../../../models/FormBuilderConfig";
+import {FormBuilderConfig} from "../../../models/util/FormBuilderConfig";
 import {FormControlNames, InputTypes} from "../../../const/const";
 import {Validators} from "@angular/forms";
 import {ReferralSourceService} from "../../../service/referral-source.service";

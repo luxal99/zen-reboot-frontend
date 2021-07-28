@@ -1,8 +1,8 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import {StaffDto} from '../models/staff-dto';
-import {Appointment} from '../models/appointment';
+import {StaffDto} from '../models/dto/staff-dto';
+import {Appointment} from '../models/entity/appointment';
 import * as moment from 'moment';
-import {AppointmentDTO} from '../models/AppointmentDTO';
+import {AppointmentDTO} from '../models/dto/AppointmentDTO';
 
 @Pipe({
   name: 'checkIsAppointmentStart'

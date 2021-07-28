@@ -4,7 +4,7 @@ import {FormControl, FormGroup} from "@angular/forms";
 import {MatDialog} from "@angular/material/dialog";
 import {StaffService} from "../../../service/staff.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
-import {Staff} from "../../../models/staff";
+import {Staff} from "../../../models/entity/staff";
 import {DialogUtil} from "../../../util/dialog-util";
 import {AddStaffDialogComponent} from "./add-staff-dialog/add-staff-dialog.component";
 import {DefaultComponent} from "../../../util/default-component";

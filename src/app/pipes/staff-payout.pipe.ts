@@ -1,5 +1,5 @@
 import {Pipe, PipeTransform} from "@angular/core";
-import {StaffPayoutDto} from "../models/staff-payout-dto";
+import {StaffPayoutDto} from "../models/dto/staff-payout-dto";
 
 @Pipe({
   name: "staffPayout"

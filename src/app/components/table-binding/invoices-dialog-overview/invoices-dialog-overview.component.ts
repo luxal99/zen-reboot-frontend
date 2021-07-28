@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
-import {Invoice} from '../../../models/invoice';
+import {Invoice} from '../../../models/entity/invoice';
 import * as moment from 'moment';
 
 @Component({

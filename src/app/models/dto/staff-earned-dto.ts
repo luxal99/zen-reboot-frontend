@@ -1,4 +1,4 @@
-import {Staff} from './staff';
+import {Staff} from '../entity/staff';
 
 export interface StaffEarnedDto {
   earned?: number;

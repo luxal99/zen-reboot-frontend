@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
 import {GenericService} from './generic.service';
 import {RestRoutesConst} from '../const/const';
-import {Location} from '../models/location';
+import {Location} from '../models/entity/location';
 import {Observable} from 'rxjs';
-import {RoomDto} from '../models/room-dto';
+import {RoomDto} from '../models/dto/room-dto';
 
 @Injectable({
   providedIn: 'root'

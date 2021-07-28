@@ -1,20 +1,20 @@
 import {Component, OnInit} from '@angular/core';
-import {Column} from '../../../../models/column';
+import {Column} from '../../../../models/util/column';
 import {AnalyticsService} from '../../../../service/analytics.service';
-import {InvoiceItemAnalyticsDto} from '../../../../models/voucher-package-analytics-dto';
-import {Package} from '../../../../models/package';
+import {InvoiceItemAnalyticsDto} from '../../../../models/dto/voucher-package-analytics-dto';
+import {Package} from '../../../../models/entity/package';
 import {
   EXPIRED_PACKAGES_COLUMNS,
   EXPIRED_VOUCHERS_COLUMNS,
   INVOICE_ITEMS_COLUMNS
 } from '../../../../const/table-column-values';
-import {Voucher} from '../../../../models/voucher';
+import {Voucher} from '../../../../models/entity/voucher';
 import {MatDialog} from '@angular/material/dialog';
 import {DialogUtil} from '../../../../util/dialog-util';
 import {ClientOverviewDialogComponent} from '../../client/client-overview-dialog/client-overview-dialog.component';
 import {setDialogConfig} from '../../../../util/dialog-options';
 import {VoucherOverviewDialogComponent} from '../../vouchers/voucher-overview-dialog/voucher-overview-dialog.component';
-import {FieldConfig} from "../../../../models/FIeldConfig";
+import {FieldConfig} from "../../../../models/util/FIeldConfig";
 import {FormControlNames, InputTypes} from "../../../../const/const";
 import {FormControl, FormGroup} from "@angular/forms";
 import {PeriodsService} from "../../../../service/periods.service";

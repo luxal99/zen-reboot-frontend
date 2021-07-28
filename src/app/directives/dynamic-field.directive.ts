@@ -1,6 +1,6 @@
 import {ComponentFactoryResolver, ComponentRef, Directive, Input, OnChanges, OnInit, Type, ViewContainerRef} from '@angular/core';
-import {Field} from '../models/Field';
-import {FieldConfig} from '../models/FIeldConfig';
+import {Field} from '../models/util/Field';
+import {FieldConfig} from '../models/util/FIeldConfig';
 import {FormGroup} from '@angular/forms';
 import {FormInputComponent} from '../components/form-components/form-input/form-input.component';
 import {FormSelectComponent} from '../components/form-components/form-select/form-select.component';

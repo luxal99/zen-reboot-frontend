@@ -1,12 +1,12 @@
 import {AfterViewChecked, ChangeDetectorRef, Component, Inject, OnInit, ViewChild} from '@angular/core';
 import {TreatmentService} from '../../../../service/treatment.service';
-import {TreatmentCategory} from '../../../../models/treatment-category';
+import {TreatmentCategory} from '../../../../models/entity/treatment-category';
 import {TreatmentCategoryService} from '../../../../service/treatment-category.service';
-import {TreatmentDuration} from '../../../../models/treatment-duration';
+import {TreatmentDuration} from '../../../../models/entity/treatment-duration';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {FieldConfig} from '../../../../models/FIeldConfig';
+import {FieldConfig} from '../../../../models/util/FIeldConfig';
 import {FormControlNames, InputTypes} from '../../../../const/const';
-import {Treatment} from '../../../../models/treatment';
+import {Treatment} from '../../../../models/entity/treatment';
 import {MatSpinner} from '@angular/material/progress-spinner';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';

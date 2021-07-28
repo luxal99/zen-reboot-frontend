@@ -1,11 +1,11 @@
 import {Injectable} from '@angular/core';
 import {GenericService} from './generic.service';
-import {User} from '../models/user';
+import {User} from '../models/entity/user';
 import {RestRoutesConst, Roles} from '../const/const';
 import {Observable} from 'rxjs';
-import {CreateUserDto} from '../models/create-user-dto';
-import {Role} from '../models/role';
-import {ChangePasswordDto} from '../models/change-password-dto';
+import {CreateUserDto} from '../models/dto/create-user-dto';
+import {Role} from '../models/util/role';
+import {ChangePasswordDto} from '../models/dto/change-password-dto';
 
 @Injectable({
   providedIn: 'root'

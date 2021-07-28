@@ -1,6 +1,6 @@
 import jwt from 'jwt-decode';
-import {User} from '../models/user';
-import {TokenBody} from '../models/token-body';
+import {User} from '../models/entity/user';
+import {TokenBody} from '../models/util/token-body';
 
 export class JwtUtil {
 

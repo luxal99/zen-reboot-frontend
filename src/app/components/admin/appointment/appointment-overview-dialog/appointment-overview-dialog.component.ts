@@ -1,15 +1,15 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
-import {Appointment} from '../../../../models/appointment';
+import {Appointment} from '../../../../models/entity/appointment';
 import * as moment from 'moment';
 import {ContactTypeEnum} from '../../../../enums/ContactTypeEnum';
-import {Contact} from '../../../../models/contact';
+import {Contact} from '../../../../models/util/contact';
 import {DefaultComponent} from '../../../../util/default-component';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {AppointmentService} from '../../../../service/appointment.service';
 import {DialogUtil} from '../../../../util/dialog-util';
 import {AddAppointmentDialogComponent} from '../add-appointment-dialog/add-appointment-dialog.component';
-import {AppointmentDTO} from '../../../../models/AppointmentDTO';
+import {AppointmentDTO} from '../../../../models/dto/AppointmentDTO';
 import {LocationService} from '../../../../service/location.service';
 import {EditInvoiceDialogComponent} from './edit-invoice-dialog/edit-invoice-dialog.component';
 import {RoleSettings} from '../../../../const/const';

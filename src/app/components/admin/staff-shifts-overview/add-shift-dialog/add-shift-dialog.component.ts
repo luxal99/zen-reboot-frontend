@@ -1,16 +1,16 @@
 import {AfterViewChecked, ChangeDetectorRef, Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
-import {Shift} from '../../../../models/shift';
+import {Shift} from '../../../../models/entity/shift';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {DefaultComponent} from '../../../../util/default-component';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {ShiftService} from '../../../../service/shift.service';
 import {FormControlNames, InputTypes} from '../../../../const/const';
-import {FieldConfig} from '../../../../models/FIeldConfig';
+import {FieldConfig} from '../../../../models/util/FIeldConfig';
 import * as moment from 'moment';
 import {LocationService} from '../../../../service/location.service';
 import {RepeatTypeEnum} from '../../../../enums/RepeatTypeEnum';
-import {StaffDto} from '../../../../models/staff-dto';
+import {StaffDto} from '../../../../models/dto/staff-dto';
 
 @Component({
   selector: 'app-add-shift-dialog',

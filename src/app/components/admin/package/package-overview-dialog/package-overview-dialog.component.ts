@@ -1,6 +1,6 @@
 import {Component, Inject, Input, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
-import {Package} from '../../../../models/package';
+import {Package} from '../../../../models/entity/package';
 
 @Component({
   selector: 'app-package-overview-dialog',

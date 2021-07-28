@@ -5,7 +5,7 @@ import {DialogUtil} from '../../../util/dialog-util';
 import {AddVoucherDialogComponent} from './add-voucher-dialog/add-voucher-dialog.component';
 import {setDialogConfig} from '../../../util/dialog-options';
 import {DefaultComponent} from '../../../util/default-component';
-import {Voucher} from '../../../models/voucher';
+import {Voucher} from '../../../models/entity/voucher';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import * as moment from 'moment';
 import {FormControl, FormGroup} from '@angular/forms';

@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
 import {GenericService} from './generic.service';
-import {Package} from '../models/package';
+import {Package} from '../models/entity/package';
 import {RestRoutesConst} from '../const/const';
 import {Observable} from 'rxjs';
-import {PaymentMethod} from '../models/payment-method';
+import {PaymentMethod} from '../models/entity/payment-method';
 
 @Injectable({
   providedIn: 'root'

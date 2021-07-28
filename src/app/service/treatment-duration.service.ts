@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {GenericService} from './generic.service';
-import {TreatmentDuration} from '../models/treatment-duration';
+import {TreatmentDuration} from '../models/entity/treatment-duration';
 import {RestRoutesConst} from '../const/const';
 
 @Injectable({

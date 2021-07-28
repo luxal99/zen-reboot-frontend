@@ -1,4 +1,4 @@
-import {GenericService} from '../service/generic.service';
+import {GenericService} from '../../service/generic.service';
 import {FieldConfig} from './FIeldConfig';
 
 export interface FormBuilderConfig {

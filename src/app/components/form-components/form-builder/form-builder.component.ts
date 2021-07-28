@@ -12,11 +12,11 @@ import {
 } from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {GenericService} from '../../../service/generic.service';
-import {FieldConfig} from '../../../models/FIeldConfig';
+import {FieldConfig} from '../../../models/util/FIeldConfig';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {AuthGuard} from '../../../guards/auth.guard';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
-import {FormBuilderConfig} from '../../../models/FormBuilderConfig';
+import {FormBuilderConfig} from '../../../models/util/FormBuilderConfig';
 import {SnackBarUtil} from '../../../util/snack-bar-uitl';
 import {Message} from '../../../const/const';
 import {SpinnerService} from '../../../service/spinner.service';

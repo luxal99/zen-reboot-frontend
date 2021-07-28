@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {UserService} from '../../../service/user.service';
-import {FieldConfig} from '../../../models/FIeldConfig';
+import {FieldConfig} from '../../../models/util/FIeldConfig';
 import {FormControlNames, InputTypes, Message, PASSWORD_REGEX} from '../../../const/const';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {MatSpinner} from '@angular/material/progress-spinner';

@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {DefaultComponent} from '../../../util/default-component';
-import {Expense} from '../../../models/expense';
+import {Expense} from '../../../models/entity/expense';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {ExpenseService} from '../../../service/expense.service';
-import {FormBuilderConfig} from '../../../models/FormBuilderConfig';
+import {FormBuilderConfig} from '../../../models/util/FormBuilderConfig';
 import {FormControlNames, InputTypes} from '../../../const/const';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {DialogUtil} from '../../../util/dialog-util';

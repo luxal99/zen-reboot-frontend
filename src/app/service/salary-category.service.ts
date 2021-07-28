@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {GenericService} from "./generic.service";
-import {SalaryCategory} from "../models/salary-category";
+import {SalaryCategory} from "../models/entity/salary-category";
 import {RestRoutesConst} from "../const/const";
 
 @Injectable({

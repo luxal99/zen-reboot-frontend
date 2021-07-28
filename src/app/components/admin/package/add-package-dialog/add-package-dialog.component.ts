@@ -3,8 +3,8 @@ import {DefaultComponent} from '../../../../util/default-component';
 import {PackageService} from '../../../../service/package.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {Client} from '../../../../models/client';
-import {FieldConfig} from '../../../../models/FIeldConfig';
+import {Client} from '../../../../models/entity/client';
+import {FieldConfig} from '../../../../models/util/FIeldConfig';
 import {FormControlNames, InputTypes, SELECTED_CLASS_NAME} from '../../../../const/const';
 import {VoucherEnum} from '../../../../enums/VoucherEnum';
 import {CriteriaBuilder} from '../../../../util/criteria-builder';
@@ -12,10 +12,10 @@ import {ClientService} from '../../../../service/client.service';
 import {DiscountTypeService} from '../../../../service/discount-type.service';
 import {TreatmentService} from '../../../../service/treatment.service';
 import {LocationService} from '../../../../service/location.service';
-import {PackageDto} from '../../../../models/package-dto';
+import {PackageDto} from '../../../../models/dto/package-dto';
 import * as moment from 'moment';
 import {PaymentMethodService} from '../../../../service/payment-method.service';
-import {PackageBase} from '../../../../models/package-base';
+import {PackageBase} from '../../../../models/util/package-base';
 
 @Component({
   selector: 'app-add-package-dialog',

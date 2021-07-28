@@ -6,7 +6,7 @@ import {GenericService} from "../service/generic.service";
 import {Observable} from "rxjs";
 import {SnackBarUtil} from "./snack-bar-uitl";
 import {Message, RoleSettings} from "../const/const";
-import {FieldConfig} from "../models/FIeldConfig";
+import {FieldConfig} from "../models/util/FIeldConfig";
 
 @Component({
   template: "",

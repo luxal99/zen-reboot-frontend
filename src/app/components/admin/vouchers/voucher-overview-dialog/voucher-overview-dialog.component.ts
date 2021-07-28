@@ -1,6 +1,6 @@
 import {Component, Inject, Input, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialog} from '@angular/material/dialog';
-import {Voucher} from '../../../../models/voucher';
+import {Voucher} from '../../../../models/entity/voucher';
 import {DialogUtil} from '../../../../util/dialog-util';
 import {ClientOverviewDialogComponent} from '../../client/client-overview-dialog/client-overview-dialog.component';
 import {setDialogConfig} from '../../../../util/dialog-options';

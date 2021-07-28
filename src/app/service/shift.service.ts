@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {GenericService} from './generic.service';
-import {Shift} from '../models/shift';
+import {Shift} from '../models/entity/shift';
 import {RestRoutesConst} from '../const/const';
-import {StaffDto} from '../models/staff-dto';
+import {StaffDto} from '../models/dto/staff-dto';
 import {Observable} from 'rxjs';
 
 @Injectable({

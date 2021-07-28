@@ -1,5 +1,5 @@
-import {Client} from './client';
-import {PaymentMethod} from './payment-method';
+import {Client} from '../entity/client';
+import {PaymentMethod} from '../entity/payment-method';
 
 export interface PackageBase {
   id?: number;

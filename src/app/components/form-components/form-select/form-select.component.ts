@@ -1,6 +1,6 @@
 import {Component, Input, OnInit, Output} from '@angular/core';
-import {Field} from '../../../models/Field';
-import {FieldConfig} from '../../../models/FIeldConfig';
+import {Field} from '../../../models/util/Field';
+import {FieldConfig} from '../../../models/util/FIeldConfig';
 import {FormGroup} from '@angular/forms';
 import {EventEmitter} from '@angular/core';
 

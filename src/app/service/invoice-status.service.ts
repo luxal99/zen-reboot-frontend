@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {GenericService} from './generic.service';
-import {InvoiceStatus} from '../models/invoice-status';
+import {InvoiceStatus} from '../models/entity/invoice-status';
 import {RestRoutesConst} from '../const/const';
 
 @Injectable({

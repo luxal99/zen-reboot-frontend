@@ -1,5 +1,5 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import {Contact} from '../models/contact';
+import {Contact} from '../models/util/contact';
 import {ContactTypeEnum} from '../enums/ContactTypeEnum';
 
 @Pipe({

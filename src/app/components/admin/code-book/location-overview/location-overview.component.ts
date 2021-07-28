@@ -4,7 +4,7 @@ import {LocationService} from '../../../../service/location.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {DialogUtil} from '../../../../util/dialog-util';
 import {MatDialog} from '@angular/material/dialog';
-import {Location} from 'src/app/models/location';
+import {Location} from 'src/app/models/entity/location';
 
 import {AddLocationDialogComponent} from './add-location-dialog/add-location-dialog.component';
 import {setDialogConfig} from '../../../../util/dialog-options';

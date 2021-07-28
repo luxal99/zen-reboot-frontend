@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
 import {GenericService} from './generic.service';
-import {Client} from '../models/client';
+import {Client} from '../models/entity/client';
 import {RestRoutesConst} from '../const/const';
 import {Observable} from 'rxjs';
-import {AppointmentDTO} from '../models/AppointmentDTO';
-import {Invoice} from '../models/invoice';
+import {AppointmentDTO} from '../models/dto/AppointmentDTO';
+import {Invoice} from '../models/entity/invoice';
 
 @Injectable({
   providedIn: 'root'

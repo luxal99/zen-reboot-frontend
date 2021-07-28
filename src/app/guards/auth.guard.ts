@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router} from '@angular/router';
 import {Pages, TokenConst} from '../const/const';
 import {JwtUtil} from '../util/jwt-util';
-import {TokenBody} from '../models/token-body';
+import {TokenBody} from '../models/util/token-body';
 import * as moment from 'moment';
 
 @Injectable({

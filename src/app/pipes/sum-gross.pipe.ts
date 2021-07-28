@@ -1,5 +1,5 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import {Invoice} from '../models/invoice';
+import {Invoice} from '../models/entity/invoice';
 
 @Pipe({
   name: 'sumGross'

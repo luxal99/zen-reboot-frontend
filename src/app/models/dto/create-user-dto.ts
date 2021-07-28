@@ -1,4 +1,4 @@
-import {Role} from './role';
+import {Role} from '../util/role';
 
 export interface CreateUserDto {
   color: string;

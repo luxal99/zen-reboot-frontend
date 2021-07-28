@@ -2,7 +2,7 @@ import {Address} from './address';
 import {ReferralSource} from './referral-source';
 import {Person} from './person';
 import {Appointment} from './appointment';
-import {AppointmentDTO} from './AppointmentDTO';
+import {AppointmentDTO} from '../dto/AppointmentDTO';
 
 
 export interface Client {

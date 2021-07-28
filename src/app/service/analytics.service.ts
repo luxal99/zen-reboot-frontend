@@ -2,15 +2,15 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {RestRoutesConst} from '../const/const';
-import {Package} from '../models/package';
-import {Appointment} from '../models/appointment';
-import {StaffEarnedDto} from '../models/staff-earned-dto';
-import {InvoiceItemAnalyticsDto} from '../models/voucher-package-analytics-dto';
-import {TopClientsDto} from '../models/top-clients-dto';
-import {Client} from '../models/client';
-import {ProfitDto} from '../models/profit-dto';
-import {ExpensesAnalyticsDto} from '../models/expenses-analytics-dto';
-import {Voucher} from "../models/voucher";
+import {Package} from '../models/entity/package';
+import {Appointment} from '../models/entity/appointment';
+import {StaffEarnedDto} from '../models/dto/staff-earned-dto';
+import {InvoiceItemAnalyticsDto} from '../models/dto/voucher-package-analytics-dto';
+import {TopClientsDto} from '../models/dto/top-clients-dto';
+import {Client} from '../models/entity/client';
+import {ProfitDto} from '../models/dto/profit-dto';
+import {ExpensesAnalyticsDto} from '../models/dto/expenses-analytics-dto';
+import {Voucher} from "../models/entity/voucher";
 
 @Injectable({
   providedIn: 'root'

@@ -1,6 +1,6 @@
-import {Client} from './client';
-import {PaymentMethod} from './payment-method';
-import {TreatmentDuration} from './treatment-duration';
+import {Client} from '../entity/client';
+import {PaymentMethod} from '../entity/payment-method';
+import {TreatmentDuration} from '../entity/treatment-duration';
 
 export interface VoucherDto {
   client?: Client;

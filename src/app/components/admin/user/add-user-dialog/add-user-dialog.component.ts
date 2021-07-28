@@ -1,11 +1,11 @@
 import {Component, Inject, Input, OnInit} from '@angular/core';
 import {DefaultComponent} from '../../../../util/default-component';
-import {CreateUserDto} from '../../../../models/create-user-dto';
+import {CreateUserDto} from '../../../../models/dto/create-user-dto';
 import {UserService} from '../../../../service/user.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import {User} from '../../../../models/user';
+import {User} from '../../../../models/entity/user';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {FieldConfig} from '../../../../models/FIeldConfig';
+import {FieldConfig} from '../../../../models/util/FIeldConfig';
 import {FormControlNames, InputTypes} from '../../../../const/const';
 import {RoleService} from '../../../../service/role.service';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';

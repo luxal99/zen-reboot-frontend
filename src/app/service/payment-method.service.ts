@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {GenericService} from './generic.service';
-import {PaymentMethod} from '../models/payment-method';
+import {PaymentMethod} from '../models/entity/payment-method';
 import {RestRoutesConst} from '../const/const';
 
 @Injectable({

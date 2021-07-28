@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {GenericService} from './generic.service';
-import {Invoice} from '../models/invoice';
+import {Invoice} from '../models/entity/invoice';
 import {RestRoutesConst} from '../const/const';
-import {Appointment} from '../models/appointment';
+import {Appointment} from '../models/entity/appointment';
 import {Observable} from 'rxjs';
 
 @Injectable({

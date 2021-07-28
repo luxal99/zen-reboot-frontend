@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {AnalyticsService} from '../../../../service/analytics.service';
-import {ProfitDto} from '../../../../models/profit-dto';
+import {ProfitDto} from '../../../../models/dto/profit-dto';
 import {FormControl, FormGroup} from '@angular/forms';
 import {FormControlNames, InputTypes} from '../../../../const/const';
-import {FieldConfig} from '../../../../models/FIeldConfig';
+import {FieldConfig} from '../../../../models/util/FIeldConfig';
 import {PeriodsService} from '../../../../service/periods.service';
-import {ExpensesAnalyticsDto} from '../../../../models/expenses-analytics-dto';
+import {ExpensesAnalyticsDto} from '../../../../models/dto/expenses-analytics-dto';
 
 @Component({
   selector: 'app-profit-and-expenses-analytics-overview',

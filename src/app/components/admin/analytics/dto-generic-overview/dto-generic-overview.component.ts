@@ -1,8 +1,8 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {FieldConfig} from "../../../../models/FIeldConfig";
+import {FieldConfig} from "../../../../models/util/FIeldConfig";
 import {FormControlNames, InputTypes} from "../../../../const/const";
 import {PeriodsService} from "../../../../service/periods.service";
-import {InvoiceItemAnalyticsDto} from "../../../../models/voucher-package-analytics-dto";
+import {InvoiceItemAnalyticsDto} from "../../../../models/dto/voucher-package-analytics-dto";
 import {FormControl, FormGroup} from "@angular/forms";
 
 @Component({

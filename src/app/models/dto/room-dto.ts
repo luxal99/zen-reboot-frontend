@@ -1,5 +1,5 @@
 import {AppointmentDTO} from './AppointmentDTO';
-import {Location} from './location';
+import {Location} from '../entity/location';
 
 export interface RoomDto {
   appointments?: AppointmentDTO[];

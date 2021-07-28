@@ -1,4 +1,4 @@
-import {Client} from './client';
+import {Client} from '../entity/client';
 
 export interface TopClient {
   client?: Client;

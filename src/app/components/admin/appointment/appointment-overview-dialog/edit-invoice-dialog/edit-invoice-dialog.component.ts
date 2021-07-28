@@ -1,30 +1,30 @@
 import {AfterViewChecked, ChangeDetectorRef, Component, Inject, OnInit} from "@angular/core";
 import {InvoiceService} from "../../../../../service/invoice.service";
 import {InvoiceStatusService} from "../../../../../service/invoice-status.service";
-import {Invoice} from "../../../../../models/invoice";
+import {Invoice} from "../../../../../models/entity/invoice";
 import {DefaultComponent} from "../../../../../util/default-component";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {MAT_DIALOG_DATA, MatDialog} from "@angular/material/dialog";
-import {AppointmentDTO} from "../../../../../models/AppointmentDTO";
+import {AppointmentDTO} from "../../../../../models/dto/AppointmentDTO";
 import * as moment from "moment";
 import {AppointmentService} from "../../../../../service/appointment.service";
-import {Client} from "../../../../../models/client";
+import {Client} from "../../../../../models/entity/client";
 import {CriteriaBuilder} from "../../../../../util/criteria-builder";
 import {FormControlNames, InputTypes} from "../../../../../const/const";
 import {ClientService} from "../../../../../service/client.service";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {ContactTypeEnum} from "../../../../../enums/ContactTypeEnum";
-import {Contact} from "../../../../../models/contact";
-import {FieldConfig} from "../../../../../models/FIeldConfig";
+import {Contact} from "../../../../../models/util/contact";
+import {FieldConfig} from "../../../../../models/util/FIeldConfig";
 import {DialogUtil} from "../../../../../util/dialog-util";
 import {ClientOverviewDialogComponent} from "../../../client/client-overview-dialog/client-overview-dialog.component";
-import {Appointment} from "../../../../../models/appointment";
-import {InvoiceStatus} from "../../../../../models/invoice-status";
+import {Appointment} from "../../../../../models/entity/appointment";
+import {InvoiceStatus} from "../../../../../models/entity/invoice-status";
 import {LocationService} from "../../../../../service/location.service";
 import {AppointmentStatusService} from "../../../../../service/appointment-status.service";
 import {map} from "rxjs/operators";
 import {PaymentMethodService} from "../../../../../service/payment-method.service";
-import {PaymentMethod} from "../../../../../models/payment-method";
+import {PaymentMethod} from "../../../../../models/entity/payment-method";
 
 @Component({
   selector: "app-edit-invoice-dialog",

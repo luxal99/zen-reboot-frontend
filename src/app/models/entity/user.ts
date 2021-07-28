@@ -1,4 +1,4 @@
-import {Role} from './role';
+import {Role} from '../util/role';
 import {Staff} from './staff';
 
 export interface User {

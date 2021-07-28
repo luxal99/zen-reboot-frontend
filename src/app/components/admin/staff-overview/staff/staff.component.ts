@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from "@angular/core";
 import {DefaultComponent} from "../../../../util/default-component";
-import {Staff} from "../../../../models/staff";
+import {Staff} from "../../../../models/entity/staff";
 import {MatSpinner} from "@angular/material/progress-spinner";
 import {FormControl, FormGroup} from "@angular/forms";
 import {MatDialog} from "@angular/material/dialog";
@@ -10,7 +10,7 @@ import {RoleSettings} from "../../../../const/const";
 import {DialogUtil} from "../../../../util/dialog-util";
 import {AddStaffDialogComponent} from "../add-staff-dialog/add-staff-dialog.component";
 import {setDialogConfig} from "../../../../util/dialog-options";
-import {StaffPayoutDto} from "../../../../models/staff-payout-dto";
+import {StaffPayoutDto} from "../../../../models/dto/staff-payout-dto";
 
 @Component({
   selector: "app-staff",

@@ -1,7 +1,7 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import {StaffDto} from '../models/staff-dto';
+import {StaffDto} from '../models/dto/staff-dto';
 import * as moment from 'moment';
-import {AppointmentDTO} from '../models/AppointmentDTO';
+import {AppointmentDTO} from '../models/dto/AppointmentDTO';
 
 @Pipe({
   name: 'checkIsAppointmentBetween'

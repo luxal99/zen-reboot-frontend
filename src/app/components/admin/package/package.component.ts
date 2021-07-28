@@ -7,7 +7,7 @@ import {DialogUtil} from '../../../util/dialog-util';
 import {AddPackageDialogComponent} from './add-package-dialog/add-package-dialog.component';
 import {setDialogConfig} from '../../../util/dialog-options';
 import {FormControl, FormGroup} from '@angular/forms';
-import {Package} from '../../../models/package';
+import {Package} from '../../../models/entity/package';
 import {VoucherOverviewDialogComponent} from '../vouchers/voucher-overview-dialog/voucher-overview-dialog.component';
 import {PackageOverviewDialogComponent} from './package-overview-dialog/package-overview-dialog.component';
 

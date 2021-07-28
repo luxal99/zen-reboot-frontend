@@ -1,10 +1,10 @@
-import {AppointmentStatus} from './appointment-status';
-import {Client} from './client';
-import {Location} from './location';
-import {Staff} from './staff';
+import {AppointmentStatus} from '../entity/appointment-status';
+import {Client} from '../entity/client';
+import {Location} from '../entity/location';
+import {Staff} from '../entity/staff';
 import {TreatmentDto} from './TreatmentDto';
-import {Room} from './room';
-import {PaymentMethod} from './payment-method';
+import {Room} from '../entity/room';
+import {PaymentMethod} from '../entity/payment-method';
 
 // tslint:disable-next-line:no-empty-interface
 export interface AppointmentDTO {

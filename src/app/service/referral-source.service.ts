@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {GenericService} from './generic.service';
-import {ReferralSource} from '../models/referral-source';
+import {ReferralSource} from '../models/entity/referral-source';
 import {RestRoutesConst} from '../const/const';
 
 @Injectable({

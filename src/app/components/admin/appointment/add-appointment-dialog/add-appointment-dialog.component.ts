@@ -1,6 +1,6 @@
 import {AfterViewChecked, ChangeDetectorRef, Component, HostListener, Inject, OnInit, ViewChild} from '@angular/core';
 import {DefaultComponent} from '../../../../util/default-component';
-import {Appointment} from '../../../../models/appointment';
+import {Appointment} from '../../../../models/entity/appointment';
 import {AppointmentService} from '../../../../service/appointment.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {ClientService} from '../../../../service/client.service';
@@ -9,26 +9,26 @@ import {StaffService} from '../../../../service/staff.service';
 import {TreatmentService} from '../../../../service/treatment.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {TreatmentDurationService} from '../../../../service/treatment-duration.service';
-import {FieldConfig} from '../../../../models/FIeldConfig';
+import {FieldConfig} from '../../../../models/util/FIeldConfig';
 import {FormControlNames, InputTypes} from '../../../../const/const';
-import {Staff} from '../../../../models/staff';
+import {Staff} from '../../../../models/entity/staff';
 import * as moment from 'moment';
-import {Treatment} from '../../../../models/treatment';
+import {Treatment} from '../../../../models/entity/treatment';
 import {AppointmentStatusService} from '../../../../service/appointment-status.service';
 import {CKEditorComponent} from '@ckeditor/ckeditor5-angular';
 // @ts-ignore
 import * as ClassicEditor from 'lib/ckeditor5-build-classic';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {AppointmentDTO} from '../../../../models/AppointmentDTO';
-import {TreatmentDuration} from '../../../../models/treatment-duration';
-import {Client} from '../../../../models/client';
+import {AppointmentDTO} from '../../../../models/dto/AppointmentDTO';
+import {TreatmentDuration} from '../../../../models/entity/treatment-duration';
+import {Client} from '../../../../models/entity/client';
 import {CriteriaBuilder} from '../../../../util/criteria-builder';
-import {Location} from 'src/app/models/location';
+import {Location} from 'src/app/models/entity/location';
 import {MatSpinner} from '@angular/material/progress-spinner';
 import {PaymentMethodService} from '../../../../service/payment-method.service';
 import {MatAutocomplete, MatAutocompleteTrigger} from '@angular/material/autocomplete';
 import {SnackBarUtil} from '../../../../util/snack-bar-uitl';
-import {Room} from '../../../../models/room';
+import {Room} from '../../../../models/entity/room';
 
 @Component({
   selector: 'app-add-appointment-dialog',

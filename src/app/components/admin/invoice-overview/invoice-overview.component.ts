@@ -3,10 +3,10 @@ import {InvoiceService} from '../../../service/invoice.service';
 import {FormControl, FormGroup} from '@angular/forms';
 import * as moment from 'moment';
 import {CriteriaBuilder} from '../../../util/criteria-builder';
-import {Invoice} from '../../../models/invoice';
+import {Invoice} from '../../../models/entity/invoice';
 import {DefaultComponent} from '../../../util/default-component';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import {DateFilter} from '../../../models/date-filter';
+import {DateFilter} from '../../../models/util/date-filter';
 
 @Component({
   selector: 'app-invoice-overview',

@@ -1,16 +1,16 @@
 import {AfterViewChecked, ChangeDetectorRef, Component, Inject, OnInit, ViewChild} from '@angular/core';
-import {City} from '../../../../../models/city';
+import {City} from '../../../../../models/entity/city';
 import {CityService} from '../../../../../service/city.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {LocationService} from '../../../../../service/location.service';
-import {Location} from 'src/app/models/location';
+import {Location} from 'src/app/models/entity/location';
 import {DefaultComponent} from '../../../../../util/default-component';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import {FieldConfig} from '../../../../../models/FIeldConfig';
+import {FieldConfig} from '../../../../../models/util/FIeldConfig';
 import {FormControlNames, InputTypes} from '../../../../../const/const';
 import {MatSpinner} from '@angular/material/progress-spinner';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
-import {Room} from '../../../../../models/room';
+import {Room} from '../../../../../models/entity/room';
 import {SnackBarUtil} from '../../../../../util/snack-bar-uitl';
 import {RoomService} from '../../../../../service/room.service';
 

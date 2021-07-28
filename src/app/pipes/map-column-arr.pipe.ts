@@ -1,5 +1,5 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import {Column} from '../models/column';
+import {Column} from '../models/util/column';
 
 @Pipe({
   name: 'mapColumnArr'

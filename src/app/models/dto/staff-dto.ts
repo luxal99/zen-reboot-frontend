@@ -1,7 +1,7 @@
-import {Location} from './location';
-import {RepeatTypeEnum} from '../enums/RepeatTypeEnum';
-import {Person} from './person';
-import {Shift} from './shift';
+import {Location} from '../entity/location';
+import {RepeatTypeEnum} from '../../enums/RepeatTypeEnum';
+import {Person} from '../entity/person';
+import {Shift} from '../entity/shift';
 import {AppointmentDTO} from './AppointmentDTO';
 
 export interface StaffDto {

@@ -3,7 +3,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {DialogUtil} from '../../../../util/dialog-util';
 import {FormBuilderComponent} from '../../../form-components/form-builder/form-builder.component';
 import {setDialogConfig} from '../../../../util/dialog-options';
-import {FormBuilderConfig} from '../../../../models/FormBuilderConfig';
+import {FormBuilderConfig} from '../../../../models/util/FormBuilderConfig';
 import {DefaultComponent} from '../../../../util/default-component';
 import {GenericService} from '../../../../service/generic.service';
 import {MatSnackBar} from '@angular/material/snack-bar';

@@ -9,16 +9,16 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import {Contact} from './contact';
+import { Country } from '../util/country';
 
 
-export interface Person {
-  createdDate?: string;
-  firstName?: string;
-  id?: number;
-  lastModifiedBy?: string;
-  lastModifiedDate?: string;
-  lastName?: string;
-  contacts: Contact[];
+export interface City {
+    country?: Country;
+    createdDate?: string;
+    id?: number;
+    lastModifiedBy?: string;
+    lastModifiedDate?: string;
+    name?: string;
+    zipcode?: string;
 }
 

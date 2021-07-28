@@ -4,21 +4,21 @@ import {DialogUtil} from "../../../util/dialog-util";
 import {AddAppointmentDialogComponent} from "./add-appointment-dialog/add-appointment-dialog.component";
 import {CriteriaBuilder} from "../../../util/criteria-builder";
 import * as moment from "moment";
-import {Appointment} from "../../../models/appointment";
+import {Appointment} from "../../../models/entity/appointment";
 import {DefaultComponent} from "../../../util/default-component";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {FormControl, FormGroup} from "@angular/forms";
 import {AppointmentOverviewDialogComponent} from "./appointment-overview-dialog/appointment-overview-dialog.component";
 import {map} from "rxjs/operators";
 import {LocationService} from "../../../service/location.service";
-import {Location} from "../../../models/location";
-import {RoomDto} from "../../../models/room-dto";
+import {Location} from "../../../models/entity/location";
+import {RoomDto} from "../../../models/dto/room-dto";
 import {setDialogConfig} from "../../../util/dialog-options";
 import {RoomService} from "../../../service/room.service";
 import {AppointmentService} from "../../../service/appointment.service";
 import {AppointmentStatusService} from "../../../service/appointment-status.service";
 import {RoleSettings} from "../../../const/const";
-import {Staff} from "../../../models/staff";
+import {Staff} from "../../../models/entity/staff";
 import {StaffService} from "../../../service/staff.service";
 
 @Component({

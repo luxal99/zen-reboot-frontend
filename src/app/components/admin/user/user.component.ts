@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {DefaultComponent} from '../../../util/default-component';
-import {User} from '../../../models/user';
+import {User} from '../../../models/entity/user';
 import {UserService} from '../../../service/user.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {FormControl, FormGroup} from '@angular/forms';

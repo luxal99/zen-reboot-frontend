@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {AuthService} from '../../service/auth.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {FieldConfig} from '../../models/FIeldConfig';
+import {FieldConfig} from '../../models/util/FIeldConfig';
 import {MatSpinner} from '@angular/material/progress-spinner';
 import {FormControlNames, InputTypes, TokenConst} from '../../const/const';
 import {SpinnerService} from '../../service/spinner.service';

@@ -1,18 +1,18 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialog} from '@angular/material/dialog';
-import {Client} from '../../../../models/client';
+import {Client} from '../../../../models/entity/client';
 import {ClientService} from '../../../../service/client.service';
-import {Contact} from '../../../../models/contact';
+import {Contact} from '../../../../models/util/contact';
 import {ContactTypeEnum} from '../../../../enums/ContactTypeEnum';
-import {AppointmentDTO} from '../../../../models/AppointmentDTO';
+import {AppointmentDTO} from '../../../../models/dto/AppointmentDTO';
 import * as moment from 'moment';
 import {AppointmentStatuses} from '../../../../const/const';
 import {DialogUtil} from '../../../../util/dialog-util';
 import {AddAppointmentDialogComponent} from '../../appointment/add-appointment-dialog/add-appointment-dialog.component';
 import {InvoiceService} from '../../../../service/invoice.service';
-import {Invoice} from '../../../../models/invoice';
+import {Invoice} from '../../../../models/entity/invoice';
 import {setDialogConfig} from '../../../../util/dialog-options';
-import {Appointment} from '../../../../models/appointment';
+import {Appointment} from '../../../../models/entity/appointment';
 import {InvoicesDialogOverviewComponent} from '../../../table-binding/invoices-dialog-overview/invoices-dialog-overview.component';
 
 @Component({

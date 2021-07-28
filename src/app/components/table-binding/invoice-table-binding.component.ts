@@ -2,7 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import {DialogUtil} from '../../util/dialog-util';
 import {InvoicesDialogOverviewComponent} from './invoices-dialog-overview/invoices-dialog-overview.component';
-import {Invoice} from '../../models/invoice';
+import {Invoice} from '../../models/entity/invoice';
 import {setDialogConfig} from '../../util/dialog-options';
 import {AuthGuard} from '../../guards/auth.guard';
 

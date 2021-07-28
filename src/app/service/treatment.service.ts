@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
 import {GenericService} from './generic.service';
-import {Treatment} from '../models/treatment';
+import {Treatment} from '../models/entity/treatment';
 import {RestRoutesConst} from '../const/const';
 import {Observable} from 'rxjs';
-import {TreatmentDuration} from '../models/treatment-duration';
+import {TreatmentDuration} from '../models/entity/treatment-duration';
 
 @Injectable({
   providedIn: 'root'

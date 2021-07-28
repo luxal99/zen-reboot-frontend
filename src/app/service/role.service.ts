@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {GenericService} from './generic.service';
-import {Role} from '../models/role';
+import {Role} from '../models/util/role';
 import {RestRoutesConst} from '../const/const';
 
 @Injectable({

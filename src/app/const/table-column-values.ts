@@ -1,4 +1,4 @@
-import {Column} from '../models/column';
+import {Column} from '../models/util/column';
 
 export const APPOINTMENT_ANALYTICS_COLUMNS: Column[] = [
   {name: 'date', displayedName: 'Datum', value: 'date'},

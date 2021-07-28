@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {GenericService} from './generic.service';
-import {Country} from '../models/country';
+import {Country} from '../models/util/country';
 import {RestRoutesConst} from '../const/const';
 
 @Injectable({

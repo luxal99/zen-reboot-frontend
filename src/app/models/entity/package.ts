@@ -1,4 +1,4 @@
-import {PackageBase} from './package-base';
+import {PackageBase} from '../util/package-base';
 
 export interface Package extends PackageBase {
   availablePrice?: number;

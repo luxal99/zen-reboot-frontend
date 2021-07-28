@@ -1,8 +1,8 @@
 import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
-import {Column} from '../../../../models/column';
+import {Column} from '../../../../models/util/column';
 import {FormControl, FormGroup} from '@angular/forms';
 import {AnalyticsService} from '../../../../service/analytics.service';
-import {FieldConfig} from '../../../../models/FIeldConfig';
+import {FieldConfig} from '../../../../models/util/FIeldConfig';
 import {FormControlNames, InputTypes} from '../../../../const/const';
 import {SpinnerService} from '../../../../service/spinner.service';
 import {MatSpinner} from '@angular/material/progress-spinner';

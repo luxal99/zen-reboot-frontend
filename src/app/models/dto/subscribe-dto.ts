@@ -1,5 +1,5 @@
 import {Observable} from 'rxjs';
-import {GenericService} from '../service/generic.service';
+import {GenericService} from '../../service/generic.service';
 
 export interface SubscribeDto {
   subscriber?: Observable<any>;

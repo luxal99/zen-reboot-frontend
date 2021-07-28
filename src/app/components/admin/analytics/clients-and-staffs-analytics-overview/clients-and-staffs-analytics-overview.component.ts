@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {Column} from '../../../../models/column';
+import {Column} from '../../../../models/util/column';
 import {AnalyticsService} from '../../../../service/analytics.service';
-import {TopClientsDto} from '../../../../models/top-clients-dto';
+import {TopClientsDto} from '../../../../models/dto/top-clients-dto';
 import * as ColumnDef from '../../../../const/table-column-values';
-import {Client} from '../../../../models/client';
-import {StaffEarnedDto} from '../../../../models/staff-earned-dto';
+import {Client} from '../../../../models/entity/client';
+import {StaffEarnedDto} from '../../../../models/dto/staff-earned-dto';
 import {DialogUtil} from '../../../../util/dialog-util';
 import {ClientOverviewDialogComponent} from '../../client/client-overview-dialog/client-overview-dialog.component';
 import {setDialogConfig} from '../../../../util/dialog-options';

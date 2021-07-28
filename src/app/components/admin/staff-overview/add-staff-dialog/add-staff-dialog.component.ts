@@ -1,17 +1,17 @@
 import {AfterViewChecked, ChangeDetectorRef, Component, Inject, OnInit, ViewChild} from "@angular/core";
 import {StaffService} from "../../../../service/staff.service";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {Staff} from "../../../../models/staff";
+import {Staff} from "../../../../models/entity/staff";
 import {MAT_DIALOG_DATA} from "@angular/material/dialog";
 import {DefaultComponent} from "../../../../util/default-component";
-import {FieldConfig} from "../../../../models/FIeldConfig";
+import {FieldConfig} from "../../../../models/util/FIeldConfig";
 import {EMAIL_REGEX, FormControlNames, InputTypes} from "../../../../const/const";
 import {CountryService} from "../../../../service/country.service";
-import {Country} from "../../../../models/country";
+import {Country} from "../../../../models/util/country";
 import {MatSpinner} from "@angular/material/progress-spinner";
 import {ContactTypeEnum} from "../../../../enums/ContactTypeEnum";
 import {MatSnackBar} from "@angular/material/snack-bar";
-import {Contact} from "../../../../models/contact";
+import {Contact} from "../../../../models/util/contact";
 import * as moment from "moment";
 import {SalaryCategoryService} from "../../../../service/salary-category.service";
 

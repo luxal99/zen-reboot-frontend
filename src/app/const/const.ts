@@ -1,6 +1,6 @@
 import {RoleEnum} from "../enums/RoleEnum";
 import {Injectable} from "@angular/core";
-import {Month} from "../models/month";
+import {Month} from "../models/util/month";
 
 export const SELECTED_CLASS_NAME = "selected";
 
