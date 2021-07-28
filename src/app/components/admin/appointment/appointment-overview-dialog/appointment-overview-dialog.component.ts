@@ -11,6 +11,9 @@ import {AppointmentDTO} from "../../../../models/dto/AppointmentDTO";
 import {LocationService} from "../../../../service/location.service";
 import {EditInvoiceDialogComponent} from "./edit-invoice-dialog/edit-invoice-dialog.component";
 import {RoleSettings} from "../../../../const/const";
+import {CancelAppointmentDialogComponent} from "./cancel-appointment-dialog/cancel-appointment-dialog.component";
+import {setDialogConfig} from "../../../../util/dialog-options";
+import {CancelAppointmentDialogData} from "../../../../models/util/cancel-appointment-dialog-data";
 
 @Component({
   selector: "app-appointment-overview-dialog",
@@ -76,4 +79,10 @@ export class AppointmentOverviewDialogComponent extends DefaultComponent<Appoint
     super.subscribeDelete(this.data.id);
   }
 
+  openCancelAppointmentDialog(): void {
+    DialogUtil.openDialog(CancelAppointmentDialogComponent, setDialogConfig({}), this.dialog).afterClosed().subscribe((resp: CancelAppointmentDialogData) => {
+      if (resp.cancelAppointment) {
+      }
+    });
+  }
 }

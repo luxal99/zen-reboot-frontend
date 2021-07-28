@@ -1,1 +1,8 @@
-<p>cancel-appointment-dialog works!</p>
+<div class="dialog">
+  <h3>Nakon izvršenja željenog postupak, tretman će biti otkazan.</h3>
+  <mat-checkbox #payCheckbox>Isplati masažera</mat-checkbox>
+  <div class="text-right">
+    <button mat-button color="warn" mat-dialog-close (click)="confirm()">Da</button>
+    <button mat-button (click)="decline()" mat-dialog-close>Ne</button>
+  </div>
+</div>

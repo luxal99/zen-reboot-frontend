@@ -81,6 +81,11 @@
     <button class="default-btn" mat-button (click)="openEditInvoiceDialog()" appProtected
             [roleActivator]="[roleSettings.ADMIN,roleSettings.RECEPTIONIST]">Izvrši
     </button>
+    <div>
+      <button class="light-btn" mat-button (click)="openCancelAppointmentDialog()" appProtected
+              [roleActivator]="[roleSettings.ADMIN,roleSettings.RECEPTIONIST]">Otkaži
+      </button>
+    </div>
   </div>
   <mat-spinner diameter="30" #spinner></mat-spinner>
 

@@ -61,15 +61,20 @@
 .col-9
   padding: 0 3em
 
-.delete-btn, .default-btn
-  margin: 1em
-  width: 15%
+.delete-btn, .default-btn, .light-btn
+  margin: .25em .5em
+  width: 150px
 
 .delete-btn
   color: #fff
   background-color: #fc3939
   padding: .4em
   font-size: 18px
+
+.light-btn
+  @extend .default-btn
+  color: $default-black
+  background-color: #eee
 
 mat-spinner
   display: none
