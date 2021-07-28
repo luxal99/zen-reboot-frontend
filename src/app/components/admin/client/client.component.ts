@@ -1,35 +1,35 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {MatDialog} from '@angular/material/dialog';
-import {ClientService} from '../../../service/client.service';
-import {Client} from '../../../models/entity/client';
-import {DialogUtil} from '../../../util/dialog-util';
-import {AddClientDialogComponent} from './add-client-dialog/add-client-dialog.component';
-import {MatSpinner} from '@angular/material/progress-spinner';
-import {FormControl, FormGroup} from '@angular/forms';
-import {SnackBarUtil} from '../../../util/snack-bar-uitl';
-import {FormControlNames, Message} from '../../../const/const';
-import {ClientOverviewDialogComponent} from './client-overview-dialog/client-overview-dialog.component';
-import {DefaultComponent} from '../../../util/default-component';
-import {MatSnackBar} from '@angular/material/snack-bar';
-import {CriteriaBuilder} from '../../../util/criteria-builder';
-import {setDialogConfig} from '../../../util/dialog-options';
+import {Component, OnInit, ViewChild} from "@angular/core";
+import {MatDialog} from "@angular/material/dialog";
+import {ClientService} from "../../../service/client.service";
+import {Client} from "../../../models/entity/client";
+import {DialogUtil} from "../../../util/dialog-util";
+import {AddClientDialogComponent} from "./add-client-dialog/add-client-dialog.component";
+import {MatSpinner} from "@angular/material/progress-spinner";
+import {FormControl, FormGroup} from "@angular/forms";
+import {SnackBarUtil} from "../../../util/snack-bar-uitl";
+import {FormControlNames, Message} from "../../../const/const";
+import {ClientOverviewDialogComponent} from "./client-overview-dialog/client-overview-dialog.component";
+import {DefaultComponent} from "../../../util/default-component";
+import {MatSnackBar} from "@angular/material/snack-bar";
+import {CriteriaBuilder} from "../../../util/criteria-builder";
+import {setDialogConfig} from "../../../util/dialog-options";
 
 @Component({
-  selector: 'app-client',
-  templateUrl: './client.component.html',
-  styleUrls: ['./client.component.sass']
+  selector: "app-client",
+  templateUrl: "./client.component.html",
+  styleUrls: ["./client.component.sass"]
 })
 export class ClientComponent extends DefaultComponent<Client> implements OnInit {
 
   numberOfPage = 0;
-  @ViewChild('spinner') spinner!: MatSpinner;
+  @ViewChild("spinner") spinner!: MatSpinner;
 
   searchForm = new FormGroup({
     search: new FormControl()
   });
 
-  searchText = '';
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
+  searchText = "";
+  displayedColumns: string[] = ["position", "name", "weight", "symbol"];
 
   constructor(private dialog: MatDialog, private clientService: ClientService, protected snackBar: MatSnackBar) {
     super(clientService, snackBar);
@@ -38,7 +38,7 @@ export class ClientComponent extends DefaultComponent<Client> implements OnInit 
   ngOnInit(): void {
     this.getClientWithPagination();
     const queryBuilder = new CriteriaBuilder();
-    queryBuilder.like('person.firstName', 'aleksa');
+    queryBuilder.like("person.firstName", "aleksa");
   }
 
   getClientWithPagination(): void {
@@ -70,10 +70,10 @@ export class ClientComponent extends DefaultComponent<Client> implements OnInit 
   openAddClientDialog(): void {
     DialogUtil.openDialog(AddClientDialogComponent,
       setDialogConfig({
-        maxWidth: '100vw',
-        maxHeight: '100vh',
-        height: '100%',
-        width: '100%'
+        maxWidth: "100vw",
+        maxHeight: "100vh",
+        height: "100%",
+        width: "100%"
       }), this.dialog).afterClosed().subscribe(() => {
       this.getCurrentPage();
     });
@@ -81,10 +81,10 @@ export class ClientComponent extends DefaultComponent<Client> implements OnInit 
 
   openEditClientDialog(data: Client): void {
     DialogUtil.openDialog(AddClientDialogComponent, {
-      maxWidth: '100vw',
-      maxHeight: '100vh',
-      height: '100%',
-      width: '100%',
+      maxWidth: "100vw",
+      maxHeight: "100vh",
+      height: "100%",
+      width: "100%",
       data
     }, this.dialog).afterClosed().subscribe(() => {
       this.getCurrentPage();
@@ -94,9 +94,9 @@ export class ClientComponent extends DefaultComponent<Client> implements OnInit 
   openClientOverviewDialog(data: Client): void {
     DialogUtil.openDialog(ClientOverviewDialogComponent,
       setDialogConfig({
-        position: {right: '0'},
-        width: '95%',
-        height: '100vh',
+        position: {right: "0"},
+        width: "95%",
+        height: "100vh",
         data
       }), this.dialog);
   }
@@ -124,9 +124,9 @@ export class ClientComponent extends DefaultComponent<Client> implements OnInit 
   search(): void {
     const queryBuilder = new CriteriaBuilder();
     const search: string = this.searchForm.get(FormControlNames.SEARCH_FORM_CONTROL)?.value;
-    queryBuilder.startsWith('person.firstName', search).or()
-      .startsWith('person.contacts.value', search);
-    queryBuilder.criteriaList = queryBuilder.criteriaList.filter((searchCriteria) => searchCriteria.secondOperand !== '');
+    queryBuilder.startsWith("person.firstName", search).or()
+      .startsWith("person.contacts.value", search);
+    queryBuilder.criteriaList = queryBuilder.criteriaList.filter((searchCriteria) => searchCriteria.secondOperand !== "");
     if (search.length > 3) {
       this.clientService.getAllSearchByQueryParam(queryBuilder.buildUrlEncoded())
         .pipe()

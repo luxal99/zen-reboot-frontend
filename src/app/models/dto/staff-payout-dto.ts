@@ -1,8 +1,8 @@
-import {Payout} from "../entity/payout";
 import {Staff} from "../entity/staff";
+import {PayoutDto} from "./payout-dto";
 
 export interface StaffPayoutDto {
-  payouts?: Payout[];
+  payouts?: PayoutDto[];
   staff?: Staff;
   total?: number
 }

@@ -5,7 +5,7 @@
     plaćanja: </b>{{data.staff?.salaryCategory?.name + ' ' + '( ' + data.staff?.salaryCategory?.percentage + '% )'}}
   </h3>
   <h3><b>Ukupno za odabrani period: </b>{{data.total + 'RSD'}}</h3>
-  <div *ngFor="let payout of data.payouts">
+  <div class="appointment-card" *ngFor="let payout of data.payouts">
     <div class="row">
       <div class="col-sm left">
         <h3><b>{{payout.date | date}}</b></h3>
@@ -17,8 +17,21 @@
         </div>
       </div>
     </div>
-<!--    <h2 class="appointment-name-h2">{{payout.appointment.treatmentDuration.name}}</h2>-->
-<!--    <h3><b>{{item.clients[0].person?.firstName + ' ' + item.clients[0].person?.lastName}}</b></h3>-->
-<!--    <h4 class="phone-no">{{item.clients[0].person.contacts|findClientPhoneNumber}}</h4>-->
+    <div class="appointment-name-div">
+      <h2>{{payout.appointment.treatment.name}}</h2>
+      <h3><b>{{payout.originalValue + ' RSD'}}</b></h3>
+    </div>
+    <div></div>
+    <div class="row" style="margin-top: 2em">
+      <div class="col-6 left">
+        <h3 class="client-h3" (click)="openClientOverviewDialog(payout.appointment.clients[0])">
+          <b>{{payout.appointment.clients[0].person?.firstName + ' ' + payout.appointment.clients[0].person?.lastName}}</b>
+        </h3>
+      </div>
+      <div class="col-6 right text-right">
+        <button style="background-color: #eee" mat-button (click)="openAppointmentOverviewDialog(payout.appointment)">Pregledaj</button>
+      </div>
+    </div>
+    <h4 class="phone-no">{{payout.appointment.clients[0].person.contacts|findClientPhoneNumber}}</h4>
   </div>
 </div>

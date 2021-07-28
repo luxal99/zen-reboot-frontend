@@ -1,27 +1,25 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
-import {Appointment} from '../../../../models/entity/appointment';
-import * as moment from 'moment';
-import {ContactTypeEnum} from '../../../../enums/ContactTypeEnum';
-import {Contact} from '../../../../models/util/contact';
-import {DefaultComponent} from '../../../../util/default-component';
-import {MatSnackBar} from '@angular/material/snack-bar';
-import {AppointmentService} from '../../../../service/appointment.service';
-import {DialogUtil} from '../../../../util/dialog-util';
-import {AddAppointmentDialogComponent} from '../add-appointment-dialog/add-appointment-dialog.component';
-import {AppointmentDTO} from '../../../../models/dto/AppointmentDTO';
-import {LocationService} from '../../../../service/location.service';
-import {EditInvoiceDialogComponent} from './edit-invoice-dialog/edit-invoice-dialog.component';
-import {RoleSettings} from '../../../../const/const';
+import {Component, Inject, OnInit} from "@angular/core";
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog";
+import {Appointment} from "../../../../models/entity/appointment";
+import * as moment from "moment";
+import {DefaultComponent} from "../../../../util/default-component";
+import {MatSnackBar} from "@angular/material/snack-bar";
+import {AppointmentService} from "../../../../service/appointment.service";
+import {DialogUtil} from "../../../../util/dialog-util";
+import {AddAppointmentDialogComponent} from "../add-appointment-dialog/add-appointment-dialog.component";
+import {AppointmentDTO} from "../../../../models/dto/AppointmentDTO";
+import {LocationService} from "../../../../service/location.service";
+import {EditInvoiceDialogComponent} from "./edit-invoice-dialog/edit-invoice-dialog.component";
+import {RoleSettings} from "../../../../const/const";
 
 @Component({
-  selector: 'app-appointment-overview-dialog',
-  templateUrl: './appointment-overview-dialog.component.html',
-  styleUrls: ['./appointment-overview-dialog.component.sass'],
+  selector: "app-appointment-overview-dialog",
+  templateUrl: "./appointment-overview-dialog.component.html",
+  styleUrls: ["./appointment-overview-dialog.component.sass"],
   providers: [RoleSettings]
 })
 export class AppointmentOverviewDialogComponent extends DefaultComponent<Appointment> implements OnInit {
-  day = moment(this.data.date).format('dddd');
+  day = moment(this.data.date).format("dddd");
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: AppointmentDTO, private dialog: MatDialog,
               protected snackBar: MatSnackBar, private dialogRef: MatDialogRef<AppointmentOverviewDialogComponent>,
@@ -45,16 +43,16 @@ export class AppointmentOverviewDialogComponent extends DefaultComponent<Appoint
   }
 
   formatAppointment(): void {
-    this.data.date = moment(this.data.date).format('DD MMMM YYYY');
-    this.data.createdDate = moment(this.data.createdDate).format('DD MMMM YYYY HH:mm');
+    this.data.date = moment(this.data.date).format("DD MMMM YYYY");
+    this.data.createdDate = moment(this.data.createdDate).format("DD MMMM YYYY HH:mm");
   }
 
   openAddAppointmentDialog(): void {
     DialogUtil.openDialog(AddAppointmentDialogComponent, {
-      position: {right: '0'},
-      height: '100vh',
-      width: '70%',
-      maxWidth: '70%',
+      position: {right: "0"},
+      height: "100vh",
+      width: "70%",
+      maxWidth: "70%",
       data: this.data
     }, this.dialog).afterClosed().subscribe(() => {
       this.dialogRef.close();
@@ -63,10 +61,10 @@ export class AppointmentOverviewDialogComponent extends DefaultComponent<Appoint
 
   openEditInvoiceDialog(): void {
     DialogUtil.openDialog(EditInvoiceDialogComponent, {
-      position: {right: '0'},
-      height: '100vh',
-      width: '50%',
-      maxWidth: '50%',
+      position: {right: "0"},
+      height: "100vh",
+      width: "50%",
+      maxWidth: "50%",
       data: this.data
     }, this.dialog).afterClosed().subscribe(() => {
       this.dialogRef.close();
