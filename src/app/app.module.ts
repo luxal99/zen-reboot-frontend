@@ -81,6 +81,7 @@ import { ConvertToArrayPipe } from './pipes/convert-to-array.pipe';
 import { DtoGenericOverviewComponent } from './components/admin/analytics/dto-generic-overview/dto-generic-overview.component';
 import { StaffComponent } from './components/admin/staff-overview/staff/staff.component';
 import { SalaryComponent } from './components/admin/staff-overview/salary/salary.component';
+import { StaffPayoutPipe } from './pipes/staff-payout.pipe';
 
 @NgModule({
   declarations: [
@@ -153,7 +154,8 @@ import { SalaryComponent } from './components/admin/staff-overview/salary/salary
     ConvertToArrayPipe,
     DtoGenericOverviewComponent,
     StaffComponent,
-    SalaryComponent
+    SalaryComponent,
+    StaffPayoutPipe
   ],
   imports: [
     BrowserModule,

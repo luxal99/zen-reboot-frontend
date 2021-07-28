@@ -10,6 +10,7 @@ import {RoleSettings} from "../../../../const/const";
 import {DialogUtil} from "../../../../util/dialog-util";
 import {AddStaffDialogComponent} from "../add-staff-dialog/add-staff-dialog.component";
 import {setDialogConfig} from "../../../../util/dialog-options";
+import {StaffPayoutDto} from "../../../../models/staff-payout-dto";
 
 @Component({
   selector: "app-staff",

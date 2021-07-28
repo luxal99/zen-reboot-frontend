@@ -1,1 +1,34 @@
-<p>salary works!</p>
+<div class="row">
+  <div class="col-12">
+    <form [formGroup]="searchForm">
+      <mat-form-field appearance="outline">
+        <mat-label>Pretraži</mat-label>
+        <input matInput formControlName="search" [(ngModel)]="searchText">
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+    </form>
+  </div>
+</div>
+<div class="staff-binding">
+  <div class="staff-card text-left" *ngFor="let staffPayoutDto of listOfStaffs|staffPayout:searchText">
+    <div class="row">
+      <div class="col-2 text-center">
+        <div [ngStyle]="{'background-color':staffPayoutDto.staff.color}" class="first-letter-circle">
+        </div>
+      </div>
+      <div class="col">
+        <h2>{{staffPayoutDto.staff.person.firstName + ' ' + staffPayoutDto.staff.person.lastName}}</h2>
+      </div>
+      <div class="col text-center">
+        <h2>{{staffPayoutDto.staff.person | staffEmail}}</h2>
+      </div>
+      <div class="col text-right">
+        <h2>{{staffPayoutDto.total + ' RSD'}}</h2>
+      </div>
+      <div class="col-3 text-center">
+        <button class="default-btn" mat-button style="margin: 1em">Payouts</button>
+      </div>
+    </div>
+  </div>
+</div>
+<mat-spinner #spinner diameter="50"></mat-spinner>

@@ -118,6 +118,7 @@ export class RestRoutesConst {
   static ROLE = "roles";
   static ANALYTICS = "analytics";
   static SALARY_CATEGORIES = "salary-categories";
+  static PAYOUT = "payouts";
 }
 
 export class TokenConst {
