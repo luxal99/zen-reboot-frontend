@@ -82,6 +82,7 @@ import { DtoGenericOverviewComponent } from './components/admin/analytics/dto-ge
 import { StaffComponent } from './components/admin/staff-overview/staff/staff.component';
 import { SalaryComponent } from './components/admin/staff-overview/salary/salary.component';
 import { StaffPayoutPipe } from './pipes/staff-payout.pipe';
+import { PayoutsDialogOverviewComponent } from './components/admin/staff-overview/salary/payouts-dialog-overview/payouts-dialog-overview.component';
 
 @NgModule({
   declarations: [
@@ -155,7 +156,8 @@ import { StaffPayoutPipe } from './pipes/staff-payout.pipe';
     DtoGenericOverviewComponent,
     StaffComponent,
     SalaryComponent,
-    StaffPayoutPipe
+    StaffPayoutPipe,
+    PayoutsDialogOverviewComponent
   ],
   imports: [
     BrowserModule,
