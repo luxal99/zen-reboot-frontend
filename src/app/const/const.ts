@@ -1,5 +1,6 @@
 import {RoleEnum} from "../enums/RoleEnum";
 import {Injectable} from "@angular/core";
+import {Month} from "../models/month";
 
 export const SELECTED_CLASS_NAME = "selected";
 
@@ -62,6 +63,8 @@ export class FormControlNames {
   static PERIOD_FORM_CONTROL = "period";
   static PERCENTAGE_FORM_CONTROL = "percentage";
   static SALARY_CATEGORY_FORM_CONTROL = "salaryCategory";
+  static YEAR = "year";
+  static MONTH = "month";
 }
 
 export class InputTypes {
@@ -149,3 +152,21 @@ export class RoleSettings {
   THERAPIST = RoleEnum.THERAPIST;
   RECEPTIONIST = RoleEnum.RECEPTIONIST;
 }
+
+export const MONTHS_OF_YEAR: Month[] = [
+  {name: "Januar", value: 1},
+  {name: "Februar", value: 2},
+  {name: "Mart", value: 3},
+  {name: "April", value: 4},
+  {name: "Maj", value: 5},
+  {name: "Jun", value: 6},
+  {name: "Jul", value: 7},
+  {name: "Avgust", value: 8},
+  {name: "Septembar", value: 9},
+  {name: "Oktobar", value: 10},
+  {name: "Novembar", value: 11},
+  {name: "Decembar", value: 12},
+];
+export const YEARS = [
+  2021, 2022, 2023, 2024
+];

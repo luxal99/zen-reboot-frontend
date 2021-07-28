@@ -4,7 +4,6 @@ import {Payout} from "src/app/models/payout";
 import {RestRoutesConst} from "../const/const";
 import {Observable} from "rxjs";
 import {StaffPayoutDto} from "../models/staff-payout-dto";
-import * as moment from "moment";
 
 @Injectable({
   providedIn: "root"
@@ -14,10 +13,10 @@ export class PayoutService extends GenericService<Payout> {
 
   getStaffSalary(month?: any, year?: any): Observable<StaffPayoutDto[]> {
     if (!month) {
-      month = moment().month() + 1;
+      month = "";
     }
     if (!year) {
-      year = moment().year();
+      year = "";
     }
     return this.http.get<StaffPayoutDto[]>(RestRoutesConst.API + this.route + "/dtos",
       {

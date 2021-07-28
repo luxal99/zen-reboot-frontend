@@ -5,6 +5,8 @@ import {FormControl, FormGroup} from "@angular/forms";
 import {MatDialog} from "@angular/material/dialog";
 import {StaffPayoutDto} from "../../../../models/staff-payout-dto";
 import {SpinnerService} from "../../../../service/spinner.service";
+import {FieldConfig} from "../../../../models/FIeldConfig";
+import {FormControlNames, InputTypes, MONTHS_OF_YEAR, YEARS} from "../../../../const/const";
 
 @Component({
   selector: "app-salary",
@@ -13,30 +15,48 @@ import {SpinnerService} from "../../../../service/spinner.service";
 })
 export class SalaryComponent implements OnInit {
 
-
   listOfStaffs: StaffPayoutDto[] = [];
   @ViewChild("spinner") spinner!: MatSpinner;
 
   searchForm = new FormGroup({
-    search: new FormControl("")
+    search: new FormControl(""),
+    month: new FormControl(""),
+    year: new FormControl("")
   });
 
   searchText = "";
+
+  monthsSelectConfig: FieldConfig = {
+    type: InputTypes.SELECT_TYPE_NAME,
+    name: FormControlNames.MONTH,
+    options: MONTHS_OF_YEAR
+  };
+
+  yearSelectConfig: FieldConfig = {
+    type: InputTypes.SELECT_TYPE_NAME,
+    name: FormControlNames.YEAR,
+    options: YEARS
+  };
 
   constructor(private payoutService: PayoutService,
               private dialog: MatDialog, private spinnerService: SpinnerService) {
   }
 
   ngOnInit(): void {
-    setTimeout(() => {
-      this.getStaffSalary();
-    }, 100);
+    this.getStaffSalary();
   }
 
   getStaffSalary(): void {
-    this.payoutService.getStaffSalary().subscribe((resp) => {
+    const month = this.searchForm.get(FormControlNames.MONTH)?.value ? this.searchForm.get(FormControlNames.MONTH)?.value.value : "";
+    const year = this.searchForm.get(FormControlNames.YEAR)?.value ? this.searchForm.get(FormControlNames.YEAR)?.value : "";
+    this.payoutService.getStaffSalary(month, year).subscribe((resp) => {
       this.listOfStaffs = resp;
       this.spinnerService.hide(this.spinner);
     });
+  }
+
+  filter(): void {
+    this.spinnerService.show(this.spinner);
+    this.getStaffSalary();
   }
 }
