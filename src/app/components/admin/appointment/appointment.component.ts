@@ -99,14 +99,14 @@ export class AppointmentComponent extends DefaultComponent<Appointment> implemen
   nextStaffs(): void {
     this.initGap += 7;
     this.gap += 7;
-    this.allRooms ? this.getAppointments() : this.getAllRoomsAppointments();
+    this.allRooms ? this.getAllRoomsAppointments() : this.getAppointments();
   }
 
   previousStaffs(): void {
     if (this.initGap - 7 >= 0) {
       this.initGap -= 7;
       this.gap -= 7;
-      this.allRooms ? this.getAppointments() : this.getAllRoomsAppointments();
+      this.allRooms ? this.getAllRoomsAppointments() : this.getAppointments();
     } else {
       this.isDisabledPrev10 = true;
     }
