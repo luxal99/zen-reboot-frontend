@@ -22,6 +22,7 @@ import {CriteriaBuilder} from "../../../util/criteria-builder";
 export class ExpensesComponent extends DefaultComponent<Expense> implements OnInit {
 
   numberOfPage = 0;
+  query!: string;
 
   startOfMonth = moment().clone().startOf("month").format("YYYY-MM-DD");
   endOfMonth = moment().clone().endOf("month").format("YYYY-MM-DD");
@@ -31,6 +32,7 @@ export class ExpensesComponent extends DefaultComponent<Expense> implements OnIn
     startDate: new FormControl(),
     endDate: new FormControl()
   });
+  hasResponse = true;
 
   constructor(private expenseService: ExpenseService, protected snackBar: MatSnackBar,
               private expenseTypeService: ExpenseTypeService, private dialog: MatDialog) {
@@ -42,9 +44,10 @@ export class ExpensesComponent extends DefaultComponent<Expense> implements OnIn
   }
 
   getExpenses(): void {
-    this.expenseService.getAllExpensesWithPagination(this.numberOfPage).subscribe((resp) => {
+    this.expenseService.getAllExpensesWithPagination(this.numberOfPage, this.query).subscribe((resp) => {
       this.listOfItems = resp;
       this.spinnerService.hide(this.spinner);
+      this.hasResponse = resp.length !== 0;
     });
   }
 
@@ -91,8 +94,9 @@ export class ExpensesComponent extends DefaultComponent<Expense> implements OnIn
     queryBuilder.gt("createdDate",
       moment(this.expenseFilterForm.get(FormControlNames.START_DATE_FORM_CONTROL)?.value).format("YYYY-MM-DD")).and()
       .lt("createdDate", moment(this.expenseFilterForm.get(FormControlNames.END_DATE_FORM_CONTROL)?.value).format("YYYY-MM-DD"));
-    console.log(queryBuilder.build());
-    super.getItems(queryBuilder.buildUrlEncoded());
+    this.query = queryBuilder.buildUrlEncoded();
+    this.numberOfPage = 0;
+    this.getExpenses();
   }
 
   getNext(): void {

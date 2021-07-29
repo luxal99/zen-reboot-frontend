@@ -10,7 +10,8 @@ import {Observable} from "rxjs";
 export class ExpenseService extends GenericService<Expense> {
   route = RestRoutesConst.EXPENSE;
 
-  getAllExpensesWithPagination(page?: number): Observable<Expense[]> {
-    return this.http.get<Expense[]>(RestRoutesConst.API + this.route + `?page=${page}`, {responseType: "json"});
+  getAllExpensesWithPagination(page: number, query?: string): Observable<Expense[]> {
+    return this.http.get<Expense[]>(RestRoutesConst.API + this.route +
+      `?page=${page}` + (query ? `&q=${query}` : ""), {responseType: "json"});
   }
 }
