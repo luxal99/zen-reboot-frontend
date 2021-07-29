@@ -1,27 +1,26 @@
-import {Component, OnInit} from '@angular/core';
-import {DefaultComponent} from '../../../util/default-component';
-import {PackageService} from '../../../service/package.service';
-import {MatSnackBar} from '@angular/material/snack-bar';
-import {MatDialog, MatDialogRef} from '@angular/material/dialog';
-import {DialogUtil} from '../../../util/dialog-util';
-import {AddPackageDialogComponent} from './add-package-dialog/add-package-dialog.component';
-import {setDialogConfig} from '../../../util/dialog-options';
-import {FormControl, FormGroup} from '@angular/forms';
-import {Package} from '../../../models/entity/package';
-import {VoucherOverviewDialogComponent} from '../vouchers/voucher-overview-dialog/voucher-overview-dialog.component';
-import {PackageOverviewDialogComponent} from './package-overview-dialog/package-overview-dialog.component';
+import {Component, OnInit} from "@angular/core";
+import {DefaultComponent} from "../../../util/default-component";
+import {PackageService} from "../../../service/package.service";
+import {MatSnackBar} from "@angular/material/snack-bar";
+import {MatDialog} from "@angular/material/dialog";
+import {DialogUtil} from "../../../util/dialog-util";
+import {AddPackageDialogComponent} from "./add-package-dialog/add-package-dialog.component";
+import {setDialogConfig} from "../../../util/dialog-options";
+import {FormControl, FormGroup} from "@angular/forms";
+import {Package} from "../../../models/entity/package";
+import {PackageOverviewDialogComponent} from "./package-overview-dialog/package-overview-dialog.component";
 
 @Component({
-  selector: 'app-package',
-  templateUrl: './package.component.html',
-  styleUrls: ['./package.component.sass']
+  selector: "app-package",
+  templateUrl: "./package.component.html",
+  styleUrls: ["./package.component.sass"]
 })
 export class PackageComponent extends DefaultComponent<Package> implements OnInit {
-  searchText = '';
+  searchText = "";
   searchForm = new FormGroup({
-    search: new FormControl('')
+    search: new FormControl("")
   });
-  displayedColumns: string[] = ['code', 'client', 'price', 'option'];
+  displayedColumns: string[] = ["code", "client", "price", "option"];
 
   constructor(private packageService: PackageService, protected snackBar: MatSnackBar, private dialog: MatDialog) {
     super(packageService, snackBar);
@@ -33,7 +32,7 @@ export class PackageComponent extends DefaultComponent<Package> implements OnIni
 
   openAddPackageDialog(pcg?: Package): void {
     DialogUtil.openDialog(AddPackageDialogComponent, setDialogConfig({
-      maxHeight: '80vh',
+      maxHeight: "80vh",
       data: pcg ? pcg : null
     }), this.dialog).afterClosed().subscribe(() => {
       super.getItems();
@@ -42,8 +41,8 @@ export class PackageComponent extends DefaultComponent<Package> implements OnIni
 
   openPackageOverviewDialog(element: any): void {
     DialogUtil.openDialog(PackageOverviewDialogComponent, setDialogConfig({
-      height: 'auto',
-      width: '40%',
+      height: "auto",
+      width: "40%",
       data: element
     }), this.dialog);
   }
