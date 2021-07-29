@@ -82,6 +82,9 @@ export class AppointmentOverviewDialogComponent extends DefaultComponent<Appoint
   openCancelAppointmentDialog(): void {
     DialogUtil.openDialog(CancelAppointmentDialogComponent, setDialogConfig({}), this.dialog).afterClosed().subscribe((resp: CancelAppointmentDialogData) => {
       if (resp.cancelAppointment) {
+        this.appointmentService.setCanceledStatus(this.data.id, resp.payStaff).subscribe(() => {
+          this.dialogRef.close();
+        });
       }
     });
   }

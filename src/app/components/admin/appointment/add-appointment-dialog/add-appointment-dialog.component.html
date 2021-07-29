@@ -54,9 +54,6 @@
             </form>
             <app-form-input [config]="startTimeInputConfig" [group]="appointmentForm"
                             label="Početak tretmana"></app-form-input>
-            <app-form-select [config]="appointmentStatusSelectConfig" [model]="data ? data.appointmentStatus : null"
-                             [group]="appointmentForm"
-                             label="Status tretmana" bindValue="value"></app-form-select>
             <ckeditor [editor]="Editor" #editor></ckeditor>
           </mat-step>
           <app-form-input appearance="fill" [config]="startTimeInputConfig" [group]="appointmentForm"></app-form-input>
