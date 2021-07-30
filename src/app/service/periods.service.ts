@@ -1,9 +1,9 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {RestRoutesConst} from '../const/const';
+import {Injectable} from "@angular/core";
+import {HttpClient} from "@angular/common/http";
+import {RestRoutesConst} from "../const/const";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class PeriodsService {
 
@@ -15,6 +15,6 @@ export class PeriodsService {
   }
 
   async getPeriods(): Promise<void> {
-    this.listOfPeriods = await this.http.get(RestRoutesConst.API + '/' + RestRoutesConst.ANALYTICS + '/' + 'periods').toPromise();
+    this.listOfPeriods = await this.http.get(RestRoutesConst.API + "/" + RestRoutesConst.ANALYTICS + "/" + "periods").toPromise();
   }
 }
