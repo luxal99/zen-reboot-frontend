@@ -10,10 +10,12 @@ import {AddAppointmentDialogComponent} from "../add-appointment-dialog/add-appoi
 import {AppointmentDTO} from "../../../../models/dto/AppointmentDTO";
 import {LocationService} from "../../../../service/location.service";
 import {EditInvoiceDialogComponent} from "./edit-invoice-dialog/edit-invoice-dialog.component";
-import {RoleSettings} from "../../../../const/const";
+import {Message, RoleSettings} from "../../../../const/const";
 import {CancelAppointmentDialogComponent} from "./cancel-appointment-dialog/cancel-appointment-dialog.component";
 import {setDialogConfig} from "../../../../util/dialog-options";
 import {CancelAppointmentDialogData} from "../../../../models/util/cancel-appointment-dialog-data";
+import {ConfirmDialogComponent} from "../../../confirm-dialog/confirm-dialog.component";
+import {SnackBarUtil} from "../../../../util/snack-bar-uitl";
 
 @Component({
   selector: "app-appointment-overview-dialog",
@@ -63,14 +65,33 @@ export class AppointmentOverviewDialogComponent extends DefaultComponent<Appoint
   }
 
   openEditInvoiceDialog(): void {
-    DialogUtil.openDialog(EditInvoiceDialogComponent, {
-      position: {right: "0"},
-      height: "100vh",
-      width: "50%",
-      maxWidth: "50%",
-      data: this.data
-    }, this.dialog).afterClosed().subscribe(() => {
+    DialogUtil.openDialog(EditInvoiceDialogComponent,
+      setDialogConfig({
+        position: {right: "0"},
+        height: "100vh",
+        width: "50%",
+        maxWidth: "50%",
+        data: this.data
+      }), this.dialog).afterClosed().subscribe(() => {
       this.dialogRef.close();
+    });
+  }
+
+  completeAppointment(): void {
+    DialogUtil.openDialog(ConfirmDialogComponent, setDialogConfig({
+      data: "Kompletiraj tretman ?"
+    }), this.dialog).afterClosed().subscribe((complete: boolean) => {
+      if (complete) {
+        this.appointmentService.setCompleteStatus(this.data.id).subscribe(() => {
+          SnackBarUtil.openSnackBar(this.snackBar, Message.SUCCESS);
+          this.openEditInvoiceDialog();
+        }, (err) => {
+          console.log(err);
+          SnackBarUtil.openSnackBar(this.snackBar, Message.ERR);
+
+        });
+      }
+
     });
   }
 
@@ -82,7 +103,7 @@ export class AppointmentOverviewDialogComponent extends DefaultComponent<Appoint
   openCancelAppointmentDialog(): void {
     DialogUtil.openDialog(CancelAppointmentDialogComponent, setDialogConfig({}), this.dialog).afterClosed().subscribe((resp: CancelAppointmentDialogData) => {
       if (resp.cancelAppointment) {
-        this.appointmentService.setCanceledStatus(this.data.id, resp.payStaff).subscribe(() => {
+        this.appointmentService.setCanceledStatus(this.data.id, !resp.payStaff).subscribe(() => {
           this.dialogRef.close();
         });
       }

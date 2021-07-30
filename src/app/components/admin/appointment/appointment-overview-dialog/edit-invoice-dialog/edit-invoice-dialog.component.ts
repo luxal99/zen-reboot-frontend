@@ -122,9 +122,11 @@ export class EditInvoiceDialogComponent extends DefaultComponent<Invoice> implem
       .startsWith("person.contacts.value", search);
     queryBuilder.criteriaList = queryBuilder.criteriaList.filter((searchCriteria) => searchCriteria.secondOperand !== "");
     if (search.length > 2) {
+      this.spinnerService.show(this.spinner);
       this.clientService.getAllSearchByQueryParam(queryBuilder.buildUrlEncoded())
         .subscribe((resp) => {
           this.listOfClients = resp;
+          this.spinnerService.hide(this.spinner);
         });
     } else if (search.length === 0) {
       this.listOfClients = [];
@@ -138,9 +140,12 @@ export class EditInvoiceDialogComponent extends DefaultComponent<Invoice> implem
       .startsWith("person.contacts.value", search);
     queryBuilder.criteriaList = queryBuilder.criteriaList.filter((searchCriteria) => searchCriteria.secondOperand !== "");
     if (search.length > 2) {
+
+      this.spinnerService.show(this.spinner);
       this.clientService.getAllSearchByQueryParam(queryBuilder.buildUrlEncoded())
         .subscribe((resp) => {
           this.listOfClients = resp;
+          this.spinnerService.hide(this.spinner);
         });
     } else if (search.length === 0) {
       this.listOfClients = [];
@@ -171,6 +176,7 @@ export class EditInvoiceDialogComponent extends DefaultComponent<Invoice> implem
     queryBuilder.criteriaList = queryBuilder.criteriaList.filter((searchCriteria) => searchCriteria.secondOperand !== "");
 
     if (search.length > 2) {
+      this.spinnerService.hide(this.spinner);
       this.appointmentService.getAll(queryBuilder.buildUrlEncoded())
         .pipe(map(value => {
           return value.filter((appointment) => appointment.appointmentStatus?.value === "NEW"
@@ -178,6 +184,7 @@ export class EditInvoiceDialogComponent extends DefaultComponent<Invoice> implem
         }))
         .subscribe((resp) => {
           this.listOfAppointments = resp;
+          this.spinnerService.hide(this.spinner);
           this.listOfAppointments.filter((app) => app.date = moment(app.date).format("DD MMMM YYYY"));
           this.listOfAppointments = this.listOfAppointments.filter((v, i, a) => a.findIndex(t => (t.id === v.id)) === i);
 
@@ -221,17 +228,16 @@ export class EditInvoiceDialogComponent extends DefaultComponent<Invoice> implem
       }
     };
 
+    this.spinnerService.hide(this.spinner);
     invoice.appointments = invoice.appointments?.map((appointment) => ({id: appointment.id, price: appointment.price}));
-
-    console.log(invoice);
     if (invoice.paymentMethod?.name?.toLowerCase() === "voucher" || invoice.paymentMethod?.name?.toLowerCase() === "package") {
       super.otherSubscribe(this.invoiceService.update(invoice, this.voucherPackageForm.get(FormControlNames.CODE_FORM_CONTROL)?.value,
-        invoice.paymentMethod.name), [() => {
-        invoice.appointments?.filter((appointment) => super.otherSubscribe(this.appointmentService.setCompleteStatus(appointment.id)));
-      }]);
+        invoice.paymentMethod.name));
+
+      this.spinnerService.hide(this.spinner);
     } else {
       super.subscribeUpdate(invoice, [() => {
-        invoice.appointments?.filter((appointment) => super.otherSubscribe(this.appointmentService.setCompleteStatus(appointment.id)));
+        this.spinnerService.hide(this.spinner);
       }]);
     }
   }

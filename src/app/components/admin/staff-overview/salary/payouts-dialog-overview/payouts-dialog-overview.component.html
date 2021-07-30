@@ -12,26 +12,27 @@
       </div>
       <div class="col-sm right">
         <div class="inline" style="width: 100%">
-          <h3 class="start-h3">{{payout.appointment.startTime}}</h3>
-          <h3 class="end-h3">{{payout.appointment.endTime}}</h3>
+          <h3 class="start-h3" *ngIf="payout.appointment">{{payout.appointment?.startTime}}</h3>
+          <h3 class="end-h3" *ngIf="payout.appointment">{{payout.appointment?.endTime}}</h3>
         </div>
       </div>
     </div>
     <div class="appointment-name-div">
-      <h2>{{payout.appointment.treatment.name}}</h2>
+      <h2>{{payout.appointment?.treatment?.name}}</h2>
       <h3><b>{{payout.originalValue + ' RSD'}}</b></h3>
     </div>
     <div></div>
     <div class="row" style="margin-top: 2em">
       <div class="col-6 left">
         <h3 class="client-h3" (click)="openClientOverviewDialog(payout.appointment.clients[0])">
-          <b>{{payout.appointment.clients[0].person?.firstName + ' ' + payout.appointment.clients[0].person?.lastName}}</b>
+          <b>{{payout.appointment?.clients[0]?.person?.firstName + ' ' + payout.appointment?.clients[0]?.person?.lastName}}</b>
         </h3>
       </div>
       <div class="col-6 right text-right">
-        <button style="background-color: #eee" mat-button (click)="openAppointmentOverviewDialog(payout.appointment)">Pregledaj</button>
+        <button style="background-color: #eee" mat-button (click)="openAppointmentOverviewDialog(payout.appointment)">
+          Pregledaj
+        </button>
       </div>
     </div>
-    <h4 class="phone-no">{{payout.appointment.clients[0].person.contacts|findClientPhoneNumber}}</h4>
   </div>
 </div>

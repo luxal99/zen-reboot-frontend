@@ -84,6 +84,7 @@ import { SalaryComponent } from './components/admin/staff-overview/salary/salary
 import { StaffPayoutPipe } from './pipes/staff-payout.pipe';
 import { PayoutsDialogOverviewComponent } from './components/admin/staff-overview/salary/payouts-dialog-overview/payouts-dialog-overview.component';
 import { CancelAppointmentDialogComponent } from './components/admin/appointment/appointment-overview-dialog/cancel-appointment-dialog/cancel-appointment-dialog.component';
+import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 
 @NgModule({
   declarations: [
@@ -159,7 +160,8 @@ import { CancelAppointmentDialogComponent } from './components/admin/appointment
     SalaryComponent,
     StaffPayoutPipe,
     PayoutsDialogOverviewComponent,
-    CancelAppointmentDialogComponent
+    CancelAppointmentDialogComponent,
+    ConfirmDialogComponent
   ],
   imports: [
     BrowserModule,
