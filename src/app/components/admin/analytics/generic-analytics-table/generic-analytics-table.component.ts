@@ -30,13 +30,14 @@ export class GenericAnalyticsTableComponent implements OnInit {
 
   periodSelectConfig: FieldConfig = {
     name: FormControlNames.PERIOD_FORM_CONTROL,
-    type: InputTypes.SELECT_TYPE_NAME, label: "Izbor perioda", options: this.periodService.listOfPeriods
+    type: InputTypes.SELECT_TYPE_NAME, label: "Izbor perioda"
   };
 
   constructor(private analyticsService: AnalyticsService, private spinnerService: SpinnerService, private periodService: PeriodsService) {
   }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+    this.getPeriods();
     if (this.dataSource) {
       if (isArray(this.dataSource)) {
         this.dataSource = this.dataSource[0];
@@ -45,6 +46,12 @@ export class GenericAnalyticsTableComponent implements OnInit {
         this.spinnerService.hide(this.spinner);
       }, 100);
     }
+  }
+
+  getPeriods(): void {
+    this.periodService.getPeriodsAsObs().subscribe((resp) => {
+      this.periodSelectConfig.options = resp;
+    });
   }
 
   filterOnChange(): void {
