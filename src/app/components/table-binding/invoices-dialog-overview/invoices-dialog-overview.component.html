@@ -27,7 +27,11 @@
           </div>
         </div>
       </div>
-      <h2 class="appointment-name-h2">{{item.treatment.name}}</h2>
+      <div class="treatment-info">
+        <h2 class="appointment-name-h2">{{item.treatment.name}}</h2>
+        <h3><b>Cena: </b>{{item.treatment.price + 'RSD'}}</h3>
+        <h3><b>Trajanje: </b>{{item.treatment.duration + 'min'}}</h3>
+      </div>
       <h3><b>{{item.clients[0].person?.firstName + ' ' + item.clients[0].person?.lastName}}</b></h3>
       <h4 class="phone-no">{{item.clients[0].person.contacts|findClientPhoneNumber}}</h4>
     </div>
