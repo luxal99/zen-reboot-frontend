@@ -84,7 +84,7 @@ export class ExpensesComponent extends DefaultComponent<Expense> implements OnIn
       width: "30%",
       data: configData
     }), this.dialog).afterClosed().subscribe(() => {
-      this.getItems();
+      this.getExpenses();
     });
   }
 
