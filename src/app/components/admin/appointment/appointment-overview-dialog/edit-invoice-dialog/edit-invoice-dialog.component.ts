@@ -25,6 +25,7 @@ import {AppointmentStatusService} from "../../../../../service/appointment-statu
 import {map} from "rxjs/operators";
 import {PaymentMethodService} from "../../../../../service/payment-method.service";
 import {PaymentMethod} from "../../../../../models/entity/payment-method";
+import {ExtraPaymentService} from "../../../../../service/extra-payment.service";
 
 @Component({
   selector: "app-edit-invoice-dialog",
@@ -81,7 +82,7 @@ export class EditInvoiceDialogComponent extends DefaultComponent<Invoice> implem
   };
   isPaymentMethodVoucher = false;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: AppointmentDTO,
+  constructor(@Inject(MAT_DIALOG_DATA) public data: AppointmentDTO, private extraPaymentService: ExtraPaymentService,
               private invoiceService: InvoiceService, protected snackBar: MatSnackBar, private paymentMethodService: PaymentMethodService,
               private appointmentStatusService: AppointmentStatusService, private readonly changeDetectorRef: ChangeDetectorRef,
               private clientService: ClientService, private dialog: MatDialog, private locationService: LocationService,
