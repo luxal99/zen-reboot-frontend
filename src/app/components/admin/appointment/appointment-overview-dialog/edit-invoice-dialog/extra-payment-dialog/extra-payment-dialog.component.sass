@@ -1,0 +1,39 @@
+@import "src/styles"
+.circle
+  width: 20px
+  height: 20px
+  border-radius: 50%
+  margin: .7em .5em
+
+.client-div:hover
+  background-color: $component-background
+  transition: .5s ease
+
+.client-div
+  cursor: pointer
+  margin: .5em 0
+  -webkit-transition: .5s linear
+
+.big-circle
+  @extend .circle
+  padding: 1em
+  background-color: #63dfff !important
+  width: 60px
+  height: 60px
+  font-size: 20px
+  font-weight: bold
+
+.black-circle
+  @extend .big-circle
+  background-color: $default-black !important
+  color: #fff !important
+
+h1, h2
+  font-weight: bold
+
+button
+  margin: 0 .5em
+
+mat-spinner
+  margin: 2em auto
+  display: none

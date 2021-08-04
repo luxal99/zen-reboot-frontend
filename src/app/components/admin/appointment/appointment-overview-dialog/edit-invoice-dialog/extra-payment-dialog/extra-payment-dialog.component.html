@@ -1,1 +1,46 @@
-<p>extra-payment-dialog works!</p>
+<div class="dialog">
+  <h2><b>Dodavanje dodatnog plaćanja</b></h2>
+  <mat-spinner #spinner diameter="25"></mat-spinner>
+  <mat-horizontal-stepper>
+    <mat-step label="Izbor klijenta">
+      <h1 class="light-h1" *ngIf="listOfClients.length===0">Započni kucanje...</h1>
+      <app-form-input (change)="searchBilledClient()" icon="search" label="Pretraži" [group]="searchForm"
+                      [config]="searchBilledInputConfig"></app-form-input>
+      <div class="client-binding">
+        <div class="client-div" (click)="selectBilledClient(client)" *ngFor="let client of listOfClients">
+          <div class="inline">
+            <div class="big-circle text-center"
+                 style=background-color:#c2c2c2>{{client.person?.firstName.slice(0, 1)}}</div>
+            <div class="right-col">
+              <h3><b>{{client.person?.firstName + ' ' + client.person?.lastName}}</b></h3>
+              <h4>{{client.person.contacts|findClientPhoneNumber}}</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="inline client-div" *ngIf="extraPaymentData">
+        <div class="black-circle text-center"
+             style=background-color:#c2c2c2>{{extraPaymentData.billedClient.person?.firstName.slice(0, 1)}}</div>
+        <div class="right-col">
+          <h3>
+            <b>{{extraPaymentData.billedClient.person?.firstName + ' ' + extraPaymentData.billedClient.person?.lastName}}</b>
+          </h3>
+          <h4>{{extraPaymentData.billedClient.person?.contacts|findClientPhoneNumber}}</h4>
+        </div>
+      </div>
+
+      <div *ngIf="this.extraPaymentData">
+        <button class="default-btn" mat-button matStepperNext>Napred</button>
+      </div>
+    </mat-step>
+    <mat-step label="Podaci o troškovima">
+      <app-form-select [config]="paymentMethodSelectConfig" [group]="extraPaymentForm"></app-form-select>
+      <app-form-input label="Iznos" [group]="extraPaymentForm" [config]="priceInputConfig"></app-form-input>
+      <ckeditor #editor [editor]="Editor"></ckeditor>
+      <button (click)="save()" style="margin: 1em 0" mat-button class="default-btn"
+              [disabled]="!extraPaymentForm.valid || !editorComponent.editorInstance?.getData()">Sačuvaj
+      </button>
+    </mat-step>
+  </mat-horizontal-stepper>
+</div>

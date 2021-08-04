@@ -25,7 +25,9 @@ import {AppointmentStatusService} from "../../../../../service/appointment-statu
 import {map} from "rxjs/operators";
 import {PaymentMethodService} from "../../../../../service/payment-method.service";
 import {PaymentMethod} from "../../../../../models/entity/payment-method";
-import {ExtraPaymentService} from "../../../../../service/extra-payment.service";
+import {ExtraPaymentDialogComponent} from "./extra-payment-dialog/extra-payment-dialog.component";
+import {setDialogConfig} from "../../../../../util/dialog-options";
+import {ExtraPayment} from "../../../../../models/entity/extra-payment";
 
 @Component({
   selector: "app-edit-invoice-dialog",
@@ -34,6 +36,7 @@ import {ExtraPaymentService} from "../../../../../service/extra-payment.service"
 })
 export class EditInvoiceDialogComponent extends DefaultComponent<Invoice> implements OnInit, AfterViewChecked {
 
+  listOfExtraPayments: ExtraPayment[] = [];
   invoice!: Invoice;
 
   listOfSelectedAppointments: AppointmentDTO[] = [this.data];
@@ -82,7 +85,7 @@ export class EditInvoiceDialogComponent extends DefaultComponent<Invoice> implem
   };
   isPaymentMethodVoucher = false;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: AppointmentDTO, private extraPaymentService: ExtraPaymentService,
+  constructor(@Inject(MAT_DIALOG_DATA) public data: AppointmentDTO,
               private invoiceService: InvoiceService, protected snackBar: MatSnackBar, private paymentMethodService: PaymentMethodService,
               private appointmentStatusService: AppointmentStatusService, private readonly changeDetectorRef: ChangeDetectorRef,
               private clientService: ClientService, private dialog: MatDialog, private locationService: LocationService,
@@ -241,5 +244,17 @@ export class EditInvoiceDialogComponent extends DefaultComponent<Invoice> implem
         this.spinnerService.hide(this.spinner);
       }]);
     }
+  }
+
+  openExtraPaymentDialog(): void {
+    DialogUtil.openDialog(ExtraPaymentDialogComponent, setDialogConfig({
+      width: "40%",
+      data: {
+        billedClient: this.selectedBilledClient,
+        idInvoice: this.invoice
+      }
+    }), this.dialog).afterClosed().subscribe((resp) => {
+      this.listOfExtraPayments.push(resp);
+    });
   }
 }

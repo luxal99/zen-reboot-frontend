@@ -103,10 +103,30 @@
                        label="Lokacija"></app-form-select>
       <app-form-select [group]="invoiceForm" [config]="paymentMethodSelectConfig"
                        (onChange)="checkIsPaymentTypeVoucher()"></app-form-select>
+      <div class="text-right">
+        <button (click)="openExtraPaymentDialog()" mat-button><i class="fa fa-plus" aria-hidden="true"></i>
+          Dodatno plaćanje
+        </button>
+      </div>
       <app-form-input [group]="voucherPackageForm" label="Kod" [config]="codeInputConfig"
                       *ngIf="isPaymentMethodVoucher"></app-form-input>
-      <button class="white-btn" mat-button matStepperPrevious>Nazad</button>
-      <button class="default-btn" mat-button matStepperNext>Napred</button>
+      <mat-accordion style="margin-top: 1em">
+        <mat-expansion-panel *ngFor="let extraPayment of listOfExtraPayments;let i = index">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Dodatno plaćanje {{i + 1}}
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+
+          <h2><b>Iznos:{{extraPayment.price}}</b></h2>
+          <p [innerHTML]="extraPayment.description"></p>
+        </mat-expansion-panel>
+      </mat-accordion>
+
+      <div style="margin-top: 2em">
+        <button class="white-btn" mat-button matStepperPrevious>Nazad</button>
+        <button class="default-btn" mat-button matStepperNext>Napred</button>
+      </div>
     </mat-step>
     <mat-step label="Pregled">
       <div class="inline client-div" *ngIf="selectedBilledClient"
