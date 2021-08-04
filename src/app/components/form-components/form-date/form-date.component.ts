@@ -19,7 +19,9 @@ export class FormDateComponent implements OnInit, Field {
 
   ngOnInit(): void {
     setTimeout(() => {
-      this.value = new Date(this.value);
+      if (this.value !== "") {
+        this.group.get(this.config.name)?.setValue(new Date(this.value));
+      }
     }, 100);
   }
 
