@@ -2,6 +2,7 @@ import {Appointment} from "./appointment";
 import {Client} from "./client";
 import {InvoiceStatus} from "./invoice-status";
 import {PaymentMethod} from "./payment-method";
+import {ExtraPayment} from "./extra-payment";
 
 export interface Invoice {
   items?: any[];
@@ -10,6 +11,7 @@ export interface Invoice {
   clients?: Client[];
   createDate?: string;
   checkoutDate?: string;
+  extraPayments?: ExtraPayment[];
   date?: any;
   id?: number;
   gross?: number;

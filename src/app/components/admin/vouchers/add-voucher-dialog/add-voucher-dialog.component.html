@@ -20,7 +20,8 @@
   <app-form-select label="Tip vaučera"
                    [group]="voucherForm" (onChange)="onVoucherTypeSelect()"
                    [config]="typeSelectConfig"></app-form-select>
-  <app-form-input [config]="priceInputConfig" *ngIf="isDisplayTypeBlanco" [group]="voucherForm"></app-form-input>
+  <app-form-input label="Iznos" [config]="priceInputConfig" *ngIf="isDisplayTypeBlanco"
+                  [group]="voucherForm"></app-form-input>
   <app-form-input [group]="voucherForm" label="Popust"
                   [config]="discountInputConfig"></app-form-input>
   <app-form-select [config]="discountTypeSelectConfig" label="Tip popusta"

@@ -112,7 +112,6 @@ export abstract class DefaultComponent<T> implements OnInit {
       this.genericService.delete(id).subscribe(() => {
         SnackBarUtil.openSnackBar(this.snackBar, Message.SUCCESS);
         this.spinnerService.hide(this.spinner);
-        this.getItems();
       }, () => {
         SnackBarUtil.openSnackBar(this.snackBar, Message.ERR);
         this.spinnerService.hide(this.spinner);

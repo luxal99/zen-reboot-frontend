@@ -65,6 +65,7 @@ export class FormControlNames {
   static SALARY_CATEGORY_FORM_CONTROL = "salaryCategory";
   static YEAR = "year";
   static MONTH = "month";
+  static DATE = "date";
 }
 
 export class InputTypes {
@@ -73,6 +74,7 @@ export class InputTypes {
   static PASSWORD_TYPE_NAME = "password";
   static TIME = "time";
   static NUMBER = "number";
+  static DATE = "date";
 }
 
 export class Token {

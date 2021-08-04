@@ -1,7 +1,8 @@
 <div class="dynamic-field form-select" [formGroup]="group">
   <mat-form-field appearance="outline" [style]="{'width':width}">
-    <mat-label>{{label || config.label}}</mat-label>
-    <mat-select [multiple]="isMultiple" [disabled]="isDisabled" [compareWith]="compareObjects" (selectionChange)="onOptionClick()"
+    <mat-label>{{config.label || label}}</mat-label>
+    <mat-select [multiple]="isMultiple" [disabled]="isDisabled" [compareWith]="compareObjects"
+                (selectionChange)="onOptionClick()"
                 [(ngModel)]="model"
                 [formControlName]="config.name"
                 [required]="isRequired">

@@ -13,6 +13,7 @@ import {ExpenseTypeService} from "../../../service/expense-type.service";
 import {MatDialog} from "@angular/material/dialog";
 import * as moment from "moment";
 import {CriteriaBuilder} from "../../../util/criteria-builder";
+import {LocationService} from "../../../service/location.service";
 
 @Component({
   selector: "app-expenses",
@@ -34,8 +35,9 @@ export class ExpensesComponent extends DefaultComponent<Expense> implements OnIn
   });
   hasResponse = true;
 
-  constructor(private expenseService: ExpenseService, protected snackBar: MatSnackBar,
-              private expenseTypeService: ExpenseTypeService, private dialog: MatDialog) {
+  constructor(public expenseService: ExpenseService, protected snackBar: MatSnackBar,
+              private expenseTypeService: ExpenseTypeService, private dialog: MatDialog,
+              private locationService: LocationService) {
     super(expenseService, snackBar);
   }
 
@@ -64,6 +66,7 @@ export class ExpensesComponent extends DefaultComponent<Expense> implements OnIn
           name: FormControlNames.VALUE_FORM_CONTROL,
           type: InputTypes.INPUT_TYPE_NAME,
           validation: [Validators.required],
+          icon: "plus_one",
           label: "Vrednost"
         },
         {
@@ -71,6 +74,20 @@ export class ExpensesComponent extends DefaultComponent<Expense> implements OnIn
           type: InputTypes.SELECT_TYPE_NAME,
           validation: [Validators.required],
           label: "Tip troška",
+          options: await this.expenseTypeService.getAll().toPromise()
+        },
+        {
+          name: FormControlNames.LOCATION_FORM_CONTROL,
+          type: InputTypes.SELECT_TYPE_NAME,
+          validation: [Validators.required],
+          label: "Lokacija",
+          options: await this.locationService.getAll().toPromise()
+        },
+        {
+          name: FormControlNames.DATE,
+          type: InputTypes.DATE,
+          validation: [Validators.required],
+          label: "Datum valute",
           options: await this.expenseTypeService.getAll().toPromise()
         }
       ],

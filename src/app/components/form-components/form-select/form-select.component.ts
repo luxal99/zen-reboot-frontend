@@ -1,22 +1,21 @@
-import {Component, Input, OnInit, Output} from '@angular/core';
-import {Field} from '../../../models/util/Field';
-import {FieldConfig} from '../../../models/util/FIeldConfig';
-import {FormGroup} from '@angular/forms';
-import {EventEmitter} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from "@angular/core";
+import {Field} from "../../../models/util/Field";
+import {FieldConfig} from "../../../models/util/FIeldConfig";
+import {FormGroup} from "@angular/forms";
 
 @Component({
-  selector: 'app-form-select',
-  templateUrl: './form-select.component.html',
-  styleUrls: ['./form-select.component.sass']
+  selector: "app-form-select",
+  templateUrl: "./form-select.component.html",
+  styleUrls: ["./form-select.component.sass"]
 })
 export class FormSelectComponent implements Field, OnInit {
   @Input() config!: FieldConfig;
   @Input() group!: FormGroup;
-  @Input() label = 'Izaberi opciju';
-  @Input() bindValue = 'name';
+  @Input() label = "Izaberi opciju";
+  @Input() bindValue = "name";
   @Input() isRequired!: boolean;
   @Output() clickOnSelect = new EventEmitter();
-  @Input() width = '100%';
+  @Input() width = "100%";
   @Input() model: any;
 
   // tslint:disable-next-line:no-output-on-prefix
