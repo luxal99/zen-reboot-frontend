@@ -42,7 +42,17 @@ export class ExpensesComponent extends DefaultComponent<Expense> implements OnIn
   }
 
   ngOnInit(): void {
+    this.initDefaultQuery();
     this.getExpenses();
+  }
+
+  initDefaultQuery(): void {
+    const queryBuilder = new CriteriaBuilder();
+    queryBuilder.gt("date", this.startOfMonth).and()
+      .lt("date", this.endOfMonth);
+
+    this.query = queryBuilder.buildUrlEncoded();
+
   }
 
   getExpenses(): void {
@@ -108,9 +118,6 @@ export class ExpensesComponent extends DefaultComponent<Expense> implements OnIn
   getExpensesFromRange(): void {
     this.spinnerService.show(this.spinner);
     const queryBuilder = new CriteriaBuilder();
-    queryBuilder.gt("createdDate",
-      moment(this.expenseFilterForm.get(FormControlNames.START_DATE_FORM_CONTROL)?.value).format("YYYY-MM-DD")).and()
-      .lt("createdDate", moment(this.expenseFilterForm.get(FormControlNames.END_DATE_FORM_CONTROL)?.value).format("YYYY-MM-DD"));
     this.query = queryBuilder.buildUrlEncoded();
     this.numberOfPage = 0;
     this.getExpenses();
