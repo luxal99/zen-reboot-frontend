@@ -1,59 +1,84 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {DefaultComponent} from '../../../../util/default-component';
-import {VoucherService} from '../../../../service/voucher.service';
-import {MatSnackBar} from '@angular/material/snack-bar';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {VoucherDto} from '../../../../models/dto/voucher-dto';
-import {FieldConfig} from '../../../../models/util/FIeldConfig';
-import {FormControlNames, InputTypes, SELECTED_CLASS_NAME} from '../../../../const/const';
-import {ClientService} from '../../../../service/client.service';
-import {Client} from '../../../../models/entity/client';
-import {CriteriaBuilder} from '../../../../util/criteria-builder';
-import {VoucherEnum} from '../../../../enums/VoucherEnum';
-import {TreatmentService} from '../../../../service/treatment.service';
-import * as moment from 'moment';
-import {Treatment} from '../../../../models/entity/treatment';
-import {DiscountTypeService} from '../../../../service/discount-type.service';
-import {SnackBarUtil} from '../../../../util/snack-bar-uitl';
+import {Component, Inject, OnInit} from "@angular/core";
+import {DefaultComponent} from "../../../../util/default-component";
+import {VoucherService} from "../../../../service/voucher.service";
+import {MatSnackBar} from "@angular/material/snack-bar";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {VoucherDto} from "../../../../models/dto/voucher-dto";
+import {FieldConfig} from "../../../../models/util/FIeldConfig";
+import {FormControlNames, InputTypes, SELECTED_CLASS_NAME} from "../../../../const/const";
+import {ClientService} from "../../../../service/client.service";
+import {Client} from "../../../../models/entity/client";
+import {CriteriaBuilder} from "../../../../util/criteria-builder";
+import {VoucherEnum} from "../../../../enums/VoucherEnum";
+import {TreatmentService} from "../../../../service/treatment.service";
+import * as moment from "moment";
+import {Treatment} from "../../../../models/entity/treatment";
+import {DiscountTypeService} from "../../../../service/discount-type.service";
+import {SnackBarUtil} from "../../../../util/snack-bar-uitl";
+import {MAT_DIALOG_DATA} from "@angular/material/dialog";
+import {Voucher} from "../../../../models/entity/voucher";
 
 @Component({
-  selector: 'app-add-voucher-dialog',
-  templateUrl: './add-voucher-dialog.component.html',
-  styleUrls: ['./add-voucher-dialog.component.sass']
+  selector: "app-add-voucher-dialog",
+  templateUrl: "./add-voucher-dialog.component.html",
+  styleUrls: ["./add-voucher-dialog.component.sass"]
 })
 export class AddVoucherDialogComponent extends DefaultComponent<VoucherDto> implements OnInit {
 
   selectedClient!: Client;
-  searchText = '';
+  searchText = "";
   listOfTreatments: Treatment[] = [];
   searchForm = new FormGroup({
-    search: new FormControl('')
+    search: new FormControl("")
   });
   numberOfPage = 0;
   listOfClients: Client[] = [];
   voucherForm = new FormGroup({
-    type: new FormControl('', Validators.required),
-    discount: new FormControl(''),
-    treatmentDurations: new FormControl('', Validators.required),
-    discountType: new FormControl('', Validators.required),
-    paymentMethod: new FormControl('', Validators.required),
-    price: new FormControl(''),
-    startDate: new FormControl(moment(new Date()).format('YYYY-MM-DD'))
+    type: new FormControl("", Validators.required),
+    discount: new FormControl(""),
+    treatmentDurations: new FormControl("", Validators.required),
+    discountType: new FormControl("", Validators.required),
+    paymentMethod: new FormControl("", Validators.required),
+    price: new FormControl(""),
+    startDate: new FormControl(this.data ? this.data.startDate : moment(new Date()).format("YYYY-MM-DD")),
+    endDate: new FormControl(this.data ? this.data.endDate : "")
   });
 
   discountInputConfig: FieldConfig = {name: FormControlNames.DISCOUNT_FORM_CONTROL, type: InputTypes.INPUT_TYPE_NAME};
-  paymentMethodSelectConfig: FieldConfig = {name: FormControlNames.PAYMENT_METHOD_FORM_CONTROL, type: InputTypes.SELECT_TYPE_NAME};
-  treatmentSelectConfig: FieldConfig = {name: FormControlNames.TREATMENT_FORM_CONTROL, type: InputTypes.INPUT_TYPE_NAME};
+  paymentMethodSelectConfig: FieldConfig = {
+    name: FormControlNames.PAYMENT_METHOD_FORM_CONTROL,
+    type: InputTypes.SELECT_TYPE_NAME
+  };
+  treatmentSelectConfig: FieldConfig = {
+    name: FormControlNames.TREATMENT_FORM_CONTROL,
+    type: InputTypes.INPUT_TYPE_NAME
+  };
   durationSelectConfig: FieldConfig = {name: FormControlNames.DURATION_FORM_CONTROL, type: InputTypes.SELECT_TYPE_NAME};
-  discountTypeSelectConfig: FieldConfig = {name: FormControlNames.DISCOUNT_TYPE_FORM_CONTROL, type: InputTypes.SELECT_TYPE_NAME};
+  discountTypeSelectConfig: FieldConfig = {
+    name: FormControlNames.DISCOUNT_TYPE_FORM_CONTROL,
+    type: InputTypes.SELECT_TYPE_NAME
+  };
 
   typeSelectConfig: FieldConfig = {
-    name: FormControlNames.TYPE_FORM_CONTROL, type: InputTypes.SELECT_TYPE_NAME, options: [VoucherEnum.BLANCO, VoucherEnum.PRODUCT]
+    name: FormControlNames.TYPE_FORM_CONTROL,
+    type: InputTypes.SELECT_TYPE_NAME,
+    options: [VoucherEnum.BLANCO, VoucherEnum.PRODUCT]
   };
   priceInputConfig: FieldConfig = {name: FormControlNames.PRICE_FORM_CONTROL, type: InputTypes.NUMBER};
-  isDisplayTypeBlanco = false;
+  isDisplayTypeBlanco = this.data ? this.data.type === VoucherEnum.BLANCO : false;
 
-  constructor(private voucherService: VoucherService,
+  startDateInput: FieldConfig = {
+    type: InputTypes.DATE,
+    name: FormControlNames.START_DATE_FORM_CONTROL,
+    label: "Datum početka"
+  };
+  endDateInput: FieldConfig = {
+    type: InputTypes.DATE,
+    name: FormControlNames.END_DATE_FORM_CONTROL,
+    label: "Datum isteka"
+  };
+
+  constructor(@Inject(MAT_DIALOG_DATA) public data: Voucher, private voucherService: VoucherService,
               private treatmentService: TreatmentService, private discountTypeService: DiscountTypeService,
               protected snackBar: MatSnackBar, private clientService: ClientService) {
     super(voucherService, snackBar);
@@ -64,6 +89,7 @@ export class AddVoucherDialogComponent extends DefaultComponent<VoucherDto> impl
     this.getClient();
     this.getTreatments();
   }
+
 
   getTreatments(): void {
     this.treatmentService.getAll().subscribe((resp) => {
@@ -120,18 +146,16 @@ export class AddVoucherDialogComponent extends DefaultComponent<VoucherDto> impl
   }
 
   onVoucherTypeSelect(): void {
-    if (this.voucherForm.get(FormControlNames.TYPE_FORM_CONTROL)?.value.toUpperCase() === 'BLANCO') {
-      this.isDisplayTypeBlanco = true;
-    }
+    this.isDisplayTypeBlanco = this.voucherForm.get(FormControlNames.TYPE_FORM_CONTROL)?.value.toUpperCase() === "BLANCO";
 
   }
 
   search(): void {
     const queryBuilder = new CriteriaBuilder();
     const search: string = this.searchForm.get(FormControlNames.SEARCH_FORM_CONTROL)?.value;
-    queryBuilder.startsWith('person.firstName', search).or()
-      .startsWith('person.contacts.value', search);
-    queryBuilder.criteriaList = queryBuilder.criteriaList.filter((searchCriteria) => searchCriteria.secondOperand !== '');
+    queryBuilder.startsWith("person.firstName", search).or()
+      .startsWith("person.contacts.value", search);
+    queryBuilder.criteriaList = queryBuilder.criteriaList.filter((searchCriteria) => searchCriteria.secondOperand !== "");
     if (search.length > 3) {
       this.clientService.getAllSearchByQueryParam(queryBuilder.buildUrlEncoded())
         .subscribe((resp) => {
@@ -143,23 +167,39 @@ export class AddVoucherDialogComponent extends DefaultComponent<VoucherDto> impl
   }
 
   save(): void {
-    const voucher: VoucherDto = this.voucherForm.getRawValue();
-    voucher.client = {id: this.selectedClient.id};
-    voucher.paymentMethod = {id: voucher.paymentMethod?.id};
-    voucher.treatmentDurations = voucher.treatmentDurations?.map((item) => ({id: item.id}));
-
-    if (!this.selectedClient) {
-      SnackBarUtil.openSnackBar(this.snackBar, 'Izaberite klijenta');
+    if (this.data) {
+      this.data.startDate = moment(this.voucherForm.get(FormControlNames.START_DATE_FORM_CONTROL)?.value).format("YYYY-MM-DD");
+      this.data.endDate = moment(this.voucherForm.get(FormControlNames.END_DATE_FORM_CONTROL)?.value).format("YYYY-MM-DD");
+      super.otherSubscribe(this.voucherService.update({
+        id: this.data.id,
+        startDate: this.data.startDate,
+        endDate: this.data.endDate,
+        // @ts-ignore
+        client: {id: this.data.client.id},
+        paymentMethod: {id: this.data.paymentMethod?.id},
+      }));
     } else {
-      super.subscribeSave(voucher);
+      const voucherDto: VoucherDto = this.voucherForm.getRawValue();
+      voucherDto.client = {id: this.selectedClient.id};
+      voucherDto.paymentMethod = {id: voucherDto.paymentMethod?.id};
+      voucherDto.treatmentDurations = voucherDto.treatmentDurations?.map((item) => ({id: item.id}));
+
+      if (voucherDto.endDate) {
+        voucherDto.endDate = moment(voucherDto.endDate).format("YYYY-MM-DD");
+      }
+      if (!this.selectedClient) {
+        SnackBarUtil.openSnackBar(this.snackBar, "Izaberite klijenta");
+      } else {
+        super.subscribeSave(voucherDto);
+      }
     }
   }
 
   selectClient(client: Client, $event: any): void {
     const element: HTMLElement = $event.target;
-    const otherSelectedElements = document.querySelectorAll('.selected');
+    const otherSelectedElements = document.querySelectorAll(".selected");
     [].forEach.call(otherSelectedElements, (el: any) => {
-      el.classList.remove('selected');
+      el.classList.remove("selected");
     });
     if (element.classList.contains(SELECTED_CLASS_NAME)) {
       // @ts-ignore

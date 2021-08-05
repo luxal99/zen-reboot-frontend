@@ -136,4 +136,5 @@ export class ExpensesComponent extends DefaultComponent<Expense> implements OnIn
       this.getExpenses();
     }
   }
+  
 }

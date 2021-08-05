@@ -1,5 +1,5 @@
-import {PaymentMethod} from './payment-method';
-import {Client} from './client';
+import {PaymentMethod} from "./payment-method";
+import {Client} from "./client";
 
 export interface Voucher {
   id?: number;
@@ -12,7 +12,7 @@ export interface Voucher {
   client?: Client;
   startDate?: string;
   initialDiscount?: string;
-  paymentMethod: PaymentMethod;
-  type: string;
-  price: number;
+  paymentMethod?: PaymentMethod;
+  type?: string;
+  price?: number;
 }

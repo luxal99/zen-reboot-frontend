@@ -4,6 +4,7 @@ import {Voucher} from "../../../../models/entity/voucher";
 import {DialogUtil} from "../../../../util/dialog-util";
 import {ClientOverviewDialogComponent} from "../../client/client-overview-dialog/client-overview-dialog.component";
 import {setDialogConfig} from "../../../../util/dialog-options";
+import {AddVoucherDialogComponent} from "../add-voucher-dialog/add-voucher-dialog.component";
 
 @Component({
   selector: "app-voucher-overview-dialog",
@@ -29,6 +30,14 @@ export class VoucherOverviewDialogComponent implements OnInit {
       width: "95%",
       height: "100vh",
       data: this.data.client
+    }), this.dialog);
+  }
+
+  openEditVoucherDialog(): void {
+    DialogUtil.openDialog(AddVoucherDialogComponent, setDialogConfig({
+      height: "auto",
+      maxHeight: "80vh",
+      data: this.data
     }), this.dialog);
   }
 }
