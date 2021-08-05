@@ -4,6 +4,7 @@ import {Package} from "../../../../models/entity/package";
 import {DialogUtil} from "../../../../util/dialog-util";
 import {ClientOverviewDialogComponent} from "../../client/client-overview-dialog/client-overview-dialog.component";
 import {setDialogConfig} from "../../../../util/dialog-options";
+import {AddPackageDialogComponent} from "../add-package-dialog/add-package-dialog.component";
 
 @Component({
   selector: "app-package-overview-dialog",
@@ -33,4 +34,11 @@ export class PackageOverviewDialogComponent implements OnInit {
     }), this.dialog);
   }
 
+  openEditPackageDialog(): void {
+    DialogUtil.openDialog(AddPackageDialogComponent, setDialogConfig({
+      height: "auto",
+      width: "40%",
+      data: this.data
+    }), this.dialog);
+  }
 }

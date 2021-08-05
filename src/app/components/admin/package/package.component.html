@@ -24,6 +24,11 @@
       <td mat-cell (click)="openPackageOverviewDialog(element)"
           *matCellDef="let element"> {{element.client.person.firstName + ' ' + element.client.person.lastName}} </td>
     </ng-container>
+    <ng-container matColumnDef="date">
+      <th mat-header-cell *matHeaderCellDef> Datum početka - Datum isteka</th>
+      <td mat-cell (click)="openPackageOverviewDialog(element)" *matCellDef="let element"> {{element.startDate | date }}
+        - {{element.endDate| date}} </td>
+    </ng-container>
     <ng-container matColumnDef="price">
       <th mat-header-cell *matHeaderCellDef> Cena</th>
       <td mat-cell (click)="openPackageOverviewDialog(element)"

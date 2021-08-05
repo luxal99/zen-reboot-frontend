@@ -170,13 +170,9 @@ export class AddVoucherDialogComponent extends DefaultComponent<VoucherDto> impl
     if (this.data) {
       this.data.startDate = moment(this.voucherForm.get(FormControlNames.START_DATE_FORM_CONTROL)?.value).format("YYYY-MM-DD");
       this.data.endDate = moment(this.voucherForm.get(FormControlNames.END_DATE_FORM_CONTROL)?.value).format("YYYY-MM-DD");
-      super.otherSubscribe(this.voucherService.update({
-        id: this.data.id,
+      super.otherSubscribe(this.voucherService.updateDate(this.data.id, {
         startDate: this.data.startDate,
         endDate: this.data.endDate,
-        // @ts-ignore
-        client: {id: this.data.client.id},
-        paymentMethod: {id: this.data.paymentMethod?.id},
       }));
     } else {
       const voucherDto: VoucherDto = this.voucherForm.getRawValue();

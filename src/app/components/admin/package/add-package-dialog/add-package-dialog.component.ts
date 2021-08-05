@@ -1,33 +1,35 @@
-import {Component, OnInit} from '@angular/core';
-import {DefaultComponent} from '../../../../util/default-component';
-import {PackageService} from '../../../../service/package.service';
-import {MatSnackBar} from '@angular/material/snack-bar';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {Client} from '../../../../models/entity/client';
-import {FieldConfig} from '../../../../models/util/FIeldConfig';
-import {FormControlNames, InputTypes, SELECTED_CLASS_NAME} from '../../../../const/const';
-import {VoucherEnum} from '../../../../enums/VoucherEnum';
-import {CriteriaBuilder} from '../../../../util/criteria-builder';
-import {ClientService} from '../../../../service/client.service';
-import {DiscountTypeService} from '../../../../service/discount-type.service';
-import {TreatmentService} from '../../../../service/treatment.service';
-import {LocationService} from '../../../../service/location.service';
-import {PackageDto} from '../../../../models/dto/package-dto';
-import * as moment from 'moment';
-import {PaymentMethodService} from '../../../../service/payment-method.service';
-import {PackageBase} from '../../../../models/util/package-base';
+import {Component, Inject, OnInit} from "@angular/core";
+import {DefaultComponent} from "../../../../util/default-component";
+import {PackageService} from "../../../../service/package.service";
+import {MatSnackBar} from "@angular/material/snack-bar";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {Client} from "../../../../models/entity/client";
+import {FieldConfig} from "../../../../models/util/FIeldConfig";
+import {FormControlNames, InputTypes, SELECTED_CLASS_NAME} from "../../../../const/const";
+import {VoucherEnum} from "../../../../enums/VoucherEnum";
+import {CriteriaBuilder} from "../../../../util/criteria-builder";
+import {ClientService} from "../../../../service/client.service";
+import {DiscountTypeService} from "../../../../service/discount-type.service";
+import {TreatmentService} from "../../../../service/treatment.service";
+import {LocationService} from "../../../../service/location.service";
+import {PackageDto} from "../../../../models/dto/package-dto";
+import * as moment from "moment";
+import {PaymentMethodService} from "../../../../service/payment-method.service";
+import {PackageBase} from "../../../../models/util/package-base";
+import {MAT_DIALOG_DATA} from "@angular/material/dialog";
+import {Package} from "../../../../models/entity/package";
 
 @Component({
-  selector: 'app-add-package-dialog',
-  templateUrl: './add-package-dialog.component.html',
-  styleUrls: ['./add-package-dialog.component.sass']
+  selector: "app-add-package-dialog",
+  templateUrl: "./add-package-dialog.component.html",
+  styleUrls: ["./add-package-dialog.component.sass"]
 })
 export class AddPackageDialogComponent extends DefaultComponent<PackageBase> implements OnInit {
 
   selectedClient: Client = {};
 
   searchForm = new FormGroup({
-    search: new FormControl('')
+    search: new FormControl("")
   });
   numberOfPage = 0;
 
@@ -37,35 +39,63 @@ export class AddPackageDialogComponent extends DefaultComponent<PackageBase> imp
   listOfClients: Client[] = [];
 
   packageForm = new FormGroup({
-    count: new FormControl('', Validators.required),
-    discount: new FormControl(''),
-    location: new FormControl(''),
-    treatment: new FormControl(''),
-    discountType: new FormControl(''),
-    startDate: new FormControl(new Date(), Validators.required),
-    paymentMethod: new FormControl('', Validators.required),
-    treatmentDuration: new FormControl('', Validators.required)
+    count: new FormControl("", Validators.required),
+    discount: new FormControl(""),
+    location: new FormControl(""),
+    treatment: new FormControl(""),
+    discountType: new FormControl(""),
+    startDate: new FormControl(this.data ? this.data.startDate : new Date(), Validators.required),
+    endDate: new FormControl(this.data ? this.data.endDate : ""),
+    paymentMethod: new FormControl("", Validators.required),
+    treatmentDuration: new FormControl("", Validators.required)
   });
 
-  countInputConfig: FieldConfig = {name: FormControlNames.COUNT_FORM_CONTROL, type: InputTypes.NUMBER, label: 'Količina'};
+  countInputConfig: FieldConfig = {
+    name: FormControlNames.COUNT_FORM_CONTROL,
+    type: InputTypes.NUMBER,
+    label: "Količina"
+  };
   discountInputConfig: FieldConfig = {name: FormControlNames.DISCOUNT_FORM_CONTROL, type: InputTypes.INPUT_TYPE_NAME};
-  paymentMethodSelectConfig: FieldConfig = {name: FormControlNames.PAYMENT_METHOD_FORM_CONTROL, type: InputTypes.SELECT_TYPE_NAME};
-  treatmentSelectConfig: FieldConfig = {name: FormControlNames.TREATMENT_FORM_CONTROL, type: InputTypes.INPUT_TYPE_NAME};
+  paymentMethodSelectConfig: FieldConfig = {
+    name: FormControlNames.PAYMENT_METHOD_FORM_CONTROL,
+    type: InputTypes.SELECT_TYPE_NAME
+  };
+  treatmentSelectConfig: FieldConfig = {
+    name: FormControlNames.TREATMENT_FORM_CONTROL,
+    type: InputTypes.INPUT_TYPE_NAME
+  };
   locationSelectConfig: FieldConfig = {
     name: FormControlNames.LOCATION_FORM_CONTROL,
     type: InputTypes.INPUT_TYPE_NAME,
-    label: 'Izaberi lokaciju'
+    label: "Izaberi lokaciju"
   };
   durationSelectConfig: FieldConfig = {name: FormControlNames.DURATION_FORM_CONTROL, type: InputTypes.SELECT_TYPE_NAME};
-  discountTypeSelectConfig: FieldConfig = {name: FormControlNames.DISCOUNT_TYPE_FORM_CONTROL, type: InputTypes.SELECT_TYPE_NAME};
+  discountTypeSelectConfig: FieldConfig = {
+    name: FormControlNames.DISCOUNT_TYPE_FORM_CONTROL,
+    type: InputTypes.SELECT_TYPE_NAME
+  };
 
   typeSelectConfig: FieldConfig = {
-    name: FormControlNames.TYPE_FORM_CONTROL, type: InputTypes.SELECT_TYPE_NAME, options: [VoucherEnum.BLANCO, VoucherEnum.PRODUCT]
+    name: FormControlNames.TYPE_FORM_CONTROL,
+    type: InputTypes.SELECT_TYPE_NAME,
+    options: [VoucherEnum.BLANCO, VoucherEnum.PRODUCT]
+  };
+
+  startDateInput: FieldConfig = {
+    type: InputTypes.DATE,
+    name: FormControlNames.START_DATE_FORM_CONTROL,
+    label: "Datum početka"
+  };
+  endDateInput: FieldConfig = {
+    type: InputTypes.DATE,
+    name: FormControlNames.END_DATE_FORM_CONTROL,
+    label: "Datum isteka"
   };
   isDurationFCDisabled = true;
-  searchText = '';
+  searchText = "";
 
-  constructor(private packageService: PackageService, protected snackBar: MatSnackBar,
+  constructor(@Inject(MAT_DIALOG_DATA) public data: Package,
+              private packageService: PackageService, protected snackBar: MatSnackBar,
               private treatmentService: TreatmentService, private locationService: LocationService,
               private paymentMethodService: PaymentMethodService,
               private clientService: ClientService, private discountTypeService: DiscountTypeService) {
@@ -87,9 +117,9 @@ export class AddPackageDialogComponent extends DefaultComponent<PackageBase> imp
 
   selectClient(client: Client, $event: any): void {
     const element: HTMLElement = $event.target;
-    const otherSelectedElements = document.querySelectorAll('.selected');
+    const otherSelectedElements = document.querySelectorAll(".selected");
     [].forEach.call(otherSelectedElements, (el: any) => {
-      el.classList.remove('selected');
+      el.classList.remove("selected");
     });
     if (element.classList.contains(SELECTED_CLASS_NAME)) {
       // @ts-ignore
@@ -143,9 +173,9 @@ export class AddPackageDialogComponent extends DefaultComponent<PackageBase> imp
   search(): void {
     const queryBuilder = new CriteriaBuilder();
     const search: string = this.searchForm.get(FormControlNames.SEARCH_FORM_CONTROL)?.value;
-    queryBuilder.startsWith('person.firstName', search).or()
-      .startsWith('person.contacts.value', search);
-    queryBuilder.criteriaList = queryBuilder.criteriaList.filter((searchCriteria) => searchCriteria.secondOperand !== '');
+    queryBuilder.startsWith("person.firstName", search).or()
+      .startsWith("person.contacts.value", search);
+    queryBuilder.criteriaList = queryBuilder.criteriaList.filter((searchCriteria) => searchCriteria.secondOperand !== "");
     if (search.length > 3) {
       this.clientService.getAllSearchByQueryParam(queryBuilder.buildUrlEncoded())
         .subscribe((resp) => {
@@ -157,18 +187,30 @@ export class AddPackageDialogComponent extends DefaultComponent<PackageBase> imp
   }
 
   save(): void {
-    const pcg: PackageDto = this.packageForm.getRawValue();
-    pcg.client = {id: this.selectedClient.id};
-    pcg.startDate = moment(pcg.startDate).format('YYYY-MM-DD');
-    // @ts-ignore
-    pcg.location ? pcg.location = {id: pcg.location.id} : delete pcg.location;
-    pcg.treatmentDuration = {id: pcg.treatmentDuration.id};
-    // @ts-ignore
-    pcg.paymentMethod = {id: pcg.paymentMethod.id};
-    // @ts-ignore
-    delete pcg.treatment;
 
-    super.subscribeSave(pcg);
+    if (!this.data) {
+      const pcg: PackageDto = this.packageForm.getRawValue();
+      pcg.client = {id: this.selectedClient.id};
+      pcg.startDate = moment(pcg.startDate).format("YYYY-MM-DD");
+      // @ts-ignore
+      pcg.location ? pcg.location = {id: pcg.location.id} : delete pcg.location;
+      pcg.treatmentDuration = {id: pcg.treatmentDuration.id};
+      // @ts-ignore
+      pcg.paymentMethod = {id: pcg.paymentMethod.id};
+      // @ts-ignore
+      delete pcg.treatment;
+
+      super.subscribeSave(pcg);
+    } else {
+      this.data.startDate = moment(this.packageForm.get(FormControlNames.START_DATE_FORM_CONTROL)?.value).format("YYYY-MM-DD");
+      this.data.endDate = moment(this.packageForm.get(FormControlNames.END_DATE_FORM_CONTROL)?.value).format("YYYY-MM-DD");
+      super.otherSubscribe(this.packageService.updateDate(this.data.id, {
+        startDate: this.data.startDate,
+        endDate: this.data.endDate,
+      }));
+    }
+
+
   }
 
 }

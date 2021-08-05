@@ -1,34 +1,47 @@
 <div class="dialog">
   <h1><b>Dodavanje paketa</b></h1>
-  <form [formGroup]="packageForm">
-    <mat-form-field appearance="outline">
-      <mat-label>Choose a date</mat-label>
-      <input matInput [matDatepicker]="picker" formControlName="startDate">
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
-    </mat-form-field>
-  </form>
-  <app-form-input [group]="packageForm"
+  <div class="row">
+    <div class="col-6" style="padding-left: 0">
+      <app-form-date [config]="startDateInput" [group]="packageForm"></app-form-date>
+    </div>
+    <div class="col-6" style="padding-right: 0">
+      <app-form-date [config]="endDateInput" [group]="packageForm"></app-form-date>
+    </div>
+  </div>
+  <app-form-input [group]="packageForm" *ngIf="!data"
                   [config]="countInputConfig"></app-form-input>
-  <app-form-input [group]="packageForm" [config]="discountInputConfig"
-                  label="Popust"></app-form-input>
-  <app-form-select [group]="packageForm" [config]="discountTypeSelectConfig"
-                   label="Tip popusta"
-  ></app-form-select>
-  <app-form-select [group]="packageForm" [config]="paymentMethodSelectConfig"
+  <div class="row" *ngIf="!data">
+    <div class="col-6" style="padding-left: 0">
+      <app-form-input [group]="packageForm" *ngIf="!data" label="Popust"
+                      [config]="discountInputConfig"></app-form-input>
+    </div>
+    <div class="col-6" style="padding-right: 0">
+      <app-form-select [config]="discountTypeSelectConfig"
+                       *ngIf="!data"
+                       label="Tip popusta"
+                       [group]="packageForm"></app-form-select>
+    </div>
+  </div>
+  <app-form-select *ngIf="!data" [group]="packageForm" [config]="paymentMethodSelectConfig"
                    label="Tip plaćanja"></app-form-select>
-  <app-form-select [group]="packageForm" label="Izaberi lokaciju"
+  <app-form-select *ngIf="!data" [group]="packageForm" label="Izaberi lokaciju"
                    [config]="locationSelectConfig"></app-form-select>
-  <app-form-select bindValue="name"
-                   [config]="treatmentSelectConfig"
-                   (onChange)="onTreatmentSelect()"
-                   label="Izaberi tretman"
-                   [group]="packageForm"></app-form-select>
-  <app-form-select bindValue="duration"
-                   label="Izaberi trajanje"
-                   [config]="durationSelectConfig"
-                   [group]="packageForm"></app-form-select>
-  <mat-accordion>
+  <div class="row" *ngIf="!data">
+    <div class="col-6" style="padding-left: 0">
+      <app-form-select bindValue="name"
+                       [config]="treatmentSelectConfig"
+                       (onChange)="onTreatmentSelect()"
+                       label="Izaberi tretman"
+                       [group]="packageForm"></app-form-select>
+    </div>
+    <div class="col-6" style="padding-right: 0">
+      <app-form-select bindValue="duration"
+                       label="Izaberi trajanje"
+                       [config]="durationSelectConfig"
+                       [group]="packageForm"></app-form-select>
+    </div>
+  </div>
+  <mat-accordion *ngIf="!data">
     <mat-expansion-panel>
       <mat-expansion-panel-header>Klijenti</mat-expansion-panel-header>
       <div class="client">

@@ -20,7 +20,7 @@ export class PackageComponent extends DefaultComponent<Package> implements OnIni
   searchForm = new FormGroup({
     search: new FormControl("")
   });
-  displayedColumns: string[] = ["code", "client", "price", "option"];
+  displayedColumns: string[] = ["code", "client", "date", "price", "option"];
 
   constructor(private packageService: PackageService, protected snackBar: MatSnackBar, private dialog: MatDialog) {
     super(packageService, snackBar);
