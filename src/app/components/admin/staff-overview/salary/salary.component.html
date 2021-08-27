@@ -44,7 +44,8 @@
 <mat-spinner #spinner diameter="50"></mat-spinner>
 
 <div class="staff-binding">
-  <div class="staff-card text-left" *ngFor="let staffPayoutDto of listOfStaffs|staffPayout:searchText">
+  <div class="staff-card text-left"
+       *ngFor="let staffPayoutDto of listOfStaffs|search:['staff.person.firstName','staff.person.lastName']:searchText">
     <div class="row">
       <div class="col-2 text-center">
         <div [ngStyle]="{'background-color':staffPayoutDto.staff.color}" class="first-letter-circle">

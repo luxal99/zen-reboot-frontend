@@ -96,7 +96,9 @@
                        formControlName="staff"
                        [matAutocomplete]="auto">
                 <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
-                  <mat-option *ngFor="let staff of listOfStaffs" [value]="staff">
+                  <mat-option
+                    *ngFor="let staff of listOfStaffs|search:['person.firstName','person.lastName']:searchText"
+                    [value]="staff">
                     {{staff.person?.firstName}} {{staff.person?.lastName}}
                   </mat-option>
                 </mat-autocomplete>

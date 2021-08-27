@@ -25,13 +25,11 @@ import {CapitalizePipe} from "./pipes/capitalize.pipe";
 import {ServicesComponent} from "./components/admin/services/services.component";
 import {FormBuilderComponent} from "./components/form-components/form-builder/form-builder.component";
 import {DynamicFieldDirective} from "./directives/dynamic-field.directive";
-import {ClientPipe} from "./pipes/client.pipe";
 import {ClientOverviewDialogComponent} from "./components/admin/client/client-overview-dialog/client-overview-dialog.component";
 import {AddServiceDialogComponent} from "./components/admin/services/add-service-dialog/add-service-dialog.component";
 import {HashLocationStrategy, LocationStrategy} from "@angular/common";
 import {AddStaffDialogComponent} from "./components/admin/staff-overview/add-staff-dialog/add-staff-dialog.component";
 import {ColorPickerModule} from "ngx-color-picker";
-import {StaffPipe} from "./pipes/staff.pipe";
 import {StaffShiftsOverviewComponent} from "./components/admin/staff-shifts-overview/staff-shifts-overview.component";
 import {StaffOverviewComponent} from "./components/admin/staff-overview/staff-overview.component";
 import {LocationOverviewComponent} from "./components/admin/code-book/location-overview/location-overview.component";
@@ -64,11 +62,9 @@ import {PackageComponent} from "./components/admin/package/package.component";
 import {AddPackageDialogComponent} from "./components/admin/package/add-package-dialog/add-package-dialog.component";
 import {PackageOverviewDialogComponent} from "./components/admin/package/package-overview-dialog/package-overview-dialog.component";
 import {AnalyticsComponent} from "./components/admin/analytics/analytics.component";
-import {InvoicePipe} from "./pipes/invoice.pipe";
 import {TokenInterceptor} from "./interceptor/token.interceptor";
 import {FormDateComponent} from "./components/form-components/form-date/form-date.component";
 import {UserComponent} from "./components/admin/user/user.component";
-import {UserPipe} from "./pipes/user.pipe";
 import {AddUserDialogComponent} from "./components/admin/user/add-user-dialog/add-user-dialog.component";
 import {ChangePasswordDialogComponent} from "./components/admin/change-password-dialog/change-password-dialog.component";
 import {GlobalSearchDialogComponent} from "./components/admin/header/global-search-dialog/global-search-dialog.component";
@@ -84,7 +80,6 @@ import {ConvertToArrayPipe} from "./pipes/convert-to-array.pipe";
 import {DtoGenericOverviewComponent} from "./components/admin/analytics/dto-generic-overview/dto-generic-overview.component";
 import {StaffComponent} from "./components/admin/staff-overview/staff/staff.component";
 import {SalaryComponent} from "./components/admin/staff-overview/salary/salary.component";
-import {StaffPayoutPipe} from "./pipes/staff-payout.pipe";
 import {PayoutsDialogOverviewComponent} from "./components/admin/staff-overview/salary/payouts-dialog-overview/payouts-dialog-overview.component";
 import {CancelAppointmentDialogComponent} from "./components/admin/appointment/appointment-overview-dialog/cancel-appointment-dialog/cancel-appointment-dialog.component";
 import {ConfirmDialogComponent} from "./components/confirm-dialog/confirm-dialog.component";
@@ -107,11 +102,10 @@ import {SearchPipe} from "./pipes/search.pipe";
     ServicesComponent,
     FormBuilderComponent,
     DynamicFieldDirective,
-    ClientPipe,
     ClientOverviewDialogComponent,
     AddServiceDialogComponent,
     AddStaffDialogComponent,
-    StaffPipe,
+
     StaffShiftsOverviewComponent,
     StaffOverviewComponent,
     LocationOverviewComponent,
@@ -143,10 +137,8 @@ import {SearchPipe} from "./pipes/search.pipe";
     AddPackageDialogComponent,
     PackageOverviewDialogComponent,
     AnalyticsComponent,
-    InvoicePipe,
     FormDateComponent,
     UserComponent,
-    UserPipe,
     AddUserDialogComponent,
     ChangePasswordDialogComponent,
     GlobalSearchDialogComponent,
@@ -162,7 +154,7 @@ import {SearchPipe} from "./pipes/search.pipe";
     DtoGenericOverviewComponent,
     StaffComponent,
     SalaryComponent,
-    StaffPayoutPipe,
+
     PayoutsDialogOverviewComponent,
     CancelAppointmentDialogComponent,
     ConfirmDialogComponent,

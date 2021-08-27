@@ -10,7 +10,7 @@
   </div>
 </div>
 <div class="staff-binding">
-  <div class="staff-card text-left" *ngFor="let staff of listOfItems|staff:searchText">
+  <div class="staff-card text-left" *ngFor="let staff of listOfItems|search:['person.firstName','person.lastName']:searchText">
     <div class="row">
       <div class="col-2 text-center">
         <div [ngStyle]="{'background-color':staff.color}" class="first-letter-circle">

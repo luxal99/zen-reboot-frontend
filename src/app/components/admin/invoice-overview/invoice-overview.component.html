@@ -14,7 +14,8 @@
           <mat-icon matSuffix>search</mat-icon>
         </mat-form-field>
       </form>
-      <app-table-binding [dataSource]="listOfCurrentWeekInvoices|invoice:searchText"></app-table-binding>
+      <app-table-binding
+        [dataSource]="listOfCurrentWeekInvoices|search:['billedClient.person.firstName','billedClient.person.lastName']:searchText"></app-table-binding>
       <div class="text-right">
         <h2 style="margin-top: 1em"><b>{{listOfCurrentWeekInvoices|sumGross}} RSD</b></h2>
       </div>
