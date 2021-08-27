@@ -12,15 +12,14 @@ export class SearchPipe implements PipeTransform {
     if (!list) {
       return [];
     }
-    let filteredArray = [];
     if (Array.isArray(searchProperty)) {
-      filteredArray = list.filter((item) => searchProperty.some((key) => this.getProperty(item, key).toLowerCase().includes(searchText.toLowerCase())));
+      list = list.filter((item) => searchProperty.some((key) =>
+        this.getProperty(item, key).toLowerCase().includes(searchText.toLowerCase())));
     } else {
-
-      filteredArray = list.filter((item) => this.getProperty(item, searchProperty).toLowerCase().includes(searchText.toLowerCase()));
+      list = list.filter((item) => this.getProperty(item, searchProperty)
+        .toLowerCase().includes(searchText.toLowerCase()));
     }
-    console.log(filteredArray);
-    return filteredArray;
+    return list;
   }
 
   getProperty(object: any, path: string): string {

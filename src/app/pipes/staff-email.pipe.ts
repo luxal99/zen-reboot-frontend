@@ -1,10 +1,9 @@
-import {Pipe, PipeTransform} from '@angular/core';
-import {Staff} from '../models/entity/staff';
-import {ContactTypeEnum} from '../enums/ContactTypeEnum';
-import {Person} from '../models/entity/person';
+import {Pipe, PipeTransform} from "@angular/core";
+import {ContactTypeEnum} from "../enums/ContactTypeEnum";
+import {Person} from "../models/entity/person";
 
 @Pipe({
-  name: 'staffEmail'
+  name: "staffEmail"
 })
 export class StaffEmailPipe implements PipeTransform {
 
@@ -14,7 +13,7 @@ export class StaffEmailPipe implements PipeTransform {
       // @ts-ignore
       return person.contacts.find((contact) => contact.type === ContactTypeEnum.EMAIL.toString()).value;
     } else {
-      return '';
+      return "";
     }
   }
 

@@ -1,8 +1,8 @@
-import {Pipe, PipeTransform} from '@angular/core';
-import {Column} from '../models/util/column';
+import {Pipe, PipeTransform} from "@angular/core";
+import {Column} from "../models/util/column";
 
 @Pipe({
-  name: 'mapColumnArr'
+  name: "mapColumnArr"
 })
 export class MapColumnArrPipe implements PipeTransform {
 

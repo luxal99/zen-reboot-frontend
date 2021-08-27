@@ -1,9 +1,9 @@
-import {Pipe, PipeTransform} from '@angular/core';
-import {StaffDto} from '../models/dto/staff-dto';
-import {Shift} from '../models/entity/shift';
+import {Pipe, PipeTransform} from "@angular/core";
+import {StaffDto} from "../models/dto/staff-dto";
+import {Shift} from "../models/entity/shift";
 
 @Pipe({
-  name: 'checkShift'
+  name: "checkShift"
 })
 export class CheckShiftPipe implements PipeTransform {
 
