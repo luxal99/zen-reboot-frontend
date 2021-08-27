@@ -1,10 +1,9 @@
-import {Pipe, PipeTransform} from '@angular/core';
-import {Voucher} from '../models/entity/voucher';
-import {Package} from '../models/entity/package';
-import {Invoice} from '../models/entity/invoice';
+import {Pipe, PipeTransform} from "@angular/core";
+import {Voucher} from "../models/entity/voucher";
+import {Package} from "../models/entity/package";
 
 @Pipe({
-  name: 'voucherPackage'
+  name: "voucherPackage"
 })
 export class VoucherPackagePipe implements PipeTransform {
 

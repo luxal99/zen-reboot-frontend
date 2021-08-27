@@ -77,7 +77,7 @@ export class CodeBookComponent implements OnInit {
       name: FormControlNames.NAME_FORM_CONTROL,
       type: InputTypes.INPUT_TYPE_NAME,
       validation: [Validators.required],
-      label: "Tip troška"
+      label: "Naziv kategorije"
     },
       {
         name: FormControlNames.PERCENTAGE_FORM_CONTROL,
@@ -164,7 +164,6 @@ export class CodeBookComponent implements OnInit {
       } else if (this.appointmentStatusTab.isActive) {
         const component = LazyLoadComponentsUtil.loadComponent(CodeBookOverviewComponent,
           this.appointmentStatusOverview, this.resolver);
-
         this.setCodeBookOverviewData(component, "Statusi tretmana",
           ["Naziv", "Datum kreiranja"], ["value", "createdDate"], this.appointmentStatusConfig);
       } else if (this.expenseTypeTab.isActive) {

@@ -1,4 +1,4 @@
-import {Component, ComponentRef, Inject, OnInit, ViewChild} from "@angular/core";
+import {Component, OnInit, ViewChild} from "@angular/core";
 import {MatSpinner} from "@angular/material/progress-spinner";
 import {SpinnerService} from "../service/spinner.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
@@ -111,8 +111,10 @@ export abstract class DefaultComponent<T> implements OnInit {
     } else {
       this.genericService.delete(id).subscribe(() => {
         SnackBarUtil.openSnackBar(this.snackBar, Message.SUCCESS);
+        this.getItems();
         this.spinnerService.hide(this.spinner);
       }, () => {
+        this.getItems();
         SnackBarUtil.openSnackBar(this.snackBar, Message.ERR);
         this.spinnerService.hide(this.spinner);
       });

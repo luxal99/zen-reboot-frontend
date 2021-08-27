@@ -37,10 +37,22 @@
                        [group]="voucherForm"></app-form-select>
     </div>
   </div>
-  <app-form-select label="Način plaćanja"
-                   *ngIf="!data"
-                   [group]="voucherForm"
-                   [config]="paymentMethodSelectConfig"></app-form-select>
+  <form [formGroup]="voucherForm">
+    <mat-form-field appearance="outline">
+      <mat-label>Način plaćanja</mat-label>
+      <input type="text"
+             aria-label="Number"
+             matInput [(ngModel)]="paymentMethodSearchText"
+             formControlName="paymentMethod"
+             [matAutocomplete]="auto">
+      <mat-autocomplete #auto="matAutocomplete" >
+        <mat-option *ngFor="let paymentMethod of listOfPaymentMethods|search:'name':paymentMethodSearchText"
+                    [value]="paymentMethod">
+          {{paymentMethod.name | capitalize}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </form>
   <form [formGroup]="voucherForm" *ngIf="!data">
     <mat-form-field appearance="outline">
       <mat-label>Tretman</mat-label>

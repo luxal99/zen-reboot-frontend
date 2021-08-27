@@ -17,6 +17,8 @@ import {DiscountTypeService} from "../../../../service/discount-type.service";
 import {SnackBarUtil} from "../../../../util/snack-bar-uitl";
 import {MAT_DIALOG_DATA} from "@angular/material/dialog";
 import {Voucher} from "../../../../models/entity/voucher";
+import {PaymentMethodService} from "../../../../service/payment-method.service";
+import {PaymentMethod} from "../../../../models/entity/payment-method";
 
 @Component({
   selector: "app-add-voucher-dialog",
@@ -27,11 +29,14 @@ export class AddVoucherDialogComponent extends DefaultComponent<VoucherDto> impl
 
   selectedClient!: Client;
   searchText = "";
+  paymentMethodSearchText="";
+  listOfPaymentMethods: PaymentMethod[] = [];
   listOfTreatments: Treatment[] = [];
   searchForm = new FormGroup({
     search: new FormControl("")
   });
   numberOfPage = 0;
+
   listOfClients: Client[] = [];
   voucherForm = new FormGroup({
     type: new FormControl("", Validators.required),
@@ -43,7 +48,6 @@ export class AddVoucherDialogComponent extends DefaultComponent<VoucherDto> impl
     startDate: new FormControl(this.data ? this.data.startDate : moment(new Date()).format("YYYY-MM-DD")),
     endDate: new FormControl(this.data ? this.data.endDate : "")
   });
-
   discountInputConfig: FieldConfig = {name: FormControlNames.DISCOUNT_FORM_CONTROL, type: InputTypes.INPUT_TYPE_NAME};
   paymentMethodSelectConfig: FieldConfig = {
     name: FormControlNames.PAYMENT_METHOD_FORM_CONTROL,
@@ -53,20 +57,20 @@ export class AddVoucherDialogComponent extends DefaultComponent<VoucherDto> impl
     name: FormControlNames.TREATMENT_FORM_CONTROL,
     type: InputTypes.INPUT_TYPE_NAME
   };
+
   durationSelectConfig: FieldConfig = {name: FormControlNames.DURATION_FORM_CONTROL, type: InputTypes.SELECT_TYPE_NAME};
   discountTypeSelectConfig: FieldConfig = {
     name: FormControlNames.DISCOUNT_TYPE_FORM_CONTROL,
     type: InputTypes.SELECT_TYPE_NAME
   };
-
   typeSelectConfig: FieldConfig = {
     name: FormControlNames.TYPE_FORM_CONTROL,
     type: InputTypes.SELECT_TYPE_NAME,
     options: [VoucherEnum.BLANCO, VoucherEnum.PRODUCT]
   };
+
   priceInputConfig: FieldConfig = {name: FormControlNames.PRICE_FORM_CONTROL, type: InputTypes.NUMBER};
   isDisplayTypeBlanco = this.data ? this.data.type === VoucherEnum.BLANCO : false;
-
   startDateInput: FieldConfig = {
     type: InputTypes.DATE,
     name: FormControlNames.START_DATE_FORM_CONTROL,
@@ -80,7 +84,7 @@ export class AddVoucherDialogComponent extends DefaultComponent<VoucherDto> impl
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: Voucher, private voucherService: VoucherService,
               private treatmentService: TreatmentService, private discountTypeService: DiscountTypeService,
-              protected snackBar: MatSnackBar, private clientService: ClientService) {
+              protected snackBar: MatSnackBar, private clientService: ClientService, private paymentMethodService: PaymentMethodService) {
     super(voucherService, snackBar);
   }
 
@@ -88,12 +92,19 @@ export class AddVoucherDialogComponent extends DefaultComponent<VoucherDto> impl
     this.initSelect();
     this.getClient();
     this.getTreatments();
+    this.getPaymentMethods();
   }
 
 
   getTreatments(): void {
     this.treatmentService.getAll().subscribe((resp) => {
       this.listOfTreatments = resp;
+    });
+  }
+
+  getPaymentMethods(): void {
+    this.paymentMethodService.getAll().subscribe((resp) => {
+      this.listOfPaymentMethods = resp;
     });
   }
 
@@ -207,4 +218,7 @@ export class AddVoucherDialogComponent extends DefaultComponent<VoucherDto> impl
     }
   }
 
+  displayFn(paymentMethod: PaymentMethod): string | undefined {
+    return (paymentMethod ? paymentMethod.name : "");
+  }
 }

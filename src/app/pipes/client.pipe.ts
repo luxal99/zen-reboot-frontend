@@ -1,8 +1,8 @@
-import {Pipe, PipeTransform} from '@angular/core';
-import {Client} from '../models/entity/client';
+import {Pipe, PipeTransform} from "@angular/core";
+import {Client} from "../models/entity/client";
 
 @Pipe({
-  name: 'client'
+  name: "client"
 })
 export class ClientPipe implements PipeTransform {
 
