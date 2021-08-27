@@ -1,12 +1,12 @@
-import {Injectable} from '@angular/core';
-import {CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router} from '@angular/router';
-import {Pages, TokenConst} from '../const/const';
-import {JwtUtil} from '../util/jwt-util';
-import {TokenBody} from '../models/util/token-body';
-import * as moment from 'moment';
+import {Injectable} from "@angular/core";
+import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from "@angular/router";
+import {Pages, TokenConst} from "../const/const";
+import {JwtUtil} from "../util/jwt-util";
+import {TokenBody} from "../models/util/token-body";
+import * as moment from "moment";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class AuthGuard implements CanActivate {
 
@@ -26,7 +26,7 @@ export class AuthGuard implements CanActivate {
       return false;
     }
     // @ts-ignore
-    if (moment(user?.exp * 1000).format('YYYY-MM-DD HH:mm') > moment(new Date()).format('YYYY-MM-DD HH:mm')) {
+    if (moment(user?.exp * 1000).format("YYYY-MM-DD HH:mm") > moment(new Date()).format("YYYY-MM-DD HH:mm")) {
       return true;
     } else {
       await this.router.navigate([Pages.LOGIN_PAGE_ROUTE], {queryParams: {returnUrl: state.url}});
